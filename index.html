@@ -107,7 +107,6 @@
             width: 100%;
             justify-content: center;
         }
-        /* BOTÃO AZUL COM O NOVO TEXTO DE CREDIBILIDADE DO MESTRE */
         .btn-share-blue {
             background-color: #0077b6; /* Azul Corporativo */
             color: white;
@@ -209,7 +208,7 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- TRIO SUPREMO DE BOTÕES INDEPENDENTES DA JCS_SOFTWARE -->
+        <!-- TRIO SUPREMO DE BOTÕES DE ALTA USABILIDADE POR CÓPIA AUTOMÁTICA -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
         <button class="btn-copy-phone" onclick="copiarTelefone()">💬 Chamar no Zap & Enviar Comprovativo (Copiar Número)</button>
@@ -232,7 +231,7 @@
             <strong>1. LOGÍSTICA:</strong> Entrega pós-compensação do Pix ou em dinheiro. A retirada dos produtos será efetuada na <strong>RODOVIÁRIA</strong>.<br><br>
             <strong>2. QUANTIDADE:</strong> Limite condicionado ao estoque disponível no momento para garantir o atendimento de todos.<br><br>
             <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório adicionar o número e chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
-            <strong>4. DIVULGAÇÃO:</strong> Utilize o botão azul para copiar e partilhar o link do site direto com amigos e grupos.
+            <strong>4. COMPATIBILIDADE:</strong> Os botões copiam os dados diretamente para a área de transferência, evitando bloqueios de URLs nos telemóveis.
         </div>
 
         <div class="security-footer">
@@ -260,7 +259,6 @@
             });
         }
 
-        // MANOBRA DE SUCESSO DO DUQUE: Cópia limpa sem depender dos erros do telemóvel!
         function copiarLinkSite() {
             const mensagemPartilha = "🌱 Olha que espetáculo os Ovos de Codorna Premium da Mairiporã Agro! Aceda ao site oficial seguro para ver os benefícios e garantir as suas cartelas: https://github.io";
-            
+            navigator.clipboard.writeText(mensagemPartilha).then(() => {
