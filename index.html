@@ -94,10 +94,11 @@
         .btn-copy-phone {
             background-color: transparent;
             color: #ffffff;
-            border: 1px dashed #d4af37;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            border-radius: 5px;
+            border: 2px dashed #25d366; /* Borda verde WhatsApp chamativa */
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
             margin-bottom: 25px;
             display: inline-flex;
@@ -204,10 +205,10 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- CIRCUITOS CORRIGIDOS E ISOLADOS -->
+        <!-- BOTÕES TOTALMENTE ISOLADOS PELO DUQUE -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
-        <button class="btn-copy-phone" onclick="copiarTelefone()">📋 Copiar Número do WhatsApp (Se o link falhar)</button>
+        <button class="btn-copy-phone" onclick="copiarTelefone()">📋 Copiar Número do WhatsApp para Adicionar</button>
 
         <!-- Benefícios Validados -->
         <div class="benefits-box">
@@ -228,9 +229,9 @@
             <strong>4. COMPATIBILIDADE iOS:</strong> Desativar Pop-ups no Safari para abrir o Zap de forma direta.
         </div>
 
-        <!-- ROTA UNIVERSAL DA API DO ZAP -->
+        <!-- LINK MESTRE: Configurado com a rota universal que chama o aplicativo nativo do telemóvel -->
         <div class="text-link-container">
-            <a href="https://whatsapp.com" class="link-direto-unico">
+            <a href="whatsapp://send?phone=5511964856312&text=Ol%C3%A1%21%20Fiz%20o%20pagamento%20dos%20Ovos%20de%20Codorna%20Premium%20e%20quero%20confirmar%20a%20minha%20compra%21" class="link-direto-unico">
                 💬 CLIQUE AQUI PARA CHAMAR NO ZAP: Confirmar Compra, Enviar Comprovante e Receber o Link de Partilha
             </a>
         </div>
@@ -242,20 +243,21 @@
     </div>
 
     <script>
-        // JCS_Software - Alerta com Indução Universal Ajustada pelo Mestre
+        // SCRIPT 1: Exclusivo para copiar a chave Pix aleatória
         function copiarChavePix() {
             const chavePix = "dce800d8-eeb3-4de4-90af-01d33251173e";
             navigator.clipboard.writeText(chavePix).then(() => {
-                alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do SEU BANCO, escolha 'Transferir via Chave Pix (Chave Aleatória)' e cole o código.");
+                alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do seu banco, escolha 'Transferir via Chave Pix (Chave Aleatória)' e cole o código.");
             }).catch(err => {
                 alert("Erro ao copiar automaticamente.");
             });
         }
 
+        // SCRIPT 2: Exclusivo para copiar o número do WhatsApp (ISOLADO DO PIX)
         function copiarTelefone() {
             const numeroZap = "11964856312";
             navigator.clipboard.writeText(numeroZap).then(() => {
-                alert("📋 Número do WhatsApp (11964856312) copiado com sucesso!\nBasta colar nos seus contactos.");
+                alert("📋 Número do WhatsApp (11964856312) copiado com sucesso!\nAbra os seus contactos e adicione para nos enviar o comprovativo.");
             }).catch(err => {
                 alert("Erro ao copiar o número.");
             });
