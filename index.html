@@ -83,7 +83,7 @@
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 10px; /* Colados perto um do outro */
+            margin-bottom: 10px;
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
@@ -94,7 +94,24 @@
         .btn-copy-phone {
             background-color: transparent;
             color: #ffffff;
-            border: 2px dashed #25d366; /* Borda verde WhatsApp chamativa */
+            border: 2px dashed #25d366; /* Borda verde WhatsApp */
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 10px; /* Colado perto do próximo */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            justify-content: center;
+        }
+        /* NOVO ESTILO: Botão Azul Premium de Partilha da JCS_Software */
+        .btn-share-blue {
+            background-color: #0077b6; /* Azul Corporativo de Destaque */
+            color: white;
+            border: none;
             padding: 12px 20px;
             font-size: 1rem;
             font-weight: bold;
@@ -106,6 +123,11 @@
             gap: 5px;
             width: 100%;
             justify-content: center;
+            box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .btn-share-blue:hover {
+            background-color: #0096c7;
         }
         .benefits-box {
             background: rgba(212, 175, 55, 0.1);
@@ -187,10 +209,12 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- DOIS BOTÕES CENTRAIS PERFEITAMENTE COLADOS E ISOLADOS -->
+        <!-- TRIO SUPREMO DE BOTÕES DA JCS_SOFTWARE -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
         <button class="btn-copy-phone" onclick="copiarTelefone()">💬 Chamar no Zap & Enviar Comprovativo (Copiar Número)</button>
+        <br>
+        <button class="btn-share-blue" onclick="copiarLinkSite()">🔗 Partilhar o Site de Vendas da Fazenda</button>
 
         <!-- Benefícios Validados -->
         <div class="benefits-box">
@@ -208,10 +232,8 @@
             <strong>1. LOGÍSTICA:</strong> Entrega pós-compensação do Pix ou em dinheiro. A retirada dos produtos será efetuada na <strong>RODOVIÁRIA</strong>.<br><br>
             <strong>2. QUANTIDADE:</strong> Limite condicionado ao estoque disponível no momento para garantir o atendimento de todos.<br><br>
             <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório adicionar o número e chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
-            <strong>4. COMPATIBILIDADE iOS:</strong> Salve o número na agenda para enviar mensagens diretamente sem bloqueios do Safari.
+            <strong>4. DIVULGAÇÃO:</strong> Utilize o botão azul para partilhar o link direto com amigos e grupos do criatório.
         </div>
-
-        <!-- O TEXTO REPETIDO QUE ESTAVA AQUI EM BAIXO FOI COMPLETAMENTE EXTIRPADO PELO DUQUE -->
 
         <div class="security-footer">
             <span class="security-badge">🔒 SITE SEGURO • DADOS PROTEGIDOS</span>
@@ -232,12 +254,13 @@
         function copiarTelefone() {
             const numeroZap = "11964856312";
             navigator.clipboard.writeText(numeroZap).then(() => {
-                alert("📋 Número do WhatsApp (11964856312) copiado para a área de transferência!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovante.");
+                alert("📋 Número do WhatsApp (11964856312) copiado para a área de transferência!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovativo.");
             }).catch(err => {
                 alert("Erro ao copiar o número.");
             });
         }
-    </script>
 
-</body>
-</html>
+        // SCRIPT 3: Novo Circuito de Partilha Automático por Cópia Limpa
+        function copiarLinkSite() {
+            // Deteta dinamicamente o link do seu site de vendas no GitHub
+            const linkSite = window.location.href;
