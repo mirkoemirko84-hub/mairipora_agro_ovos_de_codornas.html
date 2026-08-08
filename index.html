@@ -83,7 +83,7 @@
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Colados perto um do outro */
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
@@ -149,24 +149,6 @@
             text-transform: uppercase;
             font-size: 0.95rem;
         }
-        .text-link-container {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px dashed #d4af37;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .link-direto-unico {
-            display: block;
-            color: #25d366;
-            font-size: 1.15rem;
-            font-weight: bold;
-            text-decoration: underline;
-            margin: 15px 0;
-            cursor: pointer;
-            line-height: 1.4;
-        }
-        
         .security-footer {
             margin-top: 25px;
             font-size: 0.75rem;
@@ -205,10 +187,10 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- BOTÕES TOTALMENTE ISOLADOS PELO DUQUE -->
+        <!-- DOIS BOTÕES CENTRAIS PERFEITAMENTE COLADOS E ISOLADOS -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
-        <button class="btn-copy-phone" onclick="copiarTelefone()">📋 Copiar Número do WhatsApp para Adicionar</button>
+        <button class="btn-copy-phone" onclick="copiarTelefone()">💬 Chamar no Zap & Enviar Comprovativo (Copiar Número)</button>
 
         <!-- Benefícios Validados -->
         <div class="benefits-box">
@@ -225,16 +207,11 @@
             <div class="terms-title">Condições de Venda, Logística e Aceite</div>
             <strong>1. LOGÍSTICA:</strong> Entrega pós-compensação do Pix ou em dinheiro. A retirada dos produtos será efetuada na <strong>RODOVIÁRIA</strong>.<br><br>
             <strong>2. QUANTIDADE:</strong> Limite condicionado ao estoque disponível no momento para garantir o atendimento de todos.<br><br>
-            <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
-            <strong>4. COMPATIBILIDADE iOS:</strong> Desativar Pop-ups no Safari para abrir o Zap de forma direta.
+            <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório adicionar o número e chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
+            <strong>4. COMPATIBILIDADE iOS:</strong> Salve o número na agenda para enviar mensagens diretamente sem bloqueios do Safari.
         </div>
 
-        <!-- LINK MESTRE: Configurado com a rota universal que chama o aplicativo nativo do telemóvel -->
-        <div class="text-link-container">
-            <a href="whatsapp://send?phone=5511964856312&text=Ol%C3%A1%21%20Fiz%20o%20pagamento%20dos%20Ovos%20de%20Codorna%20Premium%20e%20quero%20confirmar%20a%20minha%20compra%21" class="link-direto-unico">
-                💬 CLIQUE AQUI PARA CHAMAR NO ZAP: Confirmar Compra, Enviar Comprovante e Receber o Link de Partilha
-            </a>
-        </div>
+        <!-- O TEXTO REPETIDO QUE ESTAVA AQUI EM BAIXO FOI COMPLETAMENTE EXTIRPADO PELO DUQUE -->
 
         <div class="security-footer">
             <span class="security-badge">🔒 SITE SEGURO • DADOS PROTEGIDOS</span>
@@ -243,7 +220,6 @@
     </div>
 
     <script>
-        // SCRIPT 1: Exclusivo para copiar a chave Pix aleatória
         function copiarChavePix() {
             const chavePix = "dce800d8-eeb3-4de4-90af-01d33251173e";
             navigator.clipboard.writeText(chavePix).then(() => {
@@ -253,11 +229,10 @@
             });
         }
 
-        // SCRIPT 2: Exclusivo para copiar o número do WhatsApp (ISOLADO DO PIX)
         function copiarTelefone() {
             const numeroZap = "11964856312";
             navigator.clipboard.writeText(numeroZap).then(() => {
-                alert("📋 Número do WhatsApp (11964856312) copiado com sucesso!\nAbra os seus contactos e adicione para nos enviar o comprovativo.");
+                alert("📋 Número do WhatsApp (11964856312) copiado para a área de transferência!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovativo.");
             }).catch(err => {
                 alert("Erro ao copiar o número.");
             });
