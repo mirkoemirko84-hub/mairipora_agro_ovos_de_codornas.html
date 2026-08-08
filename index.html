@@ -208,7 +208,7 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- TRIO SUPREMO DE BOTÕES DE ALTA USABILIDADE POR CÓPIA AUTOMÁTICA -->
+        <!-- TRIO DE BOTÕES COM CHAMADAS PERFEITAMENTE UNIFICADAS -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
         <button class="btn-copy-phone" onclick="copiarTelefone()">💬 Chamar no Zap & Enviar Comprovativo (Copiar Número)</button>
@@ -241,6 +241,7 @@
     </div>
 
     <script>
+        // CIRCUITO 1: Chave Aleatória do Pix perfeitamente sintonizada
         function copiarChavePix() {
             const chavePix = "dce800d8-eeb3-4de4-90af-01d33251173e";
             navigator.clipboard.writeText(chavePix).then(() => {
@@ -250,15 +251,16 @@
             });
         }
 
+        // CIRCUITO 2: Número do WhatsApp isolado e sem amarras
         function copiarTelefone() {
             const numeroZap = "11964856312";
             navigator.clipboard.writeText(numeroZap).then(() => {
-                alert("📋 Número do WhatsApp (11964856312) copiado para a área de transferência!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovativo.");
+                alert("📋 Número do WhatsApp (11964856312) copiado com sucesso!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovativo.");
             }).catch(err => {
                 alert("Erro ao copiar o número.");
             });
         }
 
+        // CIRCUITO 3: Botão Azul com texto de credibilidade em cópia mecânica pura
         function copiarLinkSite() {
             const mensagemPartilha = "🌱 Olha que espetáculo os Ovos de Codorna Premium da Mairiporã Agro! Aceda ao site oficial seguro para ver os benefícios e garantir as suas cartelas: https://github.io";
-            navigator.clipboard.writeText(mensagemPartilha).then(() => {
