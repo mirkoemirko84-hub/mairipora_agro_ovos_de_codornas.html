@@ -74,60 +74,37 @@
             display: block;
             margin-top: 5px;
         }
-        .btn-copy {
-            background-color: #d4af37;
-            color: #0b2413;
-            border: none;
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: 0.3s;
+        
+        /* ESTILO DOS NOVOS BOTÕES DE IGNIÇÃO DIRETA */
+        .btn-link {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            width: 100%;
             justify-content: center;
-        }
-        .btn-copy-phone {
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px dashed #25d366; /* Borda verde WhatsApp */
-            padding: 12px 20px;
+            width: 100%;
+            padding: 14px;
+            margin: 6px 0;
+            border: none;
+            border-radius: 6px;
             font-size: 1rem;
             font-weight: bold;
-            border-radius: 6px;
+            text-decoration: none;
             cursor: pointer;
-            margin-bottom: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            width: 100%;
-            justify-content: center;
-        }
-        .btn-share-blue {
-            background-color: #0077b6; /* Azul Corporativo */
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 25px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            width: 100%;
-            justify-content: center;
+            box-sizing: border-box;
             box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
-            transition: 0.3s;
         }
-        .btn-share-blue:hover {
-            background-color: #0096c7;
+        .btn-gold {
+            background-color: #d4af37;
+            color: #0b2413;
         }
+        .btn-green {
+            background-color: #25d366;
+            color: white;
+        }
+        .btn-blue {
+            background-color: #0077b6;
+            color: white;
+        }
+        
         .benefits-box {
             background: rgba(212, 175, 55, 0.1);
             border: 1px dashed #d4af37;
@@ -208,12 +185,12 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- TRIO DE BOTÕES COM CHAMADAS PERFEITAMENTE UNIFICADAS -->
-        <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
-        <br>
-        <button class="btn-copy-phone" onclick="copiarTelefone()">💬 Chamar no Zap & Enviar Comprovativo (Copiar Número)</button>
-        <br>
-        <button class="btn-share-blue" onclick="copiarLinkSite()">🔗 PARTILHAR O SITE DE VENDAS DE OVOS DE CODORNAS</button>
+        <!-- CIRCUITO MECÂNICO ULTRA-DIRETO SEM RISCO DE TRAVAMENTOS -->
+        <button class="btn-link btn-gold" onclick="copiarPix()">📋 Copiar Código Pix (Copia e Cole)</button>
+        
+        <a href="https://wa.me" class="btn-link btn-green">💬 Chamar no Zap & Enviar Comprovativo</a>
+        
+        <button class="btn-link btn-blue" onclick="copiarLinkSite()">🔗 PARTILHAR O SITE DE VENDAS DE OVOS DE CODORNAS</button>
 
         <!-- Benefícios Validados -->
         <div class="benefits-box">
@@ -231,7 +208,7 @@
             <strong>1. LOGÍSTICA:</strong> Entrega pós-compensação do Pix ou em dinheiro. A retirada dos produtos será efetuada na <strong>RODOVIÁRIA</strong>.<br><br>
             <strong>2. QUANTIDADE:</strong> Limite condicionado ao estoque disponível no momento para garantir o atendimento de todos.<br><br>
             <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório adicionar o número e chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
-            <strong>4. COMPATIBILIDADE:</strong> Os botões copiam os dados diretamente para a área de transferência, evitando bloqueios de URLs nos telemóveis.
+            <strong>4. CONEXÃO DIRETA:</strong> O botão verde abre o aplicativo do WhatsApp diretamente no seu telemóvel ou computador.
         </div>
 
         <div class="security-footer">
@@ -241,26 +218,30 @@
     </div>
 
     <script>
-        // CIRCUITO 1: Chave Aleatória do Pix perfeitamente sintonizada
-        function copiarChavePix() {
-            const chavePix = "dce800d8-eeb3-4de4-90af-01d33251173e";
-            navigator.clipboard.writeText(chavePix).then(() => {
-                alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do seu banco, escolha 'Transferir via Chave Pix (Chave Aleatória)' e cole o código.");
-            }).catch(err => {
-                alert("Erro ao copiar automaticamente.");
-            });
+        function copiarPix() {
+            // Função limpa e isolada para a chave aleatória
+            var text = "dce800d8-eeb3-4de4-90af-01d33251173e";
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do seu banco, escolha 'Chave Aleatória' e cole.");
         }
 
-        // CIRCUITO 2: Número do WhatsApp isolado e sem amarras
-        function copiarTelefone() {
-            const numeroZap = "11964856312";
-            navigator.clipboard.writeText(numeroZap).then(() => {
-                alert("📋 Número do WhatsApp (11964856312) copiado com sucesso!\nAbra o seu WhatsApp, adicione o contacto e envie o comprovativo.");
-            }).catch(err => {
-                alert("Erro ao copiar o número.");
-            });
-        }
-
-        // CIRCUITO 3: Botão Azul com texto de credibilidade em cópia mecânica pura
         function copiarLinkSite() {
-            const mensagemPartilha = "🌱 Olha que espetáculo os Ovos de Codorna Premium da Mairiporã Agro! Aceda ao site oficial seguro para ver os benefícios e garantir as suas cartelas: https://github.io";
+            // Função mecânica pura de partilha do site
+            var text = "🌱 Olha que espetáculo os Ovos de Codorna Premium da Mairiporã Agro! Aceda ao site oficial seguro para ver os benefícios e garantir as suas cartelas: https://github.io";
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("🔗 Link do SITE DE VENDAS copiado com sucesso!\nAgora basta ir ao seu WhatsApp e colar para os seus amigos.");
+        }
+    </script>
+
+</body>
+</html>
