@@ -204,7 +204,7 @@
             <span class="price-tag">Valor: R$ 13,00</span>
         </div>
 
-        <!-- DOIS CIRCUITOS ISOLADOS SEM ESPAÇOS EM BRANCO NAS FUNÇÕES -->
+        <!-- CIRCUITOS CORRIGIDOS E ISOLADOS -->
         <button class="btn-copy" onclick="copiarChavePix()">📋 Copiar Código Pix (Copia e Cole)</button>
         <br>
         <button class="btn-copy-phone" onclick="copiarTelefone()">📋 Copiar Número do WhatsApp (Se o link falhar)</button>
@@ -242,17 +242,16 @@
     </div>
 
     <script>
-        // CIRCUITO 1: Chave Aleatória do Pix sem erros de leitura
+        // JCS_Software - Alerta com Indução Universal Ajustada pelo Mestre
         function copiarChavePix() {
             const chavePix = "dce800d8-eeb3-4de4-90af-01d33251173e";
             navigator.clipboard.writeText(chavePix).then(() => {
-                alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o seu banco, escolha 'Transferir via Chave Pix (Chave Aleatória)' e cole o código.");
+                alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do SEU BANCO, escolha 'Transferir via Chave Pix (Chave Aleatória)' e cole o código.");
             }).catch(err => {
                 alert("Erro ao copiar automaticamente.");
             });
         }
 
-        // CIRCUITO 2: Número do WhatsApp sem interferência
         function copiarTelefone() {
             const numeroZap = "11964856312";
             navigator.clipboard.writeText(numeroZap).then(() => {
