@@ -188,9 +188,9 @@
         <!-- CIRCUITO MECÂNICO ULTRA-DIRETO SEM RISCO DE TRAVAMENTOS -->
         <button class="btn-link btn-gold" onclick="copiarPix()">📋 Copiar Código Pix (Copia e Cole)</button>
         
-        <a href="https://wa.me" class="btn-link btn-green">💬 Chamar no Zap & Enviar Comprovativo</a>
+        <a href="https://wa.me." target="_blank" class="btn-link btn-green">💬 Chamar no Zap & Enviar Comprovativo</a>
         
-        <button class="btn-link btn-blue" onclick="copiarLinkSite()">🔗 PARTILHAR O SITE DE VENDAS DE OVOS DE CODORNAS</button>
+        <a href="https://jcsuguimoto.com.br" class="btn-link btn-blue">🔗 PARTILHAR O SITE DE VENDAS DE OVOS DE CODORNAS</a>
 
         <!-- Benefícios Validados -->
         <div class="benefits-box">
@@ -219,7 +219,6 @@
 
     <script>
         function copiarPix() {
-            // Função limpa e isolada para a chave aleatória
             var text = "dce800d8-eeb3-4de4-90af-01d33251173e";
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
@@ -227,21 +226,8 @@
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);
-            alert("📋 Chave Pix da Mairiporã Agro copiada com sucesso!\nAbra o aplicativo do seu banco, escolha 'Chave Aleatória' e cole.");
-        }
-
-        function copiarLinkSite() {
-            // Função mecânica pura de partilha do site
-            var text = "🌱 Olha que espetáculo os Ovos de Codorna Premium da Mairiporã Agro! Aceda ao site oficial seguro para ver os benefícios e garantir as suas cartelas: https://github.io";
-            var dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = text;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-            alert("🔗 Link do SITE DE VENDAS copiado com sucesso!\nAgora basta ir ao seu WhatsApp e colar para os seus amigos.");
+            alert("Código Pix copiado com sucesso!");
         }
     </script>
-
 </body>
 </html>
