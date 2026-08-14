@@ -1,233 +1,102 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro - Ovos de Codornas Premium</title>
+    <title>Mairiporã Agro - Criatório & Produtos Premium</title>
     <style>
-        body {
-            background-color: #0b2413; /* Verde-escuro Agro-Premium */
-            color: #d4af37; /* Letras em Ouro Velho */
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
+        :root {
+            --primary: #1e4620;
+            --secondary: #8b5a2b;
+            --light: #f4f7f4;
+            --dark: #112211;
+            --accent: #d4af37;
         }
-        .container {
-            max-width: 450px;
-            background: rgba(11, 36, 19, 0.9);
-            border: 2px solid #d4af37;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-weight: bold;
-            border-bottom: 1px solid #d4af37;
-            padding-bottom: 10px;
-        }
-        .stock-box {
-            background: rgba(204, 9, 47, 0.15);
-            border: 1px solid #cc092f;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: #ff4d6d;
-            letter-spacing: 0.5px;
-        }
-        .qrcode-box img {
-            max-width: 220px;
-            border: 4px solid #d4af37;
-            border-radius: 10px;
-            background-color: white;
-            padding: 5px;
-            margin-bottom: 15px;
-        }
-        .apetite-box {
-            margin: 15px 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }
-        .price-tag {
-            color: #d4af37;
-            font-size: 1.6rem;
-            display: block;
-            margin-top: 5px;
-        }
-        
-        /* ESTILO DOS NOVOS BOTÕES DE IGNIÇÃO DIRETA */
-        .btn-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 14px;
-            margin: 6px 0;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            box-sizing: border-box;
-            box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
-        }
-        .btn-gold {
-            background-color: #d4af37;
-            color: #0b2413;
-        }
-        .btn-green {
-            background-color: #25d366;
-            color: white;
-        }
-        .btn-blue {
-            background-color: #0077b6;
-            color: white;
-        }
-        
-        .benefits-box {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px dashed #d4af37;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: left;
-        }
-        .benefits-title {
-            font-weight: bold;
-            color: #ffffff;
-            text-transform: uppercase;
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        .benefits-list {
-            margin: 0;
-            padding-left: 20px;
-            font-size: 0.9rem;
-            color: #eceff1;
-        }
-        .benefits-list li {
-            margin-bottom: 6px;
-        }
-        .terms-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid #d4af37;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: left;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .terms-title {
-            font-weight: bold;
-            color: #d4af37;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 0.95rem;
-        }
-        .security-footer {
-            margin-top: 25px;
-            font-size: 0.75rem;
-            color: #888;
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 15px;
-        }
-        .security-badge {
-            color: #25d366;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://unsplash.com') center/cover; color: white; text-align: center; padding: 3rem 1rem; }
+        header h1 { font-size: 2.5rem; letter-spacing: 1px; color: var(--accent); }
+        .alert-banner { background-color: #ffeeba; color: #856404; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.9rem; }
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); text-align: center; }
+        .card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+        .price { font-size: 1.25rem; font-weight: bold; color: var(--secondary); margin: 0.5rem 0; }
+        .info-section { background: white; border-radius: 8px; padding: 2rem; margin-top: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .info-section h2 { color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
+        ul { list-style-position: inside; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; }
+        .btn-zap { display: block; background-color: #25D366; color: white; text-align: center; padding: 1rem; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; margin: 2rem auto; max-width: 400px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.3s; }
+        .btn-zap:hover { transform: translateY(-2px); }
+        footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #ddd; margin-top: 3rem; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="alert-banner">🚚 ENTREGAS ÀS TERÇAS E SEXTAS NA RODOVIÁRIA</div>
+
+    <header>
         <h1>Mairiporã Agro</h1>
-        <div class="subtitle">Logística e Faturamento Organizado<br>🚚 ENTREGAS ÀS TERÇAS E SEXTAS</div>
+        <p>Criatório de Alta Engenharia & Logística Organizada</p>
+    </header>
 
-        <!-- CALIBRAÇÃO DE ESTOQUE REAL DA FAZENDA: 4 CARTELAS -->
-        <div class="stock-box">
-            ⚠️ DISPONÍVEL EM ESTOQUE: <span id="qtdEstoque">4</span> CARTELAS NO MÁXIMO 3 POR COMPRA<br>
-            <span style="font-size: 0.8rem; font-weight: normal; color: #ffffff;">Sujeito a confirmação de disponibilidade ou reserva via pagamento antecipado.</span>
-        </div>
-
-        <div class="qrcode-box">
-            <img src="qrcode-pagamento.png" alt="QR Code Oficial Pix">
-        </div>
-
-        <!-- BOM APETITE Com Preço Premium Fixado -->
-        <div class="apetite-box">
-            ✨ BOM APETITE ✨
-            <span class="price-tag">Valor: R$ 13,00</span>
-        </div>
-
-        <!-- CIRCUITO MECÂNICO ULTRA-DIRETO SEM RISCO DE TRAVAMENTOS -->
-        <button class="btn-link btn-gold" onclick="copiarPix()">📋 Copiar Código Pix (Copia e Cole)</button>
+    <div class="container">
         
-        <a href="https://wa.me." target="_blank" class="btn-link btn-green">💬 Chamar no Zap & Enviar Comprovativo</a>
-        
-        <a href="https://jcsuguimoto.com.br" class="btn-link btn-blue">🔗 PARTILHAR O SITE DE VENDAS DE OVOS DE CODORNAS</a>
+        <h2>📦 Catálogo de Produtos Premium</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🥚 Ovos de Codorna</h3>
+                <p>Padrão selecionado, frescor e procedência total.</p>
+                <p class="price">R$ 13,00 / Cartela</p>
+                <small>*Máximo 3 por compra (Consulte estoque)</small>
+            </div>
+            <div class="card">
+                <h3>🪵 Esterco Orgânico</h3>
+                <p>Nutrição de alta qualidade para sua horta ou plantação.</p>
+                <p class="price">Consulte Valor</p>
+                <small>Direto do manejo das aves</small>
+            </div>
+            <div class="card">
+                <h3>🪶 Aves à Venda</h3>
+                <p>Matrizes e reprodutores selecionados com genética forte.</p>
+                <p class="price">Sob Consulta</p>
+                <small>Disponibilidade conforme lote</small>
+            </div>
+            <div class="card">
+                <h3>🏺 Conservas Especiais</h3>
+                <p>Ovos de codorna em conserva premium artesanal.</p>
+                <p class="price">Em Breve</p>
+                <small>Lançamento da linha exclusiva</small>
+            </div>
+        </div>
 
-        <!-- Benefícios Validados -->
-        <div class="benefits-box">
-            <div class="benefits-title">🌱 Benefícios Exclusivos do Produto</div>
-            <ul class="benefits-list">
-                <li><strong>Origem Controlada:</strong> Produção direto do criatório com manejo de alta engenharia.</li>
-                <li><strong>Qualidade Agro-Premium:</strong> Padrão selecionado com frescura e procedência total.</li>
-                <li><strong>Logística Veloz:</strong> Processo de envio simplificado e faturamento rastreado.</li>
-                <li><strong>Aviso de Envio:</strong> Notificação direto pelo WhatsApp " ME ADICIONAR " 11964856312 assim que a sua encomenda estiver a caminho.</li>
+        <div class="info-section">
+            <h2>🌱 Benefícios Exclusivos do Criatório</h2>
+            <ul>
+                <li><strong>Origem Controlada:</strong> Manejo técnico especializado focado no bem-estar e nutrição das aves.</li>
+                <li><strong>Logística Veloz:</strong> Processo de envio simplificado com faturamento rastreado via Bradesco.</li>
+                <li><strong>Aviso de Envio:</strong> Notificação automática via WhatsApp assim que sua encomenda sai para entrega.</li>
             </ul>
         </div>
 
-        <div class="terms-box">
-            <div class="terms-title">Condições de Venda, Logística e Aceite</div>
-            <strong>1. LOGÍSTICA:</strong> Entrega pós-compensação do Pix ou em dinheiro. A retirada dos produtos será efetuada na <strong>RODOVIÁRIA</strong>.<br><br>
-            <strong>2. QUANTIDADE:</strong> Limite condicionado ao estoque disponível no momento para garantir o atendimento de todos.<br><br>
-            <strong>3. COMPROVANTE & RESERVA:</strong> É obrigatório adicionar o número e chamar no WhatsApp para enviar o comprovante e garantir a sua reserva antecipada.<br><br>
-            <strong>4. CONEXÃO DIRETA:</strong> O botão verde abre o aplicativo do WhatsApp diretamente no seu telemóvel ou computador.
+        <div class="info-section">
+            <h2>🔒 Condições de Venda e Reserva</h2>
+            <p><strong>1. Pagamento Seguro:</strong> Liberação do pedido pós-compensação do Pix ou pagamento em dinheiro.</p>
+            <p><strong>2. Retirada Garantida:</strong> A entrega dos produtos reservados é efetuada pontualmente na <strong>Rodoviária</strong>.</p>
+            <p><strong>3. Envio de Comprovante:</strong> É obrigatório chamar no WhatsApp para enviar o comprovante Pix e garantir sua reserva de estoque.</p>
         </div>
 
-        <div class="security-footer">
-            <span class="security-badge">🔒 SITE SEGURO • DADOS PROTEGIDOS</span>
-            &copy; 2026 JCS_software - JCS_criatório - Todos os direitos reservados.
-        </div>
+        <!-- Botão direto para o seu WhatsApp cadastrado -->
+        <a href="https://wa.me" class="btn-zap" target="_blank">
+            💬 Chamar no Zap & Reservar Agora
+        </a>
+
     </div>
 
-    <script>
-        function copiarPix() {
-            var text = "dce800d8-eeb3-4de4-90af-01d33251173e";
-            var dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = text;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-            alert("Código Pix copiado com sucesso!");
-        }
-    </script>
+    <footer>
+        🔒 SITE SEGURO • DADOS PROTEGIDOS<br>
+        © 2026 JCS_software - JCS_criatório - Todos os direitos reservados.
+    </footer>
+
 </body>
 </html>
