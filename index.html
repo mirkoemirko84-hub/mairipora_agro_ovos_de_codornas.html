@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Criatório & Produtos Premium</title>
+
+    <!-- 🛠️ AS MANOBRAS DO COMPARTILHAMENTO PERFEITO (META TAGS OG) -->
+    <meta property="og:title" content="🥚 Mairiporã Agro | Ovos de Codorna Premium">
+    <meta property="og:description" content="Padrão selecionado, frescor e procedência total direto de Mairiporã. Garanta sua reserva!">
+    <meta property="og:image" content="https://github.io">
+    <meta property="og:url" content="https://github.io">
+    <meta property="og:type" content="website">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
     <style>
         :root {
             --primary: #1e4620;
@@ -19,7 +28,7 @@
         .alert-banner { background-color: #ffeeba; color: #856404; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.9rem; }
         .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); text-align: center; }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
         .card h3 { color: var(--primary); margin-bottom: 0.5rem; }
         .price { font-size: 1.25rem; font-weight: bold; color: var(--secondary); margin: 0.5rem 0; }
         .info-section { background: white; border-radius: 8px; padding: 2rem; margin-top: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -27,13 +36,27 @@
         ul { list-style-position: inside; margin-bottom: 1rem; }
         li { margin-bottom: 0.5rem; }
         
+        /* Efeito de Brilho Piscante para os Avisos Críticos */
+        @keyframes piscarAlerta {
+            0% { border-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
+            50% { border-color: #ffcc00; box-shadow: 0 0 15px #ffcc00; }
+            100% { border-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
+        }
+        .aviso-chamativo { border: 3px solid #ff3333; padding: 15px; margin: 15px 0; border-radius: 8px; background-color: #fff9f9; animation: piscarAlerta 2s infinite; }
+        .aviso-chamativo strong { color: #cc0000; }
+        .aviso-envio { border-left: 5px solid #00cc66; background-color: #f0fff5; padding: 12px; margin: 15px 0; border-radius: 4px; }
+
         /* Área de Pagamento Pix Ativa */
         .pix-box { background: #e8f5e9; border: 2px dashed var(--primary); border-radius: 8px; padding: 1.5rem; text-align: center; margin-top: 2rem; }
         .qrcode-container { margin: 1rem auto; max-width: 250px; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .qrcode-container img { width: 100%; height: auto; display: block; }
+        .campo-valor { margin: 1rem 0; }
+        .campo-valor input { padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; width: 120px; font-size: 1rem; text-align: center; font-weight: bold; }
         .btn-action { background-color: var(--primary); color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 0.5rem; font-size: 1rem; transition: 0.2s; }
         .btn-action:hover { background-color: #143016; }
         
+        .btn-card-zap { display: inline-block; background-color: #25D366; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-decoration: none; margin-top: 0.75rem; font-size: 0.9rem; transition: 0.2s; }
+        .btn-card-zap:hover { background-color: #1ebe57; }
         .btn-zap { display: block; background-color: #25D366; color: white; text-align: center; padding: 1rem; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; margin: 2rem auto; max-width: 400px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.3s; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
         .btn-zap:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(37,211,102,0.4); }
         footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #ddd; margin-top: 3rem; }
@@ -53,85 +76,64 @@
         <h2>📦 Catálogo de Produtos Premium</h2>
         <div class="grid">
             <div class="card">
-                <h3>🥚 Ovos de Codorna</h3>
-                <p>Padrão selecionado, frescor e procedência total.</p>
-                <p class="price">R$ 13,00 / Cartela</p>
-                <small>*Máximo 3 por compra (Consulte estoque)</small>
+                <div>
+                    <h3>🥚 Ovos de Codorna</h3>
+                    <p>Padrão selecionado, frescor e procedência total.</p>
+                    <p class="price">R$ 13,00 / Cartela</p>
+                    <small style="color: #cc0000; font-weight: bold;">🚨 Apenas 5 cartelas em estoque hoje!</small>
+                </div>
+                <a href="https://wa.me." class="btn-card-zap" target="_blank">Pedir Ovos</a>
             </div>
             <div class="card">
-                <h3>🪵 Esterco Orgânico</h3>
-                <p>Nutrição de alta qualidade para sua horta ou plantação.</p>
-                <p class="price">Consulte Valor</p>
-                <small>Direto do manejo das aves</small>
+                <div>
+                    <h3>🪵 Esterco Orgânico</h3>
+                    <p>Nutrição de alta qualidade para sua horta ou plantação.</p>
+                    <p class="price">Consulte Valor</p>
+                    <small>Direto do manejo das aves</small>
+                </div>
+                <a href="https://wa.me." class="btn-card-zap" target="_blank">Consultar Valor</a>
             </div>
             <div class="card">
-                <h3>🪶 Aves à Venda</h3>
-                <p>Matrizes e reprodutores selecionados com genética forte.</p>
-                <p class="price">Sob Consulta</p>
-                <small>Disponibilidade conforme lote</small>
+                <div>
+                    <h3>🪶 Aves à Venda</h3>
+                    <p>Matrizes e reprodutores selecionados com genética forte.</p>
+                    <p class="price">Sob Consulta</p>
+                    <small>Disponibilidade conforme lote</small>
+                </div>
+                <a href="https://wa.me." class="btn-card-zap" target="_blank">Consultar Aves</a>
             </div>
             <div class="card">
-                <h3>🏺 Conservas Especiais</h3>
-                <p>Ovos de codorna em conserva premium artesanal.</p>
-                <p class="price">Em Breve</p>
-                <small>Lançamento da linha exclusiva</small>
+                <div>
+                    <h3>🏺 Conservas Especiais</h3>
+                    <p>Ovos de codorna em conserva premium artesanal.</p>
+                    <p class="price">Em Breve</p>
+                    <small>Lançamento da linha exclusiva</small>
+                </div>
+                <a href="https://wa.me." class="btn-card-zap" target="_blank">Entrar na Lista</a>
             </div>
         </div>
 
         <!-- Área Avançada de Pagamento com QR Code e Copia e Cola -->
         <div class="pix-box">
             <h3>Bradesco Banco Oficial - Mairiporã Agro 🏦</h3>
-            <p style="margin-top: 0.5rem; font-weight: bold; color: var(--primary);">Escaneie o QR Code abaixo para pagar via Pix:</p>
+            <p style="margin-top: 0.3rem; font-size: 0.95rem; color: #444;">Beneficiário: <strong>JOSE CARLOS SUGUIMOTO</strong></p>
+            <p style="font-weight: bold; color: #cc0000; margin-top: 0.3rem;">⚠️ Este QR Code não possui valor fixado. Informe o valor no momento do pagamento.</p>
             
+            <div class="campo-valor">
+                <label for="valorPixInput" style="font-weight: bold; display: block; margin-bottom: 0.3rem;">Digite o Valor do seu Pedido (R$):</label>
+                <input type="number" id="valorPixInput" step="0.01" placeholder="0.00">
+                <button class="btn-action" onclick="validarEProsseguir()" style="margin-top: 0; padding: 0.4rem 1rem; font-size: 0.9rem;">Confirmar Valor</button>
+            </div>
+
             <div class="qrcode-container">
-                <!-- Puxa o QR Code oficial salvo na sua pasta do GitHub -->
                 <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco Mairiporã Agro" onerror="this.src='https://qrserver.com'">
             </div>
             
             <p style="font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;">Ou se preferir, use o botão Copia e Cole abaixo:</p>
-            <input type="text" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" id="pixCode" readonly style="width: 80%; max-width: 300px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; background: #fff; color: #333;">
+            <input type="text" value="00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6" id="pixCode" readonly style="width: 80%; max-width: 300px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; background: #fff; color: #333;">
             <br>
             <button class="btn-action" onclick="copiarPix()">📋 Copiar Código Pix</button>
         </div>
 
-        <div class="info-section">
-            <h2>🌱 Benefícios Exclusivos do Criatório</h2>
-            <ul>
-                <li><strong>Origem Controlada:</strong> Manejo técnico especializado focado no bem-estar e nutrição das aves.</li>
-                <li><strong>Logística Veloz:</strong> Processo de envio simplificado com faturamento rastreado via Bradesco.</li>
-                <li><strong>Aviso de Envio:</strong> Notificação automática via WhatsApp assim que sua encomenda sai para entrega.</li>
-            </ul>
-        </div>
-
-        <div class="info-section">
-            <h2>🔒 Condições de Venda e Reserva</h2>
-            <p><strong>1. Pagamento Seguro:</strong> Liberação do pedido pós-compensação do Pix ou pagamento em dinheiro.</p>
-            <p><strong>2. Retirada Garantida:</strong> A entrega dos produtos reservados é efetuada pontualmente na <strong>Rodoviária</strong>.</p>
-            <p><strong>3. Envio de Comprovante:</strong> É obrigatório chamar no WhatsApp para enviar o comprovante Pix e garantir sua reserva de estoque.</p>
-        </div>
-
-        <!-- Link Direto e Inteligente para o seu WhatsApp -->
-        <a href="https://wa.me!" class="btn-zap" target="_blank">
-            💬 Chamar no Zap & Enviar Comprovante
-        </a>
-
-    </div>
-
-    <footer>
-        🔒 SITE SEGURO • DADOS PROTEGIDOS<br>
-        © 2026 JCS_software - JCS_criatório - Todos os direitos reservados.
-    </footer>
-
-    <!-- Script de Automação dos Cliques -->
-    <script>
-        function copiarPix() {
-            var copyText = document.getElementById("pixCode");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* Para celulares */
-            navigator.clipboard.writeText(copyText.value);
-            alert("Código Pix copiado com sucesso! Agora é só colar no aplicativo do seu Banco.");
-        }
-    </script>
-
-</body>
-</html>
+        <!-- Efeito visual dinâmico piscando na tela do cliente -->
+        <div class="aviso-chamativo">
