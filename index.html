@@ -26,8 +26,16 @@
         .info-section h2 { color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
         ul { list-style-position: inside; margin-bottom: 1rem; }
         li { margin-bottom: 0.5rem; }
-        .btn-zap { display: block; background-color: #25D366; color: white; text-align: center; padding: 1rem; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; margin: 2rem auto; max-width: 400px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.3s; }
-        .btn-zap:hover { transform: translateY(-2px); }
+        
+        /* Área de Pagamento Pix Ativa */
+        .pix-box { background: #e8f5e9; border: 2px dashed var(--primary); border-radius: 8px; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+        .qrcode-container { margin: 1rem auto; max-width: 250px; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .qrcode-container img { width: 100%; height: auto; display: block; }
+        .btn-action { background-color: var(--primary); color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 0.5rem; font-size: 1rem; transition: 0.2s; }
+        .btn-action:hover { background-color: #143016; }
+        
+        .btn-zap { display: block; background-color: #25D366; color: white; text-align: center; padding: 1rem; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; margin: 2rem auto; max-width: 400px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.3s; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .btn-zap:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(37,211,102,0.4); }
         footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #ddd; margin-top: 3rem; }
     </style>
 </head>
@@ -70,6 +78,22 @@
             </div>
         </div>
 
+        <!-- Área Avançada de Pagamento com QR Code e Copia e Cola -->
+        <div class="pix-box">
+            <h3>Bradesco Banco Oficial - Mairiporã Agro 🏦</h3>
+            <p style="margin-top: 0.5rem; font-weight: bold; color: var(--primary);">Escaneie o QR Code abaixo para pagar via Pix:</p>
+            
+            <div class="qrcode-container">
+                <!-- Puxa o QR Code oficial salvo na sua pasta do GitHub -->
+                <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco Mairiporã Agro" onerror="this.src='https://qrserver.com'">
+            </div>
+            
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;">Ou se preferir, use o botão Copia e Cole abaixo:</p>
+            <input type="text" value="11964856312" id="pixCode" readonly style="width: 80%; max-width: 300px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; background: #fff; color: #333;">
+            <br>
+            <button class="btn-action" onclick="copiarPix()">📋 Copiar Código Pix</button>
+        </div>
+
         <div class="info-section">
             <h2>🌱 Benefícios Exclusivos do Criatório</h2>
             <ul>
@@ -86,9 +110,9 @@
             <p><strong>3. Envio de Comprovante:</strong> É obrigatório chamar no WhatsApp para enviar o comprovante Pix e garantir sua reserva de estoque.</p>
         </div>
 
-        <!-- Botão direto para o seu WhatsApp cadastrado -->
-        <a href="https://wa.me" class="btn-zap" target="_blank">
-            💬 Chamar no Zap & Reservar Agora
+        <!-- Link Direto e Inteligente para o seu WhatsApp -->
+        <a href="https://wa.me!" class="btn-zap" target="_blank">
+            💬 Chamar no Zap & Enviar Comprovante
         </a>
 
     </div>
@@ -97,6 +121,17 @@
         🔒 SITE SEGURO • DADOS PROTEGIDOS<br>
         © 2026 JCS_software - JCS_criatório - Todos os direitos reservados.
     </footer>
+
+    <!-- Script de Automação dos Cliques -->
+    <script>
+        function copiarPix() {
+            var copyText = document.getElementById("pixCode");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* Para celulares */
+            navigator.clipboard.writeText(copyText.value);
+            alert("Código Pix copiado com sucesso! Agora é só colar no aplicativo do seu Banco.");
+        }
+    </script>
 
 </body>
 </html>
