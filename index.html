@@ -23,30 +23,57 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        
+        /* 📈 PREGÃO DE ABERTURA - ESTILO BOLSA DE VALORES NO TOPO TOTAL */
+        .pregao-topo-total {
+            background: #090f0a;
+            border-bottom: 3px solid var(--accent);
+            padding: 10px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            width: 100%;
+        }
+        .letreiro-ticker {
+            display: flex;
+            justify-content: space-between;
+            background: #000;
+            padding: 6px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            gap: 20px;
+        }
+        .ticker-item { color: var(--accent); font-size: 13px; white-space: nowrap; }
+        .ticker-item.alta { color: #00ff00; font-weight: bold; }
+        .topo-grafico-texto {
+            display: flex;
+            justify-content: space-between;
+            color: #a5d6a7;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .pisca-verde { color: #00ff00; animation: pulsoAtivo 1s infinite alternate; }
+        .barra-codorna-fundo { background: #222; height: 22px; border-radius: 3px; border: 1px solid #388e3c; overflow: hidden; }
+        .barra-codorna-progresso { background: linear-gradient(90deg, #1b5e20, #4caf50, var(--accent)); height: 100%; display: flex; align-items: center; justify-content: center; }
+        .porcentagem-texto { color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+
         header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://unsplash.com') center/cover; color: white; text-align: center; padding: 3rem 1rem; }
         header h1 { font-size: 2.5rem; letter-spacing: 1px; color: var(--accent); }
+        
+        /* 🎨 ANIMAÇÃO DO SLOGAN - MUDANDO DE COR (ALTA ENGENHARIA) */
+        .slogan-engenharia {
+            font-weight: bold;
+            animation: pulsoIluminado 3s infinite alternate;
+        }
+
         .alert-banner { background-color: #ffeeba; color: #856404; text-align: center; padding: 0.5rem; font-weight: bold; font-size: 0.9rem; }
         .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
         .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
         .card h3 { color: var(--primary); margin-bottom: 0.5rem; }
         .price { font-size: 1.25rem; font-weight: bold; color: var(--secondary); margin: 0.5rem 0; }
-        .info-section { background: white; border-radius: 8px; padding: 2rem; margin-top: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .info-section h2 { color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
-        ul { list-style-position: inside; margin-bottom: 1rem; }
-        li { margin-bottom: 0.5rem; }
         
-        /* Efeito de Brilho Piscante para os Avisos Críticos */
-        @keyframes piscarAlerta {
-            0% { border-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-            50% { border-color: #ffcc00; box-shadow: 0 0 15px #ffcc00; }
-            100% { border-color: #ff3333; box-shadow: 0 0 5px #ff3333; }
-        }
-        .aviso-chamativo { border: 3px solid #ff3333; padding: 15px; margin: 15px 0; border-radius: 8px; background-color: #fff9f9; animation: piscarAlerta 2s infinite; }
-        .aviso-chamativo strong { color: #cc0000; }
-        .aviso-envio { border-left: 5px solid #00cc66; background-color: #f0fff5; padding: 12px; margin: 15px 0; border-radius: 4px; }
-
-        /* Área de Pagamento Pix Ativa */
+        /* ÁREA DE PAGAMENTO PIX ATIVA */
         .pix-box { background: #e8f5e9; border: 2px dashed var(--primary); border-radius: 8px; padding: 1.5rem; text-align: center; margin-top: 2rem; }
         .qrcode-container { margin: 1rem auto; max-width: 250px; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .qrcode-container img { width: 100%; height: auto; display: block; }
@@ -55,20 +82,59 @@
         .btn-action { background-color: var(--primary); color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 0.5rem; font-size: 1rem; transition: 0.2s; }
         .btn-action:hover { background-color: #143016; }
         
+        /* 🛠️ CONTROLES ADM E LAYOUTS NOVOS */
+        .panel-adm-box { background: #112211; color: #fff; border: 2px solid var(--accent); border-radius: 8px; padding: 1.5rem; margin-top: 2rem; }
+        .panel-adm-box h3 { color: var(--accent); margin-bottom: 1rem; }
+        .adm-btn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+        .btn-adm { background-color: #224422; color: #fff; border: 1px solid var(--accent); padding: 0.5rem; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .btn-adm:hover { background-color: var(--accent); color: #000; }
+
         .btn-card-zap { display: inline-block; background-color: #25D366; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-decoration: none; margin-top: 0.75rem; font-size: 0.9rem; transition: 0.2s; }
         .btn-card-zap:hover { background-color: #1ebe57; }
-        .btn-zap { display: block; background-color: #25D366; color: white; text-align: center; padding: 1rem; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem; margin: 2rem auto; max-width: 400px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.3s; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        .btn-zap:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(37,211,102,0.4); }
         footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #ddd; margin-top: 3rem; }
+
+        /* MODAL BOM APETITE */
+        .modal-sucesso { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-card { background: white; padding: 2rem; border-radius: 8px; text-align: center; max-width: 450px; border-top: 5px solid var(--primary); color: var(--dark); }
+        .msg-bom-apetite { background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; }
+
+        /* ANIMAÇÕES @KEYWORDS */
+        @keyframes pulsoAtivo { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes pulsoIluminado {
+            0% { color: #ffffff; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+            50% { color: #4caf50; text-shadow: 0 0 15px rgba(76,175,80,0.6); }
+            100% { color: var(--accent); text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+        }
     </style>
 </head>
 <body>
+
+    <!-- TOPO INTEIRO DA TELA INICIAL - PREGÃO FINANCEIRO -->
+    <div class="pregao-topo-total">
+        <div class="letreiro-ticker">
+            <span class="ticker-item alta">🦅 MAIRIPORÃ AGRO INDEX ▲ +14.8%</span>
+            <span class="ticker-item">🪶 CODORNA ARTESANAL: 1.560 un [META MENSAL]</span>
+            <span class="ticker-item alta">📈 DEMANDA ON-LINE: Alta Velocidade ▲</span>
+            <span class="ticker-item">🏡 ECONOMIA LOCAL: 52 Famílias Fortalecidas</span>
+        </div>
+        <div class="grafico-volume-container">
+            <div class="topo-grafico-texto">
+                <span>📊 INDICADOR DE LOGÍSTICA (ON-LINE)</span>
+                <span class="pisca-verde">● PREGÃO ATIVO</span>
+            </div>
+            <div class="barra-codorna-fundo">
+                <div class="barra-codorna-progresso" style="width: 100%;">
+                    <span class="porcentagem-texto">1.560 UNIDADES ENTREGUES (100% DA CAPACIDADE)</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="alert-banner">🚚 ENTREGAS ÀS TERÇAS E SEXTAS NA RODOVIÁRIA</div>
 
     <header>
         <h1>Mairiporã Agro</h1>
-        <p>Criatório de Alta Engenharia & Logística Organizada</p>
+        <p class="slogan-engenharia">Criatório de Alta Engenharia & Logística Organizada</p>
     </header>
 
     <div class="container">
@@ -82,7 +148,7 @@
                     <p class="price">R$ 13,00 / Cartela</p>
                     <small style="color: #cc0000; font-weight: bold;">🚨 Apenas 5 cartelas em estoque hoje!</small>
                 </div>
-                <a href="https://wa.me." class="btn-card-zap" target="_blank">Pedir Ovos</a>
+                <a href="https://wa.me" class="btn-card-zap" target="_blank">Pedir Ovos</a>
             </div>
             <div class="card">
                 <div>
@@ -91,7 +157,7 @@
                     <p class="price">Consulte Valor</p>
                     <small>Direto do manejo das aves</small>
                 </div>
-                <a href="https://wa.me." class="btn-card-zap" target="_blank">Consultar Valor</a>
+                <a href="https://wa.me" class="btn-card-zap" target="_blank">Consultar Valor</a>
             </div>
             <div class="card">
                 <div>
@@ -100,40 +166,10 @@
                     <p class="price">Sob Consulta</p>
                     <small>Disponibilidade conforme lote</small>
                 </div>
-                <a href="https://wa.me." class="btn-card-zap" target="_blank">Consultar Aves</a>
+                <a href="https://wa.me" class="btn-card-zap" target="_blank">Consultar Aves</a>
             </div>
             <div class="card">
                 <div>
                     <h3>🏺 Conservas Especiais</h3>
                     <p>Ovos de codorna em conserva premium artesanal.</p>
                     <p class="price">Em Breve</p>
-                    <small>Lançamento da linha exclusiva</small>
-                </div>
-                <a href="https://wa.me." class="btn-card-zap" target="_blank">Entrar na Lista</a>
-            </div>
-        </div>
-
-        <!-- Área Avançada de Pagamento com QR Code e Copia e Cola -->
-        <div class="pix-box">
-            <h3>Bradesco Banco Oficial - Mairiporã Agro 🏦</h3>
-            <p style="margin-top: 0.3rem; font-size: 0.95rem; color: #444;">Beneficiário: <strong>JOSE CARLOS SUGUIMOTO</strong></p>
-            <p style="font-weight: bold; color: #cc0000; margin-top: 0.3rem;">⚠️ Este QR Code não possui valor fixado. Informe o valor no momento do pagamento.</p>
-            
-            <div class="campo-valor">
-                <label for="valorPixInput" style="font-weight: bold; display: block; margin-bottom: 0.3rem;">Digite o Valor do seu Pedido (R$):</label>
-                <input type="number" id="valorPixInput" step="0.01" placeholder="0.00">
-                <button class="btn-action" onclick="validarEProsseguir()" style="margin-top: 0; padding: 0.4rem 1rem; font-size: 0.9rem;">Confirmar Valor</button>
-            </div>
-
-            <div class="qrcode-container">
-                <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco Mairiporã Agro" onerror="this.src='https://qrserver.com'">
-            </div>
-            
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;">Ou se preferir, use o botão Copia e Cole abaixo:</p>
-            <input type="text" value="00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6" id="pixCode" readonly style="width: 80%; max-width: 300px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; background: #fff; color: #333;">
-            <br>
-            <button class="btn-action" onclick="copiarPix()">📋 Copiar Código Pix</button>
-        </div>
-
-        <!-- Efeito visual dinâmico piscando na tela do cliente -->
-        <div class="aviso-chamativo">
