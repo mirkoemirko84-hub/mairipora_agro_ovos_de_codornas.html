@@ -24,38 +24,49 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
         
-        /* 📈 PREGÃO DE ABERTURA - ESTILO BOLSA DE VALORES NO TOPO TOTAL */
+        /* 📈 PREGÃO DE ABERTURA - NOVO LAYOUT EM DUAS COLUNAS COM FONTES AMPLIADAS */
         .pregao-topo-total {
             background: #090f0a;
             border-bottom: 3px solid var(--accent);
-            padding: 10px 20px;
+            padding: 15px 20px;
             font-family: 'Courier New', Courier, monospace;
             width: 100%;
         }
-        .letreiro-ticker {
-            display: flex;
-            justify-content: space-between;
-            background: #000;
-            padding: 6px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            overflow-x: auto;
+        .painel-duas-colunas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
+            background: #000;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #224422;
         }
-        .ticker-item { color: var(--accent); font-size: 13px; white-space: nowrap; }
-        .ticker-item.alta { color: #00ff00; font-weight: bold; }
-        .topo-grafico-texto {
+        .coluna-pregao {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ticker-item { 
+            color: var(--accent); 
+            font-size: 18px; /* Fonte maior para leitura perfeita */
+            font-weight: bold;
+            white-space: nowrap; 
+            transition: color 0.3s ease;
+        }
+        .ticker-item.alta { 
+            color: #00ff00; 
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+        }
+        .status-pregao-sistema {
             display: flex;
             justify-content: space-between;
             color: #a5d6a7;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-top: 8px;
+            padding: 0 5px;
         }
         .pisca-verde { color: #00ff00; animation: pulsoAtivo 1s infinite alternate; }
-        .barra-codorna-fundo { background: #222; height: 22px; border-radius: 3px; border: 1px solid #388e3c; overflow: hidden; }
-        .barra-codorna-progresso { background: linear-gradient(90deg, #1b5e20, #4caf50, var(--accent)); height: 100%; display: flex; align-items: center; justify-content: center; }
-        .porcentagem-texto { color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
 
         header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://unsplash.com') center/cover; color: white; text-align: center; padding: 3rem 1rem; }
         header h1 { font-size: 2.5rem; letter-spacing: 1px; color: var(--accent); }
@@ -109,25 +120,33 @@
 </head>
 <body>
 
-    <!-- TOPO INTEIRO DA TELA INICIAL - PREGÃO FINANCEIRO -->
+    <!-- TOPO INTEIRO DA TELA INICIAL - NOVO PREGÃO EM DUAS COLUNAS -->
     <div class="pregao-topo-total">
-        <div class="letreiro-ticker">
-            <span class="ticker-item alta">🦅 MAIRIPORÃ AGRO INDEX ▲ +14.8%</span>
-            <span class="ticker-item">🪶 CODORNA ARTESANAL: 1.560 un [META MENSAL]</span>
-            <span class="ticker-item alta">📈 DEMANDA ON-LINE: Alta Velocidade ▲</span>
-            <span class="ticker-item">🏡 ECONOMIA LOCAL: 52 Famílias Fortalecidas</span>
-        </div>
-        <div class="grafico-volume-container">
-            <div class="topo-grafico-texto">
-                <span>📊 INDICADOR DE LOGÍSTICA (ON-LINE)</span>
-                <span class="pisca-verde">● PREGÃO ATIVO</span>
+        <div class="painel-duas-colunas">
+            <!-- COLUNA 1: MERCADO E VOLUME -->
+            <div class="coluna-pregao">
+                <span class="ticker-item alta" id="agro-index">🦅 MAIRIPORÃ AGRO INDEX ▲ 20%</span>
+                <span class="ticker-item" id="ovos-produzidos">🪶 OVOS PRODUZIDOS: 1.560 un</span>
             </div>
-            <div class="barra-codorna-fundo">
-                <div class="barra-codorna-progresso" style="width: 100%;">
-                    <span class="porcentagem-texto">1.560 UNIDADES ENTREGUES (100% DA CAPACIDADE)</span>
-                </div>
+            
+            <!-- COLUNA 2: CATALOGO FIXO E IMPACTO SOCIAL -->
+            <div class="coluna-pregao">
+                <span class="ticker-item">🪶 OVOS ARTESANAIS</span>
+                <span class="ticker-item">🌾 ECONOMIA LOCAL: 52 Famílias ATENDIDAS</span>
             </div>
         </div>
+        
+        <div class="status-pregao-sistema">
+            <span>📊 SISTEMA DE FLUXO E ESCALA COMERCIAL</span>
+            <span class="pisca-verde" id="status-sinalizador">● PREGÃO ATIVO</span>
+        </div>
+    </div>
+
+    <!-- BOTÃO DO WHATSAPP RECONFIGURADO COM LINK CORRETO -->
+    <div style="text-align: center; margin-top: 15px;">
+        <a href="https://wa.me" target="_blank" class="btn-card-zap" id="whatsapp-principal">
+            🟢 Encomendar no WhatsApp (Direto na Torre)
+        </a>
     </div>
 
     <div class="alert-banner">🚚 ENTREGAS ÀS TERÇAS E SEXTAS NA RODOVIÁRIA</div>
@@ -138,31 +157,3 @@
     </header>
 
     <div class="container">
-        
-        <h2>📦 Catálogo de Produtos Premium</h2>
-        <div class="grid">
-            <div class="card">
-                <div>
-                    <h3>🥚 Ovos de Codorna</h3>
-                    <p>Padrão selecionado, frescor e procedência total.</p>
-                    <p class="price">R$ 13,00 / Cartela</p>
-                    <small style="color: #cc0000; font-weight: bold;">🚨 Apenas 5 cartelas em estoque hoje!</small>
-                </div>
-                <a href="https://whatsapp.com!" class="btn-card-zap" target="_blank">Pedir Ovos</a>
-            </div>
-            <div class="card">
-                <div>
-                    <h3>🪵 Esterco Orgânico</h3>
-                    <p>Nutrição de alta qualidade para sua horta ou plantação.</p>
-                    <p class="price">Consulte Valor</p>
-                    <small>Direto do manejo das aves</small>
-                </div>
-                <a href="https://whatsapp.com!" class="btn-card-zap" target="_blank">Consultar Valor</a>
-            </div>
-            <div class="card">
-                <div>
-                    <h3>🪶 Aves à Venda</h3>
-                    <p>Matrizes e reprodutores selecionados com genética forte.</p>
-                    <p class="price">Sob Consulta</p>
-                    <small>Disponibilidade conforme lote</small>
-                </div>
