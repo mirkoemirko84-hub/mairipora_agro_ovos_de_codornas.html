@@ -22,15 +22,14 @@
       📦 DISPONÍVEL AGORA EM TELA: <span id="painelEstoque" style="color: #e65100; font-size: 1.2em;">03</span> CARTELAS
     </div>
     <div id="txtReserva" style="display: none; color: #b71c1c; font-size: 0.85em; font-weight: bold; margin-top: 8px;">
-      🎟️ LOTE ESGOTADO! Clique abaixo para realizar sua RESERVA com pagamento antecipado.
+      🎟️ LOTE ESGOTADO! Faça seu Pix de R$ 13,00 e clique abaixo para realizar sua RESERVA antecipada.
     </div>
   </div>
 
   <!-- Formulário Interno de Validação de Pedidos -->
   <div style="background: #ffffff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-sizing: border-box; width: 100%;">
     <label style="display: block; font-weight: bold; font-size: 0.9em; color: #333; margin-bottom: 6px;">Valor do seu Pedido (R$):</label>
-    <input type="number" id="valorDigitado" placeholder="Ex: 12.00 ou 13.00" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; margin-bottom: 5px;">
-    <span style="display: block; font-size: 0.75em; color: #666; margin-bottom: 12px;">*Pedidos menores que R$ 10,00 serão travados automaticamente pelo sistema.</span>
+    <input type="number" id="valorDigitado" placeholder="Ex: 13.00, 26.00..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; margin-bottom: 12px;">
     
     <!-- AVISO SOLICITADO: BOTÕES VERDES SÃO DO ZAP! -->
     <p style="text-align: center; color: #1b5e20; font-weight: bold; font-size: 0.85em; margin-bottom: 8px; background: #e8f5e9; padding: 6px; border-radius: 4px;">
@@ -39,29 +38,29 @@
 
     <!-- 4 Botões Principais Lado a Lado -->
     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; box-sizing: border-box; width: 100%;">
-      <button onclick="validarFormulario('https://wa.me')" 
+      <button onclick="validarFormulario('Pedir Ovos')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Ovos
       </button>
       
-      <button onclick="validarFormulario('https://wa.me')" 
+      <button onclick="validarFormulario('Pedir Esterco')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Esterco
       </button>
 
-      <button onclick="validarFormulario('https://wa.me')" 
+      <button onclick="validarFormulario('Ver Conservas')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Ver Conservas
       </button>
       
-      <button onclick="validarFormulario('https://wa.me')" 
+      <button onclick="validarFormulario('Consultar Aves')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Consultar Aves
       </button>
     </div>
   </div>
 
-    <!-- Bloco Laranja do Pix - Ajuste Fino Sem Vazamentos -->
+  <!-- Bloco Laranja do Pix - Ajuste Fino Sem Vazamentos -->
   <div style="text-align: center; background: #fffde7; border: 2px solid #fbc02d; border-left: 8px solid #f57f17; padding: 15px; margin: 0 auto 20px auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.06); box-sizing: border-box; width: 100%; overflow: hidden;">
     <h3 style="margin-bottom: 5px; color: #f57f17; margin-top: 0; font-size: 1.1em;">🔑 Pagamento via Pix — Mairiporã Agro</h3>
     <p style="color: #555; font-size: 0.85em; margin-bottom: 12px; line-height: 1.4;">Clique no QR Code ou no botão azul para copiar o Pix. Depois envie o comprovante no Zap!</p>
@@ -72,25 +71,10 @@
     </div>
     
     <p style="font-size: 0.85em; margin-bottom: 6px;"><strong>Chave Pix (Aleatória):</strong></p>
-    
-    <!-- Corrigido: Texto limpo em DIV para o celular copiar sem travar -->
-    <div id="codigoPix" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.8em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+    <div id="codigoPix" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.85em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
     
     <!-- Botão Copiar e Colar Unificado -->
-    <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        📋 Copiar Código PIX
-    </button>
-  </div>
-
-  <!-- Botão Azul de Compartilhamento Dinâmico (Sinal nos dois Sentidos) -->
-  <div style="text-align: center; margin-bottom: 20px;">
-      <button onclick="executarCompartilhamento()" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
-          🔗 Compartilhar Link da Página
-      </button>
-  </div>
-
-    <!-- Botão Copiar e Colar Unificado -->
-    <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 5px;">
         📋 Copiar Código PIX
     </button>
   </div>
@@ -109,33 +93,30 @@
       Já fez o Pix? Confirme seu pedido, envie o comprovante e adicione-me para receber o aviso de quando eu estiver saindo para a entrega!
     </p>
     
-    <a href="https://wa.me" 
-       target="_blank" rel="noopener noreferrer"
-       style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center;">
+    <button onclick="validarFormulario('Envio de Comprovante Direto')" 
+       style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; border: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center; cursor: pointer;">
        🔔 Enviar Comprovante / Avisarei Saído para Entrega
-    </a>
+    </button>
   </div>
 
-  <!-- Rodapé Técnico -->
+  <!-- Rodapé Técnico com Entrada Secreta do ADM -->
   <footer style="margin: 30px auto 0 auto; padding-top: 15px; border-top: 1px solid #eee; font-size: 0.8em; color: #666; text-align: center; width: 100%; box-sizing: border-box;">
     <div style="margin-bottom: 6px; color: #2e7d32; font-weight: bold;">
       🔒 Ambiente Protegido & Site Seguro
     </div>
-    <div style="margin-bottom: 4px; font-style: italic; color: #444;">
+    <div onclick="solicitarAcessoAdm()" style="margin-bottom: 4px; font-style: italic; color: #444; cursor: pointer;" title="Acesso Administrativo">
       JCS_software / JCS_criatorio — Gestão de Escala Comercial.
     </div>
     © 2026 Mairiporã Agro. Todos os direitos reservados.
   </footer>
 
-</div>
-
-<!-- Caixinha de Notificação Animada de Sucesso -->
-<div id="avisoSucesso" style="display: none; position: fixed; bottom: -120px; left: 50%; transform: translateX(-50%); background-color: #28a745; color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0px 4px 15px rgba(0,0,0,0.2); text-align: center; z-index: 9999; transition: bottom 0.5s ease-in-out; font-family: sans-serif; width: 85%; max-width: 350px;">
-  <div id="avisoTitulo" style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">📋 CÓDIGO COPIADO!</div>
-  <div id="avisoTexto" style="font-size: 11px; opacity: 0.9; line-height: 1.4; margin-bottom: 8px;">OBRIGADO PELA COMPRA VOCE ESTA MOVIMENTANDO A ECONOMIA LOCAL!</div>
-  <div class="piscar-suave" style="font-size: 16px; font-weight: bold; color: #fffb00;">🍕 BOM APETITE! 🥤</div>
-</div>
-
-<style>
-@keyframes pulsar {
-  0% { transform: scale(1); opacity: 1; }
+  <!-- CENTRAL ADM EXCLUSIVA OCULTA (SÓ ABRE COM A SENHA 4971) -->
+  <div id="painelControlAdm" style="display: none; background: #222; color: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; box-sizing: border-box; width: 100%; border-left: 8px solid #007bff; text-align: left; font-family: monospace;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 8px; margin-bottom: 15px;">
+        <strong style="color: #007bff; font-size: 1.1em;">🔒 TORRE DE CONTROLE ADM — JOSÉ CARLOS SUGUIMOTO</strong>
+        <button onclick="fecharPainelAdm()" style="background: #d63031; color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">X Sair</button>
+    </div>
+    
+    <!-- MARCADOR DE AUDITORIA DE PROCESSO -->
+    <div style="background: #333; padding: 8px; border-radius: 4px; margin-bottom: 12px; border: 1px solid #444;">
+      <p style="margin: 0; font-size: 11px; color: #aaa;">🔢 CONTROLE REGRESSIVO DE AUDITORIA:</p>
