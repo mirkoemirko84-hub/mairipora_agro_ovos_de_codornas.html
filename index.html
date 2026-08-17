@@ -36,18 +36,18 @@
       👇 OS BOTOES VERDES ABAIXO SÃO DE ZAP! CLIQUE PARA ENVIAR SEU PEDIDO SEGURO:
     </p>
 
-    <!-- 4 Botões Principais Transformados em Links Diretos Anti-Bloqueio -->
+    <!-- FIXADO: Links com javascript:void(0) impedem a página de recarregar no clique -->
     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; box-sizing: border-box; width: 100%;">
-      <a id="btnOvos" href="#" onclick="return dispararFluxoPedido('Pedir Ovos', this);" target="_blank" rel="noopener noreferrer" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Pedir Ovos');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
          🟢 Pedir Ovos
       </a>
-      <a id="btnEsterco" href="#" onclick="return dispararFluxoPedido('Pedir Esterco', this);" target="_blank" rel="noopener noreferrer" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Pedir Esterco');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
          🟢 Pedir Esterco
       </a>
-      <a id="btnConservas" href="#" onclick="return dispararFluxoPedido('Ver Conservas', this);" target="_blank" rel="noopener noreferrer" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Ver Conservas');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
          🟢 Ver Conservas
       </a>
-      <a id="btnAves" href="#" onclick="return dispararFluxoPedido('Consultar Aves', this);" target="_blank" rel="noopener noreferrer" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Consultar Aves');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
          🟢 Consultar Aves
       </a>
     </div>
@@ -64,7 +64,6 @@
     
     <p style="font-size: 0.85em; margin-bottom: 6px;"><strong>Chave Pix (Aleatória):</strong></p>
     
-    <!-- Input oculto para sistema de cópia -->
     <input type="text" id="inputPixOculto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" style="position: absolute; left: -9999px;">
     
     <div id="codigoPixTexto" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.85em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
@@ -74,9 +73,9 @@
     </button>
   </div>
 
-  <!-- Botão Azul de Compartilhamento Dinâmico Reconfigurado para Link -->
+  <!-- Botão Azul de Compartilhamento Dinâmico -->
   <div style="text-align: center; margin-bottom: 20px;">
-      <a id="btnShareLink" href="#" onclick="return tratarCompartilhamentoLink(this);" target="_blank" rel="noopener noreferrer" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); text-decoration: none; box-sizing: border-box;">
+      <a href="javascript:void(0);" onclick="tratarCompartilhamentoLink();" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); text-decoration: none; box-sizing: border-box;">
           🔗 Compartilhar Link da Página
       </a>
   </div>
@@ -88,7 +87,7 @@
       Já fez o Pix? Confirme seu pedido, envie o comprovante e adicione-me para receber o aviso de quando eu estiver saindo para a entrega!
     </p>
     
-    <a id="btnAlertaEntrega" href="#" onclick="return dispararFluxoPedido('Envio de Comprovante Direto', this);" target="_blank" rel="noopener noreferrer" style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center;">
+    <a href="javascript:void(0);" onclick="dispararFluxoPedido('Envio de Comprovante Direto');" style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center;">
        🔔 Enviar Comprovante / Avisarei Saído para Entrega
     </a>
   </div>
@@ -107,4 +106,8 @@
   <!-- CENTRAL ADM EXCLUSIVA OCULTA -->
   <div id="painelControlAdm" style="display: none; background: #222; color: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; box-sizing: border-box; width: 100%; border-left: 8px solid #007bff; text-align: left; font-family: monospace;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 8px; margin-bottom: 15px;">
-
+        <strong style="color: #007bff; font-size: 1.1em;">🔒 TORRE DE CONTROLE ADM — JOSÉ CARLOS SUGUIMOTO</strong>
+        <button type="button" onclick="fecharPainelAdm()" style="background: #d63031; color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">X Sair</button>
+    </div>
+    
+    <div style="background: #333; padding: 8px; border-radius: 4px; margin-bottom: 12px; border: 1px solid #444;">
