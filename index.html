@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <!-- Bloco Laranja do Pix - Ajuste Fino Sem Vazamentos -->
+    <!-- Bloco Laranja do Pix - Ajuste Fino Sem Vazamentos -->
   <div style="text-align: center; background: #fffde7; border: 2px solid #fbc02d; border-left: 8px solid #f57f17; padding: 15px; margin: 0 auto 20px auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.06); box-sizing: border-box; width: 100%; overflow: hidden;">
     <h3 style="margin-bottom: 5px; color: #f57f17; margin-top: 0; font-size: 1.1em;">🔑 Pagamento via Pix — Mairiporã Agro</h3>
     <p style="color: #555; font-size: 0.85em; margin-bottom: 12px; line-height: 1.4;">Clique no QR Code ou no botão azul para copiar o Pix. Depois envie o comprovante no Zap!</p>
@@ -72,8 +72,23 @@
     </div>
     
     <p style="font-size: 0.85em; margin-bottom: 6px;"><strong>Chave Pix (Aleatória):</strong></p>
-    <input type="text" id="codigoPix" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 10px auto; font-size: 0.8em; text-align: center; width: 100%; box-sizing: border-box;">
     
+    <!-- Corrigido: Texto limpo em DIV para o celular copiar sem travar -->
+    <div id="codigoPix" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.8em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+    
+    <!-- Botão Copiar e Colar Unificado -->
+    <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        📋 Copiar Código PIX
+    </button>
+  </div>
+
+  <!-- Botão Azul de Compartilhamento Dinâmico (Sinal nos dois Sentidos) -->
+  <div style="text-align: center; margin-bottom: 20px;">
+      <button onclick="executarCompartilhamento()" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
+          🔗 Compartilhar Link da Página
+      </button>
+  </div>
+
     <!-- Botão Copiar e Colar Unificado -->
     <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
         📋 Copiar Código PIX
