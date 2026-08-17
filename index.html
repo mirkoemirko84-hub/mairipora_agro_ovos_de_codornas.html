@@ -36,20 +36,20 @@
       👇 OS BOTOES VERDES ABAIXO SÃO DE ZAP! CLIQUE PARA ENVIAR SEU PEDIDO SEGURO:
     </p>
 
-    <!-- FIXADO: Links com javascript:void(0) impedem a página de recarregar no clique -->
+    <!-- FIXADO: Botões HTML Reais impedem textos estranhos no rodapé do navegador -->
     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; box-sizing: border-box; width: 100%;">
-      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Pedir Ovos');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      <button type="button" onclick="dispararFluxoPedido('Pedir Ovos', event);" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Ovos
-      </a>
-      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Pedir Esterco');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      </button>
+      <button type="button" onclick="dispararFluxoPedido('Pedir Esterco', event);" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Esterco
-      </a>
-      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Ver Conservas');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      </button>
+      <button type="button" onclick="dispararFluxoPedido('Ver Conservas', event);" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Ver Conservas
-      </a>
-      <a href="javascript:void(0);" onclick="dispararFluxoPedido('Consultar Aves');" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; display: inline-block;">
+      </button>
+      <button type="button" onclick="dispararFluxoPedido('Consultar Aves', event);" style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Consultar Aves
-      </a>
+      </button>
     </div>
   </div>
 
@@ -73,11 +73,11 @@
     </button>
   </div>
 
-  <!-- Botão Azul de Compartilhamento Dinâmico -->
+  <!-- Botão Azul de Compartilhamento Dinâmico Reconfigurado -->
   <div style="text-align: center; margin-bottom: 20px;">
-      <a href="javascript:void(0);" onclick="tratarCompartilhamentoLink();" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); text-decoration: none; box-sizing: border-box;">
+      <button type="button" onclick="tratarCompartilhamentoLink(event);" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); text-decoration: none; box-sizing: border-box;">
           🔗 Compartilhar Link da Página
-      </a>
+      </button>
   </div>
 
   <!-- Seção Central de Alerta Cinza -->
@@ -87,9 +87,9 @@
       Já fez o Pix? Confirme seu pedido, envie o comprovante e adicione-me para receber o aviso de quando eu estiver saindo para a entrega!
     </p>
     
-    <a href="javascript:void(0);" onclick="dispararFluxoPedido('Envio de Comprovante Direto');" style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center;">
+    <button type="button" onclick="dispararFluxoPedido('Envio de Comprovante Direto', event);" style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; border: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center; cursor: pointer;">
        🔔 Enviar Comprovante / Avisarei Saído para Entrega
-    </a>
+    </button>
   </div>
 
   <!-- Rodapé Técnico com Entrada Secreta do ADM -->
