@@ -38,22 +38,22 @@
 
     <!-- 4 Botões Principais Lado a Lado -->
     <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; box-sizing: border-box; width: 100%;">
-      <button onclick="validarFormulario('Pedir Ovos')" 
+      <button type="button" onclick="validarFormulario('Pedir Ovos')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Ovos
       </button>
       
-      <button onclick="validarFormulario('Pedir Esterco')" 
+      <button type="button" onclick="validarFormulario('Pedir Esterco')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Pedir Esterco
       </button>
 
-      <button onclick="validarFormulario('Ver Conservas')" 
+      <button type="button" onclick="validarFormulario('Ver Conservas')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Ver Conservas
       </button>
       
-      <button onclick="validarFormulario('Consultar Aves')" 
+      <button type="button" onclick="validarFormulario('Consultar Aves')" 
          style="background: #25d366; color: white; padding: 10px 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 0.85em; text-align: center; flex: 1; min-width: 105px; box-sizing: border-box; cursor: pointer;">
          🟢 Consultar Aves
       </button>
@@ -71,17 +71,21 @@
     </div>
     
     <p style="font-size: 0.85em; margin-bottom: 6px;"><strong>Chave Pix (Aleatória):</strong></p>
-    <div id="codigoPix" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.85em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+    
+    <!-- Campo Input invisível estruturado para garantir cópia limpa no mobile sem travar cliques de baixo -->
+    <input type="text" id="inputPixOculto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" style="position: absolute; left: -9999px;">
+    
+    <div id="codigoPixTexto" style="background: #fff; padding: 8px; border: 1px dashed #f57f17; display: block; border-radius: 4px; font-family: monospace; font-weight: bold; color: #333; margin: 0 auto 12px auto; font-size: 0.85em; text-align: center; width: 100%; box-sizing: border-box; word-break: break-all;">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
     
     <!-- Botão Copiar e Colar Unificado -->
-    <button onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 5px;">
+    <button type="button" onclick="copiarCodigoPix()" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 5px;">
         📋 Copiar Código PIX
     </button>
   </div>
 
-  <!-- Botão Azul de Compartilhamento Dinâmico (Sinal nos dois Sentidos) -->
+  <!-- Botão Azul de Compartilhamento Dinâmico -->
   <div style="text-align: center; margin-bottom: 20px;">
-      <button onclick="executarCompartilhamento()" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
+      <button type="button" onclick="executarCompartilhamento()" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
           🔗 Compartilhar Link da Página
       </button>
   </div>
@@ -93,7 +97,7 @@
       Já fez o Pix? Confirme seu pedido, envie o comprovante e adicione-me para receber o aviso de quando eu estiver saindo para a entrega!
     </p>
     
-    <button onclick="validarFormulario('Envio de Comprovante Direto')" 
+    <button type="button" onclick="validarFormulario('Envio de Comprovante Direto')" 
        style="display: block; background: #ff9800; color: white; padding: 12px 10px; border-radius: 6px; border: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; width: 100%; box-sizing: border-box; text-align: center; cursor: pointer;">
        🔔 Enviar Comprovante / Avisarei Saído para Entrega
     </button>
@@ -114,9 +118,3 @@
   <div id="painelControlAdm" style="display: none; background: #222; color: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; box-sizing: border-box; width: 100%; border-left: 8px solid #007bff; text-align: left; font-family: monospace;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 8px; margin-bottom: 15px;">
         <strong style="color: #007bff; font-size: 1.1em;">🔒 TORRE DE CONTROLE ADM — JOSÉ CARLOS SUGUIMOTO</strong>
-        <button onclick="fecharPainelAdm()" style="background: #d63031; color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">X Sair</button>
-    </div>
-    
-    <!-- MARCADOR DE AUDITORIA DE PROCESSO -->
-    <div style="background: #333; padding: 8px; border-radius: 4px; margin-bottom: 12px; border: 1px solid #444;">
-      <p style="margin: 0; font-size: 11px; color: #aaa;">🔢 CONTROLE REGRESSIVO DE AUDITORIA:</p>
