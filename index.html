@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos Jumbo</title>
     <style>
+        /* CSS REFORÇADO E NATIVO - CORES DA MARCA E BORDAS AJUSTADAS */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; 
@@ -18,27 +19,30 @@
         header {
             width: 100%; max-width: 420px;
             background: linear-gradient(to right, #065f46, #047857);
-            color: white; text-align: center; padding: 20px 16px;
-            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+            color: white; text-align: center; padding: 22px 16px;
+            border-bottom-left-radius: 14px; border-bottom-right-radius: 14px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        header h1 { font-size: 22px; text-transform: uppercase; }
+        header h1 { font-size: 22px; text-transform: uppercase; letter-spacing: 0.5px; }
         header p { font-size: 11px; color: #a7f3d0; margin-top: 4px; font-family: monospace; }
         .tag-seguro {
             display: inline-block; background-color: rgba(22, 101, 54, 0.8);
-            font-size: 11px; padding: 3px 10px; border-radius: 9999px;
-            margin-top: 6px; font-weight: bold; border: 1px solid #4ade80;
+            font-size: 11px; padding: 4px 12px; border-radius: 9999px;
+            margin-top: 8px; font-weight: bold; border: 1px solid #4ade80;
+            letter-spacing: 0.5px;
         }
         .tag-entrega {
             display: inline-block; background-color: rgba(6, 78, 59, 0.6);
-            font-size: 11px; padding: 4px 12px; border-radius: 9999px;
+            font-size: 11px; padding: 6px 14px; border-radius: 9999px;
             border: 1px solid rgba(16, 185, 129, 0.3); margin-top: 10px;
+            line-height: 1.3;
         }
         main { width: 100%; max-width: 420px; padding: 16px; flex-grow: 1; }
         .flex-end { display: flex; justify-content: flex-end; margin-bottom: 12px; }
         .btn-azul {
             background-color: #2563eb; color: white; font-size: 11px; font-weight: bold;
             padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         .card-estoque {
             background-color: white; border-left: 4px solid #d97706;
@@ -47,46 +51,59 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .card-estoque h3 { font-size: 13px; font-weight: bold; }
+        .card-estoque p { font-size: 11px; color: #6b7280; margin-top: 2px; }
         .badge-estoque {
             background-color: #fef3c7; color: #92400e; font-family: monospace;
-            font-weight: bold; font-size: 13px; padding: 2px 10px; border-radius: 9999px;
+            font-weight: bold; font-size: 14px; padding: 3px 12px; border-radius: 9999px;
+            border: 1px solid #fde68a;
+        }
+        .txt-economia-local {
+            background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;
+            padding: 8px 12px; text-align: center; font-size: 11px; color: #166534;
+            font-weight: 500; margin-bottom: 12px; line-height: 1.3;
         }
         .card-produto {
             background-color: white; border-radius: 12px; border: 1px solid #e5e7eb;
             padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .card-topo { display: flex; justify-content: space-between; align-items: center; }
-        .card-topo h2 { font-size: 16px; font-weight: bold; }
-        .badge-preco { background-color: #dcfce7; color: #166534; font-size: 12px; padding: 4px 8px; border-radius: 9999px; font-weight: bold; }
+        .card-topo h2 { font-size: 16px; font-weight: bold; color: #111827; }
+        .badge-preco { background-color: #dcfce7; color: #166534; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #bbf7d0; }
         .card-produto p { font-size: 13px; color: #4b5563; margin-top: 6px; line-height: 1.4; }
         .btn-verde-zap {
             display: block; width: 100%; background-color: #16a34a; color: white;
             text-align: center; text-decoration: none; font-weight: bold;
-            padding: 10px 16px; border-radius: 8px; font-size: 13px; margin-top: 12px;
+            padding: 11px 16px; border-radius: 8px; font-size: 13px; margin-top: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .card-validacao {
             background-color: white; border-radius: 12px; border: 1px solid #e5e7eb;
             padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .card-validacao h2 { font-size: 14px; font-weight: bold; margin-bottom: 12px; border-bottom: 1px solid #f3f4f6; padding-bottom: 6px; }
+        .card-validacao h2 { font-size: 14px; font-weight: bold; margin-bottom: 12px; border-bottom: 1px solid #f3f4f6; padding-bottom: 6px; color: #111827; }
         .card-validacao label { display: block; font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px; }
         .card-validacao input {
             width: 100%; border: 1px solid #d1d5db; border-radius: 6px;
             padding: 10px; font-family: monospace; font-size: 14px; margin-bottom: 10px; outline: none;
+            background-color: #f9fafb;
         }
+        .card-validacao input:focus { border-color: #059669; }
         .alerta-operacional {
             font-size: 11px; color: #047857; background-color: #ecfdf5;
             padding: 8px; border-radius: 6px; text-align: center; margin-bottom: 10px; font-weight: bold;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         .btn-validar {
             width: 100%; background-color: #047857; color: white; font-weight: bold;
             padding: 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .card-pix-rodape {
             background-color: white; border: 1px solid #e5e7eb; border-radius: 12px;
-            padding: 16px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 18px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 8px;
         }
-        .badge-pix { display: inline-block; background-color: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .badge-pix { display: inline-block; background-color: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; font-family: monospace; }
         .box-qrcode-compacto {
             display: block; margin: 8px auto; background-color: #f9fafb;
             padding: 8px; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 160px;
@@ -98,41 +115,50 @@
             color: #1e3a8a; font-size: 12px; margin: 6px 0; word-break: break-all; text-align: center;
         }
         .btn-copiar {
-            background-color: #1e40af; color: white; font-size: 11px; font-weight: bold;
-            padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; margin-bottom: 10px;
-            width: 100%; max-width: 200px;
+            background-color: #1e40af; color: white; font-size: 12px; font-weight: bold;
+            padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; margin-bottom: 12px;
+            width: 100%; max-width: 220px; transition: background-color 0.1s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .btn-copiar:active { background-color: #1d4ed8; }
         footer {
             width: 100%; max-width: 420px; background-color: #111827; color: #9ca3af;
-            text-align: center; padding: 12px; font-size: 10px; font-family: monospace; border-radius: 12px 12px 0 0;
+            text-align: center; padding: 14px; font-size: 10px; font-family: monospace; border-radius: 12px 12px 0 0;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <!-- TORRE DE CONTROLE COM CADEADO DE SEGURANÇA -->
+    <!-- TORRE DE CONTROLE PRINCIPAL COM CADEADO -->
     <header>
         <h1>🦅 Mairiporã Agro</h1>
         <p>Criatório de Alta Engenharia & Logística Organizada</p>
         <div><span class="tag-seguro">🔒 SITE SEGURO</span></div>
-        <div class="tag-entrega">🚚 Entregas na Rodoviária de Mairiporã . TERÇAS e SEXTAS . </div>
+        <div class="tag-entrega">🚚 Entregas na Rodoviária de Mairiporã<br><b>TERÇAS e SEXTAS</b></div>
     </header>
 
     <main>
+        <!-- BOTÃO COMPARTILHAR -->
         <div class="flex-end">
             <button onclick="compartilharSite()" class="btn-azul">📢 Compartilhar Site</button>
         </div>
 
+        <!-- PAINEL DE ESTOQUE REVISADO -->
         <div class="card-estoque">
             <div>
                 <h3>Estoque de Hoje</h3>
-                <p>Produção Artesanal - Agricultura Familiar . Estamos ajudando a movimentar a Economia LOCAL " MAIRIPORÃ "</p>
+                <p>Produção Artesanal - Agricultura Familiar</p>
             </div>
             <span class="badge-estoque">3 Cartelas</span>
         </div>
 
-        <!-- PRODUTO -->
+        <!-- MANIFESTO DE ECONOMIA LOCAL -->
+        <div class="txt-economia-local">
+            🌱 Estamos ajudando a movimentar a Economia LOCAL de <b>"MAIRIPORÃ"</b>
+        </div>
+
+        <!-- CARD DO PRODUTO: JUMBO -->
         <div class="card-produto">
             <div class="card-topo">
                 <h2>🥚 Ovos de Codorna Jumbo</h2>
@@ -144,7 +170,7 @@
             </a>
         </div>
 
-        <!-- SIMULADOR OPERACIONAL -->
+        <!-- FECHAMENTO E VALIDAÇÃO DE LOGÍSTICA -->
         <div class="card-validacao">
             <h2>📊 Fechar Pedido</h2>
             <div>
@@ -157,42 +183,12 @@
             <button onclick="validarPedido()" class="btn-validar">✅ Validar Pedido</button>
         </div>
 
-        <!-- PIX DO BRADESCO COM COPIA E COLA -->
+        <!-- PAINEL PIX COM GERENCIADOR DE CÓPIA BLINDADO -->
         <div class="card-pix-rodape">
             <span class="badge-pix">🔑 CHAVE PIX COMERCIAL</span>
-            <p style="font-size: 13px; font-weight: bold; color: #374151;">Pix Bradesco - Mairiporã Agro</p>
+            <p style="font-size: 13px; font-weight: bold; color: #374151; margin-bottom: 6px;">Pix Bradesco - Mairiporã Agro</p>
             
             <div class="box-qrcode-compacto">
                 <img src="qrcode-pagamento.png" alt="QR Code Pix Oficial">
             </div>
 
-            <p style="font-size: 10px; font-weight: bold; color: #6b7280; text-transform: uppercase;">Chave Aleatória Bradesco JOSÉ CARLOS SUGUIMOTO:</p>
-            <div class="chave-pix" id="chavePixText">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
-            
-            <button onclick="copiarChavePix()" class="btn-copiar">📋 Copiar Chave Pix</button>
-
-            <p style="font-size: 11px; color: #4b5563; margin-top: 4px;">Pague pelo QR Code ou copie a chave e chame no Zap!<br><b>🍕 BOM APETITE! 🥤</b></p>
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório · </p>
-    </footer>
-
-    <script>
-        function validarPedido() {
-            const input = document.getElementById('valorPedido');
-            const valor = parseFloat(input.value);
-            if (isNaN(valor) || valor <= 0) {
-                alert("❌ Erro na digitação!\nInsira um valor numérico válido.");
-                return;
-            }
-            if (valor < 11.00) {
-                alert("❌ Erro na digitação!\nO sistema não aceita valores menores que R$ 11,00 para proteger a logística da Rodoviária.");
-                input.focus();
-            } else {
-                alert("✅ VALOR VALIDADO!\nO valor de R$ " + valor.toFixed(2) + " está liberado.\n\nUse o QR Code ou copie a chave abaixo para pagar e envie o comprovante no Zap!");
-            }
-        }
-
-        function copiarChavePix() {
