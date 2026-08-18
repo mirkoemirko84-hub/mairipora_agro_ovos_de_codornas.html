@@ -38,32 +38,42 @@
     </style>
 </head>
 <body>
+    <!-- TORRE DE CONTROLE PRINCIPAL COM CADEADO -->
     <header>
         <h1>🦅 Mairiporã Agro</h1>
         <p>Criatório de Alta Engenharia & Logística Organizada</p>
         <div><span class="tag-seguro">🔒 SITE SEGURO</span></div>
         <div class="tag-entrega">🚚 Entregas na Rodoviária de Mairiporã<br><b>TERÇAS e SEXTAS</b></div>
     </header>
+
     <main>
+        <!-- BOTÃO COMPARTILHAR -->
         <div class="flex-end"><button onclick="compartilharSite()" class="btn-azul">📢 Compartilhar Site</button></div>
+
+        <!-- PAINEL DE ESTOQUE REVISADO -->
         <div class="card-estoque">
             <div><h3>Estoque de Hoje</h3><p>Produção Artesanal - Agricultura Familiar</p></div>
             <span class="badge-estoque">3 Cartelas</span>
         </div>
+
+        <!-- MANIFESTO DE ECONOMIA LOCAL -->
         <div class="txt-economia-local">🌱 Estamos ajudando a movimentar a Economia LOCAL de <b>"MAIRIPORÃ"</b></div>
         
+        <!-- CARD DO PRODUTO: JUMBO -->
         <div class="card-produto">
             <div class="card-topo"><h2>🥚 Ovos de Codorna Jumbo</h2><span class="badge-preco">R$ 13,00</span></div>
             <p>Padrão selecionado, frescor total direto do criatório. Rastreio sequencial JCS ativo.</p>
-            <!-- SCRIPT DE DISPARO AUTOMÁTICO INTEGRADO E CONSOLIDADO CONTRA SITES FALSOS -->
-            <a href="https://wa.me!" target="_blank" class="btn-verde-zap">🟢 Pedir Ovos no Zap</a>
+            <!-- LINK LIMPO: SÓ ABRE A CONVERSA DIRETA PARA ENVIAR O COMPROVANTE -->
+            <a href="https://wa.me" target="_blank" class="btn-verde-zap">🟢 Pedir Ovos no Zap</a>
         </div>
 
+        <!-- DESTAQUE OPERACIONAL DE AGENDAMENTO -->
         <div class="card-confirmacao">
             <h4>📢 AÇÃO NECESSÁRIA EM "ME ADICIONE":</h4>
             <p>Após clicar no botão verde acima, confirme sua compra e o envio do comprovante para o produtor liberar a mensagem: <b>"Estou indo entregar hoje!"</b></p>
         </div>
 
+        <!-- PAINEL PIX COM GERENCIADOR DE CÓPIA BLINDADO -->
         <div class="card-pix-rodape">
             <span class="badge-pix">🔑 CHAVE PIX COMERCIAL</span>
             <p style="font-size: 13px; font-weight: bold; color: #374151; margin-bottom: 6px;">Pix Bradesco - Mairiporã Agro</p>
@@ -73,6 +83,7 @@
             <button onclick="copyChavePix()" class="btn-copiar">📋 Copiar Chave Pix</button>
             <p style="font-size: 11px; color: #4b5563; margin-top: 4px;">Pague pelo QR Code ou copie a chave e chame no Zap!<br><b>🍕 BOM APETITE! 🥤</b></p>
             
+            <!-- RECIBO DIGITAL EMISSÃO AUTOMÁTICA -->
             <div class="card-recibo">
                 🧾 RECIBO DE QUITAÇÃO DIGITAL:<br>
                 PIX RECEBIDO PELO SISTEMA DE PIX DO BRADESCO - JOSÉ CARLOS SUGUIMOTO - JCS_CRIATÓRIO<br>
@@ -80,7 +91,9 @@
             </div>
         </div>
     </main>
+
     <footer><p>© 2026 . Mairiporã Agro · JCS_software . JCS_CRIATÓRIO</p></footer>
+
     <script>
         function copyChavePix() {
             const txt = document.getElementById('chavePixText').innerText;
@@ -91,7 +104,7 @@
             try { document.execCommand('copy'); alert("✅ Chave Pix copiada!"); } catch (err) { alert("❌ Selecione a chave manualmente para copiar."); }
             document.body.removeChild(ta);
         }
-        function compartilharSite() {
+        function compartirSite() {
             const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
             if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { fallback(window.location.href); alert("🔗 Link do site copiado!"); }
         }
