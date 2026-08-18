@@ -1,4 +1,249 @@
-        <!-- TRECHO DE FECHAMENTO - COPIE E COLE DAQUI ATÉ O FINAL DO ARQUIVO -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro - Criatório de Alta Engenharia</title>
+    <style>
+        /* CSS REFORÇADO E NATIVO - PROTEÇÃO TOTAL CONTRA ERROS DE CARREGAMENTO */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #f3f4f6; 
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            max-width: 448px;
+            background: linear-gradient(to right, #065f46, #047857);
+            color: white;
+            text-align: center;
+            padding: 24px 16px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 24px; text-transform: uppercase; letter-spacing: 0.5px; }
+        header p { font-size: 12px; color: #a7f3d0; font-family: monospace; margin-top: 4px; }
+        .tag-entrega {
+            display: inline-block;
+            background-color: rgba(6, 78, 59, 0.6);
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-top: 12px;
+            font-weight: 500;
+        }
+        main { width: 100%; max-width: 448px; padding: 20px 16px; flex-grow: 1; }
+        .flex-end { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+        
+        /* BOTÃO AZUL DE COMPARTILHAMENTO */
+        .btn-azul {
+            background-color: #2563eb;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.1s;
+        }
+        .btn-azul:active { transform: scale(0.95); }
+
+        /* CARD DE ESTOQUE AMBER */
+        .card-estoque {
+            background-color: white;
+            border-left: 4px solid #d97706;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .card-estoque h3 { font-size: 14px; color: #374151; font-weight: bold; }
+        .card-estoque p { font-size: 12px; color: #6b7280; }
+        .badge-estoque {
+            background-color: #fef3c7;
+            color: #92400e;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            border: 1px solid #fde68a;
+        }
+
+        /* CARDS DO CATÁLOGO DE VENDAS */
+        .card-produto {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card-topo { display: flex; justify-content: space-between; align-items: center; }
+        .card-topo h2 { font-size: 18px; font-weight: bold; color: #111827; }
+        .badge-status-ok { background-color: #dcfce7; color: #166534; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #bbf7d0; }
+        .badge-status-consulta { background-color: #fef3c7; color: #92400e; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #fde68a; }
+        .badge-status-breve { background-color: #dbeafe; color: #1e40af; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #bfdbfe; }
+        .card-produto p { font-size: 13px; color: #4b5563; margin-top: 6px; line-height: 1.4; }
+        
+        /* BOTÕES VERDES DO ZAP */
+        .btn-verde-zap {
+            display: block;
+            width: 100%;
+            background-color: #16a34a;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background-color 0.2s;
+        }
+        .btn-verde-zap:hover { background-color: #15803d; }
+
+        /* BLOCO DE VALIDAÇÃO DE PREÇO */
+        .card-validacao {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card-validacao h2 { font-size: 16px; font-weight: bold; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 16px; }
+        .card-validacao label { display: block; font-size: 12px; font-weight: bold; color: #4b5563; text-transform: uppercase; margin-bottom: 6px; }
+        .card-validacao input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 15px;
+            background-color: #f9fafb;
+            outline: none;
+            margin-bottom: 12px;
+        }
+        .alerta-operacional {
+            font-size: 11px;
+            color: #047857;
+            background-color: #ecfdf5;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .btn-validar {
+            width: 100%;
+            background-color: #047857;
+            color: white;
+            font-weight: bold;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* BLOCO PIX E QR CODE CORRIGIDO */
+        .card-pix {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+        }
+        .badge-pix { display: inline-block; background-color: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; font-family: monospace; margin-bottom: 12px; }
+        .card-pix h4 { font-size: 14px; font-weight: bold; color: #374151; margin-bottom: 12px; }
+        .box-qrcode {
+            display: block;
+            margin: 12px auto;
+            background-color: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            max-width: 200px;
+        }
+        .box-qrcode img { width: 100%; height: auto; display: block; border-radius: 4px; }
+        .chave-pix {
+            display: inline-block;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #059669;
+            font-size: 15px;
+            user-select: all;
+            margin: 10px 0;
+        }
+        .txt-inferior { font-size: 11px; color: #6b7280; line-height: 1.4; margin-top: 8px; }
+
+        footer {
+            width: 100%;
+            max-width: 448px;
+            background-color: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 16px;
+            font-size: 11px;
+            font-family: monospace;
+            border-top: 1px solid #1f2937;
+            border-radius: 12px 12px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO / TORRE DE CONTROLE -->
+    <header>
+        <h1>🦅 Mairiporã Agro</h1>
+        <p>Criatório de Alta Engenharia & Logística Organizada</p>
+        <div class="tag-entrega">
+            🚚 Entregas às Terças e Sextas na Rodoviária de Mairiporã
+        </div>
+    </header>
+
+    <!-- SITE DE VENDAS REFORÇADO -->
+    <main>
+        <!-- COMPARTILHAMENTO -->
+        <div class="flex-end">
+            <button onclick="compartilharSite()" class="btn-azul">
+                📢 Compartilhar Site
+            </button>
+        </div>
+
+        <!-- PAINEL DE ESTOQUE -->
+        <div class="card-estoque">
+            <div>
+                <h3>Estoque Disponível</h3>
+                <p>Produção Artesanal - Agricultura Familiar</p>
+            </div>
+            <span class="badge-estoque">9 Cartelas Prontas</span>
+        </div>
+
         <!-- CARD 1: OVOS JUMBO -->
         <div class="card-produto">
             <div class="card-topo">
@@ -15,105 +260,3 @@
         <div class="card-produto">
             <div class="card-topo">
                 <h2>🪶 Esterco Orgânico</h2>
-                <span class="badge-status-ok">OK</span>
-            </div>
-            <p>Nutrição de alta performance para sua horta, jardim ou plantio de qualidade.</p>
-            <a href="https://wa.me." target="_blank" class="btn-verde-zap">
-                🟢 Pedir Esterco no Zap
-            </a>
-        </div>
-
-        <!-- CARD 3: AVES E NOVINHAS -->
-        <div class="card-produto">
-            <div class="card-topo">
-                <h2>🐓 Aves e Novinhas</h2>
-                <span class="badge-status-consulta">Sob Consulta</span>
-            </div>
-            <p>Manejo genético qualificado e linhagem forte pronta para o seu criatório.</p>
-            <a href="https://wa.me." target="_blank" class="btn-verde-zap">
-                🟢 Consultar Aves no Zap
-            </a>
-        </div>
-
-        <!-- CARD 4: CONSERVAS ARTESANAIS -->
-        <div class="card-produto" style="opacity: 0.85;">
-            <div class="card-topo">
-                <h2>🥫 Conservas Artesanais</h2>
-                <span class="badge-status-breve">Em Breve</span>
-            </div>
-            <p>Sabor tradicional selecionado e envelopado com total segurança alimentar.</p>
-            <a href="https://wa.me!" target="_blank" class="btn-verde-zap">
-                🟢 Notificar-me no Zap
-            </a>
-        </div>
-
-        <!-- SIMULADOR COM TRAVA DE VALIDAÇÃO -->
-        <div class="card-validacao">
-            <h2>📊 Simular e Fechar Pedido</h2>
-            <div>
-                <label for="valorPedido">Digite o Valor Total do Pedido (R$):</label>
-                <input type="number" id="valorPedido" step="1.00" min="0" placeholder="Ex: 13.00">
-            </div>
-            <div class="alerta-operacional">
-                💡 Lembrete: Os botões <b>VERDES</b> acima abrem direto o seu Zap!
-            </div>
-            <button onclick="validarPedido()" class="btn-validar">
-                ✅ Validar Valor do Pedido
-            </button>
-        </div>
-
-        <!-- ÁREA PIX COM CONTÊINER PARA O QR CODE -->
-        <div class="card-pix">
-            <span class="badge-pix">🔑 Chave Pix Comercial</span>
-            <h4>Pix Bradesco - Mairiporã Agro Negócios</h4>
-            
-            <div class="box-qrcode">
-                <img src="qrcode-pagamento.png" alt="QR Code Pix Oficial">
-            </div>
-
-            <p style="font-size: 11px; font-weight: bold; color: #6b7280; text-transform: uppercase;">Chave Celular:</p>
-            <div class="chave-pix">11964856312</div>
-            <p class="txt-inferior">Efetue o pagamento pelo QR Code ou Chave e clique no botão verde do Zap correspondente para enviar o comprovante! <br><b>🍕 BOM APETITE! 🥤</b></p>
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2026 Mairiporã Agro. Todos os direitos reservados.</p>
-        <p>Gestão de Escala Comercial · JCS_software · Linhagem Jumbo</p>
-    </footer>
-
-    <script>
-        function validarPedido() {
-            const input = document.getElementById('valorPedido');
-            const valor = parseFloat(input.value);
-
-            if (isNaN(valor) || valor <= 0) {
-                alert("❌ Erro na digitação!\nPor favor, insira um valor numérico válido para o pedido.");
-                return;
-            }
-
-            // TRAVA DE SEGURANÇA MÍNIMA DE R$ 11,00
-            if (valor < 11.00) {
-                alert("❌ Erro na digitação!\nO sistema não aceita valores menores que R$ 11,00 para proteger a logística de entrega na Rodoviária.");
-                input.focus();
-            } else {
-                alert("✅ VALOR VALIDADO COM SUCESSO!\nO valor de R$ " + valor.toFixed(2) + " está liberado pelo sistema.\n\nAgora, utilize o QR Code abaixo para efetuar o pagamento e envie o comprovante em um dos botões do Zap acima!");
-            }
-        }
-
-        function compartilharSite() {
-            const dadosCompartilhamento = {
-                title: 'Mairiporã Agro',
-                text: 'Confira os Ovos Artesanais e produtos da Mairiporã Agro - Direto da Rodoviária!',
-                url: window.location.href
-            };
-            if (navigator.share) {
-                navigator.share(dadosCompartilhamento).catch((error) => console.log('Erro ao compartilhar', error));
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("🔗 Link do site copiado para a área de transferência! Agora você pode colar no Zap de quem quiser.");
-            }
-        }
-    </script>
-</body>
-</html>
