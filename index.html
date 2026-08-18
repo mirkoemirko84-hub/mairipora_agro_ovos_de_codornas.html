@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Criatório de Alta Engenharia</title>
-    <!-- Tailwind CSS v4 para estilização e bordas impecáveis -->
+    <!-- Links oficiais e completos do Tailwind e FontAwesome -->
     <script src="https://jsdelivr.net"></script>
-    <!-- FontAwesome para os ícones profissionais -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
@@ -23,7 +22,7 @@
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL (CATÁLOGO ENCAPSULADO COM AS BORDAS CORRETAS) -->
+    <!-- CONTEÚDO PRINCIPAL (CATÁLOGO DE PRODUTOS) -->
     <main class="max-w-md mx-auto w-full px-4 py-6 space-y-4 flex-grow">
         
         <!-- COMPARTILHAMENTO (BOTÃO AZUL NO TOPO) -->
@@ -33,7 +32,7 @@
             </button>
         </div>
 
-        <!-- PAINEL DE VENDAS / ESTOQUE ATUALIZADO (9 CARTELAS JUMBO) -->
+        <!-- PAINEL DE VENDAS / ESTOQUE DO DIA (9 CARTELAS JUMBO) -->
         <div class="bg-white border-l-4 border-amber-500 p-4 rounded-xl shadow-sm">
             <div class="flex justify-between items-center">
                 <div>
@@ -110,7 +109,7 @@
             </div>
         </div>
 
-        <!-- ÁREA DE FECHAMENTO DO PEDIDO E VALIDADO DA TRAVA -->
+        <!-- ÁREA DE FECHAMENTO DO PEDIDO E VALIDAÇÃO DA TRAVA -->
         <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm space-y-4">
             <h2 class="font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center gap-2">
                 <i class="fa-solid fa-calculator text-emerald-600"></i> Simular e Fechar Pedido
@@ -121,7 +120,7 @@
                 <input type="number" id="valorPedido" step="1.00" min="0" placeholder="Ex: 13.00" class="w-full border border-gray-300 rounded-lg p-2.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
             </div>
 
-            <!-- INDICAÇÃO OPERACIONAL DOS BOTÕES DE ZAP -->
+            <!-- INDICAÇÃO OPERACIONAL EXIGIDA -->
             <p class="text-[11px] text-emerald-700 bg-emerald-50 p-2 rounded-lg font-medium border border-emerald-200/50 text-center">
                 💡 Lembrete: Os botões <span class="font-bold text-green-700">VERDES</span> acima abrem direto o seu **Zap**!
             </p>
@@ -131,14 +130,15 @@
             </button>
         </div>
 
-        <!-- PAINEL DE PAGAMENTO COM IMAGEM DO QR CODE DO REPOSITÓRIO -->
+        <!-- DADOS DE PAGAMENTO COM QR CODE INTEGRADO -->
         <div class="bg-white border border-gray-200 rounded-xl p-5 text-center shadow-sm space-y-3">
             <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono tracking-wider">📱 Escaneie para Pagar</span>
             <p class="text-sm font-bold text-gray-700 font-mono">Pix Bradesco - Mairiporã Agro Negócios</p>
             
-            <!-- EXIBIÇÃO OFICIAL DA IMAGEM DO SEU REPOSITÓRIO -->
+            <!-- EXIBIÇÃO DO QR CODE DO SEU REPOSITÓRIO -->
             <div class="flex justify-center my-2 bg-gray-50 p-3 rounded-lg border border-gray-100 max-w-[200px] mx-auto shadow-inner">
                 <img src="qrcode-pagamento.png" alt="QR Code Pix" class="w-full h-auto rounded-md">
             </div>
 
             <p class="text-xs font-bold text-gray-500 uppercase tracking-tight">Chave Celular:</p>
+            <p class="text-sm bg-gray-100 border border-gray-200 py-1.5 px-3 rounded-lg inline-block font-mono font-bold text-emerald-600 select-all shadow-inner">
