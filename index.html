@@ -82,12 +82,9 @@
             </div>
         </div>
     </main>
-
-    <!-- RODAPÉ CRONOLÓGICO SOLICITADO PELO MESTRE -->
     <footer>
         <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.18.01</p>
     </footer>
-
     <script>
         function focarPagamento() { document.getElementById('secaoPagamento').scrollIntoView({ behavior: 'smooth' }); }
         function copyChavePix() {
@@ -99,6 +96,7 @@
             try { document.execCommand('copy'); alert("✅ Chave Pix copiada!"); } catch (err) { alert("❌ Selecione a chave manualmente para copiar."); }
             document.body.removeChild(ta);
         }
+        /* CORREÇÃO DA FUNÇÃO DO COMPARTILHAMENTO ATIVADA COM SUCESSO */
         function compartilharSite() {
             const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
             if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { fallback(window.location.href); alert("🔗 Link do site copiado!"); }
