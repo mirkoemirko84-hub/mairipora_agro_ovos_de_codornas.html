@@ -24,12 +24,22 @@
         .badge-preco { background: #dcfce7; color: #166534; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #bbf7d0; }
         .card-produto p { font-size: 13px; color: #4b5563; margin-top: 6px; line-height: 1.4; }
         .btn-verde-zap { display: block; width: 100%; background: #16a34a; color: white; text-align: center; text-decoration: none; font-weight: bold; padding: 11px 16px; border-radius: 8px; font-size: 13px; margin-top: 12px; }
+        
+        /* NOVO CARD OPERACIONAL DE CONFIRMAÇÃO */
+        .card-confirmacao { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center; }
+        .card-confirmacao h4 { font-size: 13px; color: #b45309; font-weight: bold; margin-bottom: 4px; }
+        .card-confirmacao p { font-size: 12px; color: #78350f; line-height: 1.4; }
+        
         .card-pix-rodape { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 8px; }
         .badge-pix { display: inline-block; background: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; font-family: monospace; }
         .box-qrcode-compacto { display: block; margin: 8px auto; background: #f9fafb; padding: 8px; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 160px; }
         .box-qrcode-compacto img { width: 100%; height: auto; display: block; border-radius: 4px; }
         .chave-pix { display: block; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 10px; border-radius: 6px; font-family: monospace; font-weight: bold; color: #1e3a8a; font-size: 12px; margin: 6px 0; word-break: break-all; }
         .btn-copiar { background: #1e40af; color: white; font-size: 12px; font-weight: bold; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; margin-bottom: 12px; width: 100%; max-width: 220px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* NOVO CARD DO RECIBO DIGITAL OFICIAL */
+        .card-recibo { background: #f0fdf4; border: 1px dashed #4ade80; border-radius: 10px; padding: 12px; margin-top: 14px; font-size: 11px; color: #14532d; font-family: monospace; font-weight: bold; line-height: 1.4; text-align: center; }
+        
         footer { width: 100%; max-width: 420px; background: #111827; color: #9ca3af; text-align: center; padding: 14px; font-size: 10px; font-family: monospace; border-radius: 12px 12px 0 0; }
     </style>
 </head>
@@ -51,8 +61,13 @@
         <div class="card-produto">
             <div class="card-topo"><h2>🥚 Ovos de Codorna Jumbo</h2><span class="badge-preco">R$ 13,00</span></div>
             <p>Padrão selecionado, frescor total direto do criatório. Rastreio sequencial JCS ativo.</p>
-            <!-- LINK UNIVERSAL BLINDADO CONTRA ERROS -->
             <a href="https://wa.me" target="_blank" class="btn-verde-zap">🟢 Pedir Ovos no Zap</a>
+        </div>
+
+        <!-- DESTAQUE OPERACIONAL DE AGENDAMENTO -->
+        <div class="card-confirmacao">
+            <h4>📢 AÇÃO NECESSÁRIA EM "ME ADICIONE":</h4>
+            <p>Após clicar no botão verde acima, confirme sua compra e o envio do comprovante para o produtor liberar a mensagem: <b>"Estou indo entregar hoje!"</b></p>
         </div>
 
         <div class="card-pix-rodape">
@@ -63,6 +78,13 @@
             <div class="chave-pix" id="chavePixText">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
             <button onclick="copyChavePix()" class="btn-copiar">📋 Copiar Chave Pix</button>
             <p style="font-size: 11px; color: #4b5563; margin-top: 4px;">Pague pelo QR Code ou copie a chave e chame no Zap!<br><b>🍕 BOM APETITE! 🥤</b></p>
+            
+            <!-- RECIBO DIGITAL EMISSÃO AUTOMÁTICA -->
+            <div class="card-recibo">
+                🧾 RECIBO DE QUITAÇÃO DIGITAL:<br>
+                PIX RECEBIDO PELO SISTEMA DE PIX DO BRADESCO - JOSÉ CARLOS SUGUIMOTO - JCS_CRIATÓRIO<br>
+                "AGRADECEMOS PELA SUA COMPRA"
+            </div>
         </div>
     </main>
     <footer><p>© 2026 . Mairiporã Agro · JCS_software . JCS_CRIATÓRIO</p></footer>
