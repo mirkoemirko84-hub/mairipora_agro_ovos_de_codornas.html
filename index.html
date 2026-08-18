@@ -24,12 +24,6 @@
         .badge-preco { background: #dcfce7; color: #166534; font-size: 12px; padding: 4px 10px; border-radius: 9999px; font-weight: bold; border: 1px solid #bbf7d0; }
         .card-produto p { font-size: 13px; color: #4b5563; margin-top: 6px; line-height: 1.4; }
         .btn-verde-zap { display: block; width: 100%; background: #16a34a; color: white; text-align: center; text-decoration: none; font-weight: bold; padding: 11px 16px; border-radius: 8px; font-size: 13px; margin-top: 12px; }
-        .card-validacao { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .card-validacao h2 { font-size: 14px; font-weight: bold; margin-bottom: 12px; border-bottom: 1px solid #f3f4f6; padding-bottom: 6px; }
-        .card-validacao label { display: block; font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px; }
-        .card-validacao input { width: 100%; border: 1px solid #d1d5db; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 14px; margin-bottom: 10px; outline: none; background: #f9fafb; }
-        .alerta-operacional { font-size: 11px; color: #047857; background: #ecfdf5; padding: 8px; border-radius: 6px; text-align: center; margin-bottom: 10px; font-weight: bold; border: 1px solid rgba(16, 185, 129, 0.2); }
-        .btn-validar { width: 100%; background: #047857; color: white; font-weight: bold; padding: 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; text-transform: uppercase; }
         .card-pix-rodape { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 8px; }
         .badge-pix { display: inline-block; background: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; font-family: monospace; }
         .box-qrcode-compacto { display: block; margin: 8px auto; background: #f9fafb; padding: 8px; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 160px; }
@@ -53,18 +47,14 @@
             <span class="badge-estoque">3 Cartelas</span>
         </div>
         <div class="txt-economia-local">🌱 Estamos ajudando a movimentar a Economia LOCAL de <b>"MAIRIPORÃ"</b></div>
+        
         <div class="card-produto">
             <div class="card-topo"><h2>🥚 Ovos de Codorna Jumbo</h2><span class="badge-preco">R$ 13,00</span></div>
             <p>Padrão selecionado, frescor total direto do criatório. Rastreio sequencial JCS ativo.</p>
-            <!-- LINK DO WHATSAPP CORRIGIDO E BLINDADO CONTRA ERROS -->
-            <a href="https://wa.me." target="_blank" class="btn-verde-zap">🟢 Pedir Ovos no Zap</a>
+            <!-- LINK UNIVERSAL E DIRETO PARA O WHATSAPP -->
+            <a href="https://whatsapp.com." target="_blank" class="btn-verde-zap">🟢 Pedir Ovos no Zap</a>
         </div>
-        <div class="card-validacao">
-            <h2>📊 Fechar Pedido</h2>
-            <div><label for="valorPedido">Digite o Valor Total (R$):</label><input type="number" id="valorPedido" step="1.00" placeholder="Ex: 13.00"></div>
-            <div class="alerta-operacional">💡 Lembrete: O botão <b>VERDE</b> acima abre direto seu Zap!</div>
-            <button onclick="validarPedido()" class="btn-validar">✅ Validar Pedido</button>
-        </div>
+
         <div class="card-pix-rodape">
             <span class="badge-pix">🔑 CHAVE PIX COMERCIAL</span>
             <p style="font-size: 13px; font-weight: bold; color: #374151; margin-bottom: 6px;">Pix Bradesco - Mairiporã Agro</p>
@@ -77,12 +67,6 @@
     </main>
     <footer><p>© 2026 . Mairiporã Agro · JCS_software . JCS_CRIATÓRIO</p></footer>
     <script>
-        function validarPedido() {
-            const input = document.getElementById('valorPedido'); const valor = parseFloat(input.value);
-            if (isNaN(valor) || valor <= 0) { alert("❌ Erro na digitação!\nInsira um valor numérico válido."); return; }
-            if (valor < 11.00) { alert("❌ Erro na digitação!\nO sistema não aceita valores menores que R$ 11,00 para proteger a logística da Rodoviária."); input.focus(); }
-            else { alert("✅ VALOR VALIDADO!\nO valor de R$ " + valor.toFixed(2) + " está liberado.\n\nUse o QR Code ou copie a chave abaixo para pagar e envie o comprovante no Zap!"); }
-        }
         function copyChavePix() {
             const txt = document.getElementById('chavePixText').innerText;
             if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(() => { alert("✅ Chave Pix copiada!"); }).catch(() => fallback(txt)); } else { fallback(txt); }
@@ -96,3 +80,6 @@
             const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
             if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { fallback(window.location.href); alert("🔗 Link do site copiado!"); }
         }
+    </script>
+</body>
+</html>
