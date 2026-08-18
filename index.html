@@ -24,6 +24,11 @@
         }
         header h1 { font-size: 22px; text-transform: uppercase; }
         header p { font-size: 11px; color: #a7f3d0; margin-top: 4px; font-family: monospace; }
+        .tag-seguro {
+            display: inline-block; background-color: rgba(22, 101, 54, 0.8);
+            font-size: 11px; padding: 3px 10px; border-radius: 9999px;
+            margin-top: 6px; font-weight: bold; border: 1px solid #4ade80;
+        }
         .tag-entrega {
             display: inline-block; background-color: rgba(6, 78, 59, 0.6);
             font-size: 11px; padding: 4px 12px; border-radius: 9999px;
@@ -88,9 +93,16 @@
         }
         .box-qrcode-compacto img { width: 100%; height: auto; display: block; border-radius: 4px; }
         .chave-pix {
-            display: inline-block; background-color: #f3f4f6; border: 1px solid #e5e7eb;
-            padding: 6px 12px; border-radius: 6px; font-family: monospace; font-weight: bold; color: #059669; font-size: 14px; margin: 6px 0;
+            display: block; background-color: #f3f4f6; border: 1px solid #e5e7eb;
+            padding: 10px; border-radius: 6px; font-family: monospace; font-weight: bold; 
+            color: #1e3a8a; font-size: 12px; margin: 6px 0; word-break: break-all; text-align: center;
         }
+        .btn-copiar {
+            background-color: #1e40af; color: white; font-size: 11px; font-weight: bold;
+            padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; margin-bottom: 10px;
+            width: 100%; max-width: 200px;
+        }
+        .btn-copiar:active { background-color: #1d4ed8; }
         footer {
             width: 100%; max-width: 420px; background-color: #111827; color: #9ca3af;
             text-align: center; padding: 12px; font-size: 10px; font-family: monospace; border-radius: 12px 12px 0 0;
@@ -99,10 +111,11 @@
 </head>
 <body>
 
-    <!-- TORRE DE CONTROLE MINIMIZADA -->
+    <!-- TORRE DE CONTROLE COM CADEADO DE SEGURANÇA -->
     <header>
         <h1>🦅 Mairiporã Agro</h1>
         <p>Criatório de Alta Engenharia & Logística Organizada</p>
+        <div><span class="tag-seguro">🔒 SITE SEGURO</span></div>
         <div class="tag-entrega">🚚 Entregas na Rodoviária de Mairiporã</div>
     </header>
 
@@ -119,7 +132,7 @@
             <span class="badge-estoque">3 Cartelas</span>
         </div>
 
-        <!-- FOCO EXCLUSIVO: APENAS OVOS JUMBO -->
+        <!-- PRODUTO -->
         <div class="card-produto">
             <div class="card-topo">
                 <h2>🥚 Ovos de Codorna Jumbo</h2>
@@ -144,7 +157,7 @@
             <button onclick="validarPedido()" class="btn-validar">✅ Validar Pedido</button>
         </div>
 
-        <!-- QR CODE POSICIONADO NO RODAPÉ COMPACTO -->
+        <!-- PIX DO BRADESCO COM COPIA E COLA -->
         <div class="card-pix-rodape">
             <span class="badge-pix">🔑 CHAVE PIX COMERCIAL</span>
             <p style="font-size: 13px; font-weight: bold; color: #374151;">Pix Bradesco - Mairiporã Agro</p>
@@ -153,14 +166,17 @@
                 <img src="qrcode-pagamento.png" alt="QR Code Pix Oficial">
             </div>
 
-            <p style="font-size: 10px; font-weight: bold; color: #6b7280; text-transform: uppercase;">Chave: Aleátorio Bradesco JOSE CARLOS SUGUIMOTO</p>
-            <div class="chave-pix">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
-            <p style="font-size: 11px; color: #4b5563; margin-top: 4px;">Pague pelo QR Code e chame no Zap!<br><b>🍕 BOM APETITE! 🥤</b></p>
+            <p style="font-size: 10px; font-weight: bold; color: #6b7280; text-transform: uppercase;">Chave Aleatória Bradesco JOSÉ CARLOS SUGUIMOTO:</p>
+            <div class="chave-pix" id="chavePixText">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+            
+            <button onclick="copiarChavePix()" class="btn-copiar">📋 Copiar Chave Pix</button>
+
+            <p style="font-size: 11px; color: #4b5563; margin-top: 4px;">Pague pelo QR Code ou copie a chave e chame no Zap!<br><b>🍕 BOM APETITE! 🥤</b></p>
         </div>
     </main>
 
     <footer>
-        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório · Site Seguro </p>
+        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório · Site Seguro</p>
     </footer>
 
     <script>
@@ -175,14 +191,8 @@
                 alert("❌ Erro na digitação!\nO sistema não aceita valores menores que R$ 11,00 para proteger a logística da Rodoviária.");
                 input.focus();
             } else {
-                alert("✅ VALOR VALIDADO!\nO valor de R$ " + valor.toFixed(2) + " está liberado.\n\nUse o QR Code abaixo para pagar e envie o comprovante no Zap! e para mim confirmar a sua reserva e avisar que esta indo para a entrega!");
+                alert("✅ VALOR VALIDADO!\nO valor de R$ " + valor.toFixed(2) + " está liberado.\n\nUse o QR Code ou copie a chave abaixo para pagar e envie o comprovante no Zap!");
             }
         }
-        function compartilharSite() {
-            const dados = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna!', url: window.location.href };
-            if (navigator.share) { navigator.share(dados).catch((e) => console.log(e)); }
-            else { navigator.clipboard.writeText(window.location.href); alert("🔗 Link copiado!"); }
-        }
-    </script>
-</body>
-</html>
+
+        function copiarChavePix() {
