@@ -4,141 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Criatório de Alta Engenharia</title>
-    <!-- Links oficiais e completos do Tailwind e FontAwesome -->
-    <script src="https://jsdelivr.net"></script>
-    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        /* CSS BLINDADO DE ALTA ENGENHARIA - SEM DEPENDÊNCIAS EXTERNAS */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #f3f4f6; 
+            color: #1f2937;
+            min-h-screen: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: linear-gradient(to right, #065f46, #047857);
+            color: white;
+            text-align: center;
+            padding: 24px 16px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 24px; text-transform: uppercase; letter-spacing: 0.5px; }
+        header p { font-size: 12px; color: #a7f3d0; font-family: monospace; margin-top: 4px; }
+        .tag-entrega {
+            display: inline-block;
+            background-color: rgba(6, 78, 59, 0.6);
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-top: 12px;
+        }
+        main { max-w: 448px; width: 100%; margin: 0 auto; padding: 24px 16px; flex-grow: 1; }
+        .flex-end { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+        
+        /* BOTÃO AZUL DE COMPARTILHAMENTO */
+        .btn-azul {
+            background-color: #2563eb;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.1s;
+        }
+        .btn-azul:active { transform: scale(0.95); }
+
+        /* CARD DE ESTOQUE AMBER */
+        .card-estoque {
+            background-color: white;
+            border-left: 4px solid #d97706;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .card-estoque h3 { font-size: 14px; color: #374151; font-weight: bold; }
+        .card-estoque p { font-size: 12px; color: #6b7280; }
+        .badge-estoque {
+            background-color: #fef3c7;
+            color: #92400e;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            border: 1px solid #fde68a;
+        }
+
+        /* CARDS DO CATÁLOGO */
+        .card-produto {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card-topo { display: flex; justify-content: space-between; align-items: start; }
+        .card-topo h2 { font-size: 18px; font-weight: bold; color: #111827; }
+        .badge-status-ok { background-color: #dcfce7; color: #166534; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: bold; border: 1px solid #bbf7d0; }
+        .badge-status-consulta { background-color: #fef3c7; color: #92400e; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: bold; border: 1px solid #fde68a; }
+        .badge-status-breve { background-color: #dbeafe; color: #1e40af; font-size: 12px; padding: 2px 8px; border-radius: 9999px; font-weight: bold; border: 1px solid #bfdbfe; }
+        .card-produto p { font-size: 14px; color: #4b5563; margin-top: 4px; }
+        
+        /* BOTÕES VERDES DO ZAP */
+        .btn-verde-zap {
+            display: block;
+            width: 100%;
+            background-color: #16a34a;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: background-color 0.2s;
+        }
+        .btn-verde-zap:hover { background-color: #15803d; }
+
+        /* BLOCO DE VALIDAÇÃO DE PREÇO */
+        .card-validacao {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card-validacao h2 { font-size: 16px; font-weight: bold; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 16px; }
+        .card-validacao label { display: block; font-size: 12px; font-weight: bold; color: #4b5563; text-transform: uppercase; margin-bottom: 4px; }
+        .card-validacao input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            background-color: #f9fafb;
+            outline: none;
+            margin-bottom: 12px;
+        }
+        .card-validacao input:focus { border-color: #059669; box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2); }
+        .alerta-operacional {
+            font-size: 11px;
+            color: #047857;
+            background-color: #ecfdf5;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .btn-validar {
+            width: 100%;
+            background-color: #047857;
+            color: white;
+            font-weight: bold;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .btn-validar:active { transform: scale(0.99); }
+
+        /* BLOCO PIX E QR CODE */
+        .card-pix {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .badge-pix { display: inline-block; background-color: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 2px 8px; rounded: 4px; text-transform: uppercase; font-family: monospace; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .card-pix h4 { font-size: 14px; font-weight: bold; color: #374151; font-family: monospace; }
+        .box-qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 12px auto;
+            background-color: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #f3f4f6;
+            max-width: 200px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .box-qrcode img { width: 100%; height: auto; border-radius: 4px; }
+        .chave-pix {
+            display: inline-block;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #059669;
+            font-size: 14px;
+            user-select: all;
+            margin: 8px 0;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .txt-inferior { font-size: 10px; color: #6b7280; line-height: 1.4; }
+
+        footer {
+            background-color: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 16px;
+            font-size: 12px;
+            font-family: monospace;
+            margin-top: 24px;
+            border-top: 1px solid #1f2937;
+        }
+        footer p + p { font-size: 10px; color: #4b5563; margin-top: 4px; }
+
+        /* SEÇÃO DE IMPRESSÃO DAS ETIQUETAS DO MESTRE */
+        @media screen { .area-etiquetas { display: none; } }
+        @media print {
+            body { background: white; color: black; }
+            main, header, footer { display: none !important; }
+            .area-etiquetas { display: block !important; }
+            .etiqueta { page-break-inside: avoid; border: 2px dashed #000; margin-bottom: 15px; padding: 12px; text-align: center; }
+            .etiqueta p { margin: 2px 0; }
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between selection:bg-green-200">
+<body>
 
-    <!-- CABEÇALHO / TORRE DE CONTROLE -->
-    <header class="bg-gradient-to-r from-green-800 to-emerald-700 text-white text-center py-6 px-4 shadow-md rounded-b-xl">
-        <h1 class="text-2xl font-bold tracking-wide uppercase">🦅 Mairiporã Agro</h1>
-        <p class="text-xs text-green-200 font-mono mt-1">Criatório de Alta Engenharia & Logística Organizada</p>
-        <div class="mt-3 inline-block bg-emerald-900/60 text-xs px-3 py-1 rounded-full border border-emerald-500/30">
+    <!-- CABEÇALHO DA TORRE DE CONTROLE -->
+    <header>
+        <h1>🦅 Mairiporã Agro</h1>
+        <p>Criatório de Alta Engenharia & Logística Organizada</p>
+        <div class="tag-entrega">
             🚚 Entregas às Terças e Sextas na Rodoviária de Mairiporã
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL (CATÁLOGO DE PRODUTOS) -->
-    <main class="max-w-md mx-auto w-full px-4 py-6 space-y-4 flex-grow">
+    <!-- CONTEÚDO PRINCIPAL: SITE DE VENDAS COMPLETO -->
+    <main>
         
-        <!-- COMPARTILHAMENTO (BOTÃO AZUL NO TOPO) -->
-        <div class="flex justify-end">
-            <button onclick="compartilharSite()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-lg shadow flex items-center gap-2 transition-all active:scale-95 cursor-pointer">
-                <i class="fa-solid fa-share-nodes"></i> Compartilhar Site
+        <!-- COMPARTILHAMENTO (BOTÃO AZUL) -->
+        <div class="flex-end">
+            <button onclick="compartilharSite()" class="btn-azul">
+                📢 Compartilhar Site
             </button>
         </div>
 
-        <!-- PAINEL DE VENDAS / ESTOQUE DO DIA (9 CARTELAS JUMBO) -->
-        <div class="bg-white border-l-4 border-amber-500 p-4 rounded-xl shadow-sm">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-gray-700">Estoque Disponível</h3>
-                    <p class="text-xs text-gray-500">Produção Artesanal - Agricultura Familiar</p>
-                </div>
-                <span class="bg-amber-100 text-amber-800 font-mono font-bold text-sm px-3 py-1 rounded-full border border-amber-300">
-                    9 Cartelas Prontas
-                </span>
-            </div>
-        </div>
-
-        <!-- CARD 1: OVOS ARTESANAIS JUMBO -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all hover:shadow-md">
-            <div class="p-4">
-                <div class="flex justify-between items-start">
-                    <h2 class="font-bold text-lg text-gray-900">🥚 Ovos de Codorna Jumbo</h2>
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-bold border border-green-300">R$ 13,00</span>
-                </div>
-                <p class="text-sm text-gray-600 mt-1">Padrão selecionado, frescor total direto do criatório. Rastreio sequencial JCS ativo.</p>
-                <div class="mt-4 flex gap-2">
-                    <a href="https://wa.me." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Pedir Ovos no Zap
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 2: ESTERCO ORGÂNICO -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all hover:shadow-md">
-            <div class="p-4">
-                <div class="flex justify-between items-start">
-                    <h2 class="font-bold text-lg text-gray-900">🪶 Esterco Orgânico</h2>
-                    <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-bold border border-green-300">OK</span>
-                </div>
-                <p class="text-sm text-gray-600 mt-1">Nutrição de alta performance para sua horta, jardim ou plantio de qualidade.</p>
-                <div class="mt-4 flex gap-2">
-                    <a href="https://wa.me." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Pedir Esterco no Zap
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 3: AVES E NOVINHAS -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all hover:shadow-md">
-            <div class="p-4">
-                <div class="flex justify-between items-start">
-                    <h2 class="font-bold text-lg text-gray-900">🐓 Aves e Novinhas</h2>
-                    <span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-bold border border-amber-300">Sob Consulta</span>
-                </div>
-                <p class="text-sm text-gray-600 mt-1">Manejo genético qualificado e linhagem forte pronta para o seu criatório.</p>
-                <div class="mt-4 flex gap-2">
-                    <a href="https://wa.me." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Consultar Aves no Zap
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 4: CONSERVAS ARTESANAIS -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all hover:shadow-md opacity-85">
-            <div class="p-4">
-                <div class="flex justify-between items-start">
-                    <h2 class="font-bold text-lg text-gray-900">🥫 Conservas Artesanais</h2>
-                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full font-bold border border-blue-300">Em Breve</span>
-                </div>
-                <p class="text-sm text-gray-600 mt-1">Sabor tradicional selecionado e envelopado com total segurança alimentar.</p>
-                <div class="mt-4 flex gap-2">
-                    <a href="https://wa.me!" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-2.5 px-4 rounded-lg text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Notificar-me no Zap
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ÁREA DE FECHAMENTO DO PEDIDO E VALIDAÇÃO DA TRAVA -->
-        <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm space-y-4">
-            <h2 class="font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center gap-2">
-                <i class="fa-solid fa-calculator text-emerald-600"></i> Simular e Fechar Pedido
-            </h2>
-            
+        <!-- PAINEL DE VENDAS: ESTOQUE ATUALIZADO -->
+        <div class="card-estoque">
             <div>
-                <label for="valorPedido" class="block text-xs font-bold text-gray-600 uppercase mb-1">Digite o Valor Total do Pedido (R$):</label>
-                <input type="number" id="valorPedido" step="1.00" min="0" placeholder="Ex: 13.00" class="w-full border border-gray-300 rounded-lg p-2.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-gray-50">
+                <h3>Estoque Disponível</h3>
+                <p>Produção Artesanal - Agricultura Familiar</p>
             </div>
-
-            <!-- INDICAÇÃO OPERACIONAL EXIGIDA -->
-            <p class="text-[11px] text-emerald-700 bg-emerald-50 p-2 rounded-lg font-medium border border-emerald-200/50 text-center">
-                💡 Lembrete: Os botões <span class="font-bold text-green-700">VERDES</span> acima abrem direto o seu **Zap**!
-            </p>
-
-            <button onclick="validarPedido()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-4 rounded-lg shadow transition-all active:scale-[0.99] cursor-pointer text-sm uppercase tracking-wider">
-                <i class="fa-solid fa-check-double"></i> Validar Valor do Pedido
-            </button>
+            <span class="badge-estoque">9 Cartelas Prontas</span>
         </div>
 
-        <!-- DADOS DE PAGAMENTO COM QR CODE INTEGRADO -->
-        <div class="bg-white border border-gray-200 rounded-xl p-5 text-center shadow-sm space-y-3">
-            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono tracking-wider">📱 Escaneie para Pagar</span>
-            <p class="text-sm font-bold text-gray-700 font-mono">Pix Bradesco - Mairiporã Agro Negócios</p>
-            
-            <!-- EXIBIÇÃO DO QR CODE DO SEU REPOSITÓRIO -->
-            <div class="flex justify-center my-2 bg-gray-50 p-3 rounded-lg border border-gray-100 max-w-[200px] mx-auto shadow-inner">
-                <img src="qrcode-pagamento.png" alt="QR Code Pix" class="w-full h-auto rounded-md">
-            </div>
-
-            <p class="text-xs font-bold text-gray-500 uppercase tracking-tight">Chave Celular:</p>
-            <p class="text-sm bg-gray-100 border border-gray-200 py-1.5 px-3 rounded-lg inline-block font-mono font-bold text-emerald-600 select-all shadow-inner">
+        <!-- CARD 1: OVOS JUMBO -->
+        <div class="card-produto">
+            <div class="card-topo">
