@@ -5,62 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #eef7f6; text-align: center; padding: 20px; color: #111111; display: flex; flex-direction: column; align-items: center; }
-        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); max-width: 450px; width: 100%; margin: auto; border: 2px solid #32bcad; box-sizing: border-box; text-align: center; }
+        body { font-family: 'Arial', sans-serif; background: #eef7f6; padding: 20px; color: #111111; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); max-width: 450px; width: 100%; margin: 0 auto; border: 2px solid #32bcad; box-sizing: border-box; text-align: center; }
         
-        /* 🟢 NOVA FRASE AJUSTADA COM EFEITO DE ETIQUETA DESTAQUE PRECO */
-        .selo-local { background: #27ae60; color: white; font-size: 13px; font-weight: bold; text-transform: uppercase; padding: 8px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(39,174,96,0.3); }
+        /* 🛒 SELO DE IMPACTO COM FONTES FORTES E CENTRALIZADAS */
+        .selo-local { background: #27ae60; color: white; font-size: 13px; text-transform: uppercase; padding: 8px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; letter-spacing: 0.5px; text-align: center; font-weight: normal; }
         
-        h1 { color: #111111; font-size: 28px; margin-bottom: 5px; text-align: center; }
-        h2 { color: #333333; font-size: 16px; margin-top: 0; margin-bottom: 20px; text-align: center; }
+        h1 { color: #111111; font-size: 28px; margin-bottom: 5px; text-align: center; font-weight: normal; }
+        h2 { color: #333333; font-size: 16px; margin-top: 0; margin-bottom: 20px; text-align: center; font-weight: normal; }
         
+        /* 🥚 HIERARQUIA INVERTIDA: BANDEJA MAIOR E PREÇO MENOR EMBAIXO */
         .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border: 2px solid #115e54; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .preco-box .titulo-bandeja { margin: 0; font-size: 34px; color: #111111; text-transform: uppercase; letter-spacing: 1.5px; }
-        .preco-box .valor-preco { color: #27ae60; font-size: 26px; margin-top: 10px; text-align: center; }
+        .preco-box .titulo-bandeja { margin: 0; font-size: 42px; color: #111111; text-transform: uppercase; letter-spacing: 2px; font-weight: normal; text-align: center; }
+        .preco-box .valor-preco { color: #27ae60; font-size: 22px; margin-top: 10px; text-align: center; font-weight: normal; }
         
-        /* 🛠️ ESTRUTURA DOS BOTÕES PARA NÃO DAR MANCADA */
-        .btn { border: none; padding: 15px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0; transition: background 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); display: block; text-decoration: none; box-sizing: border-box; text-align: center; color: white; }
+        /* 🛠️ ESTRUTURA DOS BOTÕES DIRETOS PARA NÃO DAR MANCADA */
+        .btn { border: none; padding: 15px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0; transition: background 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); display: block; text-decoration: none; box-sizing: border-box; text-align: center; color: white; font-weight: normal; }
         .btn-compra { background: #115e54; }
         .btn-compra:hover { background: #0b3f38; }
-        .btn-pix { background: #27ae60; }
-        .btn-pix:hover { background: #219653; }
         
-        /* CORES FORTES E DIRETAS */
+        /* 📱 CORES VIVAS DE ALTO CONTRASTE */
         .btn-zap { background: #e65100; }
         .btn-zap:hover { background: #b53f00; }
         .btn-share-zap { background: #34495e; }
         .btn-share-zap:hover { background: #22313f; }
         
-        .logistica-caixa { background: #f9f9f9; border: 2px solid #111111; padding: 20px; border-radius: 12px; margin-top: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-        .logistica-caixa p { margin: 0; font-size: 15px; color: #111111; text-align: center; width: 100%; }
+        /* 🚚 LOGÍSTICA EM ESCADINHA CENTRALIZADA SEM NEGRITO */
+        .logistica-caixa { background: #f9f9f9; border: 2px solid #111111; padding: 20px; border-radius: 12px; margin-top: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+        .logistica-caixa p { margin: 0; font-size: 15px; color: #111111; text-align: center; width: 100%; font-weight: normal; }
         
-        #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #111111; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; }
-        #secaoPagamento h3 { margin-top: 0; color: #111111; text-align: center; }
+        #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #111111; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        #secaoPagamento h3 { margin-top: 0; color: #111111; text-align: center; font-weight: normal; }
         #secaoPagamento img { max-width: 200px; margin: 15px 0; border-radius: 8px; border: 2px solid #111111; display: block; }
-        .aviso-comprovante { font-size: 14px; color: #c0392b; font-weight: bold; margin-top: 12px; text-align: center; line-height: 1.4; }
+        .aviso-comprovante { font-size: 14px; color: #c0392b; margin-top: 12px; text-align: center; line-height: 1.4; font-weight: normal; }
         
-        .alerta-caixa { background: #fff9e6; border: 2px solid #e65100; padding: 20px; border-radius: 10px; margin-top: 30px; }
-        .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 15px; text-transform: uppercase; text-align: center; }
-        .alerta-caixa p { margin: 0 0 15px 0; font-size: 14px; color: #111111; line-height: 1.4; text-align: center; }
-        footer { margin-top: 40px; font-size: 12px; color: #111111; font-family: monospace; text-align: center; width: 100%; }
+        .alerta-caixa { background: #fff9e6; border: 2px solid #e65100; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center; }
+        .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 15px; text-transform: uppercase; text-align: center; font-weight: normal; }
+        .alerta-caixa p { margin: 0 0 15px 0; font-size: 14px; color: #111111; line-height: 1.4; text-align: center; font-weight: normal; }
+        footer { margin-top: 40px; font-size: 12px; color: #111111; font-family: monospace; text-align: center; width: 100%; font-weight: normal; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- 🟢 NOVO SELO DE IMPACTO COM EFEITO PREMIUM -->
         <div class="selo-local">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! ✨</div>
 
         <h1>Mairiporã Agro</h1>
-        <h2>Ovos Artesanais de Codorna Jumbo! 🥚✨</h2>
+        <h2>Ovos Artesanais de Codorna Jumbo! 26.08.22.17 🥚✨</h2>
         
         <div class="preco-box">
+            <!-- TITULO JUMBO EM CIMA E PREÇO MENOR EMBAIXO -->
             <div class="titulo-bandeja">BANDEJA</div>
             <div class="valor-preco">R$ 13,00</div>
         </div>
 
-        <button class="btn btn-compra" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
+        <a href="#secaoPagamento" class="btn btn-compra">🛒 COMPRAR AGORA</a>
 
+        <!-- 🚚 LOGÍSTICA EM ESCADINHA INTEGRADA -->
         <div class="logistica-caixa">
             <p>📅 Dias de Entrega:</p>
             <p>Terças e Sextas-feiras</p>
@@ -70,9 +71,9 @@
 
         <div id="secaoPagamento">
             <h3>💳 Pagamento Seguro via Pix</h3>
-            <p style="font-size: 14px; color: #333333; text-align: center;">Escaneie o QR Code ou copie a chave abaixo:</p>
+            <p style="font-size: 14px; color: #333333; text-align: center;">Escaneie o QR Code ou use a chave no seu banco:</p>
             <img src="qrcode-pagamento.png" alt="QR Code Pix">
-            <button class="btn btn-pix" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
+            <!-- AVISO DE COMPROVANTE ATIVO -->
             <div class="aviso-comprovante">⚠️ ATENÇÃO: Envie o comprovante de pagamento pelo WhatsApp para confirmarmos sua compra!</div>
         </div>
 
@@ -80,10 +81,10 @@
             <h4>📢 INTERAÇÃO VIA WHATSAPP:</h4>
             <p>Seja cliente VIP para receber colheitas fresquinhas ou compartilhe nossa produção com seus amigos!</p>
             
-            <!-- 🚀 LINKS DIRETOS NO HTML SEM DEPENDER DE JAVASCRIPT: IMPEDE TRAVAMENTO NO CELULAR -->
-            <a href="https://whatsapp.com." target="_blank" class="btn btn-zap">📲 ME ADICIONE NO WHATSAPP</a>
+            <!-- 🚀 LINKS DIRETOS NO HTML SEM DEPENDER DE JAVASCRIPT: IMPEDE TRAVAMENTO NO COMPUTADOR E CELULAR -->
+            <a href="https://wa.me." target="_blank" class="btn btn-zap">📲 ME ADICIONE NO WHATSAPP</a>
             
-            <a href="https://whatsapp.com" target="_blank" class="btn btn-share-zap">📢 COMPARTILHAR SITE NO ZAP</a>
+            <a href="https://wa.me" target="_blank" class="btn btn-share-zap">📢 COMPARTILHAR SITE NO ZAP</a>
         </div>
     </div>
 
@@ -91,17 +92,5 @@
         <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.04</p>
     </footer>
 
-    <script>
-        function focarPagamento() { 
-            document.getElementById('secaoPagamento').scrollIntoView({ behavior: 'smooth' }); 
-        }
-        
-        function copyChavePix() {
-            var txt = "CHAVE_PIX_REAL_AQUI"; 
-            var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
-            try { document.execCommand('copy'); alert("✅ Chave Pix copiada!"); } catch (err) { alert("❌ Selecione a chave manualmente para copiar."); }
-            document.body.removeChild(ta);
-        }
-    </script>
 </body>
 </html>
