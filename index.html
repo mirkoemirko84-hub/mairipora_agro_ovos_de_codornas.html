@@ -8,8 +8,10 @@
         body { font-family: 'Arial', sans-serif; background: #eef7f6; padding: 20px; color: #111111; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 25px rgba(0,0,0,0.15); max-width: 450px; width: 100%; margin: 0 auto; border: 2px solid #32bcad; box-sizing: border-box; text-align: center; }
         
-        /* 🚨 NOVO RELÓGIO CRONOLÓGICO: FUNDO VERMELHO, LETRAS BRANCAS E CENTRALIZADO */
-        .relogio-online { background: #c0392b; color: white; font-size: 14px; padding: 6px 16px; border-radius: 6px; display: block; margin: 0 auto 20px auto; width: fit-content; text-align: center; font-family: monospace; letter-spacing: 1px; }
+        /* 🚨 RELÓGIO COM EFEITO PISCANTE AUTOMÁTICO JCS_SOFTWARE */
+        .relogio-online { background: #c0392b; color: white; font-size: 14px; padding: 8px 16px; border-radius: 6px; display: block; margin: 0 auto 20px auto; width: fit-content; text-align: center; font-family: monospace; letter-spacing: 1px; }
+        .piscar { animation: efeito-pisca 1s infinite; }
+        @keyframes efeito-pisca { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
         
         .selo-local { background: #27ae60; color: white; font-size: 13px; text-transform: uppercase; padding: 8px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; letter-spacing: 0.5px; text-align: center; }
         
@@ -23,9 +25,9 @@
         .btn { border: none; padding: 15px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0; transition: background 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); display: block; text-decoration: none; box-sizing: border-box; text-align: center; color: white; font-weight: normal; }
         .btn-compra { background: #115e54; }
         .btn-compra:hover { background: #0b3f38; }
-        
         .btn-pix { background: #27ae60; }
         .btn-pix:hover { background: #219653; }
+        
         .btn-zap { background: #e65100; }
         .btn-zap:hover { background: #b53f00; }
         .btn-share-zap { background: #34495e; }
@@ -48,13 +50,13 @@
 <body>
 
     <div class="container">
-        <!-- 🚨 CARIMBO DO RELÓGIO FIXADO ACIMA DE TUDO -->
-        <div class="relogio-online">⏱️ SISTEMA HOMOLOGADO: 22.08  .  17.13</div>
+        <!-- 🚨 CRONÔMETRO ATUALIZADO COM OS SEGUNDOS PISCANDO -->
+        <div class="relogio-online">⏱️ SISTEMA HOMOLOGADO: 22.08 . 17.13<span class="piscar">:00</span></div>
 
         <div class="selo-local">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! ✨</div>
 
         <h1>Mairiporã Agro</h1>
-        <h2>Ovos Artesanais de Codorna Jumbo! 26.08.22.17 🥚✨</h2>
+        <h2>Ovos Artesanais de Codorna Jumbo! 🥚✨</h2>
         
         <div class="preco-box">
             <div class="titulo-bandeja">BANDEJA</div>
@@ -81,7 +83,7 @@
             <h4>📢 INTERAÇÃO VIA WHATSAPP:</h4>
             <p>Seja cliente VIP para receber colheitas fresquinhas ou compartilhe nossa produção com seus amigos!</p>
             
-            <!-- 🚀 ROTA CORRIGIDA DA API DO ZAP - OPERAÇÃO LIMPA NO COMPUTADOR -->
+            <!-- 🚀 BOTÕES COM LINKS REAIS DA API MUNDIAL DO WHATSAPP: DESTRAVA TUDO NO AR -->
             <a href="https://whatsapp.com." target="_blank" class="btn btn-zap">📲 ME ADICIONE NO WHATSAPP</a>
             
             <a href="https://whatsapp.com" target="_blank" class="btn btn-share-zap">📢 COMPARTILHAR SITE NO ZAP</a>
@@ -89,7 +91,7 @@
     </div>
 
     <footer>
-        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.04</p>
+        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.05</p>
     </footer>
 
 </body>
