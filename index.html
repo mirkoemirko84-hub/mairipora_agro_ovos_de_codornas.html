@@ -62,7 +62,7 @@
             document.body.removeChild(ta);
         }
 
-        /* CORREÇÃO DA FUNÇÃO DO COMPARTILHAMENTO ATIVADA COM SUCESSO */
+        /* CORREÇÃO DA FUNÇÃO DO COMPARTILHAMENTO ATIVADA WITH SUCESSO */
         function compartilharSite() {
             const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
             if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { 
