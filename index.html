@@ -55,8 +55,8 @@
         <div class="alerta-caixa">
             <h4>📢 AÇÃO NECESSÁRIA EM "ME ADICIONE":</h4>
             <p>Seja nosso cliente VIP e receba as colheitas fresquinhas direto na sua porta!</p>
-            <!-- BOTÃO CORRIGIDO E TESTADO COM %20 NOS ESPAÇOS -->
-            <a href="https://wa.me." target="_blank" class="btn btn-zap">📲 ME ADICIONE NO WHATSAPP</a>
+            <!-- AJUSTADO: AGORA CHAMA A FUNÇÃO JAVASCRIPT IGUAL AOS OUTROS BOTÕES -->
+            <button class="btn btn-zap" onclick="abrirWhatsApp()">📲 ME ADICIONE NO WHATSAPP</button>
         </div>
     </div>
 
@@ -81,6 +81,14 @@
                 document.execCommand('copy'); document.body.removeChild(ta);
                 alert("🔗 Link do site copiado!"); 
             }
+        }
+
+        /* 📲 NOVA FUNÇÃO BLINDADA PARA O WHATSAPP REAL DO MESTRE */
+        function abrirWhatsApp() {
+            const numero = "5511964856312";
+            const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro.");
+            const urlCompleta = "https://whatsapp.com" + numero + "&text=" + texto;
+            window.open(urlCompleta, '_blank');
         }
     </script>
 </body>
