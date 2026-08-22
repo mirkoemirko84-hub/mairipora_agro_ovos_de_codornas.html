@@ -83,13 +83,14 @@
             }
         }
 
-        /* 📲 NOVA FUNÇÃO BLINDADA PARA O WHATSAPP REAL DO MESTRE */
-        function abrirWhatsApp() {
-            const numero = "5511964856312";
-            const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro.");
-            const urlCompleta = "https://whatsapp.com" + numero + "&text=" + texto;
-            window.open(urlCompleta, '_blank');
-        }
-    </script>
+/* 📲 FUNÇÃO CORRIGIDA PARA O WHATSAPP REAL DO MESTRE */
+function abrirWhatsApp() {
+    const numero = "5511964856312";
+    const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro.");
+    // O segredo está no "://whatsapp.com" antes do número!
+    const urlCompleta = "https://://whatsapp.com" + numero + "&text=" + texto;
+    window.open(urlCompleta, '_blank');
+}
+
 </body>
 </html>
