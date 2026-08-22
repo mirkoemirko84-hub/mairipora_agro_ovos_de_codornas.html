@@ -11,23 +11,30 @@
         h1 { color: #115e54; font-size: 26px; margin-bottom: 5px; font-weight: bold; text-align: center; }
         h2 { color: #517571; font-size: 16px; margin-top: 0; font-weight: normal; margin-bottom: 20px; text-align: center; }
         
-        /* 🥚 COORDENADAS DO PRODUTO: TEXTO MAIOR E 100% CENTRALIZADO */
+        /* 🥚 COORDENADAS DO PRODUTO: FONTE GRANDE EM CIMA, PREÇO MENOR EMBAIXO */
         .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 6px solid #115e54; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .preco-box p { margin: 0; font-size: 18px; color: #115e54; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .preco { color: #27ae60; font-size: 38px; font-weight: bold; margin-top: 5px; text-align: center; }
+        .preco-box .titulo-bandeja { margin: 0; font-size: 32px; color: #115e54; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
+        .preco-box .valor-preco { color: #27ae60; font-size: 24px; font-weight: bold; margin-top: 10px; text-align: center; }
         
-        .btn { background: #115e54; color: white; border: none; padding: 14px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 8px 0; transition: background 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; text-decoration: none; box-sizing: border-box; text-align: center; }
-        .btn:hover { background: #0b3f38; }
-        .btn-share { background: #34495e; }
-        .btn-share:hover { background: #22313f; }
-        .btn-pix { background: #27ae60; }
+        .btn { border: none; padding: 14px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 8px 0; transition: background 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; text-decoration: none; box-sizing: border-box; text-align: center; }
+        .btn-compra { background: #115e54; color: white; }
+        .btn-compra:hover { background: #0b3f38; }
+        
+        .btn-pix { background: #27ae60; color: white; }
         .btn-pix:hover { background: #219653; }
-        .btn-zap { background: #e65100; }
+        .btn-zap { background: #e65100; color: white; }
         .btn-zap:hover { background: #b53f00; }
+        .btn-share-zap { background: #34495e; color: white; }
+        .btn-share-zap:hover { background: #22313f; }
         
         #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #115e54; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; }
         #secaoPagamento h3 { margin-top: 0; color: #115e54; text-align: center; }
         #secaoPagamento img { max-width: 200px; margin: 15px 0; border-radius: 8px; border: 1px solid #eee; display: block; }
+        .aviso-comprovante { font-size: 13px; color: #c0392b; font-weight: bold; margin-top: 10px; text-align: center; }
+        
+        /* 🚚 BLOCO DE LOGÍSTICA: DIA E LOCAL DE ENTREGA */
+        .logistica-caixa { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; }
+        .logistica-caixa p { margin: 5px 0; font-size: 14px; color: #2c3e50; }
         
         .alerta-caixa { background: #fff9e6; border: 1px solid #ffe0b2; padding: 20px; border-radius: 10px; text-align: left; margin-top: 25px; }
         .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 14px; text-transform: uppercase; text-align: center; }
@@ -44,29 +51,38 @@
         <h2>Ovos Artesanais de Codorna Jumbo! 🥚✨</h2>
         
         <div class="preco-box">
-            <p>Bandeja</p>
-            <div class="preco">R$ 13,00</div>
+            <!-- INVERTIDO: FONTE GIGANTE NA BANDEJA, PREÇO MENOR EMBAIXO -->
+            <div class="titulo-bandeja">BANDEJA</div>
+            <div class="valor-preco">R$ 13,00</div>
         </div>
 
-        <button class="btn" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
-        <button class="btn btn-share" onclick="compartilharSite()">📢 COMPARTILHAR SITE</button>
+        <button class="btn btn-compra" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
+
+        <!-- 🚚 LOGÍSTICA DE ENTREGA AGORA VISÍVEL -->
+        <div class="logistica-caixa">
+            <p><strong>📅 Dias de Entrega:</strong> Domingos à tarde (a partir das 16:00)</p>
+            <p><strong>📍 Local de Retirada:</strong> Porteira Principal - Mesa na Estrada</p>
+        </div>
 
         <div id="secaoPagamento">
             <h3>💳 Pagamento Seguro via Pix</h3>
             <p style="font-size: 14px; color: #7f8c8d; text-align: center;">Escaneie o QR Code ou copie a chave abaixo:</p>
             <img src="qrcode-pagamento.png" alt="QR Code Pix">
             <button class="btn btn-pix" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
+            <!-- AVISO DE ENVIO DE COMPROVANTE EXIGIDO -->
+            <div class="aviso-comprovante">⚠️ ATENÇÃO: Envie o comprovante de pagamento pelo WhatsApp para confirmarmos sua compra!</div>
         </div>
 
         <div class="alerta-caixa">
-            <h4>📢 AÇÃO NECESSÁRIA EM "ME ADICIONE":</h4>
-            <p>Seja nosso cliente VIP e receba as colheitas fresquinhas direto na sua porta!</p>
+            <h4>📢 INTERAÇÃO VIA WHATSAPP:</h4>
+            <p>Seja cliente VIP para receber colheitas fresquinhas ou compartilhe nossa chácara com seus amigos!</p>
             <button class="btn btn-zap" onclick="abrirWhatsApp()">📲 ME ADICIONE NO WHATSAPP</button>
+            <button class="btn btn-share-zap" onclick="compartilharNoZap()">📢 COMPARTILHAR SITE NO ZAP</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.18.01</p>
+        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.02</p>
     </footer>
 
     <script>
@@ -81,20 +97,17 @@
             document.body.removeChild(ta);
         }
 
-        function compartilharSite() {
-            const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
-            if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { 
-                var ta = document.createElement('textarea'); ta.value = window.location.href; document.body.appendChild(ta); ta.select();
-                document.execCommand('copy'); document.body.removeChild(ta);
-                alert("🔗 Link do site copiado!"); 
-            }
-        }
-
-        /* 📲 FUNÇÃO CORRIGIDA, DESTRACADA E SEM BARRAS DUPLAS */
         function abrirWhatsApp() {
             const numero = "5511964856312";
-            const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro.");
+            const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro e enviar meu comprovante.");
             const urlCompleta = "https://whatsapp.com" + numero + "&text=" + texto;
+            window.open(urlCompleta, '_blank');
+        }
+
+        function compartilharNoZap() {
+            const linkSite = window.location.href;
+            const textoCompartilhar = encodeURIComponent("Olha que legal o site da Mairiporã Agro! Ovos de codorna jumbo direto da roça: " + linkSite);
+            const urlCompleta = "https://whatsapp.com" + textoCompartilhar;
             window.open(urlCompleta, '_blank');
         }
     </script>
