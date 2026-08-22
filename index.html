@@ -5,24 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #fdfefe; text-align: center; padding: 20px; color: #333; }
-        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 500px; margin: auto; border: 1px solid #eaeaea; }
-        h1 { color: #2c3e50; font-size: 24px; margin-bottom: 5px; }
-        h2 { color: #7f8c8d; font-size: 16px; margin-top: 0; font-weight: normal; }
-        .preco-box { background: #f4f9f8; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #32bcad; }
-        .preco { color: #27ae60; font-size: 32px; font-weight: bold; }
-        .btn { background: #32bcad; color: white; border: none; padding: 14px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin: 10px 0; transition: background 0.3s; }
-        .btn:hover { background: #28a193; }
+        body { font-family: 'Arial', sans-serif; background: #eef7f6; text-align: center; padding: 20px; color: #2c3e50; }
+        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 450px; margin: auto; border: 1px solid #d1e7e4; position: relative; }
+        .selo-local { color: #27ae60; font-size: 13px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
+        h1 { color: #115e54; font-size: 26px; margin-bottom: 5px; font-weight: bold; }
+        h2 { color: #517571; font-size: 16px; margin-top: 0; font-weight: normal; margin-bottom: 20px; }
+        .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 6px solid #115e54; text-align: center; }
+        .preco-box p { margin: 0; font-size: 14px; color: #517571; font-weight: bold; text-transform: uppercase; }
+        .preco { color: #27ae60; font-size: 36px; font-weight: bold; margin-top: 5px; }
+        .btn { background: #115e54; color: white; border: none; padding: 14px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 8px 0; transition: background 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; text-decoration: none; box-sizing: border-box; }
+        .btn:hover { background: #0b3f38; }
         .btn-share { background: #34495e; }
-        .btn-share:hover { background: #2c3e50; }
-        footer { margin-top: 40px; font-size: 12px; color: #bdc3c7; }
-        .alerta-caixa { background: #fff9e6; border: 1px solid #ffe0b2; padding: 15px; border-radius: 8px; text-align: left; margin-top: 20px; }
-        .alerta-caixa h4 { margin: 0 0 5px 0; color: #e65100; }
+        .btn-share:hover { background: #22313f; }
+        .btn-pix { background: #27ae60; }
+        .btn-pix:hover { background: #219653; }
+        .btn-zap { background: #e65100; }
+        .btn-zap:hover { background: #b53f00; }
+        #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #115e54; border-radius: 12px; background: #fafdfc; }
+        #secaoPagamento h3 { margin-top: 0; color: #115e54; }
+        .alerta-caixa { background: #fff9e6; border: 1px solid #ffe0b2; padding: 20px; border-radius: 10px; text-align: left; margin-top: 25px; }
+        .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 14px; text-transform: uppercase; }
+        .alerta-caixa p { margin: 0 0 15px 0; font-size: 13px; color: #5d4037; line-height: 1.4; }
+        footer { margin-top: 40px; font-size: 11px; color: #7f8c8d; font-family: monospace; }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- SELO VERDE DO COMÉRCIO LOCAL RESTAURADO -->
+        <div class="selo-local">🌱 COMPRA AJUDANDO O COMÉRCIO LOCAL</div>
+
         <h1>Mairiporã Agro</h1>
         <h2>Ovos Artesanais de Codorna Jumbo! 🥚✨</h2>
         
@@ -34,20 +46,22 @@
         <button class="btn" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
         <button class="btn btn-share" onclick="compartilharSite()">📢 COMPARTILHAR SITE</button>
 
-        <div id="secaoPagamento" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+        <div id="secaoPagamento">
             <h3>💳 Pagamento Seguro via Pix</h3>
-            <p>Escaneie o QR Code ou copie a chave abaixo:</p>
-            <img src="qrcode-pagamento.png" alt="QR Code Pix" style="max-width: 200px; margin: 10px 0;">
-            <button class="btn" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
+            <p style="font-size: 14px; color: #7f8c8d;">Escaneie o QR Code ou copie a chave abaixo:</p>
+            <img src="qrcode-pagamento.png" alt="QR Code Pix" style="max-width: 200px; margin: 15px 0; border-radius: 8px; border: 1px solid #eee;">
+            <button class="btn btn-pix" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
         </div>
 
+        <!-- BLOCO ME ADICIONE COM LINK DO WHATSAPP REAL DO MESTRE CONFIGURADO -->
         <div class="alerta-caixa">
             <h4>📢 AÇÃO NECESSÁRIA EM "ME ADICIONE":</h4>
             <p>Seja nosso cliente VIP e receba as colheitas fresquinhas direto na sua porta!</p>
+            <a href="https://wa.me." target="_blank" class="btn btn-zap">📲 ME ADICIONE NO WHATSAPP</a>
         </div>
     </div>
 
-    <!-- RODAPÉ CRONOLÓGICO SOLICITADO PELO MESTRE -->
+    <!-- RODAPÉ CRONOLÓGICO -->
     <footer>
         <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.18.01</p>
     </footer>
@@ -56,13 +70,12 @@
         function focarPagamento() { document.getElementById('secaoPagamento').scrollIntoView({ behavior: 'smooth' }); }
         
         function copyChavePix() {
-            var txt = "CHAVE_PIX_REAL_AQUI"; // Sua chave Pix cadastrada
+            var txt = "CHAVE_PIX_REAL_AQUI"; 
             var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
             try { document.execCommand('copy'); alert("✅ Chave Pix copiada!"); } catch (err) { alert("❌ Selecione a chave manualmente para copiar."); }
             document.body.removeChild(ta);
         }
 
-        /* CORREÇÃO DA FUNÇÃO DO COMPARTILHAMENTO ATIVADA WITH SUCESSO */
         function compartilharSite() {
             const d = { title: 'Mairiporã Agro', text: 'Ovos Artesanais de Codorna Jumbo!', url: window.location.href };
             if (navigator.share) { navigator.share(d).catch((e) => console.log(e)); } else { 
