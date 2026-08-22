@@ -5,40 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #eef7f6; text-align: center; padding: 20px; color: #2c3e50; display: flex; flex-direction: column; align-items: center; }
-        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 450px; width: 100%; margin: auto; border: 1px solid #d1e7e4; box-sizing: border-box; text-align: center; }
-        .selo-local { color: #27ae60; font-size: 13px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; text-align: center; }
-        h1 { color: #115e54; font-size: 26px; margin-bottom: 5px; font-weight: bold; text-align: center; }
-        h2 { color: #517571; font-size: 16px; margin-top: 0; font-weight: normal; margin-bottom: 20px; text-align: center; }
+        body { font-family: 'Arial', sans-serif; background: #eef7f6; text-align: center; padding: 20px; color: #111111; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 25px rgba(0,0,0,0.12); max-width: 450px; width: 100%; margin: auto; border: 2px solid #32bcad; box-sizing: border-box; text-align: center; }
+        .selo-local { color: #27ae60; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; text-align: center; }
+        h1 { color: #111111; font-size: 28px; margin-bottom: 5px; text-align: center; }
+        h2 { color: #444444; font-size: 16px; margin-top: 0; margin-bottom: 20px; text-align: center; }
         
-        .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 6px solid #115e54; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .preco-box .titulo-bandeja { margin: 0; font-size: 32px; color: #115e54; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
-        .preco-box .valor-preco { color: #27ae60; font-size: 24px; font-weight: bold; margin-top: 10px; text-align: center; }
+        /* 🥚 PRODUTO CENTRALIZADO */
+        .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border: 2px solid #115e54; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .preco-box .titulo-bandeja { margin: 0; font-size: 34px; color: #111111; text-transform: uppercase; letter-spacing: 1.5px; }
+        .preco-box .valor-preco { color: #27ae60; font-size: 26px; margin-top: 10px; text-align: center; }
         
-        .btn { border: none; padding: 14px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 8px 0; transition: background 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: block; text-decoration: none; box-sizing: border-box; text-align: center; }
-        .btn-compra { background: #115e54; color: white; }
+        .btn { border: none; padding: 15px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0; transition: background 0.3s; box-shadow: 0 3px 6px rgba(0,0,0,0.15); display: block; text-decoration: none; box-sizing: border-box; text-align: center; color: white; }
+        .btn-compra { background: #115e54; }
         .btn-compra:hover { background: #0b3f38; }
         
-        .btn-pix { background: #27ae60; color: white; }
+        .btn-pix { background: #27ae60; }
         .btn-pix:hover { background: #219653; }
-        .btn-zap { background: #e65100; color: white; }
+        
+        /* 📱 CORES FORTES PARA OS BOTÕES DO WHATSAPP */
+        .btn-zap { background: #e65100; }
         .btn-zap:hover { background: #b53f00; }
-        .btn-share-zap { background: #34495e; color: white; }
+        .btn-share-zap { background: #34495e; }
         .btn-share-zap:hover { background: #22313f; }
         
-        /* 🚚 NOVA LOGÍSTICA CORRIGIDA */
-        .logistica-caixa { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; }
-        .logistica-caixa p { margin: 5px 0; font-size: 14px; color: #2c3e50; line-height: 1.4; }
+        /* 🚚 LOGÍSTICA EM ESCADINHA: UM EMBAIXO DO OUTRO */
+        .logistica-caixa { background: #f9f9f9; border: 2px solid #111111; padding: 20px; border-radius: 12px; margin-top: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+        .logistica-caixa p { margin: 0; font-size: 15px; color: #111111; text-align: center; width: 100%; }
         
-        #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #115e54; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; }
-        #secaoPagamento h3 { margin-top: 0; color: #115e54; text-align: center; }
-        #secaoPagamento img { max-width: 200px; margin: 15px 0; border-radius: 8px; border: 1px solid #eee; display: block; }
-        .aviso-comprovante { font-size: 13px; color: #c0392b; font-weight: bold; margin-top: 10px; text-align: center; line-height: 1.4; }
+        #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #111111; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; }
+        #secaoPagamento h3 { margin-top: 0; color: #111111; text-align: center; }
+        #secaoPagamento img { max-width: 200px; margin: 15px 0; border-radius: 8px; border: 2px solid #111111; display: block; }
+        .aviso-comprovante { font-size: 14px; color: #c0392b; margin-top: 12px; text-align: center; line-height: 1.4; }
         
-        .alerta-caixa { background: #fff9e6; border: 1px solid #ffe0b2; padding: 20px; border-radius: 10px; text-align: left; margin-top: 25px; }
-        .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 14px; text-transform: uppercase; text-align: center; }
-        .alerta-caixa p { margin: 0 0 15px 0; font-size: 13px; color: #5d4037; line-height: 1.4; text-align: center; }
-        footer { margin-top: 40px; font-size: 11px; color: #7f8c8d; font-family: monospace; text-align: center; width: 100%; }
+        .alerta-caixa { background: #fff9e6; border: 2px solid #e65100; padding: 20px; border-radius: 10px; margin-top: 30px; }
+        .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 15px; text-transform: uppercase; text-align: center; }
+        .alerta-caixa p { margin: 0 0 15px 0; font-size: 14px; color: #111111; line-height: 1.4; text-align: center; }
+        footer { margin-top: 40px; font-size: 12px; color: #111111; font-family: monospace; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
@@ -56,15 +59,17 @@
 
         <button class="btn btn-compra" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
 
-        <!-- 🚚 BLOCO DE LOGÍSTICA REVISADO -->
+        <!-- 🚚 ESCADINHA: UM EMBAIXO DO OUTRO SEM NEGRITO EXAGERADO -->
         <div class="logistica-caixa">
-            <p><strong>📅 Dias de Entrega:</strong> Terças e Sextas-feiras</p>
-            <p><strong>📍 Local de Retirada:</strong> Na Rodoviária (Avisarei que estou indo!)</p>
+            <p>📅 Dias de Entrega:</p>
+            <p>Terças e Sextas-feiras</p>
+            <p>📍 Local de Retirada:</p>
+            <p>Na Rodoviária (Avisarei que estou indo!)</p>
         </div>
 
         <div id="secaoPagamento">
             <h3>💳 Pagamento Seguro via Pix</h3>
-            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">Escaneie o QR Code ou copie a chave abaixo:</p>
+            <p style="font-size: 14px; color: #444444; text-align: center;">Escaneie o QR Code ou copie a chave abaixo:</p>
             <img src="qrcode-pagamento.png" alt="QR Code Pix">
             <button class="btn btn-pix" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
             <div class="aviso-comprovante">⚠️ ATENÇÃO: Envie o comprovante de pagamento pelo WhatsApp para confirmarmos sua compra!</div>
@@ -73,13 +78,14 @@
         <div class="alerta-caixa">
             <h4>📢 INTERAÇÃO VIA WHATSAPP:</h4>
             <p>Seja cliente VIP para receber colheitas fresquinhas ou compartilhe nossa produção com seus amigos!</p>
+            <!-- 📲 BOTÕES DESTRACADOS COM MÁXIMA FORÇA DO PRETO E CORES DE DESTAQUE -->
             <button class="btn btn-zap" onclick="abrirWhatsApp()">📲 ME ADICIONE NO WHATSAPP</button>
             <button class="btn btn-share-zap" onclick="compartilharNoZap()">📢 COMPARTILHAR SITE NO ZAP</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.02</p>
+        <p>© 2026 . Mairiporã Agro · JCS_software . JCS_criatório . versão 26.08.22.03</p>
     </footer>
 
     <script>
@@ -94,18 +100,17 @@
             document.body.removeChild(ta);
         }
 
+        /* 📲 FUNÇÃO CORRIGIDA COM API OFICIAL - SEM CONFLITOS DE COMPORTAMENTO DO NAVEGADOR */
         function abrirWhatsApp() {
-            const numero = "5511964856312";
-            const texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro e enviar meu comprovante.");
-            const urlCompleta = "https://whatsapp.com" + numero + "&text=" + texto;
-            window.open(urlCompleta, '_blank');
+            var numero = "5511964856312";
+            var texto = encodeURIComponent("Olá, Mestre Suguimoto! Quero entrar na lista VIP da Mairiporã Agro e enviar meu comprovante.");
+            window.open("https://whatsapp.com" + numero + "&text=" + texto, '_blank');
         }
 
-        function compartirNoZap() {
-            const linkSite = window.location.href;
-            const textoCompartilhar = encodeURIComponent("Olha que legal o site da Mairiporã Agro! Ovos de codorna jumbo direto da roça: " + linkSite);
-            const urlCompleta = "https://whatsapp.com" + textoCompartilhar;
-            window.open(urlCompleta, '_blank');
+        function compartilharNoZap() {
+            var linkSite = window.location.href;
+            var textoCompartilhar = encodeURIComponent("Olha que legal o site da Mairiporã Agro! Ovos de codorna jumbo direto da roça: " + linkSite);
+            window.open("https://whatsapp.com" + textoCompartilhar, '_blank');
         }
     </script>
 </body>
