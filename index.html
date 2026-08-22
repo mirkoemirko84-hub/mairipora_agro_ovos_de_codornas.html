@@ -11,7 +11,6 @@
         h1 { color: #115e54; font-size: 26px; margin-bottom: 5px; font-weight: bold; text-align: center; }
         h2 { color: #517571; font-size: 16px; margin-top: 0; font-weight: normal; margin-bottom: 20px; text-align: center; }
         
-        /* 🥚 COORDENADAS DO PRODUTO: FONTE GRANDE EM CIMA, PREÇO MENOR EMBAIXO */
         .preco-box { background: #e8f5f3; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 6px solid #115e54; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .preco-box .titulo-bandeja { margin: 0; font-size: 32px; color: #115e54; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
         .preco-box .valor-preco { color: #27ae60; font-size: 24px; font-weight: bold; margin-top: 10px; text-align: center; }
@@ -27,14 +26,14 @@
         .btn-share-zap { background: #34495e; color: white; }
         .btn-share-zap:hover { background: #22313f; }
         
+        /* 🚚 NOVA LOGÍSTICA CORRIGIDA */
+        .logistica-caixa { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; }
+        .logistica-caixa p { margin: 5px 0; font-size: 14px; color: #2c3e50; line-height: 1.4; }
+        
         #secaoPagamento { margin-top: 30px; padding: 20px; border: 2px dashed #115e54; border-radius: 12px; background: #fafdfc; display: flex; flex-direction: column; align-items: center; }
         #secaoPagamento h3 { margin-top: 0; color: #115e54; text-align: center; }
         #secaoPagamento img { max-width: 200px; margin: 15px 0; border-radius: 8px; border: 1px solid #eee; display: block; }
-        .aviso-comprovante { font-size: 13px; color: #c0392b; font-weight: bold; margin-top: 10px; text-align: center; }
-        
-        /* 🚚 BLOCO DE LOGÍSTICA: DIA E LOCAL DE ENTREGA */
-        .logistica-caixa { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; }
-        .logistica-caixa p { margin: 5px 0; font-size: 14px; color: #2c3e50; }
+        .aviso-comprovante { font-size: 13px; color: #c0392b; font-weight: bold; margin-top: 10px; text-align: center; line-height: 1.4; }
         
         .alerta-caixa { background: #fff9e6; border: 1px solid #ffe0b2; padding: 20px; border-radius: 10px; text-align: left; margin-top: 25px; }
         .alerta-caixa h4 { margin: 0 0 10px 0; color: #e65100; font-size: 14px; text-transform: uppercase; text-align: center; }
@@ -51,17 +50,16 @@
         <h2>Ovos Artesanais de Codorna Jumbo! 🥚✨</h2>
         
         <div class="preco-box">
-            <!-- INVERTIDO: FONTE GIGANTE NA BANDEJA, PREÇO MENOR EMBAIXO -->
             <div class="titulo-bandeja">BANDEJA</div>
             <div class="valor-preco">R$ 13,00</div>
         </div>
 
         <button class="btn btn-compra" onclick="focarPagamento()">🛒 COMPRAR AGORA</button>
 
-        <!-- 🚚 LOGÍSTICA DE ENTREGA AGORA VISÍVEL -->
+        <!-- 🚚 BLOCO DE LOGÍSTICA REVISADO -->
         <div class="logistica-caixa">
-            <p><strong>📅 Dias de Entrega:</strong> Terças e Sextas </p>
-            <p><strong>📍 Local de Retirada:</strong> Na Rodoviaria  - Avisarei que estou indo! </p>
+            <p><strong>📅 Dias de Entrega:</strong> Terças e Sextas-feiras</p>
+            <p><strong>📍 Local de Retirada:</strong> Na Rodoviária (Avisarei que estou indo!)</p>
         </div>
 
         <div id="secaoPagamento">
@@ -69,7 +67,6 @@
             <p style="font-size: 14px; color: #7f8c8d; text-align: center;">Escaneie o QR Code ou copie a chave abaixo:</p>
             <img src="qrcode-pagamento.png" alt="QR Code Pix">
             <button class="btn btn-pix" onclick="copyChavePix()">📋 COPIAR CHAVE PIX</button>
-            <!-- AVISO DE ENVIO DE COMPROVANTE EXIGIDO -->
             <div class="aviso-comprovante">⚠️ ATENÇÃO: Envie o comprovante de pagamento pelo WhatsApp para confirmarmos sua compra!</div>
         </div>
 
@@ -104,7 +101,7 @@
             window.open(urlCompleta, '_blank');
         }
 
-        function compartilharNoZap() {
+        function compartirNoZap() {
             const linkSite = window.location.href;
             const textoCompartilhar = encodeURIComponent("Olha que legal o site da Mairiporã Agro! Ovos de codorna jumbo direto da roça: " + linkSite);
             const urlCompleta = "https://whatsapp.com" + textoCompartilhar;
