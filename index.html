@@ -21,7 +21,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
         }
-        /* RETÂNGULO VERMELHO COM LETRAS BRANCAS EM NEGATIVO */
+        /* BARRA DO RELÓGIO COM FUNDO VERMELHO E LETRAS BRANCAS */
         .header-system {
             font-size: 15px;
             font-weight: bold;
@@ -90,34 +90,26 @@
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
+        /* CAIXA AZUL DO LEMBRETE LOGÍSTICO */
         .reminder-box {
             background: #e3f2fd;
             border-left: 5px solid #2196f3;
             color: #0d47a1;
-            padding: 12px;
-            margin: 15px 0;
+            padding: 15px;
+            margin: 20px 0;
             text-align: left;
             font-size: 14px;
             border-radius: 0 8px 8px 0;
-            line-height: 1.4;
+            line-height: 1.5;
         }
-        /* BOTÕES DO SISTEMA ROBUSTOS */
-        .btn-system-zap {
-            display: block; 
-            background-color: #25d366; 
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            font-size: 17px; 
-            font-weight: bold; 
-            border-radius: 30px; 
-            margin: 20px auto 12px auto; 
-            width: 90%; 
-            cursor: pointer; 
-            font-family: sans-serif; 
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); 
-            text-align: center;
+        /* LINK DO WHATSAPP EMBUTIDO EM VERDE NO TEXTO */
+        .zap-link-text {
+            color: #25d366 !important;
+            font-weight: bold !important;
+            text-decoration: underline !important;
+            cursor: pointer;
         }
+        /* BOTÃO DE COMPARTILHAR DO SISTEMA */
         .btn-system-share {
             display: block; 
             background-color: #2c3e50; 
@@ -127,7 +119,7 @@
             font-size: 17px; 
             font-weight: bold; 
             border-radius: 30px; 
-            margin: 0 auto 20px auto; 
+            margin: 20px auto; 
             width: 90%; 
             cursor: pointer; 
             font-family: sans-serif; 
@@ -155,7 +147,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Fundo Vermelho e Letra Branca) -->
+    <!-- Linha do Sistema (Fundo Vermelho e Letras Brancas) -->
     <div class="header-system">
         ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
@@ -163,7 +155,7 @@
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
 
-    <!-- TEXTO EM MARQUEE (ANDANDO) EM NEGRITO -->
+    <!-- LETREIRO COM TEXTO ANDANDO EM NEGRITO -->
     <marquee scrollamount="5" style="font-weight: bold; color: #333; font-size: 16px; margin: 15px 0;">
         <strong>🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</strong>
     </marquee>
@@ -182,24 +174,15 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete Importante Logístico -->
+    <!-- O LEMBRETE DO QUEBRA-CABEÇA COM O ZAP EMBUTIDO EXATAMENTE AQUI -->
     <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no <a href="https://wa.me." target="_blank" class="zap-link-text">🟢 WhatsApp</a>! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
     </div>
 
-    <!-- ==================== LOCAL DOS BOTÕES (ABAIXO DOS TEXTOS) ==================== -->
-    
-    <!-- BOTÃO DO WHATSAPP FIXADO COM SEU NÚMERO CORRETO -->
-    <button onclick="openZap()" class="btn-system-zap">
-        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
-    </button>
-
-    <!-- BOTÃO DE COMPARTILHAR QUE FUNCIONA DIRETO -->
+    <!-- BOTÃO DE COMPARTILHAR NO MEIO DO FLUXO (FUNCIONANDO OK) -->
     <button onclick="shareSite()" class="btn-system-share">
         🔗 COMPARTILHAR ESTE SITE
     </button>
-
-    <!-- ============================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
@@ -224,11 +207,6 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
-
-    // EXECUÇÃO DO ZAP BLINDADA E COM NÚMERO INTEIRO CORRETO
-    function openZap() {
-        window.open("https://wa.me.", "_blank");
-    }
 
     // Função de Compartilhar
     function shareSite() {
