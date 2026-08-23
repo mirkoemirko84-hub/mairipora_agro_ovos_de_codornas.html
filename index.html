@@ -21,7 +21,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
         }
-        /* Topo do Sistema unificado e com espaço para os dois elementos */
+        /* Topo do Sistema homologado e testado */
         .header-system {
             font-size: 14px;
             font-weight: bold;
@@ -38,7 +38,6 @@
             align-items: center;
             justify-content: center;
         }
-        /* Ajuste para telas um pouco maiores deixá-los lado a lado */
         @media (min-width: 400px) {
             .header-system {
                 flex-direction: row;
@@ -129,13 +128,20 @@
 
 <div class="container">
 
-    <!-- Barra do Sistema Unificada: Relógio à esquerda e Compartilhar com instrução à direita -->
+    <!-- Barra do Sistema Unificada (Deu Certo!) -->
     <div class="header-system">
         <div>⏱️ SISTEMA: 23.08. | <span id="live-clock">Carregando...</span></div>
         <button onclick="shareSite()" style="background-color: #2c3e50; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-family: sans-serif;">
             🔗 COMPARTILHAR ESTE SITE
         </button>
     </div>
+
+    <!-- BOTÃO DO WHATSAPP POSICIONADO LOGO ABAIXO DA BARRA DO RELÓGIO (FORA DO RETÂNGULO) -->
+    <a href="https://wa.me." 
+       style="display: block; background-color: #25d366; color: white; text-decoration: none; padding: 14px; font-size: 17px; font-weight: bold; border-radius: 30px; margin: 0 auto 25px auto; max-width: 90%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-align: center; font-family: sans-serif;" 
+       target="_blank">
+        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
+    </a>
 
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
@@ -160,13 +166,6 @@
     <div class="reminder-box">
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a **confirmação do seu pedido** antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso via Zap para combinarmos os detalhes finais.
     </div>
-
-    <!-- BOTÃO DO WHATSAPP BLINDADO - COM CORES DIRETAS NO CÓDIGO -->
-    <a href="https://wa.me." 
-       style="display: block; background-color: #25d366; color: white; text-decoration: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 30px; margin: 25px 0; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-align: center;" 
-       target="_blank">
-        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
-    </a>
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
