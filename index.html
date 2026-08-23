@@ -96,18 +96,11 @@
             border-left: 5px solid #2196f3;
             color: #0d47a1;
             padding: 15px;
-            margin: 20px 0;
+            margin: 20px 0 10px 0;
             text-align: left;
             font-size: 14px;
             border-radius: 0 8px 8px 0;
             line-height: 1.5;
-        }
-        /* LINK DO WHATSAPP EMBUTIDO EM VERDE NO TEXTO */
-        .zap-link-text {
-            color: #25d366 !important;
-            font-weight: bold !important;
-            text-decoration: underline !important;
-            cursor: pointer;
         }
         /* BOTÃO DE COMPARTILHAR DO SISTEMA */
         .btn-system-share {
@@ -119,7 +112,7 @@
             font-size: 17px; 
             font-weight: bold; 
             border-radius: 30px; 
-            margin: 20px auto; 
+            margin: 15px auto 20px auto; 
             width: 90%; 
             cursor: pointer; 
             font-family: sans-serif; 
@@ -174,15 +167,26 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- O LEMBRETE COM O NOVO LINK API COMPATÍVEL COM COMPUTADOR -->
+    <!-- O LEMBRETE LIMPO E SEM OS LINKS QUE O NAVEGADOR BLOQUEIA -->
     <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no <a href="https://whatsapp.com." target="_blank" class="zap-link-text">🟢 WhatsApp</a>! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
     </div>
 
-    <!-- BOTÃO DE COMPARTILHAR NO MEIO DO FLUXO (FUNCIONANDO OK) -->
+    <!-- ==================== BLOCO DE BOTÕES DO SISTEMA (ABAIXO DOS AVISOS) ==================== -->
+
+    <!-- BOTÃO DO WHATSAPP BLINDADO - CONFIGURADO EXATAMENTE IGUAL AO DE COMPARTILHAR -->
+    <a href="https://whatsapp.com." 
+       target="_blank" 
+       style="display: block !important; background-color: #25d366 !important; color: white !important; text-decoration: none !important; padding: 14px !important; font-size: 17px !important; font-weight: bold !important; border-radius: 30px !important; margin: 0 auto 12px auto !important; width: 90% !important; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3) !important; text-align: center !important; font-family: sans-serif !important;">
+        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
+    </a>
+
+    <!-- BOTÃO DE COMPARTILHAR DO SISTEMA -->
     <button onclick="shareSite()" class="btn-system-share">
         🔗 COMPARTILHAR ESTE SITE
     </button>
+
+    <!-- ======================================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
