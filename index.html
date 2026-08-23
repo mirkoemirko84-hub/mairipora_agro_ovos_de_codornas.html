@@ -21,7 +21,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
         }
-        /* Topo do Sistema: Apenas o Relógio limpo e focado */
+        /* Topo do Sistema: Relógio limpo na barra cinza */
         .header-system {
             font-size: 15px;
             font-weight: bold;
@@ -29,7 +29,7 @@
             background: #ebeeef;
             padding: 12px;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-family: monospace;
             border: 1px solid #ccc;
             display: block;
@@ -47,6 +47,7 @@
         h1 {
             color: #d35400;
             font-size: 28px;
+            margin-top: 20px;
             margin-bottom: 5px;
         }
         .subtitle {
@@ -121,10 +122,27 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Apenas Relógio Limpo no Topo) -->
+    <!-- Linha do Sistema (Relógio Limpo no Topo) -->
     <div class="header-system">
         ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
+
+    <!-- ==================== BLOCO DE BOTÕES FIXADOS LÁ EM CIMA ==================== -->
+    
+    <!-- BOTÃO DO WHATSAPP VERDE LOGO ABAIXO DO RELÓGIO -->
+    <a href="https://wa.me." 
+       style="display: block; background-color: #25d366; color: white; text-decoration: none; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 30px; margin: 10px auto 12px auto; max-width: 90%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-align: center; font-family: sans-serif;" 
+       target="_blank">
+        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
+    </a>
+
+    <!-- BOTÃO DE COMPARTILHAR AZUL LOGO ABAIXO DO WHATSAPP -->
+    <button onclick="shareSite()" 
+            style="display: block; background-color: #2c3e50; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 30px; margin: 0 auto 20px auto; width: 90%; cursor: pointer; font-family: sans-serif; box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3); text-align: center;">
+        🔗 COMPARTILHAR ESTE SITE
+    </button>
+
+    <!-- ============================================================================ -->
 
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
@@ -149,23 +167,6 @@
     <div class="reminder-box">
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a **confirmação do seu pedido** antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso via Zap para combinarmos os detalhes finais.
     </div>
-
-    <!-- ==================== BLOCO DE BOTÕES AJUSTADOS NO LOCAL PERFEITO ==================== -->
-    
-    <!-- BOTÃO DO WHATSAPP BLINDADO -->
-    <a href="https://wa.me." 
-       style="display: block; background-color: #25d366; color: white; text-decoration: none; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 30px; margin: 25px auto 15px auto; max-width: 90%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-align: center; font-family: sans-serif;" 
-       target="_blank">
-        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
-    </a>
-
-    <!-- BOTÃO DE COMPARTILHAR USANDO O MESMO MÉTODO QUE DEU CERTO -->
-    <button onclick="shareSite()" 
-            style="display: block; background-color: #2c3e50; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 30px; margin: 0 auto 25px auto; width: 90%; cursor: pointer; font-family: sans-serif; box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3); text-align: center;">
-        🔗 COMPARTILHAR ESTE SITE
-    </button>
-
-    <!-- ====================================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
