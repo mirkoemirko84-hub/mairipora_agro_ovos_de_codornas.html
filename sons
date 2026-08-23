@@ -1,120 +1,116 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - JCS Software v1.0.0</title>
-</head>
-<body style="background-color: #f4f6f9; margin: 0; padding: 20px;">
-
-    <!-- TELA DE MANUTENÇÃO (ON/OFF) -->
-    <div id="manutencao-tela" style="display: none; text-align: center; margin-top: 100px; font-family: Arial, sans-serif;">
-        <h1 style="color: #cc092f;">Aviso do Sistema</h1>
-        <h2>JCS_Software v1.0.0 em Manutenção Operacional</h2>
-        <p>Estamos a ajustar os sistemas de som e logística. Voltamos já!</p>
-    </div>
-
-    <!-- PAINEL PRINCIPAL DO CHECKOUT -->
-    <div id="jcs-checkout-container" style="font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 25px; border: 1px solid #e1e4e8; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-        <div style="margin-bottom: 25px;">
-            <h3 style="color: #1a1a1a; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px;">Condições de Venda, Logística e Aceite</h3>
-            <div style="height: 180px; overflow-y: scroll; border: 1px solid #d1d5db; padding: 15px; background: #f8fafc; font-size: 13px; color: #334155; line-height: 1.6; border-radius: 6px; margin-bottom: 15px;">
-                <strong>1. CLÁUSULA DE LOGÍSTICA E ENTREGA, (TERÇAS e SEXTA):</strong><br>O fluxo de entrega do produto ou libertação das credenciais do software é iniciado estritamente após a confirmação do pagamento no sistema ou mediante liquidação em dinheiro/Pix no ato da entrega física. A JCS_Software realiza vistorias de conformidade antes do envio físico ou digital.<br><br>
-                <strong>2. COMPROVAÇÃO E PLATAFORMA DE PAGAMENTO:</strong><br>O processamento financeiro oficial do sistema é integrado via plataforma homologada <strong>RecargaPay</strong>. O cliente poderá efetuar a transferência Pix a partir de qualquer instituição financeira ou optar pelo pagamento em dinheiro à vista.<br><br>
-                <strong>3. COMPATIBILIDADE E SUPORTE (iOS/Apple):</strong><br>Para utilizadores do ecossistema Apple (iPhone/Safari), o cliente declara estar ciente de que as diretivas nativas de segurança do navegador podem exigir a desativação manual do 'Bloqueio de Pop-ups' nas definições do Safari para a correta abertura de janelas externas do WhatsApp (Zap) e interfaces de pagamento.<br><br>
-                <strong>4. POLÍTICA DE CANCELAMENTO E RETORNO:</strong><br>Ao clicar no botão de aceitação abaixo, os dados de logística são consolidados. Modificações na rota de entrega ou dados de envio devem ser comunicadas imediatamente à equipe de suporte via WhatsApp oficial 11964856312.
-            </div>
-            <label style="display: flex; align-items: flex-start; cursor: pointer; font-size: 13px; font-weight: bold; color: #1e293b;">
-                <input type="checkbox" id="chk-aceite" style="margin-right: 12px; margin-top: 3px; transform: scale(1.2);" onchange="validarTermo()">
-                <span>Declaro que li, compreendi e aceito integralmente as Condições de Venda, os prazos de Logística e as diretivas de suporte do sistema.</span>
-            </label>
-        </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a id="btn-zap" href="https://wa.me." target="_blank" rel="noopener noreferrer" style="display: block; text-align: center; background-color: #25D366; color: white; padding: 14px; text-decoration: none; border-radius: 6px; font-weight: bold; pointer-events: none; opacity: 0.5; transition: 0.3s; font-size: 15px;">Chamar no Zap</a>
-            <a id="btn-pagamento" href="#" onclick="abrirSistemasPagamento(); return false;" style="display: block; text-align: center; background-color: #cc092f; color: white; padding: 14px; text-decoration: none; border-radius: 6px; font-weight: bold; pointer-events: none; opacity: 0.5; transition: 0.3s; font-size: 15px;">Pagar com Pix / Qualquer Banco / RecargaPay</a>
-        </div>
-
-        <!-- ÁREA DE PAGAMENTO -->
-        <div id="bloco-pagamento" style="display: none; margin-top: 20px; padding: 15px; border: 2px dashed #cc092f; border-radius: 8px; text-align: center; background: #fff5f5; transition: background-color 0.2s;">
-            <h4 style="color: #cc092f; margin-top: 0;">Escaneie o QR Code abaixo:</h4>
-            <img src="imagens/qrcode-pagamento.png" alt="QR Code Pix" style="max-width: 200px; width: 100%; margin: 10px auto; display: block; border: 1px solid #ddd; padding: 5px; background: #fff;">
-            
-            <button id="btn-confirmar-qr" onclick="dispararFluxoProcessamento('QR')" style="margin-bottom: 20px; background: #0284c7; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%;">Já escaneei o QR Code / Confirmar</button>
-
-            <div style="margin-top: 15px; border-top: 1px solid #e1e4e8; padding-top: 15px;">
-                <span style="display: block; background-color: #25D366; color: white; padding: 8px; font-weight: bold; border-radius: 4px; font-size: 12px; text-transform: uppercase; margin-bottom: 10px;">Código Copie e Cole abaixo:</span>
-                <input type="text" id="pix-copie-cole" value="dce800d8-eeb3-4de4-90af-01d33251173e" readonly style="width: 100%; padding: 10px; box-sizing: border-box; text-align: center; border: 1px solid #25D366; border-radius: 4px; font-weight: bold; background: #f0fff4; color: #1e293b;">
-                <button id="btn-copiar-pix" onclick="copiarChavePix()" style="margin-top: 10px; background: #1e293b; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%;">Copiar Código Pix</button>
-            </div>
-
-            <!-- CONTAINER DA BARRA DE PROGRESSO ANIMADA -->
-            <div id="container-progresso" style="display: none; margin-top: 20px; background: #e2e8f0; border-radius: 8px; padding: 4px; position: relative; height: 25px;">
-                <div id="barra-progresso" style="background: #eab308; width: 0%; height: 100%; border-radius: 6px; transition: width 0.1s linear;"></div>
-                <span id="texto-progresso" style="position: absolute; width: 100%; text-align: center; left: 0; top: 6px; font-weight: bold; font-size: 12px; color: #000;">⏳ Conectando à API RecargaPay...</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAINEL ADM DO ADMINISTRADOR (?adm=1) -->
-    <div id="painel-adm" style="display: none; max-width: 600px; margin: 20px auto; padding: 20px; background: #222; color: #fff; border-radius: 8px; font-family: Arial, sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-        <h3 style="text-align: center; margin-top: 0; color: #25D366; border-bottom: 1px solid #444; padding-bottom: 10px;">Painel ADM JCS_Software</h3>
-        
-        <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
-            <button id="btn-status" onclick="alternarStatus()" style="background: #25D366; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; flex: 1;">Status: ONLINE</button>
-            <button onclick="tocarSomObrigado()" style="background: #0284c7; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; flex: 1;">🔊 Testar Som Direto</button>
-        </div>
-
-        <div style="background: #333; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.6;">
-            <strong style="color: #eab308;">📊 Monitor de Estoque da Base:</strong><br>
-            • Saldo Fixo em Base: <span style="background: #25D366; color: #000; padding: 2px 6px; font-weight: bold; border-radius: 3px;">3 Cartelas (Máx)</span><br>
-            • Status do Excedente: <span style="color: #67e8f9; font-weight: bold;">Direcionado para Encomendas e Pagas</span>
-        </div>
-    </div>
-
-    <script>
-    var audioObrigado = new Audio('sons/obrigado.mp3'); 
-
-    function tocarSomObrigado() {
-        audioObrigado.currentTime = 0;
-        audioObrigado.play().catch(e => console.log('Aguardando interação ou ficheiro ausente na pasta sons/.'));
-    }
-
+<script>
+    // 1. Validação do Termo de Aceite de Logística
     function validarTermo() {
-        var checkbox = document.getElementById('chk-aceite');
-        var btnZap = document.getElementById('btn-zap');
-        var btnPagamento = document.getElementById('btn-pagamento');
+        const chk = document.getElementById('chk-aceite');
+        const btnZap = document.getElementById('btn-zap');
+        const btnPgto = document.getElementById('btn-pagamento');
         
-        if (checkbox.checked) {
-            btnZap.style.pointerEvents = "auto"; btnZap.style.opacity = "1";
-            btnPagamento.style.pointerEvents = "auto"; btnPagamento.style.opacity = "1";
+        if (chk.checked) {
+            // Destrava os botões se o cliente aceitar as condições de Mairiporã
+            btnZap.style.pointerEvents = "auto";
+            btnZap.style.opacity = "1";
+            btnZap.href = "https://whatsapp.com.";
+            
+            btnPgto.style.pointerEvents = "auto";
+            btnPgto.style.opacity = "1";
         } else {
-            btnZap.style.pointerEvents = "none"; btnZap.style.opacity = "0.5";
-            btnPagamento.style.pointerEvents = "none"; btnPagamento.style.opacity = "0.5";
+            // Trava se desmarcar
+            btnZap.style.pointerEvents = "none";
+            btnZap.style.opacity = "0.5";
+            btnZap.href = "#";
+            btnPgto.style.pointerEvents = "none";
+            btnPgto.style.opacity = "0.5";
         }
     }
 
+    // 2. Interface de Pagamento RecargaPay
     function abrirSistemasPagamento() {
         document.getElementById('bloco-pagamento').style.display = 'block';
     }
 
+    // 3. Copiar Código Pix Copie e Cole
     function copiarChavePix() {
-        var copyText = document.getElementById("pix-copie-cole");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyText.value);
-        dispararFluxoProcessamento('PIX');
+        const inputPix = document.getElementById('pix-copie-cole');
+        inputPix.select();
+        inputPix.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(inputPix.value);
+        alert("✓ Código Pix copiado com sucesso para o RecargaPay!");
     }
 
-    function dispararFluxoProcessamento(origem) {
-        var btnPix = document.getElementById('btn-copiar-pix');
-        var btnQr = document.getElementById('btn-confirmar-qr');
-        var containerBarra = document.getElementById('container-progresso');
-        var barra = document.getElementById('barra-progresso');
-        var textoBarra = document.getElementById('texto-progresso');
+    // 4. O Tranco na Barra de Progresso da API
+    function dispararFluxoProcessamento(tipo) {
+        document.getElementById('container-progresso').style.display = 'block';
+        const barra = document.getElementById('barra-progresso');
+        const texto = document.getElementById('texto-progresso');
+        let progresso = 0;
 
-        btnPix.disabled = true;
-        btnQr.disabled = true;
-        containerBarra.style.display = 'block';
+        const intervalo = setInterval(() => {
+            progresso += 5;
+            barra.style.width = progresso + '%';
+            
+            if (progresso === 30) texto.textContent = "⚡ Autenticando com Bradesco Agro...";
+            if (progresso === 60) texto.textContent = "📊 Verificando Estoque (Máx 8 Cartelas)...";
+            if (progresso === 90) texto.textContent = "🔊 Ativando retorno sonoro do criatório...";
 
-        var progresso = 0;
+            if (progresso >= 100) {
+                clearInterval(intervalo);
+                texto.textContent = "✓ Conexão Concluída com Sucesso!";
+                tocarSomObrigado();
+                alert("📢 SISTEMA JCS:\nPix identificado! Seu pedido foi encaminhado para a logística da Rodoviária.");
+            }
+        }, 150);
+    }
+
+    // 5. O Som das Codornas (A Festa do Criatório)
+    function tocarSomObrigado() {
+        // Aqui o sistema faz o som tocar para animar a lida
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Som de confirmação do JCS_Software
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // Nota Dó
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // Sobe para o Lá
+        
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+    }
+
+    // 6. Painel do Administrador (Alternar Manutenção ON/OFF)
+    let sistemaOnline = true;
+    function alternarStatus() {
+        const btn = document.getElementById('btn-status');
+        const telaManutencao = document.getElementById('manutencao-tela');
+        const containerCheckout = document.getElementById('jcs-checkout-container');
+
+        if (sistemaOnline) {
+            btn.textContent = "Status: MANUTENÇÃO";
+            btn.style.backgroundColor = "#cc092f";
+            telaManutencao.style.display = "block";
+            containerCheckout.style.display = "none";
+            sistemaOnline = false;
+        } else {
+            btn.textContent = "Status: ONLINE";
+            btn.style.backgroundColor = "#25D366";
+            telaManutencao.style.display = "none";
+            containerCheckout.style.display = "block";
+            sistemaOnline = true;
+        }
+    }
+
+    // Checa se o Administrador acessou via URL (?adm=1)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('adm') === '1') {
+        document.getElementById('painel-adm').style.style.display = 'block';
+    }
+</script>
+</body>
+</html>
