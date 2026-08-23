@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
+    <!-- Link para carregar os ícones oficiais (Cadeado e Compartilhar) -->
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,10 +22,10 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
+            position: relative;
         }
-        /* Fonte maior para o cabeçalho do sistema */
         .header-system {
-            font-size: 15px; /* Fonte aumentada conforme solicitado */
+            font-size: 15px;
             font-weight: bold;
             color: #444;
             background: #ebeeef;
@@ -33,7 +35,6 @@
             font-family: monospace;
             border: 1px solid #ccc;
         }
-        /* Efeito de piscar nos dois pontos do relógio */
         .blink {
             animation: blinker 1s linear infinite;
         }
@@ -61,7 +62,6 @@
             border-radius: 10px;
             display: inline-block;
         }
-        /* Estilo da Imagem do QR Code */
         .qrcode-container {
             margin: 20px 0;
             padding: 15px;
@@ -82,17 +82,18 @@
             padding: 12px;
             margin: 20px 0;
             text-align: left;
-            font-size: 15px;
+            font-size: 14px;
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
+        /* Botão do WhatsApp corrigido para evitar mensagens de erro */
         .btn-buy {
             display: block;
             background: #25d366;
             color: white;
             text-decoration: none;
             padding: 15px;
-            font-size: 19px;
+            font-size: 18px;
             font-weight: bold;
             border-radius: 30px;
             margin: 25px 0;
@@ -109,14 +110,54 @@
             margin-top: 20px;
             line-height: 1.5;
         }
+        /* Ícone de compartilhar minimalista no topo direito */
+        .share-icon-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #555;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+        .share-icon-btn:hover {
+            background: #e0e0e0;
+            color: #000;
+        }
+        /* Barra de Site Seguro no Rodapé */
+        .secure-footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #27ae60;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Linha do Sistema Corrigida: Sem duplicar e com fonte maior -->
+    <!-- Botão de Compartilhar Minimalista (Apenas o Símbolo) -->
+    <button class="share-icon-btn" onclick="shareSite()" title="Compartilhar Site">
+        <i class="fa-solid fa-share-nodes"></i>
+    </button>
+
+    <!-- Linha do Sistema Corrigida sem duplicações -->
     <div class="header-system">
-        ⏱️ SISTEMA HOMOLOGADO: 22.08.17.13:00 | <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA HOMOLOGADO: 22.08. | <span id="live-clock">Carregando...</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -127,7 +168,7 @@
     <!-- Preço -->
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Imagem do QR Code carregando direto do seu repositório -->
+    <!-- Imagem do QR Code -->
     <div class="qrcode-container">
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
@@ -138,32 +179,56 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Botão de Compra via WhatsApp -->
-    <a href="https://wa.me." class="btn-buy" target="_blank">
-        🛒 ENVIAR COMPROVANTE VIA WHATSAPP
+    <!-- Lembrete Importante de Comunicação e Confirmação -->
+    <div class="info-box" style="background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1;">
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes e fazermos a confirmação do seu pedido.
+    </div>
+
+    <!-- Botão de Compra via WhatsApp Corrigido (Sem mensagem de erro) -->
+    <!-- IMPORTANTE: Mude o 5511964856312 para o seu número real do Zap com DDD -->
+    <a href="https://whatsapp.com." class="btn-buy" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> ENVIAR COMPROVANTE VIA WHATSAPP
     </a>
 
-    <!-- Dias de Entrega -->
+    <!-- Dias de Entrega e Localização da Rodoviária -->
     <div class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
-        <span style="font-size: 13px; color: #7f8c8d; font-weight: normal;">📍 Retirada Local / Entregas em Mairiporã</span>
+        <span style="font-size: 14px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
+    </div>
+
+    <!-- Rodapé de Site Seguro com Cadeado -->
+    <div class="secure-footer">
+        <i class="fa-solid fa-lock"></i> AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 </div>
 
-<!-- Script do Relógio com os Dois Pontos Piscando -->
+<!-- Scripts do Relógio e Compartilhamento -->
 <script>
+    // Relógio Dinâmico com Dois Pontos Piscando
     function updateClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
-        
-        // Coloca a classe 'blink' nos dois pontos para fazê-los piscar
         document.getElementById('live-clock').innerHTML = `${hours}<span class="blink">:</span>${minutes}<span class="blink">:</span>${seconds}`;
     }
-    // Atualiza a cada segundo
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Função de Compartilhar Nativa do Celular (Apenas o Ícone)
+    function shareSite() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro',
+                text: 'Garanta seus Ovos Artesanais de Codorna Jumbo direto do produtor!',
+                url: window.location.href
+            }).catch(console.error);
+        } else {
+            // Caso o navegador não suporte, ele copia o link para a área de transferência
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link do site copiado para o seu celular!');
+        }
+    }
 </script>
 
 </body>
