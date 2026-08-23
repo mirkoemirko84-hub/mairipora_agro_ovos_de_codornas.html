@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
-    <!-- Link para os ícones (Cadeado, WhatsApp e Compartilhar) -->
-    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,9 +20,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
-            position: relative;
         }
-        /* Topo do Sistema Homologado */
         .header-system {
             font-size: 15px;
             font-weight: bold;
@@ -32,16 +28,31 @@
             background: #ebeeef;
             padding: 12px;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-family: monospace;
             border: 1px solid #ccc;
-            display: block;
+        }
+        .clock-spacer {
+            margin-left: 15px;
+            display: inline-block;
         }
         .blink {
             animation: blinker 1s linear infinite;
         }
         @keyframes blinker {
             50% { opacity: 0; }
+        }
+        .btn-share-simple {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
         }
         h1 {
             color: #d35400;
@@ -78,7 +89,6 @@
             display: block;
             margin: 0 auto;
         }
-        /* Caixas de Alerta e Lembrete */
         .info-box {
             background: #fff8e1;
             border-left: 5px solid #ffb300;
@@ -100,24 +110,6 @@
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
-        /* BOTÃO DO WHATSAPP COM COR CORRIGIDA E DESTACADA */
-        .btn-buy {
-            display: block;
-            background-color: #25d366 !important; /* Verde oficial WhatsApp */
-            color: white !important;
-            text-decoration: none;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            margin: 25px 0;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-            transition: 0.2s;
-            border: none;
-        }
-        .btn-buy:hover {
-            background-color: #128c7e !important;
-        }
         .footer-text {
             font-size: 16px;
             color: #333;
@@ -125,27 +117,6 @@
             margin-top: 20px;
             line-height: 1.5;
         }
-        /* Botão de Compartilhar Minimalista */
-        .share-icon-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #555;
-            font-size: 18px;
-        }
-        .share-icon-btn:hover {
-            background: #e0e0e0;
-        }
-        /* Rodapé Seguro com Cadeado */
         .secure-footer {
             margin-top: 30px;
             padding-top: 15px;
@@ -153,25 +124,20 @@
             font-size: 13px;
             color: #27ae60;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Botão de Compartilhar Minimalista -->
-    <button class="share-icon-btn" onclick="shareSite()" title="Compartilhar Site">
-        <i class="fa-solid fa-share-nodes"></i>
-    </button>
 
-    <!-- Linha do Sistema Homologado Corrigida para Hoje -->
+    <!-- Linha do Sistema Homologado -->
     <div class="header-system">
-        ⏱️ SISTEMA HOMOLOGADO: 23.08. | <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA HOMOLOGADO: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
+
+    <!-- Botão Simples de Compartilhar Sem Erro -->
+    <button class="btn-share-simple" onclick="shareSite()">🔗 COMPARTILHAR SITE</button>
 
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
@@ -192,15 +158,16 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete com a Ordem Invertida e Correta -->
+    <!-- Lembrete Importante -->
     <div class="reminder-box">
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a **confirmação do seu pedido** antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso via Zap para combinarmos os detalhes finais.
     </div>
 
-    <!-- Botão do WhatsApp Destacado com Link Limpo e Universal -->
-    <!-- LEMBRETE: Altere o número abaixo para o seu celular real se necessário -->
-    <a href="https://wa.me." class="btn-buy" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i> ENVIAR COMPROVANTE VIA WHATSAPP
+    <!-- BOTÃO DO WHATSAPP BLINDADO - COM CORES DIRETAS NO CÓDIGO -->
+    <a href="https://wa.me." 
+       style="display: block; background-color: #25d366; color: white; text-decoration: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 30px; margin: 25px 0; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-align: center;" 
+       target="_blank">
+        🟢 ENVIAR COMPROVANTE VIA WHATSAPP
     </a>
 
     <!-- Informações de Entrega -->
@@ -209,14 +176,14 @@
         <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
     </div>
 
-    <!-- Rodapé Seguro com Cadeado -->
+    <!-- Rodapé Seguro -->
     <div class="secure-footer">
-        <i class="fa-solid fa-lock"></i> AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
+        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 </div>
 
 <script>
-    // Relógio Dinâmico com Dois Pontos Piscando
+    // Relógio Dinâmico
     function updateClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
