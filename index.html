@@ -94,14 +94,14 @@
             background: #e3f2fd;
             border-left: 5px solid #2196f3;
             color: #0d47a1;
-            padding: 15px;
+            padding: 12px;
             margin: 20px 0 15px 0;
             text-align: left;
             font-size: 14px;
             border-radius: 0 8px 8px 0;
             line-height: 1.5;
         }
-        /* CAIXA PARA COLOCAR OS BOTÕES LADO A LADO */
+        /* GRUPO DE BOTÕES EM PARALELO SIMÉTRICOS */
         .button-group-parallel {
             display: flex;
             justify-content: space-between;
@@ -109,13 +109,13 @@
             width: 95%;
             margin: 15px auto 25px auto;
         }
-        /* ESTILO DOS BOTÕES EM PARALELO */
+        /* BOTÃO DO ZAP COM O TRANCO DO SCRIPT */
         .btn-parallel-zap {
             flex: 1;
             display: block !important;
             background-color: #25d366 !important;
             color: white !important;
-            text-decoration: none !important;
+            border: none !important;
             padding: 12px 5px !important;
             font-size: 13px !important;
             font-weight: bold !important;
@@ -123,7 +123,7 @@
             box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
             text-align: center !important;
             font-family: sans-serif !important;
-            border: none !important;
+            cursor: pointer !important;
         }
         .btn-parallel-share {
             flex: 1;
@@ -161,7 +161,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Fundo Vermelho e Letras Brancas) -->
+    <!-- Linha do Sistema (Fundo Vermelho de Destaque) -->
     <div class="header-system">
         ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
@@ -193,23 +193,21 @@
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
     </div>
 
-    <!-- ==================== NOVO GRUPO DE BOTÕES EM PARALELO (LADO A LADO) ==================== -->
+    <!-- ==================== GRUPO DE BOTÕES PARALELOS COM METODOLOGIA IGUALADA ==================== -->
     <div class="button-group-parallel">
         
-        <!-- BOTÃO DO WHATSAPP MENOR (LADO ESQUERDO) -->
-        <a href="https://wa.me." 
-           target="_blank" 
-           class="btn-parallel-zap">
+        <!-- BOTÃO COM ENGINE DE SCRIPT SEGURO PARA DESTREVAR O WHATSAPP -->
+        <button onclick="forceZap()" class="btn-parallel-zap">
             🟢 ZAP COMPROVANTE
-        </a>
+        </button>
 
-        <!-- BOTÃO DE COMPARTILHAR MENOR (LADO DIREITO) -->
+        <!-- BOTÃO DE COMPARTILHAR DO SISTEMA -->
         <button onclick="shareSite()" class="btn-parallel-share">
             🔗 COMPARTILHAR SITE
         </button>
 
     </div>
-    <!-- ======================================================================================= -->
+    <!-- =========================================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
@@ -234,6 +232,18 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // O TRANCO DEFINITIVO: Abre o link simulando um clique de formulário limpo do sistema
+    function forceZap() {
+        const targetUrl = "https://whatsapp.com.";
+        const secureAnchor = document.createElement('a');
+        secureAnchor.href = targetUrl;
+        secureAnchor.target = '_blank';
+        secureAnchor.rel = 'noopener noreferrer';
+        document.body.appendChild(secureAnchor);
+        secureAnchor.click();
+        document.body.removeChild(secureAnchor);
+    }
 
     // Função de Compartilhar
     function shareSite() {
