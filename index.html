@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
-    <!-- Link para carregar os ícones oficiais (Cadeado e Compartilhar) -->
+    <!-- Link para os ícones (Cadeado, WhatsApp e Compartilhar) -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
@@ -24,16 +24,18 @@
             border: 2px solid #e0e0e0;
             position: relative;
         }
+        /* Topo do Sistema Homologado */
         .header-system {
             font-size: 15px;
             font-weight: bold;
             color: #444;
             background: #ebeeef;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 25px;
             font-family: monospace;
             border: 1px solid #ccc;
+            display: block;
         }
         .blink {
             animation: blinker 1s linear infinite;
@@ -76,32 +78,45 @@
             display: block;
             margin: 0 auto;
         }
+        /* Caixas de Alerta e Lembrete */
         .info-box {
             background: #fff8e1;
             border-left: 5px solid #ffb300;
             padding: 12px;
-            margin: 20px 0;
+            margin: 15px 0;
             text-align: left;
             font-size: 14px;
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
-        /* Botão do WhatsApp corrigido para evitar mensagens de erro */
+        .reminder-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            color: #0d47a1;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 14px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.4;
+        }
+        /* BOTÃO DO WHATSAPP COM COR CORRIGIDA E DESTACADA */
         .btn-buy {
             display: block;
-            background: #25d366;
-            color: white;
+            background-color: #25d366 !important; /* Verde oficial WhatsApp */
+            color: white !important;
             text-decoration: none;
-            padding: 15px;
+            padding: 16px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 30px;
             margin: 25px 0;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
             transition: 0.2s;
+            border: none;
         }
         .btn-buy:hover {
-            background: #128c7e;
+            background-color: #128c7e !important;
         }
         .footer-text {
             font-size: 16px;
@@ -110,7 +125,7 @@
             margin-top: 20px;
             line-height: 1.5;
         }
-        /* Ícone de compartilhar minimalista no topo direito */
+        /* Botão de Compartilhar Minimalista */
         .share-icon-btn {
             position: absolute;
             top: 15px;
@@ -126,13 +141,11 @@
             cursor: pointer;
             color: #555;
             font-size: 18px;
-            transition: 0.2s;
         }
         .share-icon-btn:hover {
             background: #e0e0e0;
-            color: #000;
         }
-        /* Barra de Site Seguro no Rodapé */
+        /* Rodapé Seguro com Cadeado */
         .secure-footer {
             margin-top: 30px;
             padding-top: 15px;
@@ -150,14 +163,14 @@
 <body>
 
 <div class="container">
-    <!-- Botão de Compartilhar Minimalista (Apenas o Símbolo) -->
+    <!-- Botão de Compartilhar Minimalista -->
     <button class="share-icon-btn" onclick="shareSite()" title="Compartilhar Site">
         <i class="fa-solid fa-share-nodes"></i>
     </button>
 
-    <!-- Linha do Sistema Corrigida sem duplicações -->
+    <!-- Linha do Sistema Homologado Corrigida para Hoje -->
     <div class="header-system">
-        ⏱️ SISTEMA HOMOLOGADO: 23.08.           |           <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA HOMOLOGADO: 23.08. | <span id="live-clock">Carregando...</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -174,35 +187,34 @@
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
 
-    <!-- Alerta de Validação do Pix -->
+    <!-- Alerta de Segurança -->
     <div class="info-box">
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete Importante de Comunicação e Confirmação -->
-    <div class="info-box" style="background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1;">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes e fazermos a confirmação do seu pedido.
+    <!-- Lembrete com a Ordem Invertida e Correta -->
+    <div class="reminder-box">
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a **confirmação do seu pedido** antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso via Zap para combinarmos os detalhes finais.
     </div>
 
-    <!-- Botão de Compra via WhatsApp Corrigido (Sem mensagem de erro) -->
-    <!-- IMPORTANTE: Mude o 5511964856312 para o seu número real do Zap com DDD -->
-    <a href="https://whatsapp.com." class="btn-buy" target="_blank">
+    <!-- Botão do WhatsApp Destacado com Link Limpo e Universal -->
+    <!-- LEMBRETE: Altere o número abaixo para o seu celular real se necessário -->
+    <a href="https://wa.me." class="btn-buy" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> ENVIAR COMPROVANTE VIA WHATSAPP
     </a>
 
-    <!-- Dias de Entrega e Localização da Rodoviária -->
+    <!-- Informações de Entrega -->
     <div class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
-        <span style="font-size: 14px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
+        <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
     </div>
 
-    <!-- Rodapé de Site Seguro com Cadeado -->
+    <!-- Rodapé Seguro com Cadeado -->
     <div class="secure-footer">
         <i class="fa-solid fa-lock"></i> AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 </div>
 
-<!-- Scripts do Relógio e Compartilhamento -->
 <script>
     // Relógio Dinâmico com Dois Pontos Piscando
     function updateClock() {
@@ -215,16 +227,15 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Função de Compartilhar Nativa do Celular (Apenas o Ícone)
+    // Função de Compartilhar
     function shareSite() {
         if (navigator.share) {
             navigator.share({
                 title: 'Mairiporã Agro',
-                text: 'Garanta seus Ovos Artesanais de Codorna Jumbo direto do produtor!',
+                text: 'Ovos Artesanais de Codorna Jumbo direto do produtor!',
                 url: window.location.href
             }).catch(console.error);
         } else {
-            // Caso o navegador não suporte, ele copia o link para a área de transferência
             navigator.clipboard.writeText(window.location.href);
             alert('Link do site copiado para o seu celular!');
         }
