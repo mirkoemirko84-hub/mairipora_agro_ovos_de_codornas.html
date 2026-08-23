@@ -95,50 +95,31 @@
             border-left: 5px solid #2196f3;
             color: #0d47a1;
             padding: 12px;
-            margin: 20px 0 15px 0;
+            margin: 20px 0 20px 0;
             text-align: left;
             font-size: 14px;
             border-radius: 0 8px 8px 0;
             line-height: 1.5;
         }
-        /* GRUPO DE BOTÕES EM PARALELO SIMÉTRICOS */
-        .button-group-parallel {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            width: 95%;
-            margin: 15px auto 25px auto;
-        }
-        /* BOTÃO DO ZAP DE VOLTA AO RETORNO TRADICIONAL */
-        .btn-parallel-zap {
-            flex: 1;
-            display: block !important;
-            background-color: #25d366 !important;
-            color: white !important;
-            text-decoration: none !important;
-            padding: 12px 5px !important;
-            font-size: 13px !important;
-            font-weight: bold !important;
-            border-radius: 20px !important;
-            box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3) !important;
-            text-align: center !important;
-            font-family: sans-serif !important;
-            border: none !important;
-        }
-        .btn-parallel-share {
-            flex: 1;
-            display: block;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            padding: 12px 5px;
-            font-size: 13px;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: sans-serif;
-            box-shadow: 0 4px 8px rgba(44, 62, 80, 0.3);
+        /* O BOTÃO GERENCIADOR CENTRAL DO SISTEMA (ABAIXO DOS TEXTOS) */
+        .btn-system-manager {
+            display: block; 
+            background-color: #2c3e50; 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            border-radius: 30px; 
+            margin: 25px auto; 
+            width: 90%; 
+            cursor: pointer; 
+            font-family: sans-serif; 
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4); 
             text-align: center;
+        }
+        .btn-system-manager:hover {
+            background-color: #1a252f;
         }
         .footer-text {
             font-size: 16px;
@@ -161,7 +142,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Fundo Vermelho de Destaque) -->
+    <!-- Linha do Sistema (Fundo Vermelho e Letras Brancas) -->
     <div class="header-system">
         ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
@@ -188,28 +169,16 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete Importante Logístico -->
+    <!-- Lembrete Importante Logístico Atualizado com a Nova Instrução do Botão -->
     <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão cinza abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos a retirada na Rodoviária.
     </div>
 
-    <!-- ==================== GRUPO DE BOTÕES PARALELOS REESTABELECIDOS ==================== -->
-    <div class="button-group-parallel">
-        
-        <!-- BOTÃO DO ZAP COM LINK DIRETO TRADICIONAL RESTAURADO -->
-        <a href="https://whatsapp.com." 
-           target="_top" 
-           class="btn-parallel-zap">
-            🟢 ZAP COMPROVANTE
-        </a>
-
-        <!-- BOTÃO DE COMPARTILHAR DO SISTEMA -->
-        <button onclick="shareSite()" class="btn-parallel-share">
-            🔗 COMPARTILHAR SITE
-        </button>
-
-    </div>
-    <!-- =================================================================================== -->
+    <!-- ==================== O BOTÃO COBAIA QUE GERENCIA TUDO ==================== -->
+    <button onclick="manageSystem()" class="btn-system-manager">
+        🔗 COMPARTILHAR SITE / CONFIRMAR COMPRA
+    </button>
+    <!-- ========================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
@@ -235,17 +204,22 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Função de Compartilhar
-    function shareSite() {
+    // SCRIPT COBAIA: Se o celular suportar compartilhamento nativo, ele gerencia por lá.
+    // Se for no computador, ele copia o link e avisa o número para adicionar!
+    function manageSystem() {
+        const siteUrl = window.location.href;
+        const msgText = "Mairiporã Agro: Peça seus Ovos Jumbo! Adicione o produtor no Zap (11) 96485-6312 para enviar o comprovante de R$ 13,00.";
+
         if (navigator.share) {
             navigator.share({
                 title: 'Mairiporã Agro',
-                text: 'Ovos Artesanais de Codorna Jumbo direto do produtor!',
-                url: window.location.href
+                text: msgText,
+                url: siteUrl
             }).catch(console.error);
         } else {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link do site copiado para o seu celular!');
+            // No computador: Copia o link e mostra o painel com as instruções do Zap
+            navigator.clipboard.writeText(siteUrl);
+            alert("✓ Link do site copiado para envio!\n\n📢 PARA CONFIRMAR SEU PEDIDO:\nAdicione o contato (11) 96485-6312 no seu WhatsApp e envie o seu comprovante de R$ 13,00!");
         }
     }
 </script>
