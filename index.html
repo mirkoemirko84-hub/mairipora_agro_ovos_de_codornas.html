@@ -180,6 +180,13 @@
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
+    <!-- Botão Copiar e Colar PIX -->
+    <div class="pix-container" style="text-align: center; margin-top: 15px;">
+    <input type="text" id="pixCode" value="SUA_CHAVE_COPIA_E_COLA_AQUI" readonly style="position: absolute; left: -9999px;">
+    <button id="btnCopiarPix" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        📋 Copiar Código PIX
+    </button>
+    </div>
 
     <!-- Alerta de Segurança -->
     <div class="info-box">
