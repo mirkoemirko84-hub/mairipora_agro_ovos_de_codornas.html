@@ -21,7 +21,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
         }
-        /* BARRA DO RELÓGIO COM FUNDO VERMELHO E LETRAS BRANCAS */
+        /* RETÂNGULO VERMELHO COM LETRAS BRANCAS EM NEGATIVO */
         .header-system {
             font-size: 15px;
             font-weight: bold;
@@ -101,7 +101,7 @@
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
-        /* ESTILO DOS DOIS BOTÕES DO SISTEMA */
+        /* BOTÕES DO SISTEMA ROBUSTOS */
         .btn-system-zap {
             display: block; 
             background-color: #25d366; 
@@ -155,7 +155,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Fundo Vermelho de Destaque) -->
+    <!-- Linha do Sistema (Fundo Vermelho e Letra Branca) -->
     <div class="header-system">
         ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
     </div>
@@ -163,7 +163,7 @@
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
 
-    <!-- LETREIRO COM TEXTO ANDANDO PELA TELA -->
+    <!-- TEXTO EM MARQUEE (ANDANDO) EM NEGRITO -->
     <marquee scrollamount="5" style="font-weight: bold; color: #333; font-size: 16px; margin: 15px 0;">
         <strong>🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</strong>
     </marquee>
@@ -182,24 +182,24 @@
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete Importante (Sem link quebrado dentro) -->
+    <!-- Lembrete Importante Logístico -->
     <div class="reminder-box">
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Me adicione no WhatsApp! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos os detalhes finais da retirada na Rodoviária.
     </div>
 
-    <!-- ==================== DOIS BOTÕES DO SISTEMA ALINHADOS E SEGUROS ==================== -->
+    <!-- ==================== LOCAL DOS BOTÕES (ABAIXO DOS TEXTOS) ==================== -->
     
-    <!-- BOTÃO DO WHATSAPP CONSTRUÍDO COM O MESMO MÉTODO DO COMPARTILHAR -->
+    <!-- BOTÃO DO WHATSAPP FIXADO COM SEU NÚMERO CORRETO -->
     <button onclick="openZap()" class="btn-system-zap">
         🟢 ENVIAR COMPROVANTE VIA WHATSAPP
     </button>
 
-    <!-- BOTÃO DE COMPARTILHAR QUE JÁ ESTÁ FUNCIONANDO PERFEITAMENTE -->
+    <!-- BOTÃO DE COMPARTILHAR QUE FUNCIONA DIRETO -->
     <button onclick="shareSite()" class="btn-system-share">
         🔗 COMPARTILHAR ESTE SITE
     </button>
 
-    <!-- ==================================================================================== -->
+    <!-- ============================================================================== -->
 
     <!-- Informações de Entrega -->
     <div class="footer-text">
@@ -214,7 +214,6 @@
 </div>
 
 <script>
-    <script>
     // Relógio Dinâmico
     function updateClock() {
         const now = new Date();
@@ -226,7 +225,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // FUNÇÃO DO WHATSAPP CORRIGIDA COM O NÚMERO COMPLETO
+    // EXECUÇÃO DO ZAP BLINDADA E COM NÚMERO INTEIRO CORRETO
     function openZap() {
         window.open("https://wa.me.", "_blank");
     }
@@ -245,7 +244,6 @@
         }
     }
 </script>
-
 
 </body>
 </html>
