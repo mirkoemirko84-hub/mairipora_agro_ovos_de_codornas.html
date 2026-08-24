@@ -181,7 +181,7 @@
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
 
-    <!-- Botão Copiar e Colar PIX Atualizado -->
+    <!-- Botão Copiar e Colar PIX Atualizado com sua Chave Real -->
     <div class="pix-container" style="text-align: center; margin-top: 15px;">
         <button id="btnCopiarPix" data-pix="3d4ee862-439d-481d-9f5b-07d69a7182f6" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
             📋 Copiar Código PIX
@@ -239,11 +239,11 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Engenharia de Som Embutida Nativa (Sem ficheiro externo para não travar no Edge/Windows)
+    // Engenharia de Som Embutida Nativa (Garante funcionamento sem carregar arquivos externos)
     function tocarSomObrigado() {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Nota 1 (Mais grave)
+        // Nota 1
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = 'sine';
@@ -255,7 +255,7 @@
         osc1.start();
         osc1.stop(audioCtx.currentTime + 0.15);
 
-        // Nota 2 (Mais aguda - Efeito de Sucesso)
+        // Nota 2 (Efeito de Sucesso Dinâmico)
         setTimeout(() => {
             const osc2 = audioCtx.createOscillator();
             const gain2 = audioCtx.createGain();
@@ -270,7 +270,7 @@
         }, 120);
     }
 
-    // Função de Cópia com Feedback Visual e Sonoro
+    // Função de Cópia Pix com Acionamento Visual e de Áudio
     function copiarPix() {
         const btn = document.getElementById('btnCopiarPix');
         const textoPix = btn.getAttribute('data-pix');
