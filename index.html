@@ -228,22 +228,21 @@
 </div>
 
 <script>
-    // Relógio Dinâmico Corrigido
+    // Relógio Dinâmico Corrigido e Completo
     function updateClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('live-clock').innerHTML = `${hours}<span class="blink">:</span>${minutes}<span class="blink">:</span>${seconds}`;
+        document.getElementById('live-clock').innerHTML = hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Engenharia de Som Embutida Nativa (Garante funcionamento sem carregar arquivos externos)
+    // Engenharia de Som Embutida Nativa (Sem depender de arquivos externos)
     function tocarSomObrigado() {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Nota 1
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = 'sine';
@@ -255,8 +254,7 @@
         osc1.start();
         osc1.stop(audioCtx.currentTime + 0.15);
 
-        // Nota 2 (Efeito de Sucesso Dinâmico)
-        setTimeout(() => {
+        setTimeout(function() {
             const osc2 = audioCtx.createOscillator();
             const gain2 = audioCtx.createGain();
             osc2.type = 'sine';
@@ -270,8 +268,11 @@
         }, 120);
     }
 
-    // Função de Cópia Pix com Acionamento Visual e de Áudio
+    // Função de Cópia Pix com Mudança de Cor e Áudio
     function copiarPix() {
         const btn = document.getElementById('btnCopiarPix');
         const textoPix = btn.getAttribute('data-pix');
+
+        navigator.clipboard.writeText(textoPix).then(function() {
+            tocarSomObrigado();
 
