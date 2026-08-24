@@ -180,12 +180,13 @@
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
+
     <!-- Botão Copiar e Colar PIX Atualizado -->
-<div class="pix-container" style="text-align: center; margin-top: 15px;">
-    <button id="btnCopiarPix" data-pix="SUA_CHAVE_COPIA_E_COLA_AQUI" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        📋 Copiar Código PIX
-    </button>
-</div>
+    <div class="pix-container" style="text-align: center; margin-top: 15px;">
+        <button id="btnCopiarPix" data-pix="3d4ee862-439d-481d-9f5b-07d69a7182f6" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+            📋 Copiar Código PIX
+        </button>
+    </div>
 
     <!-- Alerta de Segurança -->
     <div class="info-box">
@@ -227,7 +228,7 @@
 </div>
 
 <script>
-    // Relógio Dinâmico
+    // Relógio Dinâmico Corrigido
     function updateClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
@@ -238,23 +239,39 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Script Cobaia União de Forças (Windows/Edge/Celular)
-    function manageSystem() {
-        const siteUrl = window.location.href;
-        const msgText = "Mairiporã Agro: Ovos Artesanais de Codorna Jumbo direto do produtor! Adicione o contato no Zap (11) 96485-6312 para enviar seu recibo de R$ 13,00.";
+    // Engenharia de Som Embutida Nativa (Sem ficheiro externo para não travar no Edge/Windows)
+    function tocarSomObrigado() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Nota 1 (Mais grave)
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        gain1.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start();
+        osc1.stop(audioCtx.currentTime + 0.15);
 
-        if (navigator.share) {
-            navigator.share({
-                title: 'Mairiporã Agro',
-                text: msgText,
-                url: siteUrl
-            }).catch(console.error);
-        } else {
-            navigator.clipboard.writeText(siteUrl);
-            alert("✓ Link do site copiado para envio!\n\n📢 PARA CONFIRMAR SEU PEDIDO:\nAdicione o contato (11) 96485-6312 no seu WhatsApp e envie o seu comprovante de R$ 13,00!");
-        }
+        // Nota 2 (Mais aguda - Efeito de Sucesso)
+        setTimeout(() => {
+            const osc2 = audioCtx.createOscillator();
+            const gain2 = audioCtx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
+            gain2.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc2.connect(gain2);
+            gain2.connect(audioCtx.destination);
+            osc2.start();
+            osc2.stop(audioCtx.currentTime + 0.3);
+        }, 120);
     }
-</script>
 
-</body>
-</html>
+    // Função de Cópia com Feedback Visual e Sonoro
+    function copiarPix() {
+        const btn = document.getElementById('btnCopiarPix');
+        const textoPix = btn.getAttribute('data-pix');
+
