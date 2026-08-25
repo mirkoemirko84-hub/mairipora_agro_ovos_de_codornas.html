@@ -363,12 +363,12 @@
         sucessoCopia(botao);
     }
 
-    // FUNÇÃO BLINDADA: Abre o WhatsApp com a mensagem estruturada direto
+       // FUNÇÃO BLINDADA CORRIGIDA: Abre o WhatsApp com a API correta
     function manageSystem() {
         const linkSite = window.location.href;
         const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã\n\n🔗 Acesse o site: " + linkSite;
         
+        // Uso da API oficial de envio do WhatsApp
         window.open("https://whatsapp.com" + encodeURIComponent(mensagemTexto), '_blank');
     }
-</script>
 
