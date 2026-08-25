@@ -174,7 +174,7 @@
 
 <div class="container">
 
-    <!-- Tarja de Status do Sistema com Relógio -->
+    <!-- Linha do Sistema com os Dois Pontos Piscantes -->
     <div class="header-system">
         ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
@@ -209,13 +209,12 @@
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
     </div>
 
-              <div class="button-group-parallel">
-        <a href="whatsapp://send?text=%E2%9C%A8%20Mairipor%C3%A3%20Agro%20%E2%9C%A8%0AOvos%20Artesanais%20de%20Codorna%20Jumbo!%20%F0%9F%A5%9A%0A%0A%F0%9F%9B%92%20BANDEJA%20R%24%2013%2C00%0A%0A%F0%9F%93%8B%20C%C3%B3digo%20PIX%3A%0A3d4ee862-439d-481d-9f5b-07d69a7182f6%0A%0A%F0%9F%93%85%20Entrega%3A%20Ter%C3%A7as%20e%20Sextas%0A%F0%9F%93%8D%20Retirada%3A%20Rodovi%C3%A1ria%20de%20Mairipor%C3%A3" class="btn-parallel-share" style="display: block; text-decoration: none; box-sizing: border-box; width: 100%;">
+    <div class="button-group-parallel">
+        <!-- Voltamos para a função JavaScript que chama a caixinha do sistema -->
+        <button onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
             🔗 COMPARTILHAR SITE NO WHATSAPP
-        </a>
+        </button>
     </div>
-
-
 
     <div class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
@@ -234,26 +233,33 @@
 </div>
 
 <script>
-    // Relógio Simplificado à Prova de Falhas
+    // Relógio Dinâmico com Pontos Piscantes
     function updateClock() {
         const clockEl = document.getElementById('live-clock');
         if (!clockEl) return;
         
         const now = new Date();
-        const dia = String(now.getDate()).padStart(2, '0');
-        const mes = String(now.getMonth() + 1).padStart(2, '0');
-        const ano = now.getFullYear();
-        
-        const hora = String(now.getHours()).padStart(2, '0');
-        const min = String(now.getMinutes()).padStart(2, '0');
-        const seg = String(now.getSeconds()).padStart(2, '0');
-        
-        clockEl.innerHTML = dia + '/' + mes + '/' + ano + ' ' + hora + '<span class="blink">:</span>' + min + '<span class="blink">:</span>' + seg;
+        try {
+            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
+            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
+            
+            let hours = '00', minutes = '00', seconds = '00';
+            timeParts.forEach(p => {
+                if (p.type === 'hour') hours = p.value;
+                if (p.type === 'minute') minutes = p.value;
+                if (p.type === 'second') seconds = p.value;
+            });
+
+            clockEl.innerHTML = dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
+        } catch (e) {
+            clockEl.innerText = now.toLocaleString('pt-BR');
+        }
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Copiar chave PIX
+    // Copiar Chave PIX
     function copiarPix() {
         const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
@@ -271,14 +277,27 @@
         }, 2000);
     }
 
-    // Compartilhar Mensagem de Venda Direto no WhatsApp
-    function manageSystem() {
+    // DISPARADOR DA CAIXINHA DO WINDOWS / CELULAR
+    function abrirJanelaCompartilhar() {
         const linkSite = window.location.href;
-        const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã\n\n🔗 Acesse o site: " + linkSite;
         
-        window.open("https://whatsapp.com" + encodeURIComponent(mensagemTexto), '_blank');
-    }
-</script>
+        const mensagemTexto = `✨ Mairiporã Agro ✨
+Ovos Artesanais de Codorna Jumbo! 🥚
 
-</body>
-</html>
+🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
+
+📋 Código PIX Copia e Cola:
+3d4ee862-439d-481d-9f5b-07d69a7182f6
+
+⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
+
+📅 Dias de Entrega: Terças e Sextas-feiras
+📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã`;
+
+        // Executa estritamente a janela de opções nativa do sistema operacional
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro',
+                text: mensagemTexto,
+                url: linkSite
+            }).catch(function(error) {
