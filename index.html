@@ -302,3 +302,73 @@
                 text: mensagemTexto,
                 url: linkSite
             }).catch(function(err) {
+
+                <script>
+    // Relógio Dinâmico Seguro com Pontos Piscantes
+    function updateClock() {
+        const clockEl = document.getElementById('live-clock');
+        if (!clockEl) return;
+        
+        const now = new Date();
+        try {
+            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
+            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
+            
+            let hours = '00', minutes = '00', seconds = '00';
+            timeParts.forEach(p => {
+                if (p.type === 'hour') hours = p.value;
+                if (p.type === 'minute') minutes = p.value;
+                if (p.type === 'second') seconds = p.value;
+            });
+
+            clockEl.innerHTML = dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
+        } catch (e) {
+            clockEl.innerText = now.toLocaleString('pt-BR');
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Função de Cópia Segura da Chave Pix
+    function copiarPix() {
+        const chaveTexto = document.getElementById("chavePixTexto").value;
+        const botao = document.getElementById("btnCopiarPix");
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(chaveTexto).then(() => {
+                sucessoCopia(botao);
+            }).catch(() => {
+                fallbackCopia(botao);
+            });
+        } else {
+            fallbackCopia(botao);
+        }
+    }
+
+    function sucessoCopia(botao) {
+        botao.innerHTML = "✓ Copiado!";
+        botao.classList.add("copiado");
+        setTimeout(() => {
+            botao.innerHTML = "📋 Copiar Código PIX";
+            botao.classList.remove("copiado");
+        }, 2000);
+    }
+
+    function fallbackCopia(botao) {
+        const input = document.getElementById("chavePixTexto");
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        sucessoCopia(botao);
+    }
+
+    // FUNÇÃO BLINDADA: Abre o WhatsApp com a mensagem estruturada direto
+    function manageSystem() {
+        const linkSite = window.location.href;
+        const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã\n\n🔗 Acesse o site: " + linkSite;
+        
+        window.open("https://whatsapp.com" + encodeURIComponent(mensagemTexto), '_blank');
+    }
+</script>
+
