@@ -334,7 +334,41 @@ Ovos Artesanais de Codorna Jumbo! 🥚
         const textoParaEnviar = encodeURIComponent(mensagemTexto);
         const urlWhatsapp = "https://whatsapp.com" + textoParaEnviar;
         
-        // Abre o WhatsApp compartilhando a mensagem estruturada
+           // Função para Abrir o Compartilhamento Nativo do Sistema (Windows/Celular)
+    function manageSystem() {
+        const linkSite = window.location.href;
+        
+        // Monta o texto exatamente igual ao layout do seu sistema
+        const mensagemTexto = `✨ Mairiporã Agro ✨
+Ovos Artesanais de Codorna Jumbo! 🥚
+
+🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
+
+📋 Código PIX Copia e Cola:
+3d4ee862-439d-481d-9f5b-07d69a7182f6
+
+⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
+
+📅 Dias de Entrega: Terças e Sextas-feiras
+📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã`;
+
+        // Verifica se o navegador suporta a caixinha de compartilhamento do sistema
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro - Ovos de Codorna',
+                text: mensagemTexto,
+                url: linkSite // Junta o link do site junto com as opções
+            })
+            .then(() => console.log('Compartilhado com sucesso!'))
+            .catch((error) => console.log('Erro ao compartilhar:', error));
+        } else {
+            // Plano B: Se o navegador não der suporte à caixinha, abre o WhatsApp direto
+            const textoCompletoComLink = mensagemTexto + "\n\n🔗 Acesse o site: " + linkSite;
+            const urlWhatsapp = "https://whatsapp.com" + encodeURIComponent(textoCompletoComLink);
+            window.open(urlWhatsapp, '_blank');
+        }
+    }
+ // Abre o WhatsApp compartilhando a mensagem estruturada
         window.open(urlWhatsapp, '_blank');
     }
 // Função para Compartilhar no WhatsApp
