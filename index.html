@@ -101,6 +101,10 @@
             gap: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+        .btn-pix.copiado {
+            background-color: #27ae60;
         }
         .info-box {
             background: #fff8e1;
@@ -138,6 +142,7 @@
             cursor: pointer;
             width: 100%;
             box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
+            text-decoration: none;
         }
         .footer-text {
             font-size: 16px;
@@ -234,7 +239,7 @@
         try {
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
-            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit' }).format(now);
+            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
             
             let hours = '00', minutes = '00', seconds = '00';
             timeParts.forEach(p => {
@@ -243,49 +248,49 @@
                 if (p.type === 'second') seconds = p.value;
             });
 
-            // Monta o HTML injetando a classe blink nos dois pontos do relógio
+            // Monta o HTML aplicando a classe blink exclusivamente nos dois-pontos delimitadores
             document.getElementById('live-clock').innerHTML = 
                 dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
-        } catch(e) {
-            // Fallback caso falte suporte internacionalizador no dispositivo
-            const dataSimples = now.getDate().toString().padStart(2,'0') + '/' + (now.getMonth()+1).toString().padStart(2,'0');
-            const h = now.getHours().toString().padStart(2, '0');
-            const m = now.getMinutes().toString().padStart(2, '0');
-            const s = now.getSeconds().toString().padStart(2, '0');
-            document.getElementById('live-clock').innerHTML = dataSimples + ' ' + h + '<span class="blink">:</span>' + m + '<span class="blink">:</span>' + s;
+        } catch (e) {
+            document.getElementById('live-clock').innerText = now.toLocaleString('pt-BR');
         }
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Copiar Pix Seguro
+    // Função de Cópia Segura da Chave Pix
     function copiarPix() {
-        const inputChave = document.getElementById('chavePixTexto');
-        const btn = document.getElementById('btnCopiarPix');
+        const chaveTexto = document.getElementById("chavePixTexto").value;
+        const botao = document.getElementById("btnCopiarPix");
         
-        inputChave.select();
-        inputChave.setSelectionRange(0, 99999);
-
-        try {
-            document.execCommand('copy');
-            btn.innerHTML = "✓ Copiado!";
-            btn.style.backgroundColor = "#128C7E";
+        navigator.clipboard.writeText(chaveTexto).then(() => {
+            botao.innerHTML = "✓ Copiado!";
+            botao.classList.add("copiado");
+            
             setTimeout(() => {
-                btn.innerHTML = "📋 Copiar Código PIX";
-                btn.style.backgroundColor = "#25D366";
-            }, 3000);
-        } catch (err) {
-            alert("Selecione o código na caixa abaixo e copie manualmente.");
-        }
+                botao.innerHTML = "📋 Copiar Código PIX";
+                botao.classList.remove("copiado");
+            }, 2000);
+        }).catch(err => {
+            // Alternativa caso o navegador bloqueie a Clipboard API
+            const input = document.getElementById("chavePixTexto");
+            input.select();
+            input.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            
+            botao.innerHTML = "✓ Copiado!";
+            setTimeout(() => { botao.innerHTML = "📋 Copiar Código PIX"; }, 2000);
+        });
     }
 
-    // Compartilhamento Inteligente (Força Link Direto do WhatsApp se estiver no computador)
+    // Função para Compartilhar no WhatsApp
     function manageSystem() {
-        const urlSite = window.location.href;
-        const textoMensagem = "Olá! Conheça a página de pedidos da Mairiporã Agro: " + urlSite;
-        const msgCodificada = encodeURIComponent(textoMensagem);
-        
-        // Verifica se é um dispositivo móvel básico
-        const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+        const linkSite = window.location.href;
+        const textoParaEnviar = encodeURIComponent("Olha só que legal! Encontrei Ovos Artesanais de Codorna Jumbo em Mairiporã. Dá uma olhada no site deles: " + linkSite);
+        const urlWhatsapp = "https://whatsapp.com" + textoParaEnviar;
+        window.open(urlWhatsapp, '_blank');
+    }
+</script>
 
-        if (!isMobile) {
+</body>
+</html>
