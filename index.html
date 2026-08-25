@@ -33,6 +33,12 @@
             border: 1px solid #990000;
             display: block;
         }
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
         h1 {
             color: #d35400;
             font-size: 28px;
@@ -69,8 +75,6 @@
             display: block;
             margin: 0 auto;
         }
-        
-        /* CAIXA DE TEXTO DO PIX VISÍVEL E SEGURA PARA CELULAR */
         .pix-input-box {
             width: 90%;
             max-width: 320px;
@@ -83,7 +87,6 @@
             background: #f9f9f9;
             font-family: monospace;
         }
-
         .btn-pix {
             background-color: #25D366;
             color: white;
@@ -167,6 +170,7 @@
 
 <div class="container">
 
+    <!-- Linha do Sistema com os Dois Pontos Piscantes -->
     <div class="header-system">
         ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
@@ -185,7 +189,6 @@
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
 
-    <!-- Seção Pix Atualizada com Campo de Texto Físico -->
     <div class="pix-container">
         <button id="btnCopiarPix" onclick="copiarPix()" class="btn-pix">
             📋 Copiar Código PIX
@@ -218,36 +221,50 @@
     </div>
 
     <div class="signature-box">
-        🛠️ Versão do Sistema: 26.08.23.02<br>
+        🛠️ Versão do Sistema: 26.08.23.03<br>
         🌾 © 2026 . JCS_criatório . JCS_software
     </div>
 
 </div>
 
 <script>
-    // Relógio Sem Travar
+    // Relógio Dinâmico com Pontos Piscantes
     function updateClock() {
         const now = new Date();
-        let dataHora;
         try {
-            dataHora = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).substring(0, 5) + ' ' + 
-                       now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
+            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit' }).format(now);
+            
+            let hours = '00', minutes = '00', seconds = '00';
+            timeParts.forEach(p => {
+                if (p.type === 'hour') hours = p.value;
+                if (p.type === 'minute') minutes = p.value;
+                if (p.type === 'second') seconds = p.value;
+            });
+
+            // Monta o HTML injetando a classe blink nos dois pontos do relógio
+            document.getElementById('live-clock').innerHTML = 
+                dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
         } catch(e) {
-            // Fallback caso fuso horário falhe no celular antigo
-            dataHora = now.getDate() + '/' + (now.getMonth()+1) + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+            // Fallback caso falte suporte internacionalizador no dispositivo
+            const dataSimples = now.getDate().toString().padStart(2,'0') + '/' + (now.getMonth()+1).toString().padStart(2,'0');
+            const h = now.getHours().toString().padStart(2, '0');
+            const m = now.getMinutes().toString().padStart(2, '0');
+            const s = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('live-clock').innerHTML = dataSimples + ' ' + h + '<span class="blink">:</span>' + m + '<span class="blink">:</span>' + s;
         }
-        document.getElementById('live-clock').textContent = dataHora;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Copiar Pix Mecanismo Seguro Simplificado
+    // Copiar Pix Seguro
     function copiarPix() {
         const inputChave = document.getElementById('chavePixTexto');
         const btn = document.getElementById('btnCopiarPix');
         
         inputChave.select();
-        inputChave.setSelectionRange(0, 99999); // Suporte para Mobile
+        inputChave.setSelectionRange(0, 99999);
 
         try {
             document.execCommand('copy');
@@ -258,18 +275,17 @@
                 btn.style.backgroundColor = "#25D366";
             }, 3000);
         } catch (err) {
-            // Se falhar tudo, avisa o cliente para usar a caixa visível
-            alert("Clique na caixa de texto abaixo e copie o código manualmente.");
+            alert("Selecione o código na caixa abaixo e copie manualmente.");
         }
     }
 
-    // Compartilhamento Universal Link Simples
+    // Compartilhamento Inteligente (Força Link Direto do WhatsApp se estiver no computador)
     function manageSystem() {
         const urlSite = window.location.href;
-        const texto = encodeURIComponent("Olá! Conheça a página de pedidos da Mairiporã Agro: " + urlSite);
-        window.open("https://whatsapp.com" + texto, "_blank");
-    }
-</script>
+        const textoMensagem = "Olá! Conheça a página de pedidos da Mairiporã Agro: " + urlSite;
+        const msgCodificada = encodeURIComponent(textoMensagem);
+        
+        // Verifica se é um dispositivo móvel básico
+        const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 
-</body>
-</html>
+        if (!isMobile) {
