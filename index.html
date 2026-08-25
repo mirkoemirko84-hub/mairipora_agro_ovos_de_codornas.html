@@ -174,7 +174,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema com os Dois Pontos Piscantes -->
+    <!-- Tarja de Status do Sistema com Relógio -->
     <div class="header-system">
         ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
@@ -210,7 +210,6 @@
     </div>
 
     <div class="button-group-parallel">
-        <!-- Voltamos para a função JavaScript que chama a caixinha do sistema -->
         <button onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
             🔗 COMPARTILHAR SITE NO WHATSAPP
         </button>
@@ -233,33 +232,26 @@
 </div>
 
 <script>
-    // Relógio Dinâmico com Pontos Piscantes
+    // Relógio Simplificado Seguro
     function updateClock() {
         const clockEl = document.getElementById('live-clock');
         if (!clockEl) return;
         
         const now = new Date();
-        try {
-            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
-            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
-            
-            let hours = '00', minutes = '00', seconds = '00';
-            timeParts.forEach(p => {
-                if (p.type === 'hour') hours = p.value;
-                if (p.type === 'minute') minutes = p.value;
-                if (p.type === 'second') seconds = p.value;
-            });
-
-            clockEl.innerHTML = dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
-        } catch (e) {
-            clockEl.innerText = now.toLocaleString('pt-BR');
-        }
+        const dia = String(now.getDate()).padStart(2, '0');
+        const mes = String(now.getMonth() + 1).padStart(2, '0');
+        const ano = now.getFullYear();
+        
+        const hora = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const seg = String(now.getSeconds()).padStart(2, '0');
+        
+        clockEl.innerHTML = dia + '/' + mes + '/' + ano + ' ' + hora + '<span class="blink">:</span>' + min + '<span class="blink">:</span>' + seg;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Copiar Chave PIX
+    // Copiar chave PIX
     function copiarPix() {
         const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
@@ -277,27 +269,25 @@
         }, 2000);
     }
 
-    // DISPARADOR DA CAIXINHA DO WINDOWS / CELULAR
+    // Compartilhamento Leve (Chama o menu nativo de opções do Windows/Celular)
     function abrirJanelaCompartilhar() {
         const linkSite = window.location.href;
+        const textoTitulo = "🥚 Mairiporã Agro - Ovos de Codorna Jumbo";
         
-        const mensagemTexto = `✨ Mairiporã Agro ✨
-Ovos Artesanais de Codorna Jumbo! 🥚
-
-🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
-
-📋 Código PIX Copia e Cola:
-3d4ee862-439d-481d-9f5b-07d69a7182f6
-
-⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
-
-📅 Dias de Entrega: Terças e Sextas-feiras
-📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã`;
-
-        // Executa estritamente a janela de opções nativa do sistema operacional
         if (navigator.share) {
             navigator.share({
-                title: 'Mairiporã Agro',
-                text: mensagemTexto,
+                title: textoTitulo,
+                text: "Confira o site do produtor local de Ovos de Codorna Jumbo em Mairiporã!",
                 url: linkSite
-            }).catch(function(error) {
+            }).catch(function() {
+                // Se der erro ou fechar a janela, ignora silenciosamente
+            });
+        } else {
+            // Reserva: Abre o link caso o navegador bloqueie o menu nativo localmente
+            window.open("https://whatsapp.com" + encodeURIComponent(textoTitulo + "\n" + linkSite), '_blank');
+        }
+    }
+</script>
+
+</body>
+</html>
