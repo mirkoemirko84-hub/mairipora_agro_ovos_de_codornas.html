@@ -232,8 +232,11 @@
 </div>
 
 <script>
-    // Relógio Dinâmico com Pontos Piscantes
+    // Relógio Dinâmico Seguro com Pontos Piscantes
     function updateClock() {
+        const clockEl = document.getElementById('live-clock');
+        if (!clockEl) return;
+        
         const now = new Date();
         try {
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
@@ -247,10 +250,9 @@
                 if (p.type === 'second') seconds = p.value;
             });
 
-            document.getElementById('live-clock').innerHTML = 
-                dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
+            clockEl.innerHTML = dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
         } catch (e) {
-            document.getElementById('live-clock').innerText = now.toLocaleString('pt-BR');
+            clockEl.innerText = now.toLocaleString('pt-BR');
         }
     }
     setInterval(updateClock, 1000);
@@ -261,41 +263,42 @@
         const chaveTexto = document.getElementById("chavePixTexto").value;
         const botao = document.getElementById("btnCopiarPix");
         
-        navigator.clipboard.writeText(chaveTexto).then(() => {
-            botao.innerHTML = "✓ Copiado!";
-            botao.classList.add("copiado");
-            
-            setTimeout(() => {
-                botao.innerHTML = "📋 Copiar Código PIX";
-                botao.classList.remove("copiado");
-            }, 2000);
-        }).catch(err => {
-            const input = document.getElementById("chavePixTexto");
-            input.select();
-            input.setSelectionRange(0, 99999);
-            document.execCommand("copy");
-            
-            botao.innerHTML = "✓ Copiado!";
-            setTimeout(() => { botao.innerHTML = "📋 Copiar Código PIX"; }, 2000);
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(chaveTexto).then(() => {
+                sucessoCopia(botao);
+            }).catch(() => {
+                fallbackCopia(botao);
+            });
+        } else {
+            fallbackCopia(botao);
+        }
     }
 
-    // Função de Compartilhamento Nativo com Caixa de Diálogo (Windows/Celular)
+    function sucessoCopia(botao) {
+        botao.innerHTML = "✓ Copiado!";
+        botao.classList.add("copiado");
+        setTimeout(() => {
+            botao.innerHTML = "📋 Copiar Código PIX";
+            botao.classList.remove("copiado");
+        }, 2000);
+    }
+
+    function fallbackCopia(botao) {
+        const input = document.getElementById("chavePixTexto");
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        sucessoCopia(botao);
+    }
+
+    // Função corrigida e fechada corretamente para compartilhar
     function manageSystem() {
         const linkSite = window.location.href;
-        
-        // Texto formatado idêntico à sua estrutura
-        const mensagemTexto = `✨ Mairiporã Agro ✨
-Ovos Artesanais de Codorna Jumbo! 🥚
+        const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã";
 
-🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
-
-📋 Código PIX Copia e Cola:
-3d4ee862-439d-481d-9f5b-07d69a7182f6
-
-⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
-
-📅 Dias de Entrega: Terças e Sextas-feiras
-📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã`;
-
-        // Se o navegador aceitar a caixa nativa do Windows/Celular
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro',
+                text: mensagemTexto,
+                url: linkSite
+            }).catch(function(err) {
