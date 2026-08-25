@@ -240,38 +240,73 @@
         document.getElementById('live-clock').textContent = dataFormatada + ' ' + horaFormatada;
     }
 
-    // Inicializa e atualiza o relógio a cada 1 segundo
+    <script>
+    // 1. Relógio Dinâmico Atualizando a cada segundo
+    function updateClock() {
+        const now = new Date();
+        const dataFormatada = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).substring(0, 5);
+        const horaFormatada = now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        document.getElementById('live-clock').textContent = dataFormatada + ' ' + horaFormatada;
+    }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Função Copiar Pix Inteligente com Feedback Visual
+    // 2. Copiar PIX com Plano B para Celulares antigos ou sem HTTPS completo
     function copiarPix() {
         const btn = document.getElementById('btnCopiarPix');
         const chavePix = btn.getAttribute('data-pix');
 
-        navigator.clipboard.writeText(chavePix).then(() => {
-            btn.innerHTML = "✓ Código Copiado!";
-            btn.style.backgroundColor = "#128C7E"; // Tom de verde escuro de sucesso
-            
-            // Retorna ao estado normal depois de 3 segundos
-            setTimeout(() => {
-                btn.innerHTML = "📋 Copiar Código PIX";
-                btn.style.backgroundColor = "#25D366";
-            }, 3000);
-        }).catch(err => {
-            console.error('Erro ao copiar Pix: ', err);
-            alert("Sua chave Pix é: " + chavePix);
-        });
+        // Método principal moderno
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(chavePix).then(() => {
+                mostrarSucessoAcao(btn);
+            }).catch(err => {
+                copiarMetodoAntigo(chavePix, btn);
+            });
+        } else {
+            // Método antigo de contingência para celulares
+            copiarMetodoAntigo(chavePix, btn);
+        }
     }
 
-    // Função de Compartilhamento / Confirmação do Pedido
+    function copiarMetodoAntigo(texto, botao) {
+        const inputTemporario = document.createElement("input");
+        inputTemporario.value = texto;
+        document.body.appendChild(inputTemporario);
+        inputTemporario.select();
+        inputTemporario.setSelectionRange(0, 99999); // Para celulares/iPhones
+
+        try {
+            document.execCommand("copy");
+            mostrarSucessoAcao(botao);
+        } catch (err) {
+            console.error('Erro no plano B de cópia: ', err);
+            alert("Não foi possível copiar automaticamente. Use a chave: " + texto);
+        }
+        document.body.removeChild(inputTemporario);
+    }
+
+    function mostrarSucessoAcao(botao) {
+        botao.innerHTML = "✓ Código Copiado!";
+        botao.style.backgroundColor = "#128C7E";
+        setTimeout(() => {
+            botao.innerHTML = "📋 Copiar Código PIX";
+            botao.style.backgroundColor = "#25D366";
+        }, 3000);
+    }
+
+    // 3. Compartilhamento Direto para o seu WhatsApp de Atendimento
     function manageSystem() {
+        // ASSIM QUE PUDER, SUBSTITUA OS ZEROS ABAIXO PELO SEU NÚMERO COM DDD (Ex: 11999999999)
+        const seuNumeroWhats = "5500000000000"; 
+        
         const urlSite = window.location.href;
-        const msg = encodeURIComponent("Olá! Fiz o pagamento dos ovos de codorna. Segue o link da página do pedido: " + urlSite);
-        // Abre o WhatsApp para envio direto (Substitua se desejar um número fixo de atendimento)
-        window.open("https://whatsapp.com" + msg, "_blank");
+        const textoMensagem = "Olá! Fiz o pagamento dos ovos de codorna jumbo. Segue o link do meu pedido: " + urlSite;
+        const msgCodificada = encodeURIComponent(textoMensagem);
+        
+        // Dispara direto para conversa com você
+        const urlLink = "https://whatsapp.com" + seuNumeroWhats + "&text=" + msgCodificada;
+        window.open(urlLink, "_blank");
     }
 </script>
 
-</body>
-</html>
