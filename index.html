@@ -174,7 +174,7 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema com os Dois Pontos Piscantes -->
+    <!-- Tarja de Status do Sistema com Relógio -->
     <div class="header-system">
         ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
@@ -232,72 +232,51 @@
 </div>
 
 <script>
-    // Relógio Dinâmico Seguro com Pontos Piscantes
+    // Relógio Simplificado à Prova de Falhas
     function updateClock() {
         const clockEl = document.getElementById('live-clock');
         if (!clockEl) return;
         
         const now = new Date();
-        try {
-            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const timeParts = new Intl.DateTimeFormat('pt-BR', options).formatToParts(now);
-            const dateParts = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
-            
-            let hours = '00', minutes = '00', seconds = '00';
-            timeParts.forEach(p => {
-                if (p.type === 'hour') hours = p.value;
-                if (p.type === 'minute') minutes = p.value;
-                if (p.type === 'second') seconds = p.value;
-            });
-
-            clockEl.innerHTML = dateParts + ' ' + hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
-        } catch (e) {
-            clockEl.innerText = now.toLocaleString('pt-BR');
-        }
+        const dia = String(now.getDate()).padStart(2, '0');
+        const mes = String(now.getMonth() + 1).padStart(2, '0');
+        const ano = now.getFullYear();
+        
+        const hora = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const seg = String(now.getSeconds()).padStart(2, '0');
+        
+        clockEl.innerHTML = dia + '/' + mes + '/' + ano + ' ' + hora + '<span class="blink">:</span>' + min + '<span class="blink">:</span>' + seg;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Função de Cópia Segura da Chave Pix
+    // Copiar chave PIX
     function copiarPix() {
-        const chaveTexto = document.getElementById("chavePixTexto").value;
+        const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
         
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(chaveTexto).then(() => {
-                sucessoCopia(botao);
-            }).catch(() => {
-                fallbackCopia(botao);
-            });
-        } else {
-            fallbackCopia(botao);
-        }
-    }
-
-    function sucessoCopia(botao) {
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        
         botao.innerHTML = "✓ Copiado!";
         botao.classList.add("copiado");
-        setTimeout(() => {
+        
+        setTimeout(function() {
             botao.innerHTML = "📋 Copiar Código PIX";
-            botao.classList.remove("removido"); // Garante limpeza de classe se houver
             botao.classList.remove("copiado");
         }, 2000);
     }
 
-    function fallbackCopia(botao) {
-        const input = document.getElementById("chavePixTexto");
-        input.select();
-        input.setSelectionRange(0, 99999);
-        document.execCommand("copy");
-        sucessoCopia(botao);
-    }
-
-    // Função para Compartilhar no WhatsApp / Diálogo do Windows
+    // Compartilhar Mensagem de Venda Direto no WhatsApp
     function manageSystem() {
         const linkSite = window.location.href;
-        const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã";
+        const mensagemTexto = "✨ Mairiporã Agro ✨\nOvos Artesanais de Codorna Jumbo! 🥚\n\n🛒 BANDEJA R$ 13,00\n\n📋 Código PIX:\n3d4ee862-439d-481d-9f5b-07d69a7182f6\n\n📅 Entrega: Terças e Sextas\n📍 Retirada: Rodoviária de Mairiporã\n\n🔗 Acesse o site: " + linkSite;
+        
+        window.open("https://whatsapp.com" + encodeURIComponent(mensagemTexto), '_blank');
+    }
+</script>
 
-        if (navigator.share) {
-            navigator.share({
-                title: 'Mairiporã Agro',
-                text: mensagemTexto,
+</body>
+</html>
