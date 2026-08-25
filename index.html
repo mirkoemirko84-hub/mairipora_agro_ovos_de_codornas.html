@@ -161,7 +161,7 @@
 
     <!-- Linha do Sistema (Fundo Vermelho e Letras Brancas) -->
     <div class="header-system">
-        ⏱️ SISTEMA: 23.08. <span class="clock-spacer" id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -181,7 +181,7 @@
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
 
-    <!-- Botão Copiar e Colar PIX Atualizado com sua Chave Real -->
+    <!-- Botão Copiar e Colar PIX Atualizado -->
     <div class="pix-container" style="text-align: center; margin-top: 15px;">
         <button id="btnCopiarPix" data-pix="3d4ee862-439d-481d-9f5b-07d69a7182f6" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
             📋 Copiar Código PIX
@@ -231,51 +231,47 @@
     // Relógio Dinâmico Corrigido e Completo
     function updateClock() {
         const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
         
-        const clockElement = document.getElementById('live-clock');
-        if (clockElement) {
-            clockElement.innerHTML = `${hours}<span class="blink">:</span>${minutes}<span class="blink">:</span>${seconds}`;
-        }
+        // Configura data e hora formatada no fuso de São Paulo
+        const dataFormatada = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).substring(0, 5);
+        const horaFormatada = now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        
+        // Atualiza o texto mantendo o estilo visual original
+        document.getElementById('live-clock').textContent = dataFormatada + ' ' + horaFormatada;
     }
 
-    // Inicia o relógio e atualiza a cada 1 segundo
+    // Inicializa e atualiza o relógio a cada 1 segundo
     setInterval(updateClock, 1000);
-    window.onload = updateClock;
+    updateClock();
 
-    // Função para Copiar a Chave PIX com Feedback Visual
+    // Função Copiar Pix Inteligente com Feedback Visual
     function copiarPix() {
         const btn = document.getElementById('btnCopiarPix');
         const chavePix = btn.getAttribute('data-pix');
 
         navigator.clipboard.writeText(chavePix).then(() => {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "✅ PIX Copiado!";
-            btn.style.backgroundColor = "#27ae60";
-
+            btn.innerHTML = "✓ Código Copiado!";
+            btn.style.backgroundColor = "#128C7E"; // Tom de verde escuro de sucesso
+            
+            // Retorna ao estado normal depois de 3 segundos
             setTimeout(() => {
-                btn.innerHTML = originalText;
+                btn.innerHTML = "📋 Copiar Código PIX";
                 btn.style.backgroundColor = "#25D366";
-            }, 2000);
+            }, 3000);
         }).catch(err => {
-            alert("Erro ao copiar o código. Por favor, copie manualmente: " + chavePix);
+            console.error('Erro ao copiar Pix: ', err);
+            alert("Sua chave Pix é: " + chavePix);
         });
     }
 
-    // A Manobra do Botão Cobaia de Compartilhamento Nativo
+    // Função de Compartilhamento / Confirmação do Pedido
     function manageSystem() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Mairiporã Agro - Ovos Jumbo',
-                text: 'Olha que excelente! Reservei meus ovos artesanais de codorna Jumbo na Mairiporã Agro.',
-                url: window.location.href
-            }).then(() => {
-                console.log('Compartilhado com sucesso!');
-            }).catch((error) => {
-                console.log('Erro ao compartilhar:', error);
-            });
-        } else {
-            // Alternativa caso o navegador não tenha suporte ao botão nativo
-            navigator.clipboard.writeText(window.location.href);
+        const urlSite = window.location.href;
+        const msg = encodeURIComponent("Olá! Fiz o pagamento dos ovos de codorna. Segue o link da página do pedido: " + urlSite);
+        // Abre o WhatsApp para envio direto (Substitua se desejar um número fixo de atendimento)
+        window.open("https://whatsapp.com" + msg, "_blank");
+    }
+</script>
+
+</body>
+</html>
