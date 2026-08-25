@@ -234,45 +234,48 @@
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('live-clock').innerHTML = hours + '<span class="blink">:</span>' + minutes + '<span class="blink">:</span>' + seconds;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Engenharia de Som Embutida Nativa (Sem depender de arquivos externos)
-    function tocarSomObrigado() {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-        gain1.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-        osc1.start();
-        osc1.stop(audioCtx.currentTime + 0.15);
-
-        setTimeout(function() {
-            const osc2 = audioCtx.createOscillator();
-            const gain2 = audioCtx.createGain();
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
-            gain2.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-            osc2.connect(gain2);
-            gain2.connect(audioCtx.destination);
-            osc2.start();
-            osc2.stop(audioCtx.currentTime + 0.3);
-        }, 120);
+        const clockElement = document.getElementById('live-clock');
+        if (clockElement) {
+            clockElement.innerHTML = `${hours}<span class="blink">:</span>${minutes}<span class="blink">:</span>${seconds}`;
+        }
     }
 
-    // Função de Cópia Pix com Mudança de Cor e Áudio
+    // Inicia o relógio e atualiza a cada 1 segundo
+    setInterval(updateClock, 1000);
+    window.onload = updateClock;
+
+    // Função para Copiar a Chave PIX com Feedback Visual
     function copiarPix() {
         const btn = document.getElementById('btnCopiarPix');
-        const textoPix = btn.getAttribute('data-pix');
+        const chavePix = btn.getAttribute('data-pix');
 
-        navigator.clipboard.writeText(textoPix).then(function() {
-            tocarSomObrigado();
+        navigator.clipboard.writeText(chavePix).then(() => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "✅ PIX Copiado!";
+            btn.style.backgroundColor = "#27ae60";
 
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.backgroundColor = "#25D366";
+            }, 2000);
+        }).catch(err => {
+            alert("Erro ao copiar o código. Por favor, copie manualmente: " + chavePix);
+        });
+    }
+
+    // A Manobra do Botão Cobaia de Compartilhamento Nativo
+    function manageSystem() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro - Ovos Jumbo',
+                text: 'Olha que excelente! Reservei meus ovos artesanais de codorna Jumbo na Mairiporã Agro.',
+                url: window.location.href
+            }).then(() => {
+                console.log('Compartilhado com sucesso!');
+            }).catch((error) => {
+                console.log('Erro ao compartilhar:', error);
+            });
+        } else {
+            // Alternativa caso o navegador não tenha suporte ao botão nativo
+            navigator.clipboard.writeText(window.location.href);
