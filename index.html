@@ -21,7 +21,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px solid #e0e0e0;
         }
-        /* BARRA DO RELÓGIO COM FUNDO VERMELHO E LETRAS BRANCAS */
         .header-system {
             font-size: 15px;
             font-weight: bold;
@@ -33,16 +32,6 @@
             font-family: monospace;
             border: 1px solid #990000;
             display: block;
-        }
-        .clock-spacer {
-            margin-left: 15px;
-            display: inline-block;
-        }
-        .blink {
-            animation: blinker 1s linear infinite;
-        }
-        @keyframes blinker {
-            50% { opacity: 0; }
         }
         h1 {
             color: #d35400;
@@ -80,6 +69,36 @@
             display: block;
             margin: 0 auto;
         }
+        
+        /* CAIXA DE TEXTO DO PIX VISÍVEL E SEGURA PARA CELULAR */
+        .pix-input-box {
+            width: 90%;
+            max-width: 320px;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            font-family: monospace;
+        }
+
+        .btn-pix {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
         .info-box {
             background: #fff8e1;
             border-left: 5px solid #ffb300;
@@ -101,12 +120,7 @@
             border-radius: 0 8px 8px 0;
             line-height: 1.5;
         }
-        /* GRUPO DE BOTÕES EM PARALELO SIMÉTRICOS */
         .button-group-parallel {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            width: 95%;
             margin: 15px auto 25px auto;
         }
         .btn-parallel-share {
@@ -119,10 +133,8 @@
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
-            font-family: sans-serif;
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
-            text-align: center;
             width: 100%;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
         }
         .footer-text {
             font-size: 16px;
@@ -138,9 +150,7 @@
             font-size: 13px;
             color: #27ae60;
             font-weight: bold;
-            margin-bottom: 15px;
         }
-        /* ESTILO DA ASSINATURA TÉCNICA DO MESTRE */
         .signature-box {
             background: #2c3e50;
             color: #ffffff;
@@ -150,8 +160,6 @@
             border-radius: 8px;
             margin-top: 25px;
             line-height: 1.6;
-            text-align: center;
-            border: 1px solid #1a252f;
         }
     </style>
 </head>
@@ -159,7 +167,6 @@
 
 <div class="container">
 
-    <!-- Linha do Sistema (Fundo Vermelho e Letras Brancas) -->
     <div class="header-system">
         ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
     </div>
@@ -167,122 +174,102 @@
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
 
-    <!-- LETREIRO COM TEXTO ANDANDO EM NEGRITO -->
     <marquee scrollamount="5" style="font-weight: bold; color: #333; font-size: 16px; margin: 15px 0;">
         <strong>🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</strong>
     </marquee>
 
-    <!-- Preço -->
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Imagem do QR Code -->
     <div class="qrcode-container">
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
     </div>
 
-    <!-- Botão Copiar e Colar PIX Atualizado -->
-    <div class="pix-container" style="text-align: center; margin-top: 15px;">
-        <button id="btnCopiarPix" data-pix="3d4ee862-439d-481d-9f5b-07d69a7182f6" onclick="copiarPix()" style="background-color: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+    <!-- Seção Pix Atualizada com Campo de Texto Físico -->
+    <div class="pix-container">
+        <button id="btnCopiarPix" onclick="copiarPix()" class="btn-pix">
             📋 Copiar Código PIX
         </button>
+        <br>
+        <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- Alerta de Segurança -->
     <div class="info-box">
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
 
-    <!-- Lembrete Importante Logístico -->
     <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo. Depois, assim que eu estiver saindo para realizar as entregas, enviarei um aviso para combinarmos a retirada na Rodoviária.
+        <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
     </div>
 
-    <!-- ==================== O BOTÃO COBAIA GERENCIADOR EXTRAORDINÁRIO ==================== -->
     <div class="button-group-parallel">
         <button onclick="manageSystem()" class="btn-parallel-share">
-            🔗 COMPARTILHAR SITE / CONFIRMAR COMPRA
+            🔗 COMPARTILHAR SITE NO WHATSAPP
         </button>
     </div>
-    <!-- =================================================================================== -->
 
-    <!-- Informações de Entrega -->
     <div class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
         <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
     </div>
 
-    <!-- Rodapé Seguro -->
     <div class="secure-footer">
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 
-    <!-- ==================== ASSINATURA E IDENTIFICAÇÃO DO PROJETO ==================== -->
     <div class="signature-box">
-        🛠️ Versão do Sistema: 26.08.23.01<br>
-        🌾 © 2026 . JCS_criatório . JCS_software<br>
-        🚜 Incentivando a Agricultura Familiar e o Comércio Local
+        🛠️ Versão do Sistema: 26.08.23.02<br>
+        🌾 © 2026 . JCS_criatório . JCS_software
     </div>
-    <!-- =============================================================================== -->
 
 </div>
 
 <script>
-    // 1. Relógio Dinâmico Atualizando a cada segundo sem travar
+    // Relógio Sem Travar
     function updateClock() {
+        const now = new Date();
+        let dataHora;
         try {
-            const now = new Date();
-            const dataFormatada = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).substring(0, 5);
-            const horaFormatada = now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-            document.getElementById('live-clock').textContent = dataFormatada + ' ' + horaFormatada;
-        } catch (e) {
-            console.error(e);
+            dataHora = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).substring(0, 5) + ' ' + 
+                       now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        } catch(e) {
+            // Fallback caso fuso horário falhe no celular antigo
+            dataHora = now.getDate() + '/' + (now.getMonth()+1) + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
         }
+        document.getElementById('live-clock').textContent = dataHora;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 2. Copiar PIX Híbrido com garantia de funcionamento para Celulares e Computadores
+    // Copiar Pix Mecanismo Seguro Simplificado
     function copiarPix() {
+        const inputChave = document.getElementById('chavePixTexto');
         const btn = document.getElementById('btnCopiarPix');
-        const chavePix = btn.getAttribute('data-pix');
-
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(chavePix).then(() => {
-                mostrarSucessoAcao(btn);
-            }).catch(() => {
-                copiarMetodoAntigo(chavePix, btn);
-            });
-        } else {
-            copiarMetodoAntigo(chavePix, btn);
-        }
-    }
-
-    function copiarMetodoAntigo(texto, botao) {
-        const inputTemporario = document.createElement("input");
-        inputTemporario.value = texto;
-        inputTemporario.style.position = "fixed"; 
-        inputTemporario.style.opacity = "0";
-        document.body.appendChild(inputTemporario);
-        inputTemporario.focus();
-        inputTemporario.select();
-        inputTemporario.setSelectionRange(0, 99999);
+        
+        inputChave.select();
+        inputChave.setSelectionRange(0, 99999); // Suporte para Mobile
 
         try {
-            document.execCommand("copy");
-            mostrarSucessoAcao(botao);
+            document.execCommand('copy');
+            btn.innerHTML = "✓ Copiado!";
+            btn.style.backgroundColor = "#128C7E";
+            setTimeout(() => {
+                btn.innerHTML = "📋 Copiar Código PIX";
+                btn.style.backgroundColor = "#25D366";
+            }, 3000);
         } catch (err) {
-            alert("Copie manualmente a chave Pix: " + texto);
+            // Se falhar tudo, avisa o cliente para usar a caixa visível
+            alert("Clique na caixa de texto abaixo e copie o código manualmente.");
         }
-        document.body.removeChild(inputTemporario);
     }
 
-    function mostrarSucessoAcao(botao) {
-        botao.innerHTML = "✓ Código Copiado!";
-        botao.style.backgroundColor = "#128C7E";
-        setTimeout(() => {
-            botao.innerHTML = "📋 Copiar Código PIX";
-            botao.style.backgroundColor = "#25D366";
-        }, 3000);
+    // Compartilhamento Universal Link Simples
+    function manageSystem() {
+        const urlSite = window.location.href;
+        const texto = encodeURIComponent("Olá! Conheça a página de pedidos da Mairiporã Agro: " + urlSite);
+        window.open("https://whatsapp.com" + texto, "_blank");
     }
+</script>
 
+</body>
+</html>
