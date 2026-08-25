@@ -283,7 +283,61 @@
         });
     }
 
-    // Função para Compartilhar no WhatsApp
+        // Função para Compartilhar a mensagem idêntica do site no WhatsApp
+    function manageSystem() {
+        const linkSite = window.location.href;
+        
+        // Monta o texto exatamente igual ao layout do sistema
+        const mensagemTexto = `✨ Mairiporã Agro ✨
+Ovos Artesanais de Codorna Jumbo! 🥚
+
+🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
+
+📋 Código PIX Copia e Cola:
+3d4ee862-439d-481d-9f5b-07d69a7182f6
+
+⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
+
+📅 Dias de Entrega: Terças e Sextas-feiras
+📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
+
+🔗 Acesse o nosso site para fazer o pedido: ${linkSite}`;
+
+        // Codifica o texto para o formato aceito em URLs do WhatsApp
+        const textoParaEnviar = encodeURIComponent(mensagemTexto);
+        const urlWhatsapp = "https://whatsapp.com" + textoParaEnviar;
+        
+        // Abre o WhatsApp compartilhando a mensagem estruturada
+        window.open(urlWhatsapp, '_blank');
+    }
+    // Função para Compartilhar a mensagem idêntica do site no WhatsApp
+    function manageSystem() {
+        const linkSite = window.location.href;
+        
+        // Monta o texto exatamente igual ao layout do sistema
+        const mensagemTexto = `✨ Mairiporã Agro ✨
+Ovos Artesanais de Codorna Jumbo! 🥚
+
+🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL! BANDEJA R$ 13,00
+
+📋 Código PIX Copia e Cola:
+3d4ee862-439d-481d-9f5b-07d69a7182f6
+
+⚠️ ATENÇÃO: Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de R$ 13,00.
+
+📅 Dias de Entrega: Terças e Sextas-feiras
+📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
+
+🔗 Acesse o nosso site para fazer o pedido: ${linkSite}`;
+
+        // Codifica o texto para o formato aceito em URLs do WhatsApp
+        const textoParaEnviar = encodeURIComponent(mensagemTexto);
+        const urlWhatsapp = "https://whatsapp.com" + textoParaEnviar;
+        
+        // Abre o WhatsApp compartilhando a mensagem estruturada
+        window.open(urlWhatsapp, '_blank');
+    }
+// Função para Compartilhar no WhatsApp
     function manageSystem() {
         const linkSite = window.location.href;
         const textoParaEnviar = encodeURIComponent("Olha só que legal! Encontrei Ovos Artesanais de Codorna Jumbo em Mairiporã. Dá uma olhada no site deles: " + linkSite);
