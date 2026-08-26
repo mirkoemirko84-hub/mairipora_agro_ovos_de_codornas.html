@@ -22,11 +22,11 @@
             border: 2px solid #e0e0e0;
         }
         .header-system {
-            font-size: 15px;
+            font-size: 26px; /* Fonte ampliada para máxima clareza */
             font-weight: bold;
             color: #ffffff !important;
             background: #cc0000 !important;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             font-family: monospace;
@@ -60,6 +60,15 @@
             padding: 12px;
             border-radius: 10px;
             display: inline-block;
+        }
+        .stock-box {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 18px;
+            color: #2e7d32;
         }
         .qrcode-container {
             margin: 20px 0;
@@ -129,16 +138,16 @@
         }
         .btn-parallel-share {
             display: block;
-            background-color: #2c3e50;
+            background-color: #25D366;
             color: white;
             border: none;
-            padding: 14px 5px;
-            font-size: 14px;
+            padding: 16px 5px;
+            font-size: 16px;
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.4);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
         }
         .footer-text {
             font-size: 16px;
@@ -171,9 +180,9 @@
 
 <div class="container">
 
-    <!-- Tarja de Status do Sistema com Relógio -->
+    <!-- Tarja de Status do Sistema com Relógio Grande -->
     <div class="header-system">
-        ⏱️ SISTEMA: <span id="live-clock">Carregando...</span>
+        ⏱️ <span id="live-clock">00:00:00</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -184,6 +193,12 @@
     </marquee>
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
+
+    <!-- Painel de Estoque Atualizado -->
+    <div class="stock-box">
+        📦 Estoque Completa: <strong>08 cartelas</strong><br>
+        🥚 Sobras: <strong>16 ovos</strong>
+    </div>
 
     <div class="qrcode-container">
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
@@ -198,7 +213,7 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- [NOVO] Container da Barra de Progresso Inteligente -->
+    <!-- Barra de Progresso Inteligente -->
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
         <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Iniciando comunicação...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
@@ -216,7 +231,7 @@
 
     <div class="button-group-parallel">
         <button onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
-            🔗 COMPARTILHAR SITE NO WHATSAPP
+            🔗 COMPARTILHAR COMPRA NO WHATSAPP
         </button>
     </div>
 
@@ -233,132 +248,73 @@
         🛠️ Versão do Sistema: 26.08.23.03<br>
         🌾 © 2026 . JCS_criatório . JCS_software
     </div>
-    <!-- Botão Secreto do Dono (Começa totalmente invisível) -->
+
+    <!-- Botão Oculto do Administrador -->
     <button id="botao-secreto-adm" onclick="window.location.href='./Adm/'" style="display: none; background-color: #17509e; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)
     </button>
 
-    </div>
-
-    <script>
-    <!-- SEÇÃO DE ESTOQUE E RELÓGIO -->
-<div style="text-align: center; margin: 20px 0; font-family: sans-serif;">
-    <!-- Relógio com fonte ampliada -->
-    <div id="relogio" style="font-size: 28px; font-weight: bold; color: #2e7d32; margin-bottom: 10px;">
-        18:00:00
-    </div>
-    
-    <!-- Dados do Estoque Atualizados -->
-    <div style="font-size: 18px; color: #333;">
-        <p>📦 Estoque Atual: <strong>08 cartelas</strong></p>
-        <p>🥚 Sobras: <strong>16 ovos</strong></p>
-    </div>
 </div>
 
-<!-- BOTÃO DO WHATSAPP CORRIGIDO -->
-<div style="text-align: center; margin: 25px 0;">
-    <a href="https://wa.me!" 
-       target="_blank" 
-       style="background-color: #25D366; color: white; padding: 15px 30px; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 30px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        📢 ENVIAR COMPROVANTE NO WHATSAPP
-    </a>
-</div>
+<script>
+    // 1. Relógio em Tempo Real Atualizado
+    function atualizarRelogio() {
+        const agora = new Date();
+        const horas = String(agora.getHours()).padStart(2, '0');
+        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const segundos = String(agora.getSeconds()).padStart(2, '0');
+        document.getElementById('live-clock').textContent = `SISTEMA: ${horas}:${minutos}:${segundos}`;
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
 
-    // 2. VARIÁVEIS DA JOGADA DE MARKETING DE ESTOQUE
-    let estoqueSimuladoVisivel = 3;
-    let estoqueOcultoReserva = 5;
-
-    // 3. Copiar chave PIX e Disparar a Barra Bradesco
+    // 2. Função de Copiar o PIX
     function copiarPix() {
-        const input = document.getElementById("chavePixTexto");
-        const botao = document.getElementById("btnCopiarPix");
+        const inputPix = document.getElementById("chavePixTexto");
+        inputPix.select();
+        inputPix.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(inputPix.value);
         
-        if (input) {
-            input.select();
-            input.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(input.value);
-        }
-        
-        if (botao) {
-            botao.textContent = "✓ Código Copiado!";
-            botao.style.backgroundColor = "#27ae60";
-        }
-        
-        dispararFluxoProcessamento();
+        const btn = document.getElementById("btnCopiarPix");
+        btn.innerHTML = "✅ Código Copiado!";
+        btn.style.backgroundColor = "#27ae60";
+        setTimeout(() => {
+            btn.innerHTML = "📋 Copiar Código PIX";
+            btn.style.backgroundColor = "#007bff";
+        }, 3000);
     }
 
-    // 4. O Tranco na Barra de Progresso da API Bradesco
-    function dispararFluxoProcessamento() {
-        document.getElementById('container-progresso').style.display = 'block';
-        const barra = document.getElementById('barra-progresso');
-        const texto = document.getElementById('texto-progresso');
-        let progresso = 0;
+    // 3. Link Corrigido do WhatsApp direcionado para o seu número
+    function abrirJanelaCompartilhar() {
+        const container = document.getElementById("container-progresso");
+        const barra = document.getElementById("barra-progresso");
+        const texto = document.getElementById("texto-progresso");
+        
+        container.style.display = "block";
+        barra.style.width = "0%";
+        texto.textContent = "🔌 Conectando ao servidor do WhatsApp...";
 
+        let progresso = 0;
         const intervalo = setInterval(() => {
             progresso += 5;
-            barra.style.width = progresso + '%';
-            
-            if (progresso === 20) texto.textContent = "⚡ Conectando com a API Segura Bradesco...";
-            if (progresso === 50) texto.textContent = "📊 Sistema JCS: 3 Cartelas identificadas no lote!";
-            if (progresso === 75) {
-                if (estoqueOcultoReserva > 0) {
-                    estoqueOcultoReserva--;
-                }
-                texto.textContent = "♻️ Estoque Atualizado com Sucesso pelo Criatório!";
-            }
-            if (progresso === 90) texto.textContent = "🔊 Sincronizando retorno sonoro com o criatório...";
+            barra.style.width = progresso + "%";
+
+            if (progresso === 30) texto.textContent = "⚙️ Formatando dados da mensagem...";
+            if (progresso === 65) texto.textContent = "🔒 Criptografando conexão de saída...";
+            if (progresso === 90) texto.textContent = "🚀 Redirecionando seguro...";
 
             if (progresso >= 100) {
                 clearInterval(intervalo);
-                texto.textContent = "✓ Conexão Concluída com Sucesso!";
-                tocarSomObrigado();
-                alert("📢 SISTEMA JCS:\nPix Copiado! Cole no aplicativo Bancário ou outro e envie o comprovante para liberação logística na Rodoviária.");
-                
-                const botao = document.getElementById("btnCopiarPix");
-                if (botao) {
-                    botao.textContent = "📋 Copiar Código PIX";
-                    botao.style.backgroundColor = "#007bff";
-                }
+                setTimeout(() => {
+                    container.style.display = "none";
+                    
+                    // TELEFONE CONFIGURADO: Mude o 5511999999999 abaixo para o seu número real!
+                    const meuCelular = "5511964856312"; 
+                    const textoMensagem = "Olá! Quero enviar o comprovante da minha compra dos ovos artesanais de codorna Jumbo! 🥚";
+                    
+                    window.open(`https://wa.me{meuCelular}?text=${encodeURIComponent(textoMensagem)}`, "_blank");
+                }, 400);
             }
-        }, 150);
+        }, 100);
     }
-
-    // 5. Retorno Sonoro (Bipe Duplo Cristalino)
-    function tocarSomObrigado() {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); 
-        gain1.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-        osc1.start();
-        osc1.stop(audioCtx.currentTime + 0.15);
-        
-        setTimeout(() => {
-            const osc2 = audioCtx.createOscillator();
-            const gain2 = audioCtx.createGain();
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(880, audioCtx.currentTime); 
-            gain2.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
-            osc2.connect(gain2);
-            gain2.connect(audioCtx.destination);
-            osc2.start();
-            osc2.stop(audioCtx.currentTime + 0.25);
-        }, 150);
-    }
-
-    // 6. Compartilhamento com Mensagem Padrão Completa
-    function abrirJanelaCompartilhar() {
-        const mensagemComprador = "Obrigado pela compra! Você comprou 3 cartelas. Bom apetite!";
-        const urlZap = "https://wa.me" + encodeURIComponent(mensagemComprador); 
-        window.open(urlZap, '_blank');
-    }
-</script>
-</body>
-</html>
 
