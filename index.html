@@ -237,7 +237,8 @@
 </div>
 
 <script>
-    // Relógio Simplificado Seguro
+<script>
+    // 1. Relógio Simplificado Seguro
     function updateClock() {
         const clockEl = document.getElementById('live-clock');
         if (!clockEl) return;
@@ -256,11 +257,11 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // VARIÁVEIS DA JOGADA DE MARKETING DE ESTOQUE
+    // 2. VARIÁVEIS DA JOGADA DE MARKETING DE ESTOQUE
     let estoqueSimuladoVisivel = 3;
     let estoqueOcultoReserva = 5;
 
-    // Copiar chave PIX e Disparar a Barra Bradesco
+    // 3. Copiar chave PIX e Disparar a Barra Bradesco
     function copiarPix() {
         const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
@@ -276,12 +277,10 @@
             botao.style.backgroundColor = "#27ae60";
         }
         
-        // Dispara o fluxo visual de processamento seguro
         dispararFluxoProcessamento();
     }
 
-
-    // O Tranco na Barra de Progresso da API Bradesco
+    // 4. O Tranco na Barra de Progresso da API Bradesco
     function dispararFluxoProcessamento() {
         document.getElementById('container-progresso').style.display = 'block';
         const barra = document.getElementById('barra-progresso');
@@ -293,6 +292,65 @@
             barra.style.width = progresso + '%';
             
             if (progresso === 20) texto.textContent = "⚡ Conectando com a API Segura Bradesco...";
-            if (progresso === 50) texto.textContent = `📊 Sistema JCS: 3 Cartelas identificadas no lote!`;
+            if (progresso === 50) texto.textContent = "📊 Sistema JCS: 3 Cartelas identificadas no lote!";
             if (progresso === 75) {
-                // Manobra de marketing em segundo plano: simula saída de 1 e reposição automática para 3
+                if (estoqueOcultoReserva > 0) {
+                    estoqueOcultoReserva--;
+                }
+                texto.textContent = "♻️ Estoque Atualizado com Sucesso pelo Criatório!";
+            }
+            if (progresso === 90) texto.textContent = "🔊 Sincronizando retorno sonoro com o criatório...";
+
+            if (progresso >= 100) {
+                clearInterval(intervalo);
+                texto.textContent = "✓ Conexão Concluída com Sucesso!";
+                tocarSomObrigado();
+                alert("📢 SISTEMA JCS:\nPix Copiado! Cole no aplicativo do Bradesco e envie o comprovante para liberação logística na Rodoviária.");
+                
+                const botao = document.getElementById("btnCopiarPix");
+                if (botao) {
+                    botao.textContent = "📋 Copiar Código PIX";
+                    botao.style.backgroundColor = "#007bff";
+                }
+            }
+        }, 150);
+    }
+
+    // 5. Retorno Sonoro (Bipe Duplo Cristalino)
+    function tocarSomObrigado() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); 
+        gain1.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start();
+        osc1.stop(audioCtx.currentTime + 0.15);
+        
+        setTimeout(() => {
+            const osc2 = audioCtx.createOscillator();
+            const gain2 = audioCtx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            gain2.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc2.connect(gain2);
+            gain2.connect(audioCtx.destination);
+            osc2.start();
+            osc2.stop(audioCtx.currentTime + 0.25);
+        }, 150);
+    }
+
+    // 6. Compartilhamento com Mensagem Padrão Completa
+    function abrirJanelaCompartilhar() {
+        const mensagemComprador = "Obrigado pela compra! Você comprou 3 cartelas. Bom apetite!";
+        const urlZap = "https://wa.me" + encodeURIComponent(mensagemComprador); 
+        window.open(urlZap, '_blank');
+    }
+</script>
+</body>
+</html>
