@@ -101,9 +101,6 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 10px;
         }
@@ -168,7 +165,6 @@
             border-radius: 8px;
             margin-top: 25px;
             line-height: 1.6;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -176,9 +172,9 @@
 
 <div class="container">
 
-    <!-- Tarja de Status do Sistema com Data e Relógio Integrados -->
+    <!-- Tarja de Status com Data Fixa e Relógio Dinâmico -->
     <div class="header-system">
-        ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">19:46:00</span>
+        ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">--:--:--</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -190,11 +186,11 @@
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Painel de Estoque Atualizado com 03 Reservas -->
+    <!-- Painel de Estoque -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
-        📦 Estoque Produzidas:<strong> 03 cartelas</strong><br>
-        🔒 Reservas: <strong> 16 unidades </strong>
+        📦 Estoque Produzidas: <strong>03 cartelas</strong><br>
+        🔒 Reservas: <strong>16 unidades</strong>
     </div>
 
     <div class="qrcode-container">
@@ -203,18 +199,18 @@
     </div>
 
     <div class="pix-container">
-        <button id="btnCopiarPix" onclick="copiarPix()" class="btn-pix">
+        <button type="button" id="btnCopiarPix" onclick="copiarPix()" class="btn-pix">
             📋 Copiar Código PIX
         </button>
         <br>
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- Barra de Progresso Inteligente -->
+    <!-- Barra de Progresso Oculta -->
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
-        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Iniciando comunicação...</p>
+        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.15s linear;"></div>
+            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366;"></div>
         </div>
     </div>
 
@@ -227,7 +223,7 @@
     </div>
 
     <div class="button-group-parallel">
-        <button onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
+        <button type="button" onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
             🔗 COMPARTILHAR COMPRA NO WHATSAPP
         </button>
     </div>
@@ -241,52 +237,65 @@
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 
-    <div class="signature-box" onclick="revelarPainel()">
+    <div class="signature-box">
         🛠️ Versão do Sistema: 26.08.23.03<br>
         🌾 © 2026 . JCS_criatório . JCS_software
     </div>
 
-    <!-- Botão Oculto do Administrador -->
-    <button id="botao-secreto-adm" onclick="window.location.href='./Adm/'" style="display: none; background-color: #17509e; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)
-    </button>
-
 </div>
 
 <script>
-    // 1. Relógio Corrigido em Tempo Real
-    function atualizarRelogio() {
-        const agora = new Date();
-        const horas = String(agora.getHours()).padStart(2, '0');
-        const minutes = String(agora.getMinutes()).padStart(2, '0');
-        const segundos = String(agora.getSeconds()).padStart(2, '0');
+    // 1. FORÇAR RELÓGIO A RODAR IMEDIATAMENTE
+    function iniciarRelogio() {
+        var agora = new Date();
+        var h = String(agora.getHours()).padStart(2, '0');
+        var m = String(agora.getMinutes()).padStart(2, '0');
+        var s = String(agora.getSeconds()).padStart(2, '0');
+        var txt = h + ":" + m + ":" + s;
         
-        const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) {
-            elementoRelogio.textContent = `${horas}:${minutes}:${segundos}`;
-        }
+        var el = document.getElementById('live-clock');
+        if (el) { el.innerHTML = txt; }
     }
-    setInterval(atualizarRelogio, 1000);
-    atualizarRelogio();
+    setInterval(iniciarRelogio, 1000);
+    iniciarRelogio();
 
-    // 2. Copiar Código Pix Corrigido
+    // 2. FUNÇÃO COPIAR PIX SIMPLIFICADA
     function copiarPix() {
-        const inputPix = document.getElementById("chavePixTexto");
-        if (inputPix) {
-            inputPix.select();
-            inputPix.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(inputPix.value);
+        var campo = document.getElementById("chavePixTexto");
+        if (campo) {
+            campo.select();
+            campo.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(campo.value);
             
-            const btn = document.getElementById("btnCopiarPix");
-            btn.innerHTML = "✅ Código Copiado!";
-            btn.style.backgroundColor = "#27ae60";
-            setTimeout(() => {
-                btn.innerHTML = "📋 Copiar Código PIX";
-                btn.style.backgroundColor = "#007bff";
-            }, 3000);
+            var btn = document.getElementById("btnCopiarPix");
+            if (btn) {
+                btn.innerHTML = "✅ Código Copiado!";
+                btn.style.backgroundColor = "#27ae60";
+                setTimeout(function() {
+                    btn.innerHTML = "📋 Copiar Código PIX";
+                    btn.style.backgroundColor = "#007bff";
+                }, 2000);
+            }
         }
     }
 
-    // 3. Compartilhamento do WhatsApp Destravado
+    // 3. WHATSAPP DIRETO SEM TRAVAMENTO
     function abrirJanelaCompartilhar() {
-        const container = document.getElementById("container-progresso");
+        var container = document.getElementById("container-progresso");
+        var barra = document.getElementById("barra-progresso");
+        var texto = document.getElementById("texto-progresso");
+        
+        if (container && barra && texto) {
+            container.style.display = "block";
+            barra.style.width = "0%";
+            texto.innerHTML = "🔌 Conectando ao WhatsApp...";
+
+            var progresso = 0;
+            var acao = setInterval(function() {
+                progresso += 20;
+                barra.style.width = progresso + "%";
+
+                if (progresso >= 100) {
+                    clearInterval(acao);
+                    setTimeout(function() {
+                        container.style.display = "none";
