@@ -88,7 +88,7 @@
             font-family: monospace;
         }
         .btn-pix {
-            background-color: #25D366;
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 12px 20px;
@@ -102,9 +102,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 10px;
             transition: background 0.2s;
-        }
-        .btn-pix.copiado {
-            background-color: #27ae60;
         }
         .info-box {
             background: #fff8e1;
@@ -201,6 +198,14 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
+    <!-- [NOVO] Container da Barra de Progresso Inteligente -->
+    <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
+        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Iniciando comunicação...</p>
+        <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
+            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.15s linear;"></div>
+        </div>
+    </div>
+
     <div class="info-box">
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
@@ -251,43 +256,38 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Copiar chave PIX
+    // VARIÁVEIS DA JOGADA DE MARKETING DE ESTOQUE
+    let estoqueSimuladoVisivel = 3;
+    let estoqueOcultoReserva = 5;
+
+    // Copiar chave PIX e Disparar a Barra Bradesco
     function copiarPix() {
         const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
         
         input.select();
         input.setSelectionRange(0, 99999);
-        document.execCommand("copy");
+        navigator.clipboard.writeText(input.value);
         
-        botao.innerHTML = "✓ Copiado!";
-        botao.classList.add("copiado");
+        botao.textContent = "✓ Código Copiado!";
+        botao.style.backgroundColor = "#27ae60";
         
-        setTimeout(function() {
-            botao.innerHTML = "📋 Copiar Código PIX";
-            botao.classList.remove("copiado");
-        }, 2000);
+        // Dispara o fluxo visual de processamento seguro
+        dispararFluxoProcessamento();
     }
 
-    // Compartilhamento Leve (Chama o menu nativo de opções do Windows/Celular)
-    function abrirJanelaCompartilhar() {
-        const linkSite = window.location.href;
-        const textoTitulo = "🥚 Mairiporã Agro - Ovos de Codorna Jumbo";
-        
-        if (navigator.share) {
-            navigator.share({
-                title: textoTitulo,
-                text: "Confira o site do produtor local de Ovos de Codorna Jumbo em Mairiporã!",
-                url: linkSite
-            }).catch(function() {
-                // Se der erro ou fechar a janela, ignora silenciosamente
-            });
-        } else {
-            // Reserva: Abre o link caso o navegador bloqueie o menu nativo localmente
-            window.open("https://whatsapp.com" + encodeURIComponent(textoTitulo + "\n" + linkSite), '_blank');
-        }
-    }
-</script>
+    // O Tranco na Barra de Progresso da API Bradesco
+    function dispararFluxoProcessamento() {
+        document.getElementById('container-progresso').style.display = 'block';
+        const barra = document.getElementById('barra-progresso');
+        const texto = document.getElementById('texto-progresso');
+        let progresso = 0;
 
-</body>
-</html>
+        const intervalo = setInterval(() => {
+            progresso += 5;
+            barra.style.width = progresso + '%';
+            
+            if (progresso === 20) texto.textContent = "⚡ Conectando com a API Segura Bradesco...";
+            if (progresso === 50) texto.textContent = `📊 Sistema JCS: 3 Cartelas identificadas no lote!`;
+            if (progresso === 75) {
+                // Manobra de marketing em segundo plano: simula saída de 1 e reposição automática para 3
