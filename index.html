@@ -241,24 +241,28 @@
     </div>
 
     <script>
-    // 1. Relógio Simplificado Seguro
-    function updateClock() {
-        const clockEl = document.getElementById('live-clock');
-        if (!clockEl) return;
-        
-        const now = new Date();
-        const dia = String(now.getDate()).padStart(2, '0');
-        const mes = String(now.getMonth() + 1).padStart(2, '0');
-        const ano = now.getFullYear();
-        
-        const hora = String(now.getHours()).padStart(2, '0');
-        const min = String(now.getMinutes()).padStart(2, '0');
-        const seg = String(now.getSeconds()).padStart(2, '0');
-        
-        clockEl.innerHTML = dia + '/' + mes + '/' + ano + ' ' + hora + '<span class="blink">:</span>' + min + '<span class="blink">:</span>' + seg;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    <!-- SEÇÃO DE ESTOQUE E RELÓGIO -->
+<div style="text-align: center; margin: 20px 0; font-family: sans-serif;">
+    <!-- Relógio com fonte ampliada -->
+    <div id="relogio" style="font-size: 28px; font-weight: bold; color: #2e7d32; margin-bottom: 10px;">
+        18:00:00
+    </div>
+    
+    <!-- Dados do Estoque Atualizados -->
+    <div style="font-size: 18px; color: #333;">
+        <p>📦 Estoque Atual: <strong>08 cartelas</strong></p>
+        <p>🥚 Sobras: <strong>16 ovos</strong></p>
+    </div>
+</div>
+
+<!-- BOTÃO DO WHATSAPP CORRIGIDO -->
+<div style="text-align: center; margin: 25px 0;">
+    <a href="https://wa.me!" 
+       target="_blank" 
+       style="background-color: #25D366; color: white; padding: 15px 30px; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 30px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        📢 ENVIAR COMPROVANTE NO WHATSAPP
+    </a>
+</div>
 
     // 2. VARIÁVEIS DA JOGADA DE MARKETING DE ESTOQUE
     let estoqueSimuladoVisivel = 3;
