@@ -1,116 +1,156 @@
-<script>
-    // 1. Validação do Termo de Aceite de Logística
-    function validarTermo() {
-        const chk = document.getElementById('chk-aceite');
-        const btnZap = document.getElementById('btn-zap');
-        const btnPgto = document.getElementById('btn-pagamento');
-        
-        if (chk.checked) {
-            // Destrava os botões se o cliente aceitar as condições de Mairiporã
-            btnZap.style.pointerEvents = "auto";
-            btnZap.style.opacity = "1";
-            btnZap.href = "https://whatsapp.com.";
-            
-            btnPgto.style.pointerEvents = "auto";
-            btnPgto.style.opacity = "1";
-        } else {
-            // Trava se desmarcar
-            btnZap.style.pointerEvents = "none";
-            btnZap.style.opacity = "0.5";
-            btnZap.href = "#";
-            btnPgto.style.pointerEvents = "none";
-            btnPgto.style.opacity = "0.5";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JCS Admin App</title>
+    <!-- Configuração para abrir em tela cheia como App no celular -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#17509e">
+    
+    <style>
+        /* Estilo Limpo e Direto do MIT App Inventor */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EFEFEF;
+            margin: 0;
+            padding: 0;
+            user-select: none;
         }
-    }
+        .app-header {
+            background-color: #17509e;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        }
+        .app-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .app-label {
+            font-size: 16px;
+            color: #333333;
+            font-weight: bold;
+            margin-bottom: -5px;
+        }
+        .status-box {
+            background-color: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .status-online { color: #25D366; }
+        .status-manutencao { color: #cc092f; }
 
-    // 2. Interface de Pagamento RecargaPay
-    function abrirSistemasPagamento() {
-        document.getElementById('bloco-pagamento').style.display = 'block';
-    }
+        .app-button {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 3px 0px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        .app-button:active { transform: scale(0.98); }
+        .btn-green { background-color: #25D366; }
+        .btn-red { background-color: #cc092f; }
+        .btn-blue { background-color: #007bff; }
 
-    // 3. Copiar Código Pix Copie e Cole
-    function copiarChavePix() {
-        const inputPix = document.getElementById('pix-copie-cole');
-        inputPix.select();
-        inputPix.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(inputPix.value);
-        alert("✓ Código Pix copiado com sucesso para o RecargaPay!");
-    }
+        .app-notifier {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
 
-    // 4. O Tranco na Barra de Progresso da API
-    function dispararFluxoProcessamento(tipo) {
-        document.getElementById('container-progresso').style.display = 'block';
-        const barra = document.getElementById('barra-progresso');
-        const texto = document.getElementById('texto-progresso');
-        let progresso = 0;
+    <div class="app-header">JCS_Software - Painel de Controle</div>
 
-        const intervalo = setInterval(() => {
-            progresso += 5;
-            barra.style.width = progresso + '%';
-            
-            if (progresso === 30) texto.textContent = "⚡ Autenticando com Bradesco Agro...";
-            if (progresso === 60) texto.textContent = "📊 Verificando Estoque (Máx 8 Cartelas)...";
-            if (progresso === 90) texto.textContent = "🔊 Ativando retorno sonoro do criatório...";
+    <div class="app-container">
+        
+        <div class="app-label">Status Atual do Site Principal:</div>
+        <div id="app-status-tela" class="status-box status-online">● SITE ONLINE</div>
 
-            if (progresso >= 100) {
-                clearInterval(intervalo);
-                texto.textContent = "✓ Conexão Concluída com Sucesso!";
-                tocarSomObrigado();
-                alert("📢 SISTEMA JCS:\nPix identificado! Seu pedido foi encaminhado para a logística da Rodoviária.");
+        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
+
+        <div class="app-label">Comandos Rápidos (Mairiporã):</div>
+        
+        <button class="app-button btn-red" onclick="comandoMudarStatus('manutencao')">
+            🛑 COLOCAR EM MANUTENÇÃO
+        </button>
+
+        <button class="app-button btn-green" onclick="comandoMudarStatus('online')">
+            🟢 VOLTAR SITE ONLINE
+        </button>
+
+        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
+
+        <div class="app-label">Controle de Estoque Oculto:</div>
+        
+        <button class="app-button btn-blue" onclick="dispararNotificador('Loop de Marketing Resetado para 3!')">
+            ♻️ RESETAR MÁXIMO (3 CARTELAS)
+        </button>
+
+    </div>
+
+    <div id="notifier" class="app-notifier"></div>
+
+    <script>
+        function comandoMudarStatus(novoStatus) {
+            const statusTela = document.getElementById('app-status-tela');
+            if (novoStatus === 'manutencao') {
+                statusTela.textContent = "● SITE EM MANUTENÇÃO";
+                statusTela.className = "status-box status-manutencao";
+                dispararNotificador("Comando Enviado: Site em Manutenção!");
+            } else {
+                statusTela.textContent = "● SITE ONLINE";
+                statusTela.className = "status-box status-online";
+                dispararNotificador("Comando Enviado: Site Aberto para Vendas!");
             }
-        }, 150);
-    }
-
-    // 5. O Som das Codornas (A Festa do Criatório)
-    function tocarSomObrigado() {
-        // Aqui o sistema faz o som tocar para animar a lida
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Som de confirmação do JCS_Software
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // Nota Dó
-        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // Sobe para o Lá
-        
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-        
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
-    }
-
-    // 6. Painel do Administrador (Alternar Manutenção ON/OFF)
-    let sistemaOnline = true;
-    function alternarStatus() {
-        const btn = document.getElementById('btn-status');
-        const telaManutencao = document.getElementById('manutencao-tela');
-        const containerCheckout = document.getElementById('jcs-checkout-container');
-
-        if (sistemaOnline) {
-            btn.textContent = "Status: MANUTENÇÃO";
-            btn.style.backgroundColor = "#cc092f";
-            telaManutencao.style.display = "block";
-            containerCheckout.style.display = "none";
-            sistemaOnline = false;
-        } else {
-            btn.textContent = "Status: ONLINE";
-            btn.style.backgroundColor = "#25D366";
-            telaManutencao.style.display = "none";
-            containerCheckout.style.display = "block";
-            sistemaOnline = true;
         }
-    }
 
-    // Checa se o Administrador acessou via URL (?adm=1)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('adm') === '1') {
-        document.getElementById('painel-adm').style.style.display = 'block';
-    }
-</script>
+        function dispararNotificador(mensagem) {
+            const caixaAlerta = document.getElementById('notifier');
+            caixaAlerta.textContent = message = mensagem;
+            caixaAlerta.style.display = 'block';
+            tocarBipeSucesso();
+            setTimeout(() => { caixaAlerta.style.display = 'none'; }, 3000);
+        }
+
+        function tocarBipeSucesso() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+    </script>
 </body>
 </html>
