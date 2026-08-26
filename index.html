@@ -30,9 +30,9 @@
             border-radius: 8px;
             margin-bottom: 20px;
             font-family: monospace;
-            border: 1px solid #990000;
             display: block;
             line-height: 1.4;
+            border: 1px solid #990000;
         }
         h1 {
             color: #d35400;
@@ -245,27 +245,34 @@
 </div>
 
 <script>
-    // 1. FORÇAR RELÓGIO A RODAR IMEDIATAMENTE
+    // 1. RELÓGIO ADAPTADO PARA FORÇAR O FUNCIONAMENTO
     function iniciarRelogio() {
         var agora = new Date();
         var h = String(agora.getHours()).padStart(2, '0');
         var m = String(agora.getMinutes()).padStart(2, '0');
         var s = String(agora.getSeconds()).padStart(2, '0');
-        var txt = h + ":" + m + ":" + s;
         
         var el = document.getElementById('live-clock');
-        if (el) { el.innerHTML = txt; }
+        if (el) { 
+            el.innerHTML = h + ":" + m + ":" + s; 
+        }
     }
     setInterval(iniciarRelogio, 1000);
     iniciarRelogio();
 
-    // 2. FUNÇÃO COPIAR PIX SIMPLIFICADA
+    // 2. COPIAR PIX DIRETO CORRIGIDO
     function copiarPix() {
         var campo = document.getElementById("chavePixTexto");
         if (campo) {
             campo.select();
             campo.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(campo.value);
+            
+            try {
+                navigator.clipboard.writeText(campo.value);
+            } catch (err) {
+                // Alternativa caso o navegador bloqueie o clipboard moderno
+                document.execCommand("copy");
+            }
             
             var btn = document.getElementById("btnCopiarPix");
             if (btn) {
@@ -279,7 +286,7 @@
         }
     }
 
-    // 3. WHATSAPP DIRETO SEM TRAVAMENTO
+    // 3. WHATSAPP CONFIGURADO DIRETAMENTE COM SEU NÚMERO
     function abrirJanelaCompartilhar() {
         var container = document.getElementById("container-progresso");
         var barra = document.getElementById("barra-progresso");
@@ -292,10 +299,4 @@
 
             var progresso = 0;
             var acao = setInterval(function() {
-                progresso += 20;
-                barra.style.width = progresso + "%";
-
-                if (progresso >= 100) {
-                    clearInterval(acao);
-                    setTimeout(function() {
-                        container.style.display = "none";
+                progresso += 25;
