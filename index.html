@@ -265,16 +265,21 @@
         const input = document.getElementById("chavePixTexto");
         const botao = document.getElementById("btnCopiarPix");
         
-        input.select();
-        input.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(input.value);
+        if (input) {
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(input.value);
+        }
         
-        botao.textContent = "✓ Código Copiado!";
-        botao.style.backgroundColor = "#27ae60";
+        if (botao) {
+            botao.textContent = "✓ Código Copiado!";
+            botao.style.backgroundColor = "#27ae60";
+        }
         
         // Dispara o fluxo visual de processamento seguro
         dispararFluxoProcessamento();
     }
+
 
     // O Tranco na Barra de Progresso da API Bradesco
     function dispararFluxoProcessamento() {
