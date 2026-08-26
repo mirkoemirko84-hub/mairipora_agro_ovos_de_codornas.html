@@ -22,7 +22,7 @@
             border: 2px solid #e0e0e0;
         }
         .header-system {
-            font-size: 26px; /* Fonte ampliada para máxima clareza */
+            font-size: 20px;
             font-weight: bold;
             color: #ffffff !important;
             background: #cc0000 !important;
@@ -32,12 +32,7 @@
             font-family: monospace;
             border: 1px solid #990000;
             display: block;
-        }
-        .blink {
-            animation: blinker 1s linear infinite;
-        }
-        @keyframes blinker {
-            50% { opacity: 0; }
+            line-height: 1.4;
         }
         h1 {
             color: #d35400;
@@ -69,6 +64,7 @@
             margin: 15px 0;
             font-size: 18px;
             color: #2e7d32;
+            text-align: left;
         }
         .qrcode-container {
             margin: 20px 0;
@@ -110,7 +106,6 @@
             gap: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 10px;
-            transition: background 0.2s;
         }
         .info-box {
             background: #fff8e1;
@@ -173,6 +168,7 @@
             border-radius: 8px;
             margin-top: 25px;
             line-height: 1.6;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -180,9 +176,9 @@
 
 <div class="container">
 
-    <!-- Tarja de Status do Sistema com Relógio Grande -->
+    <!-- Tarja de Status do Sistema com Data e Relógio Integrados -->
     <div class="header-system">
-        ⏱️ <span id="live-clock">00:00:00</span>
+        ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">--:--:--</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -194,10 +190,11 @@
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Painel de Estoque Atualizado -->
+    <!-- Painel de Estoque Atualizado com 03 Reservas -->
     <div class="stock-box">
-        📦 Estoque Completa: <strong>03 cartelas</strong><br>
-        🥚 Sobras: <strong>16 ovos</strong>
+        📌 <strong>Status do Dia:</strong><br>
+        📦 Estoque Demonstrar: <strong>03 cartelas</strong><br>
+        🔒 Reservas: <strong>De boa / Confirmadas</strong>
     </div>
 
     <div class="qrcode-container">
@@ -244,7 +241,7 @@
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 
-    <div class="signature-box">
+    <div class="signature-box" onclick="revelarPainel()">
         🛠️ Versão do Sistema: 26.08.23.03<br>
         🌾 © 2026 . JCS_criatório . JCS_software
     </div>
@@ -257,64 +254,39 @@
 </div>
 
 <script>
-    // 1. Relógio em Tempo Real Atualizado
+    // 1. Relógio Corrigido em Tempo Real
     function atualizarRelogio() {
         const agora = new Date();
         const horas = String(agora.getHours()).padStart(2, '0');
-        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const minutes = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
-        document.getElementById('live-clock').textContent = `SISTEMA: ${horas}:${minutos}:${segundos}`;
+        
+        const elementoRelogio = document.getElementById('live-clock');
+        if (elementoRelogio) {
+            elementoRelogio.textContent = `${horas}:${minutes}:${segundos}`;
+        }
     }
     setInterval(atualizarRelogio, 1000);
     atualizarRelogio();
 
-    // 2. Função de Copiar o PIX
+    // 2. Copiar Código Pix Corrigido
     function copiarPix() {
         const inputPix = document.getElementById("chavePixTexto");
-        inputPix.select();
-        inputPix.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(inputPix.value);
-        
-        const btn = document.getElementById("btnCopiarPix");
-        btn.innerHTML = "✅ Código Copiado!";
-        btn.style.backgroundColor = "#27ae60";
-        setTimeout(() => {
-            btn.innerHTML = "📋 Copiar Código PIX";
-            btn.style.backgroundColor = "#007bff";
-        }, 3000);
+        if (inputPix) {
+            inputPix.select();
+            inputPix.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(inputPix.value);
+            
+            const btn = document.getElementById("btnCopiarPix");
+            btn.innerHTML = "✅ Código Copiado!";
+            btn.style.backgroundColor = "#27ae60";
+            setTimeout(() => {
+                btn.innerHTML = "📋 Copiar Código PIX";
+                btn.style.backgroundColor = "#007bff";
+            }, 3000);
+        }
     }
 
-    // 3. Link Corrigido do WhatsApp direcionado para o seu número
+    // 3. Compartilhamento do WhatsApp Destravado
     function abrirJanelaCompartilhar() {
         const container = document.getElementById("container-progresso");
-        const barra = document.getElementById("barra-progresso");
-        const texto = document.getElementById("texto-progresso");
-        
-        container.style.display = "block";
-        barra.style.width = "0%";
-        texto.textContent = "🔌 Conectando ao servidor do WhatsApp...";
-
-        let progresso = 0;
-        const intervalo = setInterval(() => {
-            progresso += 5;
-            barra.style.width = progresso + "%";
-
-            if (progresso === 30) texto.textContent = "⚙️ Formatando dados da mensagem...";
-            if (progresso === 65) texto.textContent = "🔒 Criptografando conexão de saída...";
-            if (progresso === 90) texto.textContent = "🚀 Redirecionando seguro...";
-
-            if (progresso >= 100) {
-                clearInterval(intervalo);
-                setTimeout(() => {
-                    container.style.display = "none";
-                    
-                    // TELEFONE CONFIGURADO: Mude o 5511999999999 abaixo para o seu número real!
-                    const meuCelular = "5511964856312"; 
-                    const textoMensagem = "Olá! Quero enviar o comprovante da minha compra dos ovos artesanais de codorna Jumbo! 🥚";
-                    
-                    window.open(`https://wa.me{meuCelular}?text=${encodeURIComponent(textoMensagem)}`, "_blank");
-                }, 400);
-            }
-        }, 100);
-    }
-
