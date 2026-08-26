@@ -116,7 +116,7 @@
 
     <div id="notifier" class="app-notifier"></div>
 
-    <script>
+      <script>
         function comandoMudarStatus(novoStatus) {
             const statusTela = document.getElementById('app-status-tela');
             if (novoStatus === 'manutencao') {
@@ -127,16 +127,18 @@
                 statusTela.textContent = "● SITE ONLINE";
                 statusTela.className = "status-box status-online";
                 dispararNotificador("Comando Enviado: Site Aberto para Vendas!");
-            }
-        }
+            } // <--- [Fecha o ELSE]
+        } // <--- [Fecha a função comandoMudarStatus]
+
+        // Agora as outras funções ficam livres aqui embaixo, sem cruzar uma dentro da outra:
 
         function dispararNotificador(mensagem) {
             const caixaAlerta = document.getElementById('notifier');
-            caixaAlerta.textContent = message = mensagem;
+            caixaAlerta.textContent = mensagem; 
             caixaAlerta.style.display = 'block';
             tocarBipeSucesso();
             setTimeout(() => { caixaAlerta.style.display = 'none'; }, 3000);
-        }
+        } 
 
         function tocarBipeSucesso() {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -150,7 +152,7 @@
             gain.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.1);
-        }
-    </script>
-</body>
+        } 
+    </script> 
+</body> 
 </html>
