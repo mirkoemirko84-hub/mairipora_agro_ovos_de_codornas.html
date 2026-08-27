@@ -25,7 +25,6 @@
             display: block !important;
         }
 
-        /* NOVO ESTILO PARA O SELETOR DE QUANTIDADE */
         .quantity-box {
             background: #fdfefe;
             border: 2px solid #34495e;
@@ -48,133 +47,39 @@
             cursor: pointer;
         }
         
-        .qrcode-container { margin: 20px 0; padding: 15px; background: #fff; border: 2px dashed #bdc3c7; border-radius: 10px; display: inline-block; }
-        .qrcode-img { max-width: 220px; height: auto; display: block; margin: 0 auto; }
-        .pix-input-box { width: 90%; max-width: 320px; margin: 10px auto; padding: 10px; font-size: 12px; text-align: center; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9; font-family: monospace; }
-        .btn-pix { background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 10px; }
-        .info-box { background: #fff8e1; border-left: 5px solid #ffb300; padding: 12px; margin: 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.4; }
-        .reminder-box { background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1; padding: 12px; margin: 20px 0 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.5; }
-        .button-group-parallel { margin: 15px auto 25px auto; }
-        .btn-parallel-share { display: block; background-color: #25D366; color: white; border: none; padding: 16px 5px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-decoration: none; }
+        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; }
+        .btn-avancar:hover { background-color: #e64a19; }
+        
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
+        
+        #botao-secreto-adm { display: none; margin-top: 15px; background: #34495e; color: #fff; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; }
     </style>
-
-    <script>
-        function iniciarRelogio() {
-            setInterval(function() {
-                var agora = new Date();
-                var h = String(agora.getHours()).padStart(2, '0');
-                var m = String(agora.getMinutes()).padStart(2, '0');
-                var s = String(agora.getSeconds()).padStart(2, '0');
-                var el = document.getElementById('live-clock');
-                if (el) { el.innerHTML = h + ":" + m + ":" + s; }
-            }, 1000);
-        }
-
-        function copiarPix() {
-            var campo = document.getElementById("chavePixTexto");
-            if (campo) {
-                campo.select();
-                campo.setSelectionRange(0, 99999);
-                try {
-                    navigator.clipboard.writeText(campo.value);
-                } catch (err) {
-                    document.execCommand("copy");
-                }
-                var btn = document.getElementById("btnCopiarPix");
-                if (btn) {
-                    btn.innerHTML = "✅ Código Copiado!";
-                    btn.style.backgroundColor = "#27ae60";
-                    setTimeout(function() {
-                        btn.innerHTML = "📋 Copiar Código PIX";
-                        btn.style.backgroundColor = "#007bff";
-                    }, 2000);
-                }
-            }
-        }
-
-        // FUNÇÃO ATUALIZADA CALCULA O TOTAL BASEADO NA ESCOLHA DO CLIENTE
-        function iniciarValidacaoECompartilhar(event) {
-            event.preventDefault();
-            var container = document.getElementById("container-progresso");
-            var barra = document.getElementById("barra-progresso");
-            var texto = document.getElementById("texto-progresso");
-            var qtdSelect = document.getElementById("quantidade-bandejas");
-            
-            if (container && barra && texto && qtdSelect) {
-                var quantidade = qtdSelect.value;
-                var valorTotal = quantidade * 13; // Multiplica R$ 13 pela quantidade escolhida
-
-                container.style.display = "block";
-                barra.style.width = "0%";
-                texto.innerHTML = "🔌 Conectando ao canal de validação Mairiporã Agro...";
-                container.scrollIntoView({ behavior: 'smooth' });
-
-                var progresso = 0;
-                var acao = setInterval(function() {
-                    progresso += 1;
-                    barra.style.width = progresso + "%";
-
-                    if (progresso == 15) texto.innerHTML = "🔍 Verificando " + quantidade + " Cartela(s) no estoque da Rodoviária...";
-                    if (progresso == 50) texto.innerHTML = "⚙️ Calculando valor total: R$ " + valorTotal + ",00...";
-                    if (progresso == 75) texto.innerHTML = "🔒 Criptografando recibo seguro JCS...";
-                    if (progresso == 90) texto.innerHTML = "🚀 Transmissão segura para o WhatsApp...";
-
-                    if (progresso >= 100) {
-                        clearInterval(acao);
-                        setTimeout(function() {
-                            container.style.display = "none";
-                            var cel = "5511964856312"; 
-                            // Mensagem inteligente que já diz a quantidade e o preço para o seu controle
-                            var msg = "Olá! Quero confirmar meu pedido de " + quantidade + " cartela(s) de ovos artesanais de codorna Jumbo! Valor Total: R$ " + valorTotal + ",00. 🥚";
-                            window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
-                        }, 600);
-                    }
-                }, 140); 
-            }
-        }
-
-        let cliques = 0;
-        function revelarPainel() {
-            cliques++;
-            if (cliques >= 5) {
-                var btnAdm = document.getElementById('botao-secreto-adm');
-                if (btnAdm) {
-                    btnAdm.style.display = 'block';
-                    btnAdm.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-
-        window.onload = iniciarRelogio;
-    </script>
 </head>
-<body>
+<body onload="iniciarRelogio()">
 
 <div class="container">
-
+    <!-- Header do Sistema com Horário -->
     <div class="header-system">
-        ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">--:--:--</span>
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">09:09:25</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
-
-    <marquee scrollamount="3" style="font-weight: bold; color: #333; font-size: 16px; margin: 15px 0;">
-        <strong>🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</strong>
-    </marquee>
-
+    
+    <p class="footer-text">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</p>
+    
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
+    <!-- Status do Estoque Atual -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
-        📦 Estoque Produzidas: <strong>03 cartelas</strong><br>
-        🔒 Reservas: <strong>16 unidades</strong>
+        📦 Estoque Produzidas: 03 cartelas<br>
+        🔒 Reservas: 16 unidades
     </div>
 
-    <!-- [NOVO] SELETOR DE QUANTIDADE INTELIGENTE PARA O CLIENTE -->
+    <!-- Seletor de Quantidade Comercial -->
     <div class="quantity-box">
         🛒 Quantas bandejas você quer?
         <select id="quantidade-bandejas" class="quantity-select">
@@ -184,16 +89,68 @@
         </select>
     </div>
 
-    <div class="qrcode-container">
-        <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
-        <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
+    <!-- Botão Limpo para Avançar para a Página 2 -->
+    <div style="margin: 25px 0;">
+        <button class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
     </div>
 
-    <div class="pix-container">
-        <button type="button" id="btnCopiarPix" onclick="copiarPix()" class="btn-pix">
-            📋 Copiar Código PIX
-        </button>
-        <br>
-        <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
+    <!-- Informações de Logística -->
+    <p class="footer-text">
+        📅 Dias de Entrega: Terças e Sextas-feiras<br>
+        📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
+    </p>
+
+    <!-- Rodapé Seguro -->
+    <div class="secure-footer">
+        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 
+    <!-- Assinatura Técnica com Painel Secreto (5 Cliques) -->
+    <div class="signature-box" onclick="revelarPainel()">
+        🌾 © 2026 . JCS_criatório . JCS_software<br>
+        🛠️ Versão do Sistema: 26.08.23.03
+    </div>
+    <a id="botao-secreto-adm" href="Adm/index.html">🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)</a>
+</div>
+
+<script>
+    // Relógio em tempo real sem quebras
+    function iniciarRelogio() {
+        setInterval(function() {
+            var agora = new Date();
+            var h = String(agora.getHours()).padStart(2, '0');
+            var m = String(agora.getMinutes()).padStart(2, '0');
+            var s = String(agora.getSeconds()).padStart(2, '0');
+            var el = document.getElementById('live-clock');
+            if (el) { el.innerHTML = h + ":" + m + ":" + s; }
+        }, 1000);
+    }
+
+    // Lógica que salva a escolha e joga para a página de pagamento
+    function avancarParaPagamento() {
+        var qtdSelect = document.getElementById("quantidade-bandejas");
+        if (qtdSelect) {
+            var quantidade = parseInt(qtdSelect.value);
+            var valorTotal = (quantidade * 13).toFixed(2);
+
+            // Salva na memória do navegador de forma limpa
+            localStorage.setItem('compra_qtd', quantidade);
+            localStorage.setItem('compra_total', valorTotal);
+
+            // Redireciona direto para a página do Pix na raiz
+            window.location.href = 'pagamento.html';
+        }
+    }
+
+    // Painel Admin Secreto ativado com 5 cliques na assinatura
+    let cliques = 0;
+    function revelarPainel() {
+        cliques++;
+        if (cliques >= 5) {
+            var btnAdm = document.getElementById('botao-secreto-adm');
+            if (btnAdm) { btnAdm.style.display = 'block'; }
+        }
+    }
+</script>
+</body>
+</html>
