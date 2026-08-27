@@ -185,7 +185,8 @@
             localStorage.setItem('compra_total', valorTotal);
 
             // Código inteligente contra Erro 404 no GitHub Pages
-            window.location.href = window.location.origin + window.location.pathname.replace('index.html', '') + 'pagamento.html';
+           window.location.href = window.location.origin + window.location.pathname.replace('index.html', '').replace('.html', '/') + 'pagamento.html';
+
         }
     }
 
