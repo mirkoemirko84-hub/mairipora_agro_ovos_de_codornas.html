@@ -85,7 +85,7 @@
                 container.scrollIntoView({ behavior: 'smooth' });
 
                 var progresso = 0;
-                // Velocidade reduzida para 140ms por ponto: passos claros e legíveis
+                // Velocidade regulada para leitura perfeita passo a passo
                 var acao = setInterval(function() {
                     progresso += 1;
                     barra.style.width = progresso + "%";
@@ -159,7 +159,7 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- Container da Barra Cadenciada -->
+    <!-- Container da Barra de Validação -->
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
         <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
@@ -184,3 +184,5 @@
     <div class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
         <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
+    </div>
+
