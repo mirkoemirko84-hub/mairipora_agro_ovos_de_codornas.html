@@ -174,7 +174,7 @@
         }, 1000);
     }
 
-    // Leva o comprador para a tela final do Pix
+        // Leva o comprador para a tela final do Pix
     function avancarParaPagamento() {
         var qtdSelect = document.getElementById("quantidade-bandejas");
         if (qtdSelect && qtdSelect.value) {
@@ -184,7 +184,10 @@
             localStorage.setItem('compra_qtd', quantidade);
             localStorage.setItem('compra_total', valorTotal);
 
-           window.location.href = window.location.origin + window.location.pathname.replace('index.html', '') + 'pagamento.html';
+            // Código inteligente contra Erro 404 no GitHub Pages
+            window.location.href = window.location.origin + window.location.pathname.replace('index.html', '') + 'pagamento.html';
+        }
+    }
 
 
         }
