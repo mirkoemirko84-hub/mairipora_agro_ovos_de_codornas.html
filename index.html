@@ -110,6 +110,7 @@
         .btn-back { background: transparent; color: #666; font-size: 0.9rem; }
         .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; text-align: left; line-height: 1.4; }
         footer { margin-top: 25px; font-size: 0.75rem; color: #888; }
+        .local-support { font-size: 0.95rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; }
     </style>
 </head>
 <body>
@@ -119,6 +120,8 @@
         <h1>✨ Mairiporã Agro ✨</h1>
         <div class="badge">Ovos Artesanais de Codorna Jumbo! 🥚</div>
     </div>
+
+    <div class="local-support">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</div>
 
     <!-- Resumo do Pedido Seguro -->
     <div class="resumo-box">
@@ -135,12 +138,10 @@
     <h3 style="margin: 10px 0 5px 0; color: #2c3e50;">ESCANEIE PARA PAGAR VIA PIX</h3>
     
     <div class="qr-section">
-        <!-- Puxa a imagem oficial da raiz do Git sem errar o caminho -->
         <img src="./qrcode-pagamento.png" alt="QR Code Pix Bradesco">
     </div>
 
     <p style="font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; text-align: left;">📋 Código PIX Copia e Cola:</p>
-    <!-- Elemento crítico blindado na estrutura da página -->
     <div class="pix-code-box" id="pix-codigo">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
     
     <button class="btn btn-primary" id="btnCopiarPix" onclick="copiarPix()">📋 Copiar Código PIX</button>
@@ -162,25 +163,22 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Recupera os dados salvos da index
         const qtd = localStorage.getItem('compra_qtd') || '01';
         const total = localStorage.getItem('compra_total') || '13.00';
 
-        // Atualiza a tela com os dados críticos
         document.getElementById('txt-resumo-qtd').innerText = String(qtd).padStart(2, '0') + " Cartela(s)";
         document.getElementById('txt-resumo-total').innerText = `R$ ${total.replace('.', ',')}`;
 
-        // Configura o link do WhatsApp JCS Oficial
         const btnWhats = document.getElementById('btn-whatsapp');
-        const numeroWhats = "5511964856312"; // Seu número oficial configurado
+        const numeroWhats = "5511964856312"; 
         const mensagem = encodeURIComponent(`Olá! Fiz meu pedido de ${qtd} cartela(s) de Ovos de Codorna Jumbo no valor total de R$ ${total.replace('.', ',')}. Segue o comprovante do Pix em anexo. 🥚🌾`);
         
         if (btnWhats) {
-            btnWhats.href = `https://wa.me{numeroWhats}?text=${mensagem}`;
+            // Correção da concatenação da rota do WhatsApp sem as chaves literais
+            btnWhats.href = "https://wa.me" + numeroWhats + "?text=" + mensagem;
         }
     });
 
-    // Função inovadora Copia e Cola nativa do navegador
     function copiarPix() {
         const codigoPix = "3d4ee862-439d-481d-9f5b-07d69a7182f6";
         
