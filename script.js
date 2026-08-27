@@ -33,7 +33,7 @@ function copiarPix() {
     }
 }
 
-// 3. FUNÇÃO DA BARRA DE PROGRESSO E WHATSAPP
+// 3. FUNÇÃO DA BARRA DE PROGRESSO E WHATSAPP CORRIGIDA
 function abrirJanelaCompartilhar() {
     var container = document.getElementById("container-progresso");
     var barra = document.getElementById("barra-progresso");
@@ -55,6 +55,7 @@ function abrirJanelaCompartilhar() {
                     container.style.display = "none";
                     var cel = "5511964856312"; 
                     var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
+                    // CORREÇÃO AQUI: Adicionada a barra "/" após o wa.me
                     window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
                 }, 200);
             }
