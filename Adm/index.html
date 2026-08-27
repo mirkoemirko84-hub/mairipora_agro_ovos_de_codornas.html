@@ -38,18 +38,57 @@
             font-weight: bold; 
             margin-bottom: -5px; 
         }
-        .status-box { 
-            background-color: #ffffff; 
-            border: 2px solid #cccccc; 
-            border-radius: 8px; 
-            padding: 12px; 
-            text-align: center; 
-            font-size: 18px; 
-            font-weight: bold; 
-        }
-        .status-online { color: #25D366; }
-        .status-manutencao { color: #cc092f; }
         
+        /* Caixas de Controle dos Contadores */
+        .control-box {
+            background-color: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .counter-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .counter-value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #17509e;
+            min-width: 60px;
+            text-align: center;
+            font-family: monospace;
+        }
+        .btn-calc {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            width: 55px;
+            height: 55px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 3px 0px rgba(0,0,0,0.2);
+        }
+        .btn-calc:active { transform: scale(0.95); }
+        .btn-zerar {
+            background-color: #cc092f;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0px 2px 0px rgba(0,0,0,0.2);
+        }
+        .btn-zerar:active { transform: scale(0.98); }
+
         .app-button { 
             width: 100%; 
             padding: 18px; 
@@ -61,16 +100,13 @@
             cursor: pointer; 
             box-shadow: 0px 3px 0px rgba(0,0,0,0.2); 
             transition: transform 0.1s; 
-            text-decoration: none;
-            display: block;
-            box-sizing: border-box;
-            text-align: center;
+            text-decoration: none; 
+            display: block; 
+            box-sizing: border-box; 
+            text-align: center; 
         }
         .app-button:active { transform: scale(0.98); }
-        .btn-green { background-color: #25D366; }
-        .btn-red { background-color: #cc092f; }
-        .btn-blue { background-color: #007bff; }
-        .btn-gray { background-color: #6c757d; margin-top: 10px; }
+        .btn-gray { background-color: #6c757d; margin-top: 15px; }
         
         .app-notifier { 
             background-color: #333; 
@@ -84,79 +120,119 @@
             right: 20px; 
             display: none; 
             font-size: 14px; 
-            z-index: 1000;
+            z-index: 1000; 
         }
     </style>
 </head>
-<body onload="carregarEstadoInicial()">
-    <div class="app-header">JCS_Software - Painel de Controle</div>
-    <div class="app-container">
-        <div class="app-label">Status Atual do Site Principal:</div>
-        <div id="app-status-tela" class="status-box status-online">● SITE ONLINE</div>
-        
-        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
-        
-        <div class="app-label">Comandos Rápidos (Mairiporã):</div>
-        <button class="app-button btn-red" onclick="comandoMudarStatus('manutencao')">🛑 COLOCAR EM MANUTENÇÃO</button>
-        <button class="app-button btn-green" onclick="comandoMudarStatus('online')">🟢 VOLTAR SITE ONLINE</button>
-        
-        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
-        
-        <div class="app-label">Controle de Estoque Oculto:</div>
-        <button class="app-button btn-blue" onclick="resetarEstoque(3)">♻️ RESETAR MÁXIMO (3 CARTELAS)</button>
-        <button class="app-button btn-blue" style="background-color: #e67e22; margin-top: 5px;" onclick="resetarEstoque(0)">📦 ZERAR ESTOQUE (PRODUÇÃO ESGOTADA)</button>
+<body onload="carregarDadosAdmin()">
 
+    <div class="app-header">JCS_Software - Controle Total</div>
+    
+    <div class="app-container">
+        
+        <!-- CONTROLE DE ESTOQUE DE COMPRA -->
+        <div class="app-label">📦 Estoque de Cartelas Produzidas:</div>
+        <div class="control-box">
+            <div class="counter-row">
+                <button class="btn-calc" onclick="alterarEstoque(-1)">-</button>
+                <div id="val-estoque" class="counter-value">03</div>
+                <button class="btn-calc" onclick="alterarEstoque(1)">+</button>
+            </div>
+            <button class="btn-zerar" onclick="zerarEstoque()">🛑 ZERAR ESTOQUE (ESGOTADO)</button>
+        </div>
+        
+        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:5px 0;">
+        
+        <!-- CONTROLE DE ESTOQUE DE RESERVAS -->
+        <div class="app-label">🔒 Estoque de Reserva (Unidades):</div>
+        <div class="control-box">
+            <div class="counter-row">
+                <button class="btn-calc" onclick="alterarReservas(-1)">-</button>
+                <div id="val-reservas" class="counter-value">16</div>
+                <button class="btn-calc" onclick="alterarReservas(1)">+</button>
+            </div>
+            <button class="btn-zerar" onclick="zerarReservas()">🛑 ZERAR RESERVAS</button>
+        </div>
+        
         <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
+        
+        <!-- BOTÃO DE RETORNO SEGURO -->
         <a href="../index.html" class="app-button btn-gray">⬅️ SAIR E VOLTAR PARA A LOJA</a>
     </div>
 
+    <!-- Barra de Notificação Flutuante -->
     <div id="notifier" class="app-notifier"></div>
 
     <script>
-        // Carrega as configurações salvas assim que abre o app admin
-        function carregarEstadoInicial() {
-            const statusSalvo = localStorage.getItem('jcs_status_site') || 'online';
-            const statusTela = document.getElementById('app-status-tela');
+        // Variáveis globais do sistema de controle
+        let estoque = 3;
+        let reservas = 16;
+
+        // Recupera o estado atualizado da memória ao carregar o aplicativo
+        function carregarDadosAdmin() {
+            estoque = parseInt(localStorage.getItem('jcs_estoque_atual'));
+            if (isNaN(estoque)) {
+                estoque = 3;
+                localStorage.setItem('jcs_estoque_atual', 3);
+            }
+
+            reservas = parseInt(localStorage.getItem('jcs_reservas_atual'));
+            if (isNaN(reservas)) {
+                reservas = 16;
+                localStorage.setItem('jcs_reservas_atual', 16);
+            }
             
-            if (statusSalvo === 'manutencao') {
-                statusTela.textContent = "● SITE EM MANUTENÇÃO";
-                statusTela.className = "status-box status-manutencao";
-            } else {
-                statusTela.textContent = "● SITE ONLINE";
-                statusTela.className = "status-box status-online";
-            }
+            atualizarValoresTela();
         }
 
-        // Altera o status e salva na memória
-        function comandoMudarStatus(novoStatus) {
-            const statusTela = document.getElementById('app-status-tela');
-            if (novoStatus === 'manutencao') {
-                statusTela.textContent = "● SITE EM MANUTENÇÃO";
-                statusTela.className = "status-box status-manutencao";
-                localStorage.setItem('jcs_status_site', 'manutencao');
-                dispararNotificador("Comando Enviado: Site em Manutenção!");
-            } else {
-                statusTela.textContent = "● SITE ONLINE";
-                statusTela.className = "status-box status-online";
-                localStorage.setItem('jcs_status_site', 'online');
-                dispararNotificador("Comando Enviado: Site Aberto para Vendas!");
-            }
+        // Atualiza os números nos boxes brancos
+        function atualizarValoresTela() {
+            document.getElementById('val-estoque').textContent = String(estoque).padStart(2, '0');
+            document.getElementById('val-reservas').textContent = String(reservas).padStart(2, '0');
         }
 
-        // Força a alteração de estoque máximo permitida na index
-        function resetarEstoque(quantidade) {
-            localStorage.setItem('jcs_estoque_atual', quantidade);
-            dispararNotificador(`Loop de Vendas Alterado para ${quantidade}!`);
+        // Comandos para gerenciar o Estoque de Vendas
+        function alterarEstoque(valor) {
+            estoque = Math.max(0, estoque + valor); 
+            localStorage.setItem('jcs_estoque_atual', estoque);
+            atualizarValoresTela();
+            dispararNotificador(`Estoque alterado para ${estoque} cartela(s)!`);
+        }
+        
+        function zerarEstoque() {
+            estoque = 0;
+            localStorage.setItem('jcs_estoque_atual', 0);
+            atualizarValoresTela();
+            dispararNotificador("Estoque zerado com sucesso!");
         }
 
+        // Comandos para gerenciar o Estoque de Reservas
+        function alterarReservas(valor) {
+            reservas = Math.max(0, reservas + valor); 
+            localStorage.setItem('jcs_reservas_atual', reservas);
+            atualizarValoresTela();
+            dispararNotificador(`Reservas alteradas para ${reservas} unidade(s)!`);
+        }
+        
+        function zerarReservas() {
+            reservas = 0;
+            localStorage.setItem('jcs_reservas_atual', 0);
+            atualizarValoresTela();
+            dispararNotificador("Reservas zeradas com sucesso!");
+        }
+
+        // Sistema de aviso preto estilo App Inventor
         function dispararNotificador(mensagem) {
             const caixaAlerta = document.getElementById('notifier');
-            caixaAlerta.textContent = mensagem; 
-            caixaAlerta.style.display = 'block';
-            tocarBipeSucesso();
-            setTimeout(() => { caixaAlerta.style.display = 'none'; }, 3000);
+            if (caixaAlerta) {
+                caixaAlerta.textContent = message = mensagem; 
+                caixaAlerta.style.display = 'block';
+                tocarBipeSucesso();
+                setTimeout(() => { caixaAlerta.style.display = 'none'; }, 2000);
+            }
         }
 
+        // Emite o bipe de confirmação pelo alto-falante
         function tocarBipeSucesso() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -170,8 +246,8 @@
                 gain.connect(audioCtx.destination);
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.1);
-            } catch(e) {
-                console.log("Áudio bloqueado pelo navegador.");
+            } catch(e) { 
+                console.log("Áudio aguardando clique."); 
             }
         }
     </script>
