@@ -61,11 +61,16 @@
             cursor: pointer; 
             box-shadow: 0px 3px 0px rgba(0,0,0,0.2); 
             transition: transform 0.1s; 
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            text-align: center;
         }
         .app-button:active { transform: scale(0.98); }
         .btn-green { background-color: #25D366; }
         .btn-red { background-color: #cc092f; }
         .btn-blue { background-color: #007bff; }
+        .btn-gray { background-color: #6c757d; margin-top: 10px; }
         
         .app-notifier { 
             background-color: #333; 
@@ -79,10 +84,11 @@
             right: 20px; 
             display: none; 
             font-size: 14px; 
+            z-index: 1000;
         }
     </style>
 </head>
-<body>
+<body onload="carregarEstadoInicial()">
     <div class="app-header">JCS_Software - Painel de Controle</div>
     <div class="app-container">
         <div class="app-label">Status Atual do Site Principal:</div>
@@ -97,23 +103,50 @@
         <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
         
         <div class="app-label">Controle de Estoque Oculto:</div>
-        <button class="app-button btn-blue" onclick="dispararNotificador('Loop de Marketing Resetado para 3!')">♻️ RESETAR MÁXIMO (3 CARTELAS)</button>
+        <button class="app-button btn-blue" onclick="resetarEstoque(3)">♻️ RESETAR MÁXIMO (3 CARTELAS)</button>
+        <button class="app-button btn-blue" style="background-color: #e67e22; margin-top: 5px;" onclick="resetarEstoque(0)">📦 ZERAR ESTOQUE (PRODUÇÃO ESGOTADA)</button>
+
+        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
+        <a href="../index.html" class="app-button btn-gray">⬅️ SAIR E VOLTAR PARA A LOJA</a>
     </div>
 
     <div id="notifier" class="app-notifier"></div>
 
     <script>
+        // Carrega as configurações salvas assim que abre o app admin
+        function carregarEstadoInicial() {
+            const statusSalvo = localStorage.getItem('jcs_status_site') || 'online';
+            const statusTela = document.getElementById('app-status-tela');
+            
+            if (statusSalvo === 'manutencao') {
+                statusTela.textContent = "● SITE EM MANUTENÇÃO";
+                statusTela.className = "status-box status-manutencao";
+            } else {
+                statusTela.textContent = "● SITE ONLINE";
+                statusTela.className = "status-box status-online";
+            }
+        }
+
+        // Altera o status e salva na memória
         function comandoMudarStatus(novoStatus) {
             const statusTela = document.getElementById('app-status-tela');
             if (novoStatus === 'manutencao') {
                 statusTela.textContent = "● SITE EM MANUTENÇÃO";
                 statusTela.className = "status-box status-manutencao";
+                localStorage.setItem('jcs_status_site', 'manutencao');
                 dispararNotificador("Comando Enviado: Site em Manutenção!");
             } else {
                 statusTela.textContent = "● SITE ONLINE";
                 statusTela.className = "status-box status-online";
+                localStorage.setItem('jcs_status_site', 'online');
                 dispararNotificador("Comando Enviado: Site Aberto para Vendas!");
             }
+        }
+
+        // Força a alteração de estoque máximo permitida na index
+        function resetarEstoque(quantidade) {
+            localStorage.setItem('jcs_estoque_atual', quantidade);
+            dispararNotificador(`Loop de Vendas Alterado para ${quantidade}!`);
         }
 
         function dispararNotificador(mensagem) {
@@ -125,17 +158,21 @@
         }
 
         function tocarBipeSucesso() {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {
+                console.log("Áudio bloqueado pelo navegador.");
+            }
         }
     </script>
 </body>
