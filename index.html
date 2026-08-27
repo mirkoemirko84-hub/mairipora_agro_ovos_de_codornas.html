@@ -24,6 +24,29 @@
             max-width: 90%;
             display: block !important;
         }
+
+        /* NOVO ESTILO PARA O SELETOR DE QUANTIDADE */
+        .quantity-box {
+            background: #fdfefe;
+            border: 2px solid #34495e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 90%;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .quantity-select {
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 2px solid #34495e;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #d35400;
+            cursor: pointer;
+        }
         
         .qrcode-container { margin: 20px 0; padding: 15px; background: #fff; border: 2px dashed #bdc3c7; border-radius: 10px; display: inline-block; }
         .qrcode-img { max-width: 220px; height: auto; display: block; margin: 0 auto; }
@@ -72,27 +95,31 @@
             }
         }
 
+        // FUNÇÃO ATUALIZADA CALCULA O TOTAL BASEADO NA ESCOLHA DO CLIENTE
         function iniciarValidacaoECompartilhar(event) {
             event.preventDefault();
             var container = document.getElementById("container-progresso");
             var barra = document.getElementById("barra-progresso");
             var texto = document.getElementById("texto-progresso");
+            var qtdSelect = document.getElementById("quantidade-bandejas");
             
-            if (container && barra && texto) {
+            if (container && barra && texto && qtdSelect) {
+                var quantidade = qtdSelect.value;
+                var valorTotal = quantidade * 13; // Multiplica R$ 13 pela quantidade escolhida
+
                 container.style.display = "block";
                 barra.style.width = "0%";
                 texto.innerHTML = "🔌 Conectando ao canal de validação Mairiporã Agro...";
                 container.scrollIntoView({ behavior: 'smooth' });
 
                 var progresso = 0;
-                // Velocidade regulada para leitura perfeita passo a passo
                 var acao = setInterval(function() {
                     progresso += 1;
                     barra.style.width = progresso + "%";
 
-                    if (progresso == 15) texto.innerHTML = "🔍 Localizando dados de entrega na Rodoviária...";
-                    if (progresso == 45) texto.innerHTML = "⚙️ Processando quantidade (03 Cartelas)...";
-                    if (progresso == 70) texto.innerHTML = "🔒 Criptografando recibo de segurança JCS...";
+                    if (progresso == 15) texto.innerHTML = "🔍 Verificando " + quantidade + " Cartela(s) no estoque da Rodoviária...";
+                    if (progresso == 50) texto.innerHTML = "⚙️ Calculando valor total: R$ " + valorTotal + ",00...";
+                    if (progresso == 75) texto.innerHTML = "🔒 Criptografando recibo seguro JCS...";
                     if (progresso == 90) texto.innerHTML = "🚀 Transmissão segura para o WhatsApp...";
 
                     if (progresso >= 100) {
@@ -100,7 +127,8 @@
                         setTimeout(function() {
                             container.style.display = "none";
                             var cel = "5511964856312"; 
-                            var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
+                            // Mensagem inteligente que já diz a quantidade e o preço para o seu controle
+                            var msg = "Olá! Quero confirmar meu pedido de " + quantidade + " cartela(s) de ovos artesanais de codorna Jumbo! Valor Total: R$ " + valorTotal + ",00. 🥚";
                             window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
                         }, 600);
                     }
@@ -146,6 +174,16 @@
         🔒 Reservas: <strong>16 unidades</strong>
     </div>
 
+    <!-- [NOVO] SELETOR DE QUANTIDADE INTELIGENTE PARA O CLIENTE -->
+    <div class="quantity-box">
+        🛒 Quantas bandejas você quer?
+        <select id="quantidade-bandejas" class="quantity-select">
+            <option value="1">01 Cartela - R$ 13,00</option>
+            <option value="2">02 Cartelas - R$ 26,00</option>
+            <option value="3">03 Cartelas - R$ 39,00</option>
+        </select>
+    </div>
+
     <div class="qrcode-container">
         <p style="font-size: 12px; font-weight: bold; color: #7f8c8d; margin-top: 0; margin-bottom: 8px;">ESCANEIE PARA PAGAR VIA PIX</p>
         <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco" class="qrcode-img">
@@ -157,32 +195,5 @@
         </button>
         <br>
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
-    </div>
-
-    <!-- Container da Barra de Validação -->
-    <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
-        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
-        <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.14s linear;"></div>
-        </div>
-    </div>
-
-    <div class="info-box">
-        <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
-    </div>
-
-    <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
-    </div>
-
-    <div class="button-group-parallel">
-        <button type="button" onclick="iniciarValidacaoECompartilhar(event)" class="btn-parallel-share">
-            🔗 COMPARTILHAR COMPRA NO WHATSAPP
-        </button>
-    </div>
-
-    <div class="footer-text">
-        📅 Dias de Entrega: Terças e Sextas-feiras<br>
-        <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
     </div>
 
