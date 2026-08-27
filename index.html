@@ -39,7 +39,6 @@
     </style>
 
     <script>
-        // 1. RELÓGIO DO SISTEMA
         function iniciarRelogio() {
             setInterval(function() {
                 var agora = new Date();
@@ -51,7 +50,6 @@
             }, 1000);
         }
 
-        // 2. FUNÇÃO COPIAR PIX (3d4ee862-439d-481d-9f5b-07d69a7182f6)
         function copiarPix() {
             var campo = document.getElementById("chavePixTexto");
             if (campo) {
@@ -74,7 +72,6 @@
             }
         }
 
-        // 3. BARRA ULTRA LENTA E WHATSAPP DEFINITIVO
         function iniciarValidacaoECompartilhar(event) {
             event.preventDefault();
             var container = document.getElementById("container-progresso");
@@ -88,30 +85,29 @@
                 container.scrollIntoView({ behavior: 'smooth' });
 
                 var progresso = 0;
-                // Executa o aumento de 1 em 1 a cada 120ms para a pessoa conseguir ler perfeitamente!
+                // Velocidade reduzida para 140ms por ponto: passos claros e legíveis
                 var acao = setInterval(function() {
                     progresso += 1;
                     barra.style.width = progresso + "%";
 
                     if (progresso == 15) texto.innerHTML = "🔍 Localizando dados de entrega na Rodoviária...";
-                    if (progresso == 40) texto.innerHTML = "⚙️ Processando quantidade (03 Cartelas)...";
-                    if (progresso == 65) texto.innerHTML = "🔒 Criptografando recibo de segurança...";
-                    if (progresso == 88) texto.innerHTML = "🚀 Abrindo aba segura do WhatsApp...";
+                    if (progresso == 45) texto.innerHTML = "⚙️ Processando quantidade (03 Cartelas)...";
+                    if (progresso == 70) texto.innerHTML = "🔒 Criptografando recibo de segurança JCS...";
+                    if (progresso == 90) texto.innerHTML = "🚀 Transmissão segura para o WhatsApp...";
 
                     if (progresso >= 100) {
                         clearInterval(acao);
                         setTimeout(function() {
                             container.style.display = "none";
-                            var cel = "5511964856312"; // Seu celular fixado
+                            var cel = "5511964856312"; 
                             var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
                             window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
-                        }, 500);
+                        }, 600);
                     }
-                }, 120); 
+                }, 140); 
             }
         }
 
-        // 4. CLIQUE SECRETO ADM
         let cliques = 0;
         function revelarPainel() {
             cliques++;
@@ -131,7 +127,6 @@
 
 <div class="container">
 
-    <!-- Tarja de Status do Sistema -->
     <div class="header-system">
         ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">--:--:--</span>
     </div>
@@ -145,7 +140,6 @@
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Painel de Estoque Sempre Visível -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <strong>03 cartelas</strong><br>
@@ -165,11 +159,11 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- Barra de Progresso Ultra Lenta -->
+    <!-- Container da Barra Cadenciada -->
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
         <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.12s linear;"></div>
+            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.14s linear;"></div>
         </div>
     </div>
 
@@ -182,3 +176,11 @@
     </div>
 
     <div class="button-group-parallel">
+        <button type="button" onclick="iniciarValidacaoECompartilhar(event)" class="btn-parallel-share">
+            🔗 COMPARTILHAR COMPRA NO WHATSAPP
+        </button>
+    </div>
+
+    <div class="footer-text">
+        📅 Dias de Entrega: Terças e Sextas-feiras<br>
+        <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
