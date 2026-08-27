@@ -12,7 +12,6 @@
         .subtitle { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         .price-tag { font-size: 36px; font-weight: bold; color: #27ae60; margin: 20px 0; background: #e8f8f5; padding: 12px; border-radius: 10px; display: inline-block; }
         
-        /* CAIXA DE ESTOQUE CORRIGIDA PARA EXIBIÇÃO FORÇADA */
         .stock-box { 
             background: #e8f5e9 !important; 
             border: 2px solid #c8e6c9 !important; 
@@ -33,12 +32,55 @@
         .info-box { background: #fff8e1; border-left: 5px solid #ffb300; padding: 12px; margin: 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.4; }
         .reminder-box { background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1; padding: 12px; margin: 20px 0 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.5; }
         .button-group-parallel { margin: 15px auto 25px auto; }
+        
+        /* ESTILO DO BOTÃO DO WHATSAPP */
         .btn-parallel-share { display: block; background-color: #25D366; color: white; border: none; padding: 16px 5px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-decoration: none; }
+        
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
     </style>
     <script src="script.js"></script>
+    
+    <!-- SCRIPT DA BARRA LENTA EMBUTIDO DIRETO PARA EVITAR CACHE -->
+    <script>
+        function iniciarValidacaoECompartilhar(event) {
+            event.preventDefault(); // Segura o clique automático para rodar a animação primeiro
+            
+            var container = document.getElementById("container-progresso");
+            var barra = document.getElementById("barra-progresso");
+            var texto = document.getElementById("texto-progresso");
+            
+            if (container && barra && texto) {
+                container.style.display = "block";
+                barra.style.width = "0%";
+                texto.innerHTML = "🔌 Iniciando canal seguro de validação...";
+                container.scrollIntoView({ behavior: 'smooth' });
+
+                var progresso = 0;
+                // Ajustado para aumentar de 2 em 2 a cada 80ms (Vai rodar bem mais devagar e suave)
+                var acao = setInterval(function() {
+                    progresso += 2;
+                    barra.style.width = progresso + "%";
+
+                    if (progresso == 20) texto.innerHTML = "🔍 Aguardando dados de entrega na Rodoviária...";
+                    if (progresso == 50) texto.innerHTML = "⚙️ Formatando dados do pedido...";
+                    if (progresso == 76) texto.innerHTML = "🔒 Criptografando conexão de saída...";
+                    if (progresso == 92) texto.innerHTML = "🚀 Abrindo WhatsApp com segurança...";
+
+                    if (progresso >= 100) {
+                        clearInterval(acao);
+                        setTimeout(function() {
+                            container.style.display = "none";
+                            var cel = "5511964856312"; 
+                            var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
+                            window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
+                        }, 400); // Segura um pouquinho antes de pular para o Zap
+                    }
+                }, 80);
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -57,7 +99,6 @@
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- PAINEL DE ESTOQUE DIRETAMENTE VISÍVEL -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <strong>03 cartelas</strong><br>
@@ -77,6 +118,14 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
+    <!-- BARRA DE PROGRESSO DE VALIDAÇÃO INTELIGENTE -->
+    <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
+        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
+        <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
+            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.08s linear;"></div>
+        </div>
+    </div>
+
     <div class="info-box">
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
@@ -85,12 +134,11 @@
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
     </div>
 
+    <!-- BOTÃO DO WHATSAPP ACIONANDO A ANIMAÇÃO SEGURA -->
     <div class="button-group-parallel">
-        <a href="https://wa.me" 
-           target="_blank" 
-           class="btn-parallel-share">
+        <button type="button" onclick="iniciarValidacaoECompartilhar(event)" class="btn-parallel-share">
             🔗 COMPARTILHAR COMPRA NO WHATSAPP
-        </a>
+        </button>
     </div>
 
     <div class="footer-text">
