@@ -64,7 +64,7 @@
 <div class="container">
     <!-- Header do Sistema com Horário Dinâmico -->
     <div class="header-system">
-        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">09:09:25</span>
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">11:57:00</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -78,7 +78,7 @@
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
-        🔒 Reservas: 16 unidades
+        🔒 Reservas: <span id="txt-reservas-status">16</span> unidades
     </div>
 
     <!-- Seletor de Quantidade Comercial -->
@@ -115,11 +115,10 @@
 </div>
 
 <script>
-    // Inicia o relógio e configura a tela baseado nos comandos do ADM
     function inicializarLoja() {
         iniciarRelogio();
         
-        // 1. Verifica se o ADM colocou o site em manutenção
+        // 1. Controle de Manutenção
         const statusSite = localStorage.getItem('jcs_status_site') || 'online';
         const btnComprar = document.getElementById('btn-comprar-loja');
         const btnBloqueado = document.getElementById('btn-bloqueado-loja');
@@ -132,28 +131,37 @@
             return;
         }
 
-        // 2. Controla o estoque dinamicamente baseado no painel admin (Garante 3 de padrão se estiver vazio)
+        // 2. Controle Dinâmico de Estoque
         let estoqueValido = localStorage.getItem('jcs_estoque_atual');
-        if (estoqueValido === null || estoqueValido === undefined) {
+        if (estoqueValido === null) {
             estoqueValido = 3; 
             localStorage.setItem('jcs_estoque_atual', 3);
         } else {
             estoqueValido = parseInt(estoqueValido);
         }
-
-        // Atualiza o texto do estoque na tela
         const txtEstoque = document.getElementById('txt-estoque-status');
         if (txtEstoque) txtEstoque.innerText = String(estoqueValido).padStart(2, '0');
 
+        // 3. Controle Dinâmico de Reservas
+        let reservasValido = localStorage.getItem('jcs_reservas_atual');
+        if (reservasValido === null) {
+            reservasValido = 16;
+            localStorage.setItem('jcs_reservas_atual', 16);
+        } else {
+            reservasValido = parseInt(reservasValido);
+        }
+        const txtReservas = document.getElementById('txt-reservas-status');
+        if (txtReservas) txtReservas.innerText = String(reservasValido).padStart(2, '0');
+
+        // Monta o Seletor Comercial
         const selectQtd = document.getElementById('quantidade-bandejas');
         if (selectQtd) {
-            selectQtd.innerHTML = ''; // Limpa antes de montar
+            selectQtd.innerHTML = ''; 
 
             if (estoqueValido <= 0) {
                 if (btnComprar) btnComprar.style.display = 'none';
                 caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
             } else {
-                // Preenche o seletor apenas até o limite do estoque guardado
                 for (let i = 1; i <= estoqueValido; i++) {
                     let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
                     let opt = document.createElement('option');
@@ -165,7 +173,6 @@
         }
     }
 
-    // Relógio em tempo real
     function iniciarRelogio() {
         setInterval(function() {
             var agora = new Date();
@@ -177,7 +184,6 @@
         }, 1000);
     }
 
-    // Leva o comprador para a tela final do Pix reconstruindo a URL blindada contra 404
     function avancarParaPagamento() {
         var qtdSelect = document.getElementById("quantidade-bandejas");
         if (qtdSelect && qtdSelect.value) {
@@ -187,12 +193,11 @@
             localStorage.setItem('compra_qtd', quantidade);
             localStorage.setItem('compra_total', valorTotal);
 
-            // Reconstrói a URL para evitar falha no roteamento de repositórios do GitHub Pages
-            window.location.href = window.location.origin + window.location.pathname.replace('index.html', '').replace('.html', '/') + 'pagamento.html';
+            // Abre a página de pagamento na mesma pasta sem erro 404
+            window.location.href = './pagamento.html';
         }
     }
 
-    // Revela o botão oculto do aplicativo JCS após 5 cliques na assinatura
     let cliques = 0;
     function revelarPainel() {
         cliques++;
