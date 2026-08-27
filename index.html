@@ -83,9 +83,9 @@
 <body onload="inicializarLoja()">
 
 <div class="container">
-    <!-- Header de Status Operacional Online -->
+    <!-- Header do Sistema com Relógio Online Ativo -->
     <div class="header-system">
-        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">00:00:00</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -95,19 +95,19 @@
     
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Status Físico de Estoque Sincronizado -->
+    <!-- Status Físico de Estoque e Reservas -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
         🔒 Reservas: <span id="txt-reservas-status">16</span> unidades
     </div>
 
-    <!-- Lista Sequencial de Escolha Rápida -->
+    <!-- Lista Sequencial Coletiva de Opções -->
     <div class="options-container" id="caixa-opcoes-sequencial">
-        <!-- Injetado dinamicamente via JS estruturado -->
+        <!-- Gerado dinamicamente via Script sem conflitos -->
     </div>
 
-    <!-- Botão de Avançar -->
+    <!-- Botão de Envio Comercial -->
     <div style="margin: 25px 0;">
         <button id="btn-comprar-loja" class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
         <button id="btn-bloqueado-loja" class="btn-manutencao" disabled>🛑 PEDIDOS TEMPORARIAMENTE SUSPENSOS</button>
@@ -118,12 +118,12 @@
         📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
     </p>
 
-    <!-- Indicador de Página Técnico -->
+    <!-- Indicador de Rota Discreto -->
     <div class="secure-footer">
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 1/2</span>
     </div>
 
-    <!-- Assinatura Oculta -->
+    <!-- Assinatura Técnica com Gatilho do Admin -->
     <div class="signature-box" onclick="revelarPainel()">
         🌾 © 2026 . JCS_criatório . JCS_software<br>
         🛠️ Versão do Sistema: 26.08.23.03
@@ -140,11 +140,11 @@
         const statusSite = localStorage.getItem('jcs_status_site') || 'online';
         const btnComprar = document.getElementById('btn-comprar-loja');
         const btnBloqueado = document.getElementById('btn-bloqueado-loja');
-        const ComicCaixa = document.getElementById('caixa-opcoes-sequencial');
+        const caixaOpcoes = document.getElementById('caixa-opcoes-sequencial');
 
         if (statusSite === 'manutencao') {
             if (btnComprar) btnComprar.style.display = 'none';
-            if (ComicCaixa) ComicCaixa.style.display = 'none';
+            if (caixaOpcoes) caixaOpcoes.style.display = 'none';
             if (btnBloqueado) btnBloqueado.style.display = 'block';
             return;
         }
@@ -169,12 +169,12 @@
         const txtReservas = document.getElementById('txt-reservas-status');
         if (txtReservas) txtReservas.innerText = String(reservasValido).padStart(2, '0');
 
-        if (ComicCaixa) {
-            ComicCaixa.innerHTML = ''; 
+        if (caixaOpcoes) {
+            caixaOpcoes.innerHTML = ''; 
 
             if (estoqueValido <= 0) {
                 if (btnComprar) btnComprar.style.display = 'none';
-                ComicCaixa.innerHTML = '<div style="text-align:center; color:#cc0000; font-weight:bold; width:100%;">❌ Produção diária esgotada! Volte mais tarde.</div>';
+                caixaOpcoes.innerHTML = '<div style="text-align:center; color:#cc0000; font-weight:bold; width:100%;">❌ Produção diária esgotada! Volte mais tarde.</div>';
             } else {
                 for (let i = 1; i <= estoqueValido; i++) {
                     let textoOpcao = "";
@@ -195,7 +195,7 @@
                     card.onclick = function() { selecionarOpcaoBloco(i, estoqueValido); };
                     
                     card.innerHTML = `<div style="display:flex; align-items:center;"><span>🛒 ${textoOpcao}</span>${tagPromo}</div><span class="option-circle"></span>`;
-                    ComicCaixa.appendChild(card);
+                    caixaOpcoes.appendChild(card);
                 }
                 quantidadeSelecionada = 1; 
             }
@@ -210,6 +210,3 @@
                 elemento.className = (i === idSelecionado) ? 'option-card selected' : 'option-card';
             }
         }
-    }
-
-    function iniciarRelogio() {
