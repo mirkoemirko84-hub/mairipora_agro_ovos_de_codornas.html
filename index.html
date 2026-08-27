@@ -126,38 +126,41 @@
         const caixaSeletora = document.getElementById('caixa-seletora');
 
         if (statusSite === 'manutencao') {
-            btnComprar.style.display = 'none';
-            caixaSeletora.style.display = 'none';
-            btnBloqueado.style.display = 'block';
-            return; // Interrompe o fluxo se estiver em manutenção
+            if (btnComprar) btnComprar.style.display = 'none';
+            if (caixaSeletora) caixaSeletora.style.display = 'none';
+            if (btnBloqueado) btnBloqueado.style.display = 'block';
+            return;
         }
 
-        // 2. Controla o estoque dinamicamente baseado no painel admin
+        // 2. Controla o estoque dinamicamente baseado no painel admin (Garante 3 de padrão se estiver vazio)
         let estoqueValido = localStorage.getItem('jcs_estoque_atual');
-        if (estoqueValido === null) {
-            estoqueValido = 3; // Valor padrão inicial
+        if (estoqueValido === null || estoqueValido === undefined) {
+            estoqueValido = 3; 
             localStorage.setItem('jcs_estoque_atual', 3);
         } else {
             estoqueValido = parseInt(estoqueValido);
         }
 
         // Atualiza o texto do estoque na tela
-        document.getElementById('txt-estoque-status').innerText = String(estoqueValido).padStart(2, '0');
+        const txtEstoque = document.getElementById('txt-estoque-status');
+        if (txtEstoque) txtEstoque.innerText = String(estoqueValido).padStart(2, '0');
 
         const selectQtd = document.getElementById('quantidade-bandejas');
-        selectQtd.innerHTML = ''; // Limpa antes de montar
+        if (selectQtd) {
+            selectQtd.innerHTML = ''; // Limpa antes de montar
 
-        if (estoqueValido <= 0) {
-            btnComprar.style.display = 'none';
-            caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
-        } else {
-            // Preenche o seletor apenas até o limite do estoque guardado no painel
-            for (let i = 1; i <= estoqueValido; i++) {
-                let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = textoOpcao;
-                selectQtd.appendChild(opt);
+            if (estoqueValido <= 0) {
+                if (btnComprar) btnComprar.style.display = 'none';
+                caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
+            } else {
+                // Preenche o seletor apenas até o limite do estoque guardado
+                for (let i = 1; i <= estoqueValido; i++) {
+                    let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
+                    let opt = document.createElement('option');
+                    opt.value = i;
+                    opt.innerHTML = textoOpcao;
+                    selectQtd.appendChild(opt);
+                }
             }
         }
     }
@@ -174,7 +177,7 @@
         }, 1000);
     }
 
-        // Leva o comprador para a tela final do Pix
+    // Leva o comprador para a tela final do Pix reconstruindo a URL blindada contra 404
     function avancarParaPagamento() {
         var qtdSelect = document.getElementById("quantidade-bandejas");
         if (qtdSelect && qtdSelect.value) {
@@ -184,17 +187,12 @@
             localStorage.setItem('compra_qtd', quantidade);
             localStorage.setItem('compra_total', valorTotal);
 
-            // Código inteligente contra Erro 404 no GitHub Pages
-           window.location.href = window.location.origin + window.location.pathname.replace('index.html', '').replace('.html', '/') + 'pagamento.html';
-
+            // Reconstrói a URL para evitar falha no roteamento de repositórios do GitHub Pages
+            window.location.href = window.location.origin + window.location.pathname.replace('index.html', '').replace('.html', '/') + 'pagamento.html';
         }
     }
 
-
-        }
-    }
-
-    // Revela o botão oculto do aplicativo JCS
+    // Revela o botão oculto do aplicativo JCS após 5 cliques na assinatura
     let cliques = 0;
     function revelarPainel() {
         cliques++;
