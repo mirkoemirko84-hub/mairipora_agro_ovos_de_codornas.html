@@ -3,201 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Mairiporã Agro ✨ - Pagamento Seguro</title>
+    <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
     <style>
-        :root {
-            --primary: #2e7d32;
-            --bg: #f5f5f5;
-            --card-bg: #ffffff;
-            --text: #333333;
-            --accent: #d32f2f;
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; }
+        .container { max-width: 480px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #e0e0e0; }
+        .header-system { font-size: 20px; font-weight: bold; color: #ffffff !important; background: #cc0000 !important; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; display: block; line-height: 1.4; border: 1px solid #990000; }
+        h1 { color: #d35400; font-size: 28px; margin-top: 20px; margin-bottom: 5px; }
+        .subtitle { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
+        .price-tag { font-size: 36px; font-weight: bold; color: #27ae60; margin: 20px 0; background: #e8f8f5; padding: 12px; border-radius: 10px; display: inline-block; }
+        
+        .stock-box { 
+            background: #e8f5e9 !important; 
+            border: 2px solid #c8e6c9 !important; 
+            padding: 15px !important; 
+            border-radius: 10px !important; 
+            margin: 20px auto !important; 
+            font-size: 18px !important; 
+            color: #2e7d32 !important; 
+            text-align: left !important;
+            max-width: 90%;
+            display: block !important;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 24px;
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-        .header h1 {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin: 0 0 8px 0;
-        }
-        .badge {
-            background: #e8f5e9;
-            color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .resumo-box {
-            background: #f9f9f9;
-            border: 1px dashed #ccc;
-            border-radius: 8px;
+
+        .quantity-box {
+            background: #fdfefe;
+            border: 2px solid #34495e;
             padding: 15px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .resumo-linha {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        .resumo-linha:last-child {
-            margin-bottom: 0;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 90%;
+            font-size: 16px;
             font-weight: bold;
-            border-top: 1px solid #eee;
-            padding-top: 8px;
+            color: #2c3e50;
         }
-        .qr-section img {
-            max-width: 200px;
-            width: 100%;
-            margin: 15px 0;
-            border: 1px solid #eee;
-            padding: 10px;
-            background: #fff;
-            border-radius: 8px;
-        }
-        .pix-code-box {
-            background: #f1f3f4;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            word-break: break-all;
-            margin-bottom: 12px;
-            border: 1px solid #e0e0e0;
-            user-select: all;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 1rem;
+        .quantity-select {
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 2px solid #34495e;
+            margin-left: 10px;
             font-weight: bold;
+            color: #d35400;
             cursor: pointer;
-            border: none;
-            transition: background 0.2s;
-            box-sizing: border-box;
-            text-decoration: none;
-            margin-bottom: 12px;
-            text-align: center;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #1b5e20; }
-        .btn-whats { background: #25d366; color: white; }
-        .btn-whats:hover { background: #128c7e; }
-        .btn-back { background: transparent; color: #666; font-size: 0.9rem; }
-        .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; text-align: left; line-height: 1.4; }
-        footer { margin-top: 25px; font-size: 0.75rem; color: #888; }
+        
+        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; }
+        .btn-avancar:hover { background-color: #e64a19; }
+        
+        .btn-manutencao { background-color: #7f8c8d; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; width: 100%; display: none; cursor: not-allowed; box-sizing: border-box; }
+
+        .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
+        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
+        .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
+        
+        #botao-secreto-adm { display: none; margin-top: 15px; background: #34495e; color: #fff; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; }
     </style>
 </head>
-<body>
+<body onload="inicializarLoja()">
 
 <div class="container">
-    <div class="header">
-        <h1>✨ Mairiporã Agro ✨</h1>
-        <div class="badge">Ovos Artesanais de Codorna Jumbo! 🥚</div>
+    <!-- Header com Relógio Online da Vitrine -->
+    <div class="header-system">
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">00:00:00</span>
     </div>
 
-    <!-- Resumo do Pedido Seguro -->
-    <div class="resumo-box">
-        <div class="resumo-linha">
-            <span>Quantidade Solicitada:</span>
-            <span id="txt-resumo-qtd">Carregando...</span>
-        </div>
-        <div class="resumo-linha">
-            <span>Valor Total Bruto:</span>
-            <span id="txt-resumo-total" style="color: var(--primary); font-size: 1.2rem;">R$ 0,00</span>
-        </div>
-    </div>
-
-    <h3 style="margin: 10px 0 5px 0; color: #2c3e50;">ESCANEIE PARA PAGAR VIA PIX</h3>
+    <h1>✨ Mairiporã Agro ✨</h1>
+    <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
     
-    <div class="qr-section">
-        <!-- Puxa a imagem oficial da raiz do Git sem errar o caminho -->
-        <img src="./qrcode-pagamento.png" alt="QR Code Pix Bradesco">
-    </div>
-
-    <p style="font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; text-align: left;">📋 Código PIX Copia e Cola:</p>
-    <!-- Elemento crítico blindado na estrutura da página -->
-    <div class="pix-code-box" id="pix-codigo">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+    <p class="footer-text">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</p>
     
-    <button class="btn btn-primary" id="btnCopiarPix" onclick="copiarPix()">📋 Copiar Código PIX</button>
+    <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <div class="alert-box">
-        ⚠️ <strong>ATENÇÃO JCS:</strong> A sua compra só será validada e liberada após o envio do comprovante exato de acordo com as cartelas escolhidas. Devolução de R$ 1,00 em din-din negociada direto na retirada.
+    <!-- Status do Estoque e Reservas do Dia -->
+    <div class="stock-box">
+        📌 <strong>Status do Dia:</strong><br>
+        📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
+        🔒 Reservas: <span id="txt-reservas-status">16</span> unidades
     </div>
 
-    <h3 style="margin-top: 25px; color: #2c3e50;">📢 ENVIAR COMPROVANTE</h3>
-    <a href="#" id="btn-whatsapp" target="_blank" class="btn btn-whats">🔗 ENVIAR COMPROVANTE NO WHATSAPP</a>
+    <!-- Seletor de Quantidade Comercial -->
+    <div class="quantity-box" id="caixa-seletora">
+        🛒 Quantas bandejas você quer?
+        <select id="quantidade-bandejas" class="quantity-select">
+            <!-- Opções comerciais geradas via JS -->
+        </select>
+    </div>
 
-    <a href="./index.html" class="btn btn-back">⬅️ Voltar e alterar quantidade</a>
+    <!-- Botão que empurra o cliente para a página de pagamento -->
+    <div style="margin: 25px 0;">
+        <button id="btn-comprar-loja" class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
+        <button id="btn-bloqueado-loja" class="btn-manutencao" disabled>🛑 PEDIDOS TEMPORARIAMENTE SUSPENSOS</button>
+    </div>
 
-    <footer>
-        🌾 © 2026 . JCS_criatório . JCS_software . pagina 1/2 <br>
-        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
-    </footer>
+    <!-- Logística -->
+    <p class="footer-text">
+        📅 Dias de Entrega: Terças e Sextas-feiras<br>
+        📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
+    </p>
+
+    <!-- Rodapé Marcado Discretamente -->
+    <div class="secure-footer">
+        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 1/2</span>
+    </div>
+
+    <!-- Assinatura Oculta para o App Admin -->
+    <div class="signature-box" onclick="revelarPainel()">
+        🌾 © 2026 . JCS_criatório . JCS_software<br>
+        🛠️ Versão do Sistema: 26.08.23.03
+    </div>
+    <a id="botao-secreto-adm" href="Adm/index.html">🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)</a>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Recupera os dados salvos da index
-        const qtd = localStorage.getItem('compra_qtd') || '01';
-        const total = localStorage.getItem('compra_total') || '13.00';
-
-        // Atualiza a tela com os dados críticos
-        document.getElementById('txt-resumo-qtd').innerText = String(qtd).padStart(2, '0') + " Cartela(s)";
-        document.getElementById('txt-resumo-total').innerText = `R$ ${total.replace('.', ',')}`;
-
-        // Configura o link do WhatsApp JCS Oficial
-        const btnWhats = document.getElementById('btn-whatsapp');
-        const numeroWhats = "5511964856312"; // Seu número oficial configurado
-        const mensagem = encodeURIComponent(`Olá! Fiz meu pedido de ${qtd} cartela(s) de Ovos de Codorna Jumbo no valor total de R$ ${total.replace('.', ',')}. Segue o comprovante do Pix em anexo. 🥚🌾`);
+    function inicializarLoja() {
+        iniciarRelogio();
         
-        if (btnWhats) {
-            btnWhats.href = `https://wa.me{numeroWhats}?text=${mensagem}`;
+        // Sincronização automática com os comandos do Painel Admin
+        const statusSite = localStorage.getItem('jcs_status_site') || 'online';
+        const btnComprar = document.getElementById('btn-comprar-loja');
+        const btnBloqueado = document.getElementById('btn-bloqueado-loja');
+        const caixaSeletora = document.getElementById('caixa-seletora');
+
+        if (statusSite === 'manutencao') {
+            if (btnComprar) btnComprar.style.display = 'none';
+            if (caixaSeletora) caixaSeletora.style.display = 'none';
+            if (btnBloqueado) btnBloqueado.style.display = 'block';
+            return;
         }
-    });
 
-    // Função inovadora Copia e Cola nativa do navegador
-    function copiarPix() {
-        const codigoPix = "3d4ee862-439d-481d-9f5b-07d69a7182f6";
-        
-        navigator.clipboard.writeText(codigoPix).then(() => {
-            const btn = document.getElementById("btnCopiarPix");
-            if (btn) {
-                btn.innerHTML = "✅ Código Copiado!";
-                btn.style.backgroundColor = "#27ae60";
-                setTimeout(() => {
-                    btn.innerHTML = "📋 Copiar Código PIX";
-                    btn.style.backgroundColor = "#2e7d32";
-                }, 2000);
+        let estoqueValido = localStorage.getItem('jcs_estoque_atual');
+        if (estoqueValido === null || estoqueValido === undefined) {
+            estoqueValido = 3; 
+            localStorage.setItem('jcs_estoque_atual', 3);
+        } else {
+            estoqueValido = parseInt(estoqueValido);
+        }
+        const txtEstoque = document.getElementById('txt-estoque-status');
+        if (txtEstoque) txtEstoque.innerText = String(estoqueValido).padStart(2, '0');
+
+        let reservasValido = localStorage.getItem('jcs_reservas_atual');
+        if (reservasValido === null || reservasValido === undefined) {
+            reservasValido = 16;
+            localStorage.setItem('jcs_reservas_atual', 16);
+        } else {
+            reservasValido = parseInt(reservasValido);
+        }
+        const txtReservas = document.getElementById('txt-reservas-status');
+        if (txtReservas) txtReservas.innerText = String(reservasValido).padStart(2, '0');
+
+        const selectQtd = document.getElementById('quantidade-bandejas');
+        if (selectQtd) {
+            selectQtd.innerHTML = ''; 
+
+            if (estoqueValido <= 0) {
+                if (btnComprar) btnComprar.style.display = 'none';
+                caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
+            } else {
+                for (let i = 1; i <= estoqueValido; i++) {
+                    let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
+                    let opt = document.createElement('option');
+                    opt.value = i;
+                    opt.innerHTML = textoOpcao;
+                    selectQtd.appendChild(opt);
+                }
             }
-        }).catch(err => {
-            console.error("Erro ao copiar: ", err);
-            alert("Por favor, selecione o texto do código e copie manualmente.");
-        });
+        }
+    }
+
+    function iniciarRelogio() {
+        setInterval(function() {
+            var agora = new Date();
+            var h = String(agora.getHours()).padStart(2, '0');
+            var m = String(agora.getMinutes()).padStart(2, '0');
+            var s = String(agora.getSeconds()).padStart(2, '0');
+            var el = document.getElementById('live-clock');
+            if (el) { el.innerHTML = h + ":" + m + ":" + s; }
+        }, 1000);
+    }
+
+    // Função de rota corrigida que chama a página 2 (pagamento.html) na marra
+    function avancarParaPagamento() {
+        var qtdSelect = document.getElementById("quantidade-bandejas");
+        if (qtdSelect && qtdSelect.value) {
+            var quantidade = parseInt(qtdSelect.value);
+            var valorTotal = (quantidade * 13).toFixed(2);
+
+            localStorage.setItem('compra_qtd', quantidade);
+            localStorage.setItem('compra_total', valorTotal);
+
+            // Força a chamada do pagamento.html no mesmo nível de pasta do GitHub Pages
+            window.location.href = './pagamento.html';
+        }
+    }
+
+    let cliques = 0;
+    function revelarPainel() {
+        cliques++;
+        if (cliques >= 5) {
+            var btnAdm = document.getElementById('botao-secreto-adm');
+            if (btnAdm) { btnAdm.style.display = 'block'; }
+        }
     }
 </script>
 </body>
