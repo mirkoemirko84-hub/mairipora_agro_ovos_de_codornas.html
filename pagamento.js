@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Mairiporã Agro ✨ - Pagamento Seguro</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --accent: #d32f2f;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 24px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .header-system { 
+            font-size: 20px; 
+            font-weight: bold; 
+            color: #ffffff !important; 
+            background: #cc0000 !important; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            font-family: monospace; 
+            display: block; 
+            line-height: 1.4; 
+            border: 1px solid #990000; 
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 0 0 8px 0;
+        }
+        .badge {
+            background: #e8f5e9;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .resumo-box {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .resumo-linha {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .resumo-linha:last-child {
+            margin-bottom: 0;
+            font-weight: bold;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+        .qr-section img {
+            max-width: 200px;
+            width: 100%;
+            margin: 15px 0;
+            border: 1px solid #eee;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .pix-code-box {
+            background: #f1f3f4;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            user-select: all;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+            box-sizing: border-box;
+            text-decoration: none;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #1b5e20; }
+        .btn-whats { background: #25d366; color: white; }
+        .btn-whats:hover { background: #128c7e; }
+        .btn-back { background: transparent; color: #666; font-size: 0.9rem; }
+        .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; text-align: left; line-height: 1.4; }
+        footer { margin-top: 25px; font-size: 0.75rem; color: #888; line-height: 1.5; }
+        .local-support { font-size: 0.95rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; }
+    </style>
+</head>
+<body onload="iniciarRelogio()">
 
+<div class="container">
+    <!-- Header do Sistema com Horário Dinâmico em tempo real -->
+    <div class="header-system">
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">12:50:00</span>
+    </div>
+
+    <div class="header">
+        <h1>✨ Mairiporã Agro ✨</h1>
+        <div class="badge">Ovos Artesanais de Codorna Jumbo! 🥚</div>
+    </div>
+
+    <div class="local-support">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</div>
+
+    <!-- Resumo do Pedido Seguro -->
+    <div class="resumo-box">
+        <div class="resumo-linha">
+            <span>Quantidade Solicitada:</span>
+            <span id="txt-resumo-qtd">Carregando...</span>
+        </div>
+        <div class="resumo-linha">
+            <span>Valor Total Bruto:</span>
+            <span id="txt-resumo-total" style="color: var(--primary); font-size: 1.2rem;">R$ 0,00</span>
+        </div>
+    </div>
+
+    <h3 style="margin: 10px 0 5px 0; color: #2c3e50;">ESCANEIE PARA PAGAR VIA PIX</h3>
+    
+    <div class="qr-section">
+        <img src="./qrcode-pagamento.png" alt="QR Code Pix Bradesco">
+    </div>
+
+    <p style="font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; text-align: left;">📋 Código PIX Copia e Cola:</p>
+    <div class="pix-code-box" id="pix-codigo">3d4ee862-439d-481d-9f5b-07d69a7182f6</div>
+    
+    <button class="btn btn-primary" id="btnCopiarPix" onclick="copiarPix()">📋 Copiar Código PIX</button>
+
+    <div class="alert-box">
+        ⚠️ <strong>ATENÇÃO JCS:</strong> A sua compra só será validada e liberada após o envio do comprovante exato de acordo com as cartelas escolhidas. Devolução de R$ 1,00 em din-din negociada direto na retirada.
+    </div>
+
+    <h3 style="margin-top: 25px; color: #2c3e50;">📢 ENVIAR COMPROVANTE</h3>
+    <a href="#" id="btn-whatsapp" target="_blank" class="btn btn-whats">🔗 ENVIAR COMPROVANTE NO WHATSAPP</a>
+
+    <a href="./index.html" class="btn btn-back">⬅️ Voltar e alterar quantidade</a>
+
+    <footer>
+        🌾 © 2026 . JCS_criatório . JCS_software <span style="opacity: 0.5; font-weight: bold;">[Pág. 2/2]</span><br>
+        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
+    </footer>
+</div>
+
+<script>
+    // Relógio sincronizado com a página 1
+    function iniciarRelogio() {
+        setInterval(function() {
+            var agora = new Date();
+            var h = String(agora.getHours()).padStart(2, '0');
+            var m = String(agora.getMinutes()).padStart(2, '0');
+            var s = String(agora.getSeconds()).padStart(2, '0');
+            var el = document.getElementById('live-clock');
+            if (el) { el.innerHTML = h + ":" + m + ":" + s; }
+        }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const qtd = localStorage.getItem('compra_qtd') || '01';
+        const total = localStorage.getItem('compra_total') || '13.00';
+
+        document.getElementById('txt-resumo-qtd').innerText = String(qtd).padStart(2, '0') + " Cartela(s)";
+        document.getElementById('txt-resumo-total').innerText = `R$ ${total.replace('.', ',')}`;
+
+        const btnWhats = document.getElementById('btn-whatsapp');
+        const numeroWhats = "5511964856312"; 
+        const mensagem = encodeURIComponent(`Olá! Fiz meu pedido de ${qtd} cartela(s) de Ovos de Codorna Jumbo no valor total de R$ ${total.replace('.', ',')}. Segue o comprovante do Pix em anexo. 🥚🌾`);
+        
+        if (btnWhats) {
+            // Correção da barra adicionada de forma cirúrgica na URL do WhatsApp
+            btnWhats.href = "https://wa.me" + numeroWhats + "?text=" + mensagem;
+        }
+    });
+
+    function copiarPix() {
+        const codigoPix = "3d4ee862-439d-481d-9f5b-07d69a7182f6";
+        
+        navigator.clipboard.writeText(codigoPix).then(() => {
+            const btn = document.getElementById("btnCopiarPix");
+            if (btn) {
+                btn.innerHTML = "✅ Código Copiado!";
+                btn.style.backgroundColor = "#27ae60";
+                setTimeout(() => {
+                    btn.innerHTML = "📋 Copiar Código PIX";
+                    btn.style.backgroundColor = "#2e7d32";
+                }, 2000);
+            }
+        }).catch(err => {
+            console.error("Erro ao copiar: ", err);
+            alert("Por favor, selecione o texto do código e copie manualmente.");
+        });
+    }
+</script>
+</body>
+</html>
