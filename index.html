@@ -25,44 +25,67 @@
             display: block !important;
         }
 
-        .quantity-box {
+        /* CONTAINER PARA AS OPÇÕES EM SEQUÊNCIA COLETIVA */
+        .options-container {
+            margin: 20px auto;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+        .option-card {
             background: #fdfefe;
             border: 2px solid #34495e;
             padding: 15px;
             border-radius: 10px;
-            margin: 20px auto;
-            max-width: 90%;
             font-size: 16px;
             font-weight: bold;
             color: #2c3e50;
-        }
-        .quantity-select {
-            font-size: 18px;
-            padding: 8px 15px;
-            border-radius: 5px;
-            border: 2px solid #34495e;
-            margin-left: 10px;
-            font-weight: bold;
-            color: #d35400;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            position: relative;
         }
+        .option-card:hover { background: #f4f6f7; }
+        .option-card.selected { background: #e8f8f5; border-color: #27ae60; color: #27ae60; }
         
-        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; }
+        /* Tag piscante de marketing JCS */
+        .promo-tag {
+            background: #d35400;
+            color: white;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .option-circle { width: 20px; height: 20px; border: 2px solid #34495e; border-radius: 50%; display: inline-block; position: relative; }
+        .option-card.selected .option-circle { border-color: #27ae60; background: #27ae60; }
+
+        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; text-align: center; }
         .btn-avancar:hover { background-color: #e64a19; }
-        
         .btn-manutencao { background-color: #7f8c8d; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; width: 100%; display: none; cursor: not-allowed; box-sizing: border-box; }
 
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
-        
         #botao-secreto-adm { display: none; margin-top: 15px; background: #34495e; color: #fff; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; }
     </style>
 </head>
 <body onload="inicializarLoja()">
 
 <div class="container">
-    <!-- Header com Relógio Online da Vitrine -->
+    <!-- Header de Status Operacional Online -->
     <div class="header-system">
         ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">00:00:00</span>
     </div>
@@ -74,39 +97,35 @@
     
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Status do Estoque e Reservas do Dia -->
+    <!-- Status Físico de Estoque Sincronizado -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
         🔒 Reservas: <span id="txt-reservas-status">16</span> unidades
     </div>
 
-    <!-- Seletor de Quantidade Comercial -->
-    <div class="quantity-box" id="caixa-seletora">
-        🛒 Quantas bandejas você quer?
-        <select id="quantidade-bandejas" class="quantity-select">
-            <!-- Opções comerciais geradas via JS -->
-        </select>
+    <!-- Lista Sequencial de Escolha Rápida -->
+    <div class="options-container" id="caixa-opcoes-sequencial">
+        <!-- Injetado dinamicamente via JS estruturado -->
     </div>
 
-    <!-- Botão que empurra o cliente para a página de pagamento -->
+    <!-- Botão de Saída Comercial -->
     <div style="margin: 25px 0;">
         <button id="btn-comprar-loja" class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
         <button id="btn-bloqueado-loja" class="btn-manutencao" disabled>🛑 PEDIDOS TEMPORARIAMENTE SUSPENSOS</button>
     </div>
 
-    <!-- Logística -->
     <p class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
         📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
     </p>
 
-    <!-- Rodapé Marcado Discretamente -->
+    <!-- Indicador de Página Técnico -->
     <div class="secure-footer">
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 1/2</span>
     </div>
 
-    <!-- Assinatura Oculta para o App Admin -->
+    <!-- Assinatura Oculta -->
     <div class="signature-box" onclick="revelarPainel()">
         🌾 © 2026 . JCS_criatório . JCS_software<br>
         🛠️ Versão do Sistema: 26.08.23.03
@@ -115,18 +134,19 @@
 </div>
 
 <script>
+    let quantidadeSelecionada = 1;
+
     function inicializarLoja() {
         iniciarRelogio();
         
-        // Sincronização automática com os comandos do Painel Admin
         const statusSite = localStorage.getItem('jcs_status_site') || 'online';
         const btnComprar = document.getElementById('btn-comprar-loja');
         const btnBloqueado = document.getElementById('btn-bloqueado-loja');
-        const caixaSeletora = document.getElementById('caixa-seletora');
+        const ComicCaixa = document.getElementById('caixa-opcoes-sequencial');
 
         if (statusSite === 'manutencao') {
             if (btnComprar) btnComprar.style.display = 'none';
-            if (caixaSeletora) caixaSeletora.style.display = 'none';
+            if (ComicCaixa) ComicCaixa.style.display = 'none';
             if (btnBloqueado) btnBloqueado.style.display = 'block';
             return;
         }
@@ -151,59 +171,41 @@
         const txtReservas = document.getElementById('txt-reservas-status');
         if (txtReservas) txtReservas.innerText = String(reservasValido).padStart(2, '0');
 
-        const selectQtd = document.getElementById('quantidade-bandejas');
-        if (selectQtd) {
-            selectQtd.innerHTML = ''; 
+        if (ComicCaixa) {
+            ComicCaixa.innerHTML = ''; 
 
             if (estoqueValido <= 0) {
                 if (btnComprar) btnComprar.style.display = 'none';
-                caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
+                ComicCaixa.innerHTML = '<div style="text-align:center; color:#cc0000; font-weight:bold; width:100%;">❌ Produção diária esgotada! Volte mais tarde.</div>';
             } else {
                 for (let i = 1; i <= estoqueValido; i++) {
-                    let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
-                    let opt = document.createElement('option');
-                    opt.value = i;
-                    opt.innerHTML = textoOpcao;
-                    selectQtd.appendChild(opt);
+                    let textoOpcao = "";
+                    let tagPromo = "";
+                    
+                    if (i === 1) {
+                        textoOpcao = `01 Cartela - R$ 13,00`;
+                    } else if (i === 2) {
+                        textoOpcao = `02 Cartelas - R$ 26,00`;
+                    } else if (i === 3) {
+                        // SUA JOGADA DE MARKETING COM OS BRINDES DA CONTA EXATA!
+                        textoOpcao = `03 Cartelas - R$ 36,00`;
+                        tagPromo = `<span class="promo-tag">🔥 GANHE QUASE 7 OVOS DE BRINDE!</span>`;
+                    }
+                    
+                    let card = document.createElement('div');
+                    card.className = i === 1 ? 'option-card selected' : 'option-card';
+                    card.id = `opt-${i}`;
+                    card.onclick = function() { selecionarOpcaoBloco(i, estoqueValido); };
+                    
+                    card.innerHTML = `<div style="display:flex; align-items:center;"><span>🛒 ${textoOpcao}</span>${tagPromo}</div><span class="option-circle"></span>`;
+                    ComicCaixa.appendChild(card);
                 }
+                quantidadeSelecionada = 1; 
             }
         }
     }
 
-    function iniciarRelogio() {
-        setInterval(function() {
-            var agora = new Date();
-            var h = String(agora.getHours()).padStart(2, '0');
-            var m = String(agora.getMinutes()).padStart(2, '0');
-            var s = String(agora.getSeconds()).padStart(2, '0');
-            var el = document.getElementById('live-clock');
-            if (el) { el.innerHTML = h + ":" + m + ":" + s; }
-        }, 1000);
-    }
-
-    // Função de rota corrigida que chama a página 2 (pagamento.html) na marra
-    function avancarParaPagamento() {
-        var qtdSelect = document.getElementById("quantidade-bandejas");
-        if (qtdSelect && qtdSelect.value) {
-            var quantidade = parseInt(qtdSelect.value);
-            var valorTotal = (quantidade * 13).toFixed(2);
-
-            localStorage.setItem('compra_qtd', quantidade);
-            localStorage.setItem('compra_total', valorTotal);
-
-            // Força a chamada do pagamento.html no mesmo nível de pasta do GitHub Pages
-            window.location.href = './pagamento.html';
-        }
-    }
-
-    let cliques = 0;
-    function revelarPainel() {
-        cliques++;
-        if (cliques >= 5) {
-            var btnAdm = document.getElementById('botao-secreto-adm');
-            if (btnAdm) { btnAdm.style.display = 'block'; }
-        }
-    }
-</script>
-</body>
-</html>
+    function selecionarOpcaoBloco(idSelecionado, estoqueMaximo) {
+        quantidadeSelecionada = idSelecionado;
+        for (let i = 1; i <= estoqueMaximo; i++) {
+            let elemento = document.getElementById(`opt-${i}`);
