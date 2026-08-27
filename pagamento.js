@@ -33,19 +33,6 @@
             max-width: 450px;
             text-align: center;
         }
-        .header-system { 
-            font-size: 20px; 
-            font-weight: bold; 
-            color: #ffffff !important; 
-            background: #cc0000 !important; 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            font-family: monospace; 
-            display: block; 
-            line-height: 1.4; 
-            border: 1px solid #990000; 
-        }
         .header h1 {
             font-size: 1.4rem;
             color: var(--primary);
@@ -122,18 +109,13 @@
         .btn-whats:hover { background: #128c7e; }
         .btn-back { background: transparent; color: #666; font-size: 0.9rem; }
         .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; text-align: left; line-height: 1.4; }
-        footer { margin-top: 25px; font-size: 0.75rem; color: #888; line-height: 1.5; }
+        footer { margin-top: 25px; font-size: 0.75rem; color: #888; }
         .local-support { font-size: 0.95rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; }
     </style>
 </head>
-<body onload="iniciarRelogio()">
+<body>
 
 <div class="container">
-    <!-- Header do Sistema com Horário Dinâmico em tempo real -->
-    <div class="header-system">
-        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">12:50:00</span>
-    </div>
-
     <div class="header">
         <h1>✨ Mairiporã Agro ✨</h1>
         <div class="badge">Ovos Artesanais de Codorna Jumbo! 🥚</div>
@@ -174,24 +156,12 @@
     <a href="./index.html" class="btn btn-back">⬅️ Voltar e alterar quantidade</a>
 
     <footer>
-        🌾 © 2026 . JCS_criatório . JCS_software <span style="opacity: 0.5; font-weight: bold;">[Pág. 2/2]</span><br>
+        🌾 © 2026 . JCS_criatório . JCS_software<br>
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </footer>
 </div>
 
 <script>
-    // Relógio sincronizado com a página 1
-    function iniciarRelogio() {
-        setInterval(function() {
-            var agora = new Date();
-            var h = String(agora.getHours()).padStart(2, '0');
-            var m = String(agora.getMinutes()).padStart(2, '0');
-            var s = String(agora.getSeconds()).padStart(2, '0');
-            var el = document.getElementById('live-clock');
-            if (el) { el.innerHTML = h + ":" + m + ":" + s; }
-        }, 1000);
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
         const qtd = localStorage.getItem('compra_qtd') || '01';
         const total = localStorage.getItem('compra_total') || '13.00';
@@ -204,7 +174,7 @@
         const mensagem = encodeURIComponent(`Olá! Fiz meu pedido de ${qtd} cartela(s) de Ovos de Codorna Jumbo no valor total de R$ ${total.replace('.', ',')}. Segue o comprovante do Pix em anexo. 🥚🌾`);
         
         if (btnWhats) {
-            // Correção da barra adicionada de forma cirúrgica na URL do WhatsApp
+            // Correção da concatenação da rota do WhatsApp sem as chaves literais
             btnWhats.href = "https://wa.me" + numeroWhats + "?text=" + mensagem;
         }
     });
