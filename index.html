@@ -50,6 +50,8 @@
         .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; }
         .btn-avancar:hover { background-color: #e64a19; }
         
+        .btn-manutencao { background-color: #7f8c8d; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; width: 100%; display: none; cursor: not-allowed; box-sizing: border-box; }
+
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
@@ -57,10 +59,10 @@
         #botao-secreto-adm { display: none; margin-top: 15px; background: #34495e; color: #fff; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; }
     </style>
 </head>
-<body onload="iniciarRelogio()">
+<body onload="inicializarLoja()">
 
 <div class="container">
-    <!-- Header do Sistema com Horário -->
+    <!-- Header do Sistema com Horário Dinâmico -->
     <div class="header-system">
         ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">09:09:25</span>
     </div>
@@ -72,26 +74,25 @@
     
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Status do Estoque Atual -->
+    <!-- Status do Estoque Atual Dinâmico -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
-        📦 Estoque Produzidas: 03 cartelas<br>
+        📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
         🔒 Reservas: 16 unidades
     </div>
 
     <!-- Seletor de Quantidade Comercial -->
-    <div class="quantity-box">
+    <div class="quantity-box" id="caixa-seletora">
         🛒 Quantas bandejas você quer?
         <select id="quantidade-bandejas" class="quantity-select">
-            <option value="1">01 Cartela - R$ 13,00</option>
-            <option value="2">02 Cartelas - R$ 26,00</option>
-            <option value="3">03 Cartelas - R$ 39,00</option>
+            <!-- Opções geradas dinamicamente via JS -->
         </select>
     </div>
 
-    <!-- Botão Limpo para Avançar para a Página 2 -->
+    <!-- Botões de Compra Inteligentes -->
     <div style="margin: 25px 0;">
-        <button class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
+        <button id="btn-comprar-loja" class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
+        <button id="btn-bloqueado-loja" class="btn-manutencao" disabled>🛑 PEDIDOS TEMPORARIAMENTE SUSPENSOS</button>
     </div>
 
     <!-- Informações de Logística -->
@@ -114,7 +115,54 @@
 </div>
 
 <script>
-    // Relógio em tempo real sem quebras
+    // Inicia o relógio e configura a tela baseado nos comandos do ADM
+    function inicializarLoja() {
+        iniciarRelogio();
+        
+        // 1. Verifica se o ADM colocou o site em manutenção
+        const statusSite = localStorage.getItem('jcs_status_site') || 'online';
+        const btnComprar = document.getElementById('btn-comprar-loja');
+        const btnBloqueado = document.getElementById('btn-bloqueado-loja');
+        const caixaSeletora = document.getElementById('caixa-seletora');
+
+        if (statusSite === 'manutencao') {
+            btnComprar.style.display = 'none';
+            caixaSeletora.style.display = 'none';
+            btnBloqueado.style.display = 'block';
+            return; // Interrompe o fluxo se estiver em manutenção
+        }
+
+        // 2. Controla o estoque dinamicamente baseado no painel admin
+        let estoqueValido = localStorage.getItem('jcs_estoque_atual');
+        if (estoqueValido === null) {
+            estoqueValido = 3; // Valor padrão inicial
+            localStorage.setItem('jcs_estoque_atual', 3);
+        } else {
+            estoqueValido = parseInt(estoqueValido);
+        }
+
+        // Atualiza o texto do estoque na tela
+        document.getElementById('txt-estoque-status').innerText = String(estoqueValido).padStart(2, '0');
+
+        const selectQtd = document.getElementById('quantidade-bandejas');
+        selectQtd.innerHTML = ''; // Limpa antes de montar
+
+        if (estoqueValido <= 0) {
+            btnComprar.style.display = 'none';
+            caixaSeletora.innerHTML = '❌ <strong>Produção diária esgotada!</strong> Volte mais tarde.';
+        } else {
+            // Preenche o seletor apenas até o limite do estoque guardado no painel
+            for (let i = 1; i <= estoqueValido; i++) {
+                let textoOpcao = i === 1 ? `01 Cartela - R$ 13,00` : `${String(i).padStart(2, '0')} Cartelas - R$ ${i * 13},00`;
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = textoOpcao;
+                selectQtd.appendChild(opt);
+            }
+        }
+    }
+
+    // Relógio em tempo real
     function iniciarRelogio() {
         setInterval(function() {
             var agora = new Date();
@@ -126,23 +174,21 @@
         }, 1000);
     }
 
-    // Lógica que salva a escolha e joga para a página de pagamento
+    // Leva o comprador para a tela final do Pix
     function avancarParaPagamento() {
         var qtdSelect = document.getElementById("quantidade-bandejas");
-        if (qtdSelect) {
+        if (qtdSelect && qtdSelect.value) {
             var quantidade = parseInt(qtdSelect.value);
             var valorTotal = (quantidade * 13).toFixed(2);
 
-            // Salva na memória do navegador de forma limpa
             localStorage.setItem('compra_qtd', quantidade);
             localStorage.setItem('compra_total', valorTotal);
 
-            // Redireciona direto para a página do Pix na raiz
             window.location.href = 'pagamento.html';
         }
     }
 
-    // Painel Admin Secreto ativado com 5 cliques na assinatura
+    // Revela o botão oculto do aplicativo JCS
     let cliques = 0;
     function revelarPainel() {
         cliques++;
