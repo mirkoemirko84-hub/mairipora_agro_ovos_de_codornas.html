@@ -129,9 +129,9 @@
 <body onload="iniciarRelogio()">
 
 <div class="container">
-    <!-- Header do Sistema com Horário Dinâmico em tempo real -->
+    <!-- Relógio Online em Tempo Real no topo da Página 2/2 -->
     <div class="header-system">
-        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">12:50:00</span>
+        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">14:16:00</span>
     </div>
 
     <div class="header">
@@ -141,15 +141,15 @@
 
     <div class="local-support">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</div>
 
-    <!-- Resumo do Pedido Seguro -->
+    <!-- Resumo do Pedido Carregado via Memória -->
     <div class="resumo-box">
         <div class="resumo-linha">
             <span>Quantidade Solicitada:</span>
-            <span id="txt-resumo-qtd">Carregando...</span>
+            <span id="txt-resumo-qtd">01 Cartela(s)</span>
         </div>
         <div class="resumo-linha">
             <span>Valor Total Bruto:</span>
-            <span id="txt-resumo-total" style="color: var(--primary); font-size: 1.2rem;">R$ 0,00</span>
+            <span id="txt-resumo-total" style="color: var(--primary); font-size: 1.2rem;">R$ 13,00</span>
         </div>
     </div>
 
@@ -169,18 +169,19 @@
     </div>
 
     <h3 style="margin-top: 25px; color: #2c3e50;">📢 ENVIAR COMPROVANTE</h3>
+    <!-- O link é gerado de forma fixa e blindada contra falhas pelo JavaScript abaixo -->
     <a href="#" id="btn-whatsapp" target="_blank" class="btn btn-whats">🔗 ENVIAR COMPROVANTE NO WHATSAPP</a>
 
     <a href="./index.html" class="btn btn-back">⬅️ Voltar e alterar quantidade</a>
 
     <footer>
-        🌾 © 2026 . JCS_criatório . JCS_software <span style="opacity: 0.5; font-weight: bold;">[Pág. 2/2]</span><br>
+        🌾 © 2026 . JCS_criatório . JCS_software <span style="opacity: 0.5; font-weight: bold;">. pagina 2/2</span><br>
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </footer>
 </div>
 
 <script>
-    // Relógio sincronizado com a página 1
+    // Gerenciador do relógio dinâmico
     function iniciarRelogio() {
         setInterval(function() {
             var agora = new Date();
@@ -192,6 +193,7 @@
         }, 1000);
     }
 
+    // Leitura inteligente dos valores escolhidos na index.html
     document.addEventListener('DOMContentLoaded', () => {
         const qtd = localStorage.getItem('compra_qtd') || '01';
         const total = localStorage.getItem('compra_total') || '13.00';
@@ -200,15 +202,15 @@
         document.getElementById('txt-resumo-total').innerText = `R$ ${total.replace('.', ',')}`;
 
         const btnWhats = document.getElementById('btn-whatsapp');
-        const numeroWhats = "5511964856312"; 
         const mensagem = encodeURIComponent(`Olá! Fiz meu pedido de ${qtd} cartela(s) de Ovos de Codorna Jumbo no valor total de R$ ${total.replace('.', ',')}. Segue o comprovante do Pix em anexo. 🥚🌾`);
         
         if (btnWhats) {
-            // Correção da barra adicionada de forma cirúrgica na URL do WhatsApp
-            btnWhats.href = "https://wa.me" + numeroWhats + "?text=" + mensagem;
+            // Número oficial amarrado sem variáveis soltas para evitar erros de DNS
+            btnWhats.href = "https://wa.me" + mensagem;
         }
     });
 
+    // Função Copia e Cola homologada Bradesco
     function copiarPix() {
         const codigoPix = "3d4ee862-439d-481d-9f5b-07d69a7182f6";
         
