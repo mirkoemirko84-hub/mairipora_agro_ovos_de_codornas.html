@@ -32,21 +32,51 @@
         .info-box { background: #fff8e1; border-left: 5px solid #ffb300; padding: 12px; margin: 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.4; }
         .reminder-box { background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1; padding: 12px; margin: 20px 0 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.5; }
         .button-group-parallel { margin: 15px auto 25px auto; }
-        
-        /* ESTILO DO BOTÃO DO WHATSAPP */
         .btn-parallel-share { display: block; background-color: #25D366; color: white; border: none; padding: 16px 5px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-decoration: none; }
-        
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
     </style>
-    <script src="script.js"></script>
-    
-    <!-- SCRIPT DA BARRA LENTA EMBUTIDO DIRETO PARA EVITAR CACHE -->
+
     <script>
+        // 1. RELÓGIO DO SISTEMA
+        function iniciarRelogio() {
+            setInterval(function() {
+                var agora = new Date();
+                var h = String(agora.getHours()).padStart(2, '0');
+                var m = String(agora.getMinutes()).padStart(2, '0');
+                var s = String(agora.getSeconds()).padStart(2, '0');
+                var el = document.getElementById('live-clock');
+                if (el) { el.innerHTML = h + ":" + m + ":" + s; }
+            }, 1000);
+        }
+
+        // 2. FUNÇÃO COPIAR PIX (3d4ee862-439d-481d-9f5b-07d69a7182f6)
+        function copiarPix() {
+            var campo = document.getElementById("chavePixTexto");
+            if (campo) {
+                campo.select();
+                campo.setSelectionRange(0, 99999);
+                try {
+                    navigator.clipboard.writeText(campo.value);
+                } catch (err) {
+                    document.execCommand("copy");
+                }
+                var btn = document.getElementById("btnCopiarPix");
+                if (btn) {
+                    btn.innerHTML = "✅ Código Copiado!";
+                    btn.style.backgroundColor = "#27ae60";
+                    setTimeout(function() {
+                        btn.innerHTML = "📋 Copiar Código PIX";
+                        btn.style.backgroundColor = "#007bff";
+                    }, 2000);
+                }
+            }
+        }
+
+        // 3. BARRA ULTRA LENTA E WHATSAPP DEFINITIVO
         function iniciarValidacaoECompartilhar(event) {
-            event.preventDefault(); // Segura o clique automático para rodar a animação primeiro
-            
+            event.preventDefault();
             var container = document.getElementById("container-progresso");
             var barra = document.getElementById("barra-progresso");
             var texto = document.getElementById("texto-progresso");
@@ -54,38 +84,54 @@
             if (container && barra && texto) {
                 container.style.display = "block";
                 barra.style.width = "0%";
-                texto.innerHTML = "🔌 Iniciando canal seguro de validação...";
+                texto.innerHTML = "🔌 Conectando ao canal de validação Mairiporã Agro...";
                 container.scrollIntoView({ behavior: 'smooth' });
 
                 var progresso = 0;
-                // Ajustado para aumentar de 2 em 2 a cada 80ms (Vai rodar bem mais devagar e suave)
+                // Executa o aumento de 1 em 1 a cada 120ms para a pessoa conseguir ler perfeitamente!
                 var acao = setInterval(function() {
-                    progresso += 2;
+                    progresso += 1;
                     barra.style.width = progresso + "%";
 
-                    if (progresso == 20) texto.innerHTML = "🔍 Aguardando dados de entrega na Rodoviária...";
-                    if (progresso == 50) texto.innerHTML = "⚙️ Formatando dados do pedido...";
-                    if (progresso == 76) texto.innerHTML = "🔒 Criptografando conexão de saída...";
-                    if (progresso == 92) texto.innerHTML = "🚀 Abrindo WhatsApp com segurança...";
+                    if (progresso == 15) texto.innerHTML = "🔍 Localizando dados de entrega na Rodoviária...";
+                    if (progresso == 40) texto.innerHTML = "⚙️ Processando quantidade (03 Cartelas)...";
+                    if (progresso == 65) texto.innerHTML = "🔒 Criptografando recibo de segurança...";
+                    if (progresso == 88) texto.innerHTML = "🚀 Abrindo aba segura do WhatsApp...";
 
                     if (progresso >= 100) {
                         clearInterval(acao);
                         setTimeout(function() {
                             container.style.display = "none";
-                            var cel = "5511964856312"; 
+                            var cel = "5511964856312"; // Seu celular fixado
                             var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
                             window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
-                        }, 400); // Segura um pouquinho antes de pular para o Zap
+                        }, 500);
                     }
-                }, 80);
+                }, 120); 
             }
         }
+
+        // 4. CLIQUE SECRETO ADM
+        let cliques = 0;
+        function revelarPainel() {
+            cliques++;
+            if (cliques >= 5) {
+                var btnAdm = document.getElementById('botao-secreto-adm');
+                if (btnAdm) {
+                    btnAdm.style.display = 'block';
+                    btnAdm.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        window.onload = iniciarRelogio;
     </script>
 </head>
 <body>
 
 <div class="container">
 
+    <!-- Tarja de Status do Sistema -->
     <div class="header-system">
         ⏱️ SISTEMA: 26/08/2026 <span id="live-clock">--:--:--</span>
     </div>
@@ -99,6 +145,7 @@
 
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
+    <!-- Painel de Estoque Sempre Visível -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <strong>03 cartelas</strong><br>
@@ -118,11 +165,11 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <!-- BARRA DE PROGRESSO DE VALIDAÇÃO INTELIGENTE -->
+    <!-- Barra de Progresso Ultra Lenta -->
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
         <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.08s linear;"></div>
+            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366; transition: width 0.12s linear;"></div>
         </div>
     </div>
 
@@ -134,32 +181,4 @@
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
     </div>
 
-    <!-- BOTÃO DO WHATSAPP ACIONANDO A ANIMAÇÃO SEGURA -->
     <div class="button-group-parallel">
-        <button type="button" onclick="iniciarValidacaoECompartilhar(event)" class="btn-parallel-share">
-            🔗 COMPARTILHAR COMPRA NO WHATSAPP
-        </button>
-    </div>
-
-    <div class="footer-text">
-        📅 Dias de Entrega: Terças e Sextas-feiras<br>
-        <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
-    </div>
-
-    <div class="secure-footer">
-        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
-    </div>
-
-    <div class="signature-box" onclick="revelarPainel()">
-        🛠️ Versão do Sistema: 26.08.23.03<br>
-        🌾 © 2026 . JCS_criatório . JCS_software
-    </div>
-
-    <button id="botao-secreto-adm" onclick="window.location.href='./Adm/'" style="display: none; background-color: #17509e; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)
-    </button>
-
-</div>
-
-</body>
-</html>
