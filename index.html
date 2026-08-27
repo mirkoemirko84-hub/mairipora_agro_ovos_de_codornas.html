@@ -19,7 +19,7 @@
         .info-box { background: #fff8e1; border-left: 5px solid #ffb300; padding: 12px; margin: 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.4; }
         .reminder-box { background: #e3f2fd; border-left: 5px solid #2196f3; color: #0d47a1; padding: 12px; margin: 20px 0 15px 0; text-align: left; font-size: 14px; border-radius: 0 8px 8px 0; line-height: 1.5; }
         .button-group-parallel { margin: 15px auto 25px auto; }
-        .btn-parallel-share { display: block; background-color: #25D366; color: white; border: none; padding: 16px 5px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
+        .btn-parallel-share { display: block; background-color: #25D366; color: white; border: none; padding: 16px 5px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); text-decoration: none; }
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
@@ -37,7 +37,6 @@
     <h1>✨ Mairiporã Agro ✨</h1>
     <div class="subtitle">Ovos Artesanais de Codorna Jumbo! 🥚</div>
 
-    <!-- VELOCIDADE REDUZIDA PARA O COMPRE DIRETO (scrollamount="3") -->
     <marquee scrollamount="3" style="font-weight: bold; color: #333; font-size: 16px; margin: 15px 0;">
         <strong>🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</strong>
     </marquee>
@@ -63,13 +62,6 @@
         <input type="text" id="chavePixTexto" value="3d4ee862-439d-481d-9f5b-07d69a7182f6" readonly class="pix-input-box" onclick="this.select();">
     </div>
 
-    <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
-        <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
-        <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366;"></div>
-        </div>
-    </div>
-
     <div class="info-box">
         <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
     </div>
@@ -78,10 +70,13 @@
         <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
     </div>
 
+    <!-- LINK DIRETO INJETADO NO BOTÃO (IGNORA O CACHE DO SCRIPT.JS) -->
     <div class="button-group-parallel">
-        <button type="button" onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
+        <a href="https://wa.me" 
+           target="_blank" 
+           class="btn-parallel-share">
             🔗 COMPARTILHAR COMPRA NO WHATSAPP
-        </button>
+        </a>
     </div>
 
     <div class="footer-text">
