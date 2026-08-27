@@ -165,8 +165,89 @@
             border-radius: 8px;
             margin-top: 25px;
             line-height: 1.6;
+            cursor: pointer;
         }
     </style>
+
+    <script>
+        // MOTOR DO SITE: Carrega antes do visual para não travar nada
+        function iniciarRelogio() {
+            setInterval(function() {
+                var agora = new Date();
+                var h = String(agora.getHours()).padStart(2, '0');
+                var m = String(agora.getMinutes()).padStart(2, '0');
+                var s = String(agora.getSeconds()).padStart(2, '0');
+                var el = document.getElementById('live-clock');
+                if (el) { el.innerHTML = h + ":" + m + ":" + s; }
+            }, 1000);
+        }
+
+        function copiarPix() {
+            var campo = document.getElementById("chavePixTexto");
+            if (campo) {
+                campo.select();
+                campo.setSelectionRange(0, 99999);
+                try {
+                    navigator.clipboard.writeText(campo.value);
+                } catch (err) {
+                    document.execCommand("copy");
+                }
+                var btn = document.getElementById("btnCopiarPix");
+                if (btn) {
+                    btn.innerHTML = "✅ Código Copiado!";
+                    btn.style.backgroundColor = "#27ae60";
+                    setTimeout(function() {
+                        btn.innerHTML = "📋 Copiar Código PIX";
+                        btn.style.backgroundColor = "#007bff";
+                    }, 2000);
+                }
+            }
+        }
+
+        function abrirJanelaCompartilhar() {
+            var container = document.getElementById("container-progresso");
+            var barra = document.getElementById("barra-progresso");
+            var texto = document.getElementById("texto-progresso");
+            
+            if (container && barra && texto) {
+                container.style.display = "block";
+                barra.style.width = "0%";
+                texto.innerHTML = "🔌 Conectando ao WhatsApp...";
+
+                var progresso = 0;
+                var acao = setInterval(function() {
+                    progresso += 25;
+                    barra.style.width = progresso + "%";
+
+                    if (progresso >= 100) {
+                        clearInterval(acao);
+                        setTimeout(function() {
+                            container.style.display = "none";
+                            var cel = "5511964856312"; 
+                            var msg = "Olá! Quero confirmar meu pedido de ovos artesanais de codorna Jumbo! 🥚";
+                            window.open("https://wa.me" + cel + "?text=" + encodeURIComponent(msg), "_blank");
+                        }, 200);
+                    }
+                }, 100);
+            }
+        }
+
+        // Sistema Secreto ADM com 5 cliques
+        let cliques = 0;
+        function revelarPainel() {
+            cliques++;
+            if (cliques >= 5) {
+                var btnAdm = document.getElementById('botao-secreto-adm');
+                if (btnAdm) {
+                    btnAdm.style.display = 'block';
+                    btnAdm.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        // Inicializa o relógio assim que o documento carregar
+        window.onload = iniciarRelogio;
+    </script>
 </head>
 <body>
 
@@ -210,93 +291,3 @@
     <div id="container-progresso" style="display: none; background: #fdfdfd; border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
         <p id="texto-progresso" style="font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px;">🔌 Conectando...</p>
         <div style="background-color: #ddd; border-radius: 10px; width: 100%; height: 16px; overflow: hidden;">
-            <div id="barra-progresso" style="width: 0%; height: 100%; background-color: #25D366;"></div>
-        </div>
-    </div>
-
-    <div class="info-box">
-        <strong>⚠️ ATENÇÃO:</strong> Ao ler o QR Code, você pode digitar o valor. A sua compra só será validada e liberada após o envio do comprovante exato de <strong>R$ 13,00</strong>.
-    </div>
-
-    <div class="reminder-box">
-        <strong>📢 LEMBRETE IMPORTANTE:</strong> Use o botão abaixo para nos adicionar, enviar o comprovante ou indicar para os amigos! Faremos a <strong>confirmação do seu pedido</strong> antes de tudo.
-    </div>
-
-    <div class="button-group-parallel">
-        <button type="button" onclick="abrirJanelaCompartilhar()" class="btn-parallel-share">
-            🔗 COMPARTILHAR COMPRA NO WHATSAPP
-        </button>
-    </div>
-
-    <div class="footer-text">
-        📅 Dias de Entrega: Terças e Sextas-feiras<br>
-        <span style="font-size: 15px; color: #d35400;">📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã</span>
-    </div>
-
-    <div class="secure-footer">
-        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
-    </div>
-
-    <div class="signature-box">
-        🛠️ Versão do Sistema: 26.08.23.03<br>
-        🌾 © 2026 . JCS_criatório . JCS_software
-    </div>
-
-</div>
-
-<script>
-    // 1. RELÓGIO ADAPTADO PARA FORÇAR O FUNCIONAMENTO
-    function iniciarRelogio() {
-        var agora = new Date();
-        var h = String(agora.getHours()).padStart(2, '0');
-        var m = String(agora.getMinutes()).padStart(2, '0');
-        var s = String(agora.getSeconds()).padStart(2, '0');
-        
-        var el = document.getElementById('live-clock');
-        if (el) { 
-            el.innerHTML = h + ":" + m + ":" + s; 
-        }
-    }
-    setInterval(iniciarRelogio, 1000);
-    iniciarRelogio();
-
-    // 2. COPIAR PIX DIRETO CORRIGIDO
-    function copiarPix() {
-        var campo = document.getElementById("chavePixTexto");
-        if (campo) {
-            campo.select();
-            campo.setSelectionRange(0, 99999);
-            
-            try {
-                navigator.clipboard.writeText(campo.value);
-            } catch (err) {
-                // Alternativa caso o navegador bloqueie o clipboard moderno
-                document.execCommand("copy");
-            }
-            
-            var btn = document.getElementById("btnCopiarPix");
-            if (btn) {
-                btn.innerHTML = "✅ Código Copiado!";
-                btn.style.backgroundColor = "#27ae60";
-                setTimeout(function() {
-                    btn.innerHTML = "📋 Copiar Código PIX";
-                    btn.style.backgroundColor = "#007bff";
-                }, 2000);
-            }
-        }
-    }
-
-    // 3. WHATSAPP CONFIGURADO DIRETAMENTE COM SEU NÚMERO
-    function abrirJanelaCompartilhar() {
-        var container = document.getElementById("container-progresso");
-        var barra = document.getElementById("barra-progresso");
-        var texto = document.getElementById("texto-progresso");
-        
-        if (container && barra && texto) {
-            container.style.display = "block";
-            barra.style.width = "0%";
-            texto.innerHTML = "🔌 Conectando ao WhatsApp...";
-
-            var progresso = 0;
-            var acao = setInterval(function() {
-                progresso += 25;
