@@ -20,12 +20,22 @@
         .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
         .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
         .btn-gray { background-color: #6c757d; margin-top: 15px; }
+        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
+        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
         .app-notifier { background-color: #333; color: white; padding: 10px; border-radius: 5px; text-align: center; position: fixed; bottom: 20px; left: 20px; right: 20px; display: none; font-size: 14px; z-index: 1000; }
     </style>
 </head>
 <body onload="carregarDadosAdmin()">
     <div class="app-header">JCS_Software - Controle Total</div>
     <div class="app-container">
+        
+        <div class="app-label">⚙️ Status Geral do Site:</div>
+        <div class="control-box">
+            <button id="btn-toggle-status" class="btn-status-online" onclick="alternarStatusSite()">🟢 SITE NO AR (ONLINE)</button>
+        </div>
+
+        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:5px 0;">
+
         <div class="app-label">📦 Estoque de Cartelas Produzidas:</div>
         <div class="control-box">
             <div class="counter-row">
@@ -35,7 +45,9 @@
             </div>
             <button class="btn-zerar" onclick="zerarEstoque()">🛑 ZERAR ESTOQUE (ESGOTADO)</button>
         </div>
+        
         <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:5px 0;">
+        
         <div class="app-label">🔒 Estoque de Reserva (Unidades):</div>
         <div class="control-box">
             <div class="counter-row">
@@ -45,24 +57,51 @@
             </div>
             <button class="btn-zerar" onclick="zerarReservas()">🛑 ZERAR RESERVAS</button>
         </div>
+        
         <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
         <a href="./index.html" class="app-button btn-gray">⬅️ SAIR E VOLTAR PARA A LOJA</a>
     </div>
     <div id="notifier" class="app-notifier"></div>
     <script>
-        // Alinhado com os padrões comerciais da JCS_Software
         let estoque = 3;
         let reservas = 16;
+        let statusSite = 'online';
         
         function carregarDadosAdmin() {
             estoque = parseInt(localStorage.getItem('jcs_estoque_atual')) || 3;
             reservas = parseInt(localStorage.getItem('jcs_reservas_atual')) || 16;
+            statusSite = localStorage.getItem('jcs_status_site') || 'online';
             atualizarValoresTela();
         }
+        
         function atualizarValoresTela() {
             document.getElementById('val-estoque').textContent = String(estoque).padStart(2, '0');
             document.getElementById('val-reservas').textContent = String(reservas).padStart(2, '0');
+            
+            const btnStatus = document.getElementById('btn-toggle-status');
+            if (btnStatus) {
+                if (statusSite === 'manutencao') {
+                    btnStatus.className = 'btn-status-manutencao';
+                    btnStatus.innerHTML = '🟠 PEDIDOS SUSPENSOS (MANUTENÇÃO)';
+                } else {
+                    btnStatus.className = 'btn-status-online';
+                    btnStatus.innerHTML = '🟢 SITE NO AR (ONLINE)';
+                }
+            }
         }
+        
+        function alternarStatusSite() {
+            if (statusSite === 'online') {
+                statusSite = 'manutencao';
+                dispararNotificador("Loja colocada em Manutenção!");
+            } else {
+                statusSite = 'online';
+                dispararNotificador("Loja colocada Online!");
+            }
+            localStorage.setItem('jcs_status_site', statusSite);
+            atualizarValoresTela();
+        }
+
         function alterarEstoque(valor) {
             estoque = Math.max(0, estoque + valor); 
             localStorage.setItem('jcs_estoque_atual', estoque);
@@ -90,7 +129,7 @@
         function dispararNotificador(mensagem) {
             const caixaAlerta = document.getElementById('notifier');
             if (caixaAlerta) {
-                caixaAlerta.textContent = mensagem; 
+                caixaAlerta.textContent = message = mensagem; 
                 caixaAlerta.style.display = 'block';
                 tocarBipeSucesso();
                 setTimeout(() => { caixaAlerta.style.display = 'none'; }, 2000);
