@@ -3,87 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
+    <title>Mairiporã Agro - Teste Isolado</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; }
         .container { max-width: 480px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #e0e0e0; }
-        .header-system { font-size: 20px; font-weight: bold; color: #ffffff !important; background: #cc0000 !important; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; display: block; line-height: 1.4; border: 1px solid #990000; }
+        .header-system { font-size: 20px; font-weight: bold; color: #ffffff; background: #cc0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
         h1 { color: #d35400; font-size: 28px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         .price-tag { font-size: 36px; font-weight: bold; color: #27ae60; margin: 20px 0; background: #e8f8f5; padding: 12px; border-radius: 10px; display: inline-block; }
-        
-        .stock-box { 
-            background: #e8f5e9 !important; 
-            border: 2px solid #c8e6c9 !important; 
-            padding: 15px !important; 
-            border-radius: 10px !important; 
-            margin: 20px auto !important; 
-            font-size: 18px !important; 
-            color: #2e7d32 !important; 
-            text-align: left !important;
-            max-width: 90%;
-            display: block !important;
-        }
-
-        .options-container {
-            margin: 20px auto;
-            max-width: 90%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: left;
-        }
-        .option-card {
-            background: #fdfefe;
-            border: 2px solid #34495e;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #2c3e50;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        .option-card:hover { background: #f4f6f7; }
-        .option-card.selected { background: #e8f8f5; border-color: #27ae60; color: #27ae60; }
-        
-        .promo-tag {
-            background: #d35400;
-            color: white;
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-left: 8px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-
-        .option-circle { width: 20px; height: 20px; border: 2px solid #34495e; border-radius: 50%; display: inline-block; position: relative; }
-        .option-card.selected .option-circle { border-color: #27ae60; background: #27ae60; }
-
-        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3); transition: 0.2s; text-decoration: none; display: block; box-sizing: border-box; text-align: center; }
-        .btn-avancar:hover { background-color: #e64a19; }
-        .btn-manutencao { background-color: #7f8c8d; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; width: 100%; display: none; cursor: not-allowed; box-sizing: border-box; }
-
+        .stock-box { background: #e8f5e9; border: 2px solid #c8e6c9; padding: 15px; border-radius: 10px; margin: 20px auto; font-size: 18px; color: #2e7d32; text-align: left; max-width: 90%; }
+        .btn-avancar { background-color: #ff5722; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 25px 0; }
         .footer-text { font-size: 16px; color: #333; font-weight: bold; margin-top: 25px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
-        .signature-box { background: #2c3e50; color: #ffffff; font-family: monospace; font-size: 11px; padding: 15px; border-radius: 8px; margin-top: 25px; line-height: 1.6; cursor: pointer; }
-        #botao-secreto-adm { display: none; margin-top: 15px; background: #34495e; color: #fff; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center; }
+        .admin-link { display: block; margin-top: 20px; color: #34495e; font-weight: bold; text-decoration: underline; font-size: 14px; }
     </style>
 </head>
-<body onload="inicializarLoja()">
+<body onload="iniciarRelogio()">
 
 <div class="container">
-    <!-- Header com Horário Dinâmico Online -->
+    <!-- Header com Horário Dinâmico -->
     <div class="header-system">
         ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">Carregando...</span>
     </div>
@@ -95,128 +33,55 @@
     
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Status Sincronizado do Estoque e Reservas -->
+    <!-- Status Fixo para Teste de Tela -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
         📦 Estoque Produzidas: <span id="txt-estoque-status">03</span> cartelas<br>
         🔒 Reservas: <span id="txt-reservas-status">16</span> unidades
     </div>
 
-    <!-- Lista de Opções Coletiva -->
-    <div class="options-container" id="caixa-opcoes-sequencial">
-        <!-- Montado pelo JavaScript -->
-    </div>
-
-    <!-- Botão Comercial -->
-    <div style="margin: 25px 0;">
-        <button id="btn-comprar-loja" class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
-        <button id="btn-bloqueado-loja" class="btn-manutencao" disabled>🛑 PEDIDOS TEMPORARIAMENTE SUSPENSOS</button>
-    </div>
+    <!-- Botão de Avançar Puro -->
+    <button class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
 
     <p class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
         📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
     </p>
 
-    <!-- Marcador de Página Coletivo -->
+    <!-- Rodapé de Segurança -->
     <div class="secure-footer">
-        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 1/2</span>
+        🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA
     </div>
 
-    <!-- Assinatura Técnica com o link secreto para o novo adm.html -->
-    <div class="signature-box" onclick="revelarPainel()">
-        🌾 © 2026 . JCS_criatório . JCS_software<br>
-        🛠️ Versão do Sistema: 26.08.23.03
-    </div>
-    <a id="botao-secreto-adm" href="./adm.html">🛠️ ACESSAR PAINEL ADMINISTRATIVO (JCS)</a>
+    <!-- Link direto para o ADM para testar sem esconder -->
+    <a class="admin-link" href="./adm.html">🛠️ ENTRAR NO PAINEL ADM</a>
 </div>
 
 <script>
-    let quantidadeSelecionada = 1;
+    // 1. TESTE ISOLADO DO RELÓGIO
+    function iniciarRelogio() {
+        // Atualiza na mesma hora que carrega a página
+        atualizarTempo(); 
+        // Mantém rodando a cada segundo
+        setInterval(atualizarTempo, 1000);
+    }
 
-    function inicializarLoja() {
-        iniciarRelogio();
-        
-        const statusSite = localStorage.getItem('jcs_status_site') || 'online';
-        const btnComprar = document.getElementById('btn-comprar-loja');
-        const btnBloqueado = document.getElementById('btn-bloqueado-loja');
-        const ComicCaixa = document.getElementById('caixa-opcoes-sequencial');
-
-        if (statusSite === 'manutencao') {
-            if (btnComprar) btnComprar.style.display = 'none';
-            if (ComicCaixa) ComicCaixa.style.display = 'none';
-            if (btnBloqueado) btnBloqueado.style.display = 'block';
-            return;
-        }
-
-        let estoqueValido = localStorage.getItem('jcs_estoque_atual');
-        if (estoqueValido === null || estoqueValido === undefined) {
-            estoqueValido = 3; 
-            localStorage.setItem('jcs_estoque_atual', 3);
-        } else {
-            estoqueValido = parseInt(estoqueValido);
-        }
-        const txtEstoque = document.getElementById('txt-estoque-status');
-        if (txtEstoque) txtEstoque.innerText = String(estoqueValido).padStart(2, '0');
-
-        let reservasValido = localStorage.getItem('jcs_reservas_atual');
-        if (reservasValido === null || reservasValido === undefined) {
-            reservasValido = 16;
-            localStorage.setItem('jcs_reservas_atual', 16);
-        } else {
-            reservasValido = parseInt(reservasValido);
-        }
-        const txtReservas = document.getElementById('txt-reservas-status');
-        if (txtReservas) txtReservas.innerText = String(reservasValido).padStart(2, '0');
-
-        if (ComicCaixa) {
-            ComicCaixa.innerHTML = ''; 
-
-            if (estoqueValido <= 0) {
-                if (btnComprar) btnComprar.style.display = 'none';
-                if (btnBloqueado) btnBloqueado.style.display = 'block';
-                ComicCaixa.innerHTML = '<div style="text-align:center; color:#ff5722; font-weight:bold; padding:20px;">⚠️ Desculpe, nosso estoque de hoje está esgotado!</div>';
-                return;
-            }
-
-            for (let i = 1; i <= estoqueValido; i++) {
-                const card = document.createElement('div');
-                card.className = `option-card ${i === 1 ? 'selected' : ''}`;
-                card.setAttribute('data-qtd', i);
-                card.onclick = function() { selecionarQuantidade(i); };
-
-                let promo = '';
-                if (i === 3) promo = '<span class="promo-tag">🔥 MELHOR PREÇO</span>';
-
-                card.innerHTML = `
-                    <div>
-                        📦 comprar 0${i} ${i === 1 ? 'Cartela' : 'Cartelas'}
-                        ${promo}
-                    </div>
-                    <span class="option-circle"></span>
-                `;
-                ComicCaixa.appendChild(card);
-            }
+    function atualizarTempo() {
+        const agora = new Date();
+        const horas = String(agora.getHours()).padStart(2, '0');
+        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const segundos = String(agora.getSeconds()).padStart(2, '0');
+        const relogio = document.getElementById('live-clock');
+        if (relogio) {
+            relogio.innerText = `${horas}:${minutos}:${segundos}`;
         }
     }
 
-    function selecionarQuantidade(qtd) {
-        quantidadeSelecionada = qtd;
-        document.querySelectorAll('.option-card').forEach(card => {
-            card.classList.remove('selected');
-            if (parseInt(card.getAttribute('data-qtd')) === qtd) {
-                card.classList.add('selected');
-            }
-        });
-    }
-
+    // 2. TESTE ISOLADO DO AVANÇAR
     function avancarParaPagamento() {
-        localStorage.setItem('jcs_quantidade_pedido', quantidadeSelecionada);
+        alert("Botão Avançar funcionando! Redirecionando para o pagamento...");
         window.location.href = './pagamento.html';
     }
-
-    function iniciarRelogio() {
-        setInterval(() => {
-            const agora = new Date();
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
+</script>
+</body>
+</html>
