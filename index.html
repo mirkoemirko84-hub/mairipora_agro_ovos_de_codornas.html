@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Ovos de Codorna Jumbo</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; user-select: none; }
         .container { max-width: 480px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #e0e0e0; }
         .header-system { font-size: 20px; font-weight: bold; color: #ffffff; background: #cc0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
         h1 { color: #d35400; font-size: 28px; margin-top: 20px; margin-bottom: 5px; }
@@ -18,12 +18,11 @@
         .admin-link { display: block; margin-top: 20px; color: #34495e; font-weight: bold; text-decoration: underline; font-size: 14px; }
     </style>
 </head>
-<body onload="iniciarRelogio()">
+<body onload="inicializarLoja()">
 
 <div class="container">
-    <!-- Header com Horário Dinâmico -->
     <div class="header-system">
-        ⏱️ SISTEMA: 27/08/2026 <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA: 28/08/2026 <span id="live-clock">Carregando...</span>
     </div>
 
     <h1>✨ Mairiporã Agro ✨</h1>
@@ -33,14 +32,12 @@
     
     <div class="price-tag">BANDEJA R$ 13,00</div>
 
-    <!-- Status Fixo para Teste de Tela -->
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
-        📦 Estoque Produzidas: <span>03</span> cartelas<br>
-        🔒 Reservas: <span>6</span> unidades de ovos
+        📦 Estoque Produzidas: <span id="val-estoque-loja" style="font-weight:bold;">03</span> cartelas<br>
+        🔒 Reservas: <span id="val-reservas-loja" style="font-weight:bold;">16</span> unidades de ovos
     </div>
 
-    <!-- Botão de Avançar Seguro -->
     <button class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
 
     <p class="footer-text">
@@ -48,16 +45,19 @@
         📍 Ponto de Retirada: RODOVIÁRIA de Mairiporã
     </p>
 
-    <!-- Rodapé de Segurança Atualizado com Paginação -->
     <div class="secure-footer">
         🔒 AMBIENTE 100% SEGURO | CONEXÃO CRIPTOGRAFADA <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 1/2</span>
     </div>
 
-    <!-- Link direto para o ADM (Página 2/2) -->
     <a class="admin-link" href="./adm.html">🛠️ ENTRAR NO PAINEL ADM (PAGINA 2/2)</a>
 </div>
 
 <script>
+    function inicializarLoja() {
+        iniciarRelogio();
+        carregarEstoqueLoja();
+    }
+
     function iniciarRelogio() {
         atualizarTempo(); 
         setInterval(atualizarTempo, 1000);
@@ -74,8 +74,27 @@
         }
     }
 
+    function carregarEstoqueLoja() {
+        let estoqueReal = parseInt(localStorage.getItem('jcs_estoque_atual')) ?? 3;
+        let reservasReais = parseInt(localStorage.getItem('jcs_reservas_atual')) ?? 16;
+        let statusSite = localStorage.getItem('jcs_status_site') || 'online';
+
+        document.getElementById('val-estoque-loja').textContent = String(estoqueReal).padStart(2, '0');
+        document.getElementById('val-reservas-loja').textContent = String(reservasReais).padStart(2, '0');
+
+        if (statusSite === 'manutencao') {
+            const btn = document.querySelector('.btn-avancar');
+            if (btn) {
+                btn.style.backgroundColor = '#d35400';
+                btn.innerHTML = '❌ COMPRAS SUSPENSAS NO MOMENTO';
+                btn.onclick = function() {
+                    alert("A loja encontra-se suspensa para manutenção temporária de estoque.");
+                };
+            }
+        }
+    }
+
     function avancarParaPagamento() {
-        alert("Botão Avançar funcionando! Redirecionando para o pagamento...");
         window.location.href = './pagamento.html';
     }
 </script>
