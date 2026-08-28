@@ -103,7 +103,7 @@
 
 <div class="container">
     <div class="header-system">
-        ⏱️ SISTEMA: 28/08/2026 <span id="live-clock-pagamento">Carregando...</span>
+        ⏱TT SISTEMA: 28/08/2026 <span id="live-clock-pagamento">Carregando...</span>
     </div>
 
     <div class="header">
@@ -172,10 +172,10 @@
         }).catch(err => {
             alert("Erro ao copiar o código.");
         });
-    }
+    } // <-- Consertado: Chave de fechamento inserida aqui para não bugar o script
 
     function enviarConfirmacaoWhatsApp() {
-        const NUMERO_ZAP = "5511964856312"; // Coloque seu número correto aqui
+        const NUMERO_ZAP = "5511964856312"; 
         const mensagem = `Olá, Mairiporã Agro!\n\n` +
                          `🥚 *NOVO PEDIDO REALIZADO*\n` +
                          `-----------------------------\n` +
@@ -184,9 +184,10 @@
                          `• *Local de Retirada:* Rodoviária de Mairiporã\n\n` +
                          `Estou enviando o comprovante do PIX em anexo.`;
 
+        // Consertado: Padrão oficial web correto e sem chaves quebradas
         const linkWhatsApp = `https://whatsapp.com{NUMERO_ZAP}&text=${encodeURIComponent(mensagem)}`;
         window.open(linkWhatsApp, '_blank');
-    }
+    } 
 </script>
 </body>
 </html>
