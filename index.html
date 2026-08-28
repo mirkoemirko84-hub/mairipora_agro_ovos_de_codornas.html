@@ -174,41 +174,49 @@
 
             if (estoqueValido <= 0) {
                 if (btnComprar) btnComprar.style.display = 'none';
-                ComicCaixa.innerHTML = '<div style="text-align:center; color:#cc0000; font-weight:bold; width:100%;">❌ Produção diária esgotada! Volte mais tarde.</div>';
-            } else {
-                for (let i = 1; i <= estoqueValido; i++) {
-                    let textoOpcao = "";
-                    let tagPromo = "";
-                    
-                    if (i === 1) {
-                        textoOpcao = `01 Cartela - R$ 13,00`;
-                    } else if (i === 2) {
-                        textoOpcao = `02 Cartelas - R$ 26,00`;
-                    } else if (i === 3) {
-                        textoOpcao = `03 Cartelas - R$ 36,00`;
-                        tagPromo = `<span class="promo-tag">🔥 GANHE QUASE 7 OVOS DE BRINDE!</span>`;
-                    }
-                    
-                    let card = document.createElement('div');
-                    card.className = i === 1 ? 'option-card selected' : 'option-card';
-                    card.id = `opt-${i}`;
-                    card.onclick = function() { selecionarOpcaoBloco(i, estoqueValido); };
-                    
-                    card.innerHTML = `<div style="display:flex; align-items:center;"><span>🛒 ${textoOpcao}</span>${tagPromo}</div><span class="option-circle"></span>`;
-                    ComicCaixa.appendChild(card);
-                }
-                quantidadeSelecionada = 1; 
+                if (btnBloqueado) btnBloqueado.style.display = 'block';
+                ComicCaixa.innerHTML = '<div style="text-align:center; color:#ff5722; font-weight:bold; padding:20px;">⚠️ Desculpe, nosso estoque de hoje está esgotado!</div>';
+                return;
+            }
+
+            for (let i = 1; i <= estoqueValido; i++) {
+                const card = document.createElement('div');
+                card.className = `option-card ${i === 1 ? 'selected' : ''}`;
+                card.setAttribute('data-qtd', i);
+                card.onclick = function() { selecionarQuantidade(i); };
+
+                let promo = '';
+                if (i === 3) promo = '<span class="promo-tag">🔥 MELHOR PREÇO</span>';
+
+                card.innerHTML = `
+                    <div>
+                        📦 comprar 0${i} ${i === 1 ? 'Cartela' : 'Cartelas'}
+                        ${promo}
+                    </div>
+                    <span class="option-circle"></span>
+                `;
+                ComicCaixa.appendChild(card);
             }
         }
     }
 
-    function selecionarOpcaoBloco(idSelecionado, estoqueMaximo) {
-        quantidadeSelecionada = idSelecionado;
-        for (let i = 1; i <= estoqueMaximo; i++) {
-            let elemento = document.getElementById(`opt-${i}`);
-            if (elemento) {
-                elemento.className = (i === idSelecionado) ? 'option-card selected' : 'option-card';
+    function selecionarQuantidade(qtd) {
+        quantidadeSelecionada = qtd;
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.classList.remove('selected');
+            if (parseInt(card.getAttribute('data-qtd')) === qtd) {
+                card.classList.add('selected');
             }
-        }
+        });
     }
 
+    function avancarParaPagamento() {
+        localStorage.setItem('jcs_quantidade_pedido', quantidadeSelecionada);
+        window.location.href = './pagamento.html';
+    }
+
+    function iniciarRelogio() {
+        setInterval(() => {
+            const agora = new Date();
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
