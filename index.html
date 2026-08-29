@@ -38,7 +38,7 @@
         🔒 Reservas: <span id="val-reservas-loja" style="font-weight:bold;">16</span> unidades de ovos
     </div>
 
-    <button class="btn-avancar" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
+    <button class="btn-avancar" id="btn-acao-loja" onclick="avancarParaPagamento()">Avançar para o Pagamento ➡️</button>
 
     <p class="footer-text">
         📅 Dias de Entrega: Terças e Sextas-feiras<br>
@@ -56,6 +56,8 @@
     function inicializarLoja() {
         iniciarRelogio();
         carregarEstoqueLoja();
+        // Checa alterações em tempo real mesmo com a página aberta
+        window.addEventListener('storage', carregarEstoqueLoja);
     }
 
     function iniciarRelogio() {
@@ -75,21 +77,25 @@
     }
 
     function carregarEstoqueLoja() {
-        let estoqueReal = parseInt(localStorage.getItem('jcs_estoque_atual')) ?? 3;
-        let reservasReais = parseInt(localStorage.getItem('jcs_reservas_atual')) ?? 16;
+        let estoqueReal = localStorage.getItem('jcs_estoque_atual') || "03";
+        let reservasReais = localStorage.getItem('jcs_reservas_atual') || "16";
         let statusSite = localStorage.getItem('jcs_status_site') || 'online';
 
         document.getElementById('val-estoque-loja').textContent = String(estoqueReal).padStart(2, '0');
         document.getElementById('val-reservas-loja').textContent = String(reservasReais).padStart(2, '0');
 
-        if (statusSite === 'manutencao') {
-            const btn = document.querySelector('.btn-avancar');
-            if (btn) {
+        const btn = document.getElementById('btn-acao-loja');
+        if (btn) {
+            if (statusSite === 'manutencao') {
                 btn.style.backgroundColor = '#d35400';
                 btn.innerHTML = '❌ COMPRAS SUSPENSAS NO MOMENTO';
                 btn.onclick = function() {
                     alert("A loja encontra-se suspensa para manutenção temporária de estoque.");
                 };
+            } else {
+                btn.style.backgroundColor = '#ff5722';
+                btn.innerHTML = 'Avançar para o Pagamento ➡️';
+                btn.onclick = avancarParaPagamento;
             }
         }
     }
