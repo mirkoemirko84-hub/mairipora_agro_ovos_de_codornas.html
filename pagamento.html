@@ -77,11 +77,11 @@
         .btn-share { background-color: #17a2b8; color: white; }
     </style>
 </head>
-<body>
+<body onload="iniciarRelogio()">
 
 <div class="container">
     <div class="header-system">
-        ⏱️ SISTEMA: PAGAMENTO SEGURO
+        ⏱️ SISTEMA: 29/08/2026 <span id="live-clock">Carregando...</span>
     </div>
 
     <div class="header">
@@ -97,8 +97,8 @@
 
     <div class="qr-section">
         <p>Aproxime a câmera para pagar via QR Code:</p>
-        <!-- Substitua pelo link real da imagem do seu QR Code fixo se tiver -->
-        <img src="https://qrserver.com" alt="QR Code Pix">
+        <!-- Carrega o arquivo local qrcode-pagamento.png que já está no seu repositório -->
+        <img src="./qrcode-pagamento.png" alt="QR Code Pix Mairiporã Agro">
     </div>
 
     <p>Ou utilize o código Copia e Cola abaixo:</p>
@@ -110,6 +110,22 @@
 </div>
 
 <script>
+    function iniciarRelogio() {
+        atualizarTempo(); 
+        setInterval(atualizarTempo, 1000);
+    }
+
+    function atualizarTempo() {
+        const agora = new Date();
+        const horas = String(agora.getHours()).padStart(2, '0');
+        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const segundos = String(agora.getSeconds()).padStart(2, '0');
+        const relogio = document.getElementById('live-clock');
+        if (relogio) {
+            relogio.innerText = `${horas}:${minutos}:${segundos}`;
+        }
+    }
+
     function copiarPix() {
         const txt = document.getElementById('pixCode').innerText;
         navigator.clipboard.writeText(txt).then(() => {
@@ -120,7 +136,6 @@
     }
 
     function abrirZap() {
-        // Insira o seu número do WhatsApp abaixo completo (DDI + DDD + Número)
         const numeroSuporte = "5511964856312"; 
         const textoMsg = encodeURIComponent("Olá! Fiz o pagamento de R$13,00 da minha cartela de Ovos de Codorna Jumbo da Mairiporã Agro e vim confirmar.");
         window.open(`https://whatsapp.com{numeroSuporte}&text=${textoMsg}`, '_blank');
