@@ -71,123 +71,73 @@
             word-break: break-all;
             margin-bottom: 12px;
             border: 1px solid #e0e0e0;
-            user-select: all;
         }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            transition: background 0.2s;
-            box-sizing: border-box;
-            text-decoration: none;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #1b5e20; }
-        
-        .btn-share { background: #25d366; color: white; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
-        .btn-share:hover { background: #128c7e; }
-        
-        .btn-back { background: #6c757d; color: white; font-size: 0.9rem; display: inline-block; text-decoration: none; }
-        .alert-box { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-top: 15px; text-align: left; line-height: 1.4; }
-        footer { margin-top: 25px; font-size: 0.75rem; color: #888; line-height: 1.5; }
+        .btn-acao { background-color: #007bff; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 10px; }
+        .btn-zap { background-color: #25d366; color: white; }
+        .btn-share { background-color: #17a2b8; color: white; }
     </style>
 </head>
-<body onload="iniciarRelogioPagamento()">
+<body>
 
 <div class="container">
     <div class="header-system">
-        ⏱TT SISTEMA: 28/08/2026 <span id="live-clock-pagamento">Carregando...</span>
+        ⏱️ SISTEMA: PAGAMENTO SEGURO
     </div>
 
     <div class="header">
-        <h1>Finalizar Pedido</h1>
-        <div class="badge">🔒 Pagamento Via PIX Seguro</div>
+        <h1>Mairiporã Agro</h1>
+        <div class="badge">🔒 Pix Copia e Cola Seguro</div>
     </div>
 
     <div class="resumo-box">
-        <div class="resumo-linha">
-            <span>Produto:</span>
-            <strong>Ovos de Codorna Jumbo</strong>
-        </div>
-        <div class="resumo-linha">
-            <span>Valor Unitário:</span>
-            <span>R$ 13,00</span>
-        </div>
-        <div class="resumo-linha">
-            <span>Total da Compra:</span>
-            <span style="color: #2e7d32;">R$ 13,00</span>
-        </div>
+        <div class="resumo-linha"><span>Produto:</span> <span>Ovos de Codorna Jumbo</span></div>
+        <div class="resumo-linha"><span>Valor unitário:</span> <span>R$ 13,00</span></div>
+        <div class="resumo-linha"><span>Total:</span> <span>R$ 13,00</span></div>
     </div>
 
     <div class="qr-section">
-        <p style="font-weight: bold; margin-bottom: 5px;">Escaneie o QR Code abaixo:</p>
-        <img src="./qrcode-pagamento.png" alt="QR Code PIX">
+        <p>Aproxime a câmera para pagar via QR Code:</p>
+        <!-- Substitua pelo link real da imagem do seu QR Code fixo se tiver -->
+        <img src="https://qrserver.com" alt="QR Code Pix">
     </div>
 
-    <div class="pix-code-box" id="pix-copia-cola">
-        3d4ee862-439d-481d-9f5b-07d69a7182f6
-    </div>
+    <p>Ou utilize o código Copia e Cola abaixo:</p>
+    <div class="pix-code-box" id="pixCode">00020126360014BR.GOV.BCB.PIX0114seuPixAqui4971</div>
 
-    <button class="btn btn-primary" onclick="copiarCodigoPix()">📋 COPIAR CÓDIGO PIX</button>
-    <button class="btn btn-share" onclick="enviarConfirmacaoWhatsApp()">📲 CONFIRMAR PEDIDO NO WHATSAPP</button>
-    <a href="./index.html" class="btn btn-back">⬅️ VOLTAR PARA A LOJA</a>
-
-    <div class="alert-box">
-        ⚠️ <strong>Importante:</strong> Após efetuar o pagamento via PIX, clique no botão verde acima para nos enviar o comprovante e os dados da sua entrega na Rodoviária.
-    </div>
-
-    <footer>
-        Mairiporã Agro © 2026
-    </footer>
+    <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
+    <button class="btn-acao btn-zap" onclick="abrirZap()">💬 Confirmar no WhatsApp</button>
+    <button class="btn-acao btn-share" onclick="compartilharLoja()">🔗 Compartilhar Loja</button>
 </div>
 
 <script>
-    function iniciarRelogioPagamento() {
-        atualizarTempoPagamento(); 
-        setInterval(atualizarTempoPagamento, 1000);
+    function copiarPix() {
+        const txt = document.getElementById('pixCode').innerText;
+        navigator.clipboard.writeText(txt).then(() => {
+            alert('Código Pix copiado com sucesso!');
+        }).catch(() => {
+            alert('Erro ao copiar automaticamente. Selecione o texto manualmente.');
+        });
     }
 
-    function atualizarTempoPagamento() {
-        const agora = new Date();
-        const horas = String(agora.getHours()).padStart(2, '0');
-        const minutos = String(agora.getMinutes()).padStart(2, '0');
-        const segundos = String(agora.getSeconds()).padStart(2, '0');
-        const relogio = document.getElementById('live-clock-pagamento');
-        if (relogio) {
-            relogio.innerText = `${horas}:${minutos}:${segundos}`;
+    function abrirZap() {
+        // Insira o seu número do WhatsApp abaixo completo (DDI + DDD + Número)
+        const numeroSuporte = "5511964856312"; 
+        const textoMsg = encodeURIComponent("Olá! Fiz o pagamento de R$13,00 da minha cartela de Ovos de Codorna Jumbo da Mairiporã Agro e vim confirmar.");
+        window.open(`https://whatsapp.com{numeroSuporte}&text=${textoMsg}`, '_blank');
+    }
+
+    function compartilharLoja() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Mairiporã Agro',
+                text: 'Compre Ovos de Codorna Jumbo direto do produtor local!',
+                url: window.location.origin
+            }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(window.location.origin);
+            alert('Link da loja copiado para a área de transferência!');
         }
     }
-
-    function copiarCodigoPix() {
-        const codigo = document.getElementById('pix-copia-cola').innerText;
-        navigator.clipboard.writeText(codigo).then(() => {
-            alert("Código PIX Copiado com Sucesso!");
-        }).catch(err => {
-            alert("Erro ao copiar o código.");
-        });
-    } // <-- Consertado: Chave de fechamento inserida aqui para não bugar o script
-
-    function enviarConfirmacaoWhatsApp() {
-        const NUMERO_ZAP = "5511964856312"; 
-        const mensagem = `Olá, Mairiporã Agro!\n\n` +
-                         `🥚 *NOVO PEDIDO REALIZADO*\n` +
-                         `-----------------------------\n` +
-                         `• *Produto:* Ovos de Codorna Jumbo\n` +
-                         `• *Valor Pago:* R$ 13,00\n` +
-                         `• *Local de Retirada:* Rodoviária de Mairiporã\n\n` +
-                         `Estou enviando o comprovante do PIX em anexo.`;
-
-        // Consertado: Padrão oficial web correto e sem chaves quebradas
-        const linkWhatsApp = `https://whatsapp.com{NUMERO_ZAP}&text=${encodeURIComponent(mensagem)}`;
-        window.open(linkWhatsApp, '_blank');
-    } 
 </script>
 </body>
 </html>
