@@ -106,8 +106,8 @@
 
     <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
     
-    <!-- Link nativo direto para burlar o bloqueio de pop-up do Microsoft Edge -->
-    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="#" target="_blank" onclick="prepararEnvioWhatsApp(event)">🔗 Copiar Chave e Enviar Comprovante WhatsApp</a>
+    <!-- Mudança: sem target="_blank" para o Edge aceitar de forma nativa -->
+    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="#" onclick="copiarPixAntesDeIr()">🔗 Copiar Chave e Enviar Comprovante WhatsApp</a>
     
     <a class="btn-voltar" href="./index.html">⬅️ Voltar e Comprar Mais Cartelas</a>
 
@@ -123,6 +123,7 @@
         atualizarTempo(); 
         setInterval(atualizarTempo, 1000);
         checarPrecoSimulado();
+        montarLinkWhatsAppInicial();
     }
 
     function atualizarTempo() {
@@ -142,6 +143,20 @@
             document.getElementById('txt-valor-uni').textContent = "R$ 1,99";
             document.getElementById('txt-valor-total').textContent = "R$ 1,99";
         }
+    }
+
+    function montarLinkWhatsAppInicial() {
+        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
+        let mensagem = "";
+        
+        if (precoSimulado === "1.99") {
+            mensagem = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+        } else {
+            mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+        }
+        
+        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        document.getElementById('btnWhatsAppLink').href = urlZap;
     }
 
     function copiarPix() {
@@ -172,27 +187,16 @@
         document.body.removeChild(textArea);
     }
 
-    function prepararEnvioWhatsApp(event) {
+    function copiarPixAntesDeIr() {
         const txt = document.getElementById('pixCode').innerText;
-        
-        // Faz a cópia do código Pix em segundo plano
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).catch(() => {});
         }
-        
+        // Limpa o simulador se ele tiver sido usado
         let precoSimulado = localStorage.getItem('jcs_preco_simulado');
-        let mensagem = "";
-        
         if (precoSimulado === "1.99") {
-            mensagem = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
             localStorage.removeItem('jcs_preco_simulado');
-        } else {
-            mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
         }
-        
-        // Define o endereço final diretamente no link HTML
-        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
-        document.getElementById('btnWhatsAppLink').href = urlZap;
     }
 </script>
 </body>
