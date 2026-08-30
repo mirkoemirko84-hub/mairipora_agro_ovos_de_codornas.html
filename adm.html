@@ -40,6 +40,7 @@
         .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
         .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
         .btn-gray { background-color: #6c757d; margin-top: 5px; }
+        .btn-orange { background-color: #e67e22; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; margin-top: 5px; }
         .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
         .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
         .area-restrita { padding: 30px 20px; text-align: center; }
@@ -54,7 +55,7 @@
     <div id="loginBlock" class="area-restrita">
         <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
-        <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produror</p>
+        <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
         <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
         <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
@@ -88,7 +89,10 @@
             <div class="app-label">🚦 Status de Vendas do Site:</div>
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
-            <a class="app-button btn-gray" href="./index.html">⬅️ Sair e Voltar para a Loja</a>
+            <div class="app-label">🧪 Testes do Sistema:</div>
+            <button class="btn-orange" onclick="ativarSimuladorCompra()">🛒 Executar Compra de Teste (R$ 1,99)</button>
+
+            <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;">⬅️ Sair e Voltar para a Loja</a>
         </div>
     </div>
 
@@ -168,6 +172,12 @@
             btn.className = "btn-status-manutencao";
             btn.innerText = "🔴 Manutenção / Compras Suspensas";
         }
+    }
+
+    function activarSimuladorCompra() {
+        localStorage.setItem('jcs_preco_simulado', "1.99");
+        alert("Modo de teste ativado! Você será redirecionado para a página de pagamento no valor de R$ 1,99 para validar o Pix e o compartilhamento.");
+        window.location.href = './pagamento.html';
     }
 </script>
 </body>
