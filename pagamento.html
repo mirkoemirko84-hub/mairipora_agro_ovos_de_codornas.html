@@ -92,8 +92,8 @@
 
     <div class="resumo-box">
         <div class="resumo-linha"><span>Produto:</span> <span>Cartela de Ovos de Codorna Jumbo</span></div>
-        <div class="resumo-linha"><span>Valor unitário:</span> <span>R$ 13,00</span></div>
-        <div class="resumo-linha"><span>Total:</span> <span>R$ 13,00</span></div>
+        <div class="resumo-linha"><span>Valor unitário:</span> <span id="txt-valor-uni">R$ 13,00</span></div>
+        <div class="resumo-linha"><span>Total:</span> <span id="txt-valor-total">R$ 13,00</span></div>
     </div>
 
     <div class="qr-section">
@@ -119,6 +119,7 @@
     function iniciarRelogio() {
         atualizarTempo(); 
         setInterval(atualizarTempo, 1000);
+        checarPrecoSimulado();
     }
 
     function atualizarTempo() {
@@ -129,6 +130,14 @@
         const relogio = document.getElementById('live-clock');
         if (relogio) {
             relogio.innerText = `${horas}:${minutes}:${segundos}`;
+        }
+    }
+
+    function checarPrecoSimulado() {
+        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
+        if (precoSimulado === "1.99") {
+            document.getElementById('txt-valor-uni').innerText = "R$ 1.99";
+            document.getElementById('txt-valor-total').innerText = "R$ 1.99";
         }
     }
 
@@ -163,24 +172,25 @@
     function compartilharEComprovante() {
         const txt = document.getElementById('pixCode').innerText;
         
-        // Copia o Pix automaticamente para a área de transferência do cliente
+        // Copia o Pix automaticamente por segurança antes de direcionar
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).catch(() => {});
         }
         
-        const mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
+        let mensagem = "";
         
-        // Verifica se é um dispositivo móvel para usar o link correto do WhatsApp
-        const esCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        let urlZap = "";
-        
-        if (esCelular) {
-            urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        if (precoSimulado === "1.99") {
+            mensagem = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+            localStorage.removeItem('jcs_preco_simulado'); // Limpa o simulador após o clique
         } else {
-            urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+            mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
         }
         
-        window.open(urlZap, '_blank');
+        // Rota infalível universal que funciona perfeitamente em aplicativo (celular) e navegador (WhatsApp Web)
+        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        
+        window.location.href = urlZap;
     }
 </script>
 </body>
