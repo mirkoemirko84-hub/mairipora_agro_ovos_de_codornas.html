@@ -8,166 +8,167 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#17509e">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 0; user-select: none; }
-        .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.2); }
-        .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #EFEFEF; 
+            margin: 0; 
+            padding: 20px; 
+            user-select: none; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+        .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
         .app-label { font-size: 16px; color: #333333; font-weight: bold; margin-bottom: -5px; }
         .control-box { background-color: #ffffff; border: 2px solid #cccccc; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .counter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .counter-value { font-size: 26px; font-weight: bold; color: #17509e; min-width: 60px; text-align: center; font-family: monospace; }
         .btn-calc { background-color: #34495e; color: white; border: none; font-size: 24px; font-weight: bold; width: 55px; height: 55px; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); }
         .btn-calc:active { transform: scale(0.95); }
-        .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
+        .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
         .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
-        .btn-gray { background-color: #6c757d; margin-top: 15px; }
-        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
-        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); }
-        .app-notifier { background-color: #333; color: white; padding: 10px; border-radius: 5px; text-align: center; position: fixed; bottom: 20px; left: 20px; right: 20px; display: none; font-size: 14px; z-index: 1000; }
+        .btn-gray { background-color: #6c757d; margin-top: 5px; }
+        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .area-restrita { padding: 30px 20px; text-align: center; }
+        .input-senha { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; box-sizing: border-box; margin: 15px 0; text-align: center; }
+        .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; line-height: 1.4; font-family: monospace; }
     </style>
 </head>
-<body onload="carregarDadosAdmin()">
-    <div class="app-header">JCS_Software - Controle Total</div>
-    <div class="app-container">
-        
-        <div class="app-label">⚙️ Status Geral do Site:</div>
-        <div class="control-box">
-            <button id="btn-toggle-status" class="btn-status-online" onclick="alternarStatusSite()">🟢 SITE NO AR (ONLINE)</button>
-        </div>
+<body>
 
-        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:5px 0;">
-
-        <div class="app-label">📦 Estoque de Cartelas Produzidas:</div>
-        <div class="control-box">
-            <div class="counter-row">
-                <button class="btn-calc" onclick="alterarEstoque(-1)">-</button>
-                <div id="val-estoque" class="counter-value">03</div>
-                <button class="btn-calc" onclick="alterarEstoque(1)">+</button>
-            </div>
-            <button class="btn-zerar" onclick="zerarEstoque()">🛑 ZERAR ESTOQUE (ESGOTADO)</button>
-        </div>
-        
-        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:5px 0;">
-        
-        <div class="app-label">🔒 Estoque de Reserva (Unidades):</div>
-        <div class="control-box">
-            <div class="counter-row">
-                <button class="btn-calc" onclick="alterarReservas(-1)">-</button>
-                <div id="val-reservas" class="counter-value">16</div>
-                <button class="btn-calc" onclick="alterarReservas(1)">+</button>
-            </div>
-            <button class="btn-zerar" onclick="zerarReservas()">🛑 ZERAR RESERVAS</button>
-        </div>
-        
-        <hr style="width:100%; border:0; border-top:1px solid #ccc; margin:10px 0;">
-        <a href="./index.html" class="app-button btn-gray">⬅️ SAIR E VOLTAR PARA A LOJA</a>
+<div class="container">
+    <!-- Bloqueio Inicial de Segurança por Senha -->
+    <div id="loginBlock" class="area-restrita">
+        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+        <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
+        <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produror</p>
+        <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
+        <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
-    <div id="notifier" class="app-notifier"></div>
-    <script>
-        let estoque = 3;
-        let reservas = 16;
-        let statusSite = 'online';
-        
-        function carregarDadosAdmin() {
-            // --- SISTEMA DE PROTEÇÃO POR SENHA ---
-            const SENHA_CORRETA = "4971"; // Defina a sua senha aqui
-            let autenticado = sessionStorage.getItem("jcs_adm_autenticado");
 
-            if (!autenticado) {
-                let senhaDigitada = prompt("🔒 Digite a senha master para acessar o painel:");
-                if (senhaDigitada === SENHA_CORRETA) {
-                    sessionStorage.setItem("jcs_adm_autenticado", "true");
-                } else {
-                    alert("Acesso Negado! Senha incorreta.");
-                    window.location.href = "./index.html";
-                    return; // Interrompe a execução do resto do código
-                }
-            }
-            // -------------------------------------
-
-            estoque = parseInt(localStorage.getItem('jcs_estoque_atual')) || 3;
-            reservas = parseInt(localStorage.getItem('jcs_reservas_atual')) || 16;
-            statusSite = localStorage.getItem('jcs_status_site') || 'online';
-            atualizarValoresTela();
-        }
+    <!-- Painel de Gerenciamento Oculto -->
+    <div id="adminContent" style="display: none;">
+        <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
         
-        function atualizarValoresTela() {
-            document.getElementById('val-estoque').textContent = String(estoque).padStart(2, '0');
-            document.getElementById('val-reservas').textContent = String(reservas).padStart(2, '0');
-            
-            const btnStatus = document.getElementById('btn-toggle-status');
-            if (btnStatus) {
-                if (statusSite === 'manutencao') {
-                    btnStatus.className = 'btn-status-manutencao';
-                    btnStatus.innerHTML = '🟠 PEDIDOS SUSPENSOS (MANUTENÇÃO)';
-                } else {
-                    btnStatus.className = 'btn-status-online';
-                    btnStatus.innerHTML = '🟢 SITE NO AR (ONLINE)';
-                }
-            }
-        }
-        
-        function alternarStatusSite() {
-            if (statusSite === 'online') {
-                statusSite = 'manutencao';
-                dispararNotificador("Loja colocada em Manutenção!");
-            } else {
-                statusSite = 'online';
-                dispararNotificador("Loja colocada Online!");
-            }
-            localStorage.setItem('jcs_status_site', statusSite);
-            atualizarValoresTela();
-        }
+        <div class="app-container">
+            <div class="app-label">📦 Estoque de Cartelas Atual:</div>
+            <div class="control-box">
+                <div class="counter-row">
+                    <button class="btn-calc" onclick="alterarEstoque(-1)">-</button>
+                    <div class="counter-value" id="lblEstoque">03</div>
+                    <button class="btn-calc" onclick="alterarEstoque(1)">+</button>
+                </div>
+                <button class="btn-zerar" onclick="zerarEstoque()">Zerar Estoque ❌</button>
+            </div>
 
-        function alterarEstoque(valor) {
-            estoque = Math.max(0, estoque + valor); 
-            localStorage.setItem('jcs_estoque_atual', estoque);
-            atualizarValoresTela();
-            dispararNotificador(`Estoque alterado para ${estoque} cartela(s)!`);
+            <div class="app-label">🔒 Ovos Reservados (Unidades):</div>
+            <div class="control-box">
+                <div class="counter-row">
+                    <button class="btn-calc" onclick="alterarReservas(-1)">-</button>
+                    <div class="counter-value" id="lblReservas">16</div>
+                    <button class="btn-calc" onclick="alterarReservas(1)">+</button>
+                </div>
+                <button class="btn-zerar" onclick="zerarReservas()">Limpar Reservas 🔄</button>
+            </div>
+
+            <div class="app-label">🚦 Status de Vendas do Site:</div>
+            <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
+
+            <a class="app-button btn-gray" href="./index.html">⬅️ Sair e Voltar para a Loja</a>
+        </div>
+    </div>
+
+    <div class="credits-footer">
+        JCS_software . JCS_criatório<br>
+        versão 26.08.30.01 | 🔏 cadeado de segurança<br>
+        © direitos autorais protegidos
+    </div>
+</div>
+
+<script>
+    const CONFIG_SENHA = "4971";
+
+    function validarSenha() {
+        const campo = document.getElementById('senhaAcesso').value;
+        if (campo === CONFIG_SENHA) {
+            document.getElementById('loginBlock').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            inicializarValores();
+        } else {
+            alert('Senha Incorreta! Acesso estritamente negado.');
         }
-        function zerarEstoque() {
-            estoque = 0;
+    }
+
+    function inicializarValores() {
+        let est = localStorage.getItem('jcs_estoque_atual') || "03";
+        let res = localStorage.getItem('jcs_reservas_atual') || "16";
+        let sta = localStorage.getItem('jcs_status_site') || "online";
+
+        document.getElementById('lblEstoque').innerText = String(est).padStart(2, '0');
+        document.getElementById('lblReservas').innerText = String(res).padStart(2, '0');
+        
+        atualizarBotaoStatusVisual(sta);
+    }
+
+    function alterarEstoque(v) {
+        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblEstoque').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_estoque_atual', novo);
+    }
+
+    function zerarEstoque() {
+        if(confirm("Deseja zerar o estoque de cartelas produzidas?")) {
+            document.getElementById('lblEstoque').innerText = "00";
             localStorage.setItem('jcs_estoque_atual', 0);
-            atualizarValoresTela();
-            dispararNotificador("Estoque zerado com sucesso!");
         }
-        function alterarReservas(valor) {
-            reservas = Math.max(0, reservas + valor); 
-            localStorage.setItem('jcs_reservas_atual', reservas);
-            atualizarValoresTela();
-            dispararNotificador(`Reservas alteradas para ${reservas} unidade(s)!`);
-        }
-        function zerarReservas() {
-            reservas = 0;
+    }
+
+    function alterarReservas(v) {
+        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblReservas').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_reservas_atual', novo);
+    }
+
+    function zerarReservas() {
+        if(confirm("Deseja zerar o contador de ovos reservados?")) {
+            document.getElementById('lblReservas').innerText = "00";
             localStorage.setItem('jcs_reservas_atual', 0);
-            atualizarValoresTela();
-            dispararNotificador("Reservas zeradas com sucesso!");
         }
-        function dispararNotificador(mensagem) {
-            const caixaAlerta = document.getElementById('notifier');
-            if (caixaAlerta) {
-                caixaAlerta.textContent = mensagem; 
-                caixaAlerta.style.display = 'block';
-                tocarBipeSucesso();
-                setTimeout(() => { caixaAlerta.style.display = 'none'; }, 2000);
-            }
+    }
+
+    function alternarStatusSite() {
+        let statusAtual = localStorage.getItem('jcs_status_site') || "online";
+        let novoStatus = (statusAtual === "online") ? "manutencao" : "online";
+        localStorage.setItem('jcs_status_site', novoStatus);
+        atualizarBotaoStatusVisual(novoStatus);
+    }
+
+    function atualizarBotaoStatusVisual(status) {
+        const btn = document.getElementById('btnStatusSite');
+        if (status === "online") {
+            btn.className = "btn-status-online";
+            btn.innerText = "🟢 Loja Online / Ativa";
+        } else {
+            btn.className = "btn-status-manutencao";
+            btn.innerText = "🔴 Manutenção / Compras Suspensas";
         }
-        function tocarBipeSucesso() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.stop(audioCtx.currentTime + 0.1);
-            } catch (e) {
-                console.log("AudioContext não suportado.");
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
