@@ -106,8 +106,8 @@
 
     <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
     
-    <!-- Mudança: sem target="_blank" para o Edge aceitar de forma nativa -->
-    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="#" onclick="copiarPixAntesDeIr()">🔗 Copiar Chave e Enviar Comprovante WhatsApp</a>
+    <!-- Link 100% puro para evitar o bloqueio de segurança do Edge -->
+    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="https://whatsapp.com Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:">🔗 Enviar Comprovante via WhatsApp</a>
     
     <a class="btn-voltar" href="./index.html">⬅️ Voltar e Comprar Mais Cartelas</a>
 
@@ -123,7 +123,6 @@
         atualizarTempo(); 
         setInterval(atualizarTempo, 1000);
         checarPrecoSimulado();
-        montarLinkWhatsAppInicial();
     }
 
     function atualizarTempo() {
@@ -142,21 +141,13 @@
         if (precoSimulado === "1.99") {
             document.getElementById('txt-valor-uni').textContent = "R$ 1,99";
             document.getElementById('txt-valor-total').textContent = "R$ 1,99";
+            
+            // Altera dinamicamente o link do WhatsApp para o texto de teste
+            const msgTeste = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+            document.getElementById('btnWhatsAppLink').href = "https://whatsapp.com" + encodeURIComponent(msgTeste);
+            
+            localStorage.removeItem('jcs_preco_simulado');
         }
-    }
-
-    function montarLinkWhatsAppInicial() {
-        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
-        let mensagem = "";
-        
-        if (precoSimulado === "1.99") {
-            mensagem = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
-        } else {
-            mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
-        }
-        
-        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
-        document.getElementById('btnWhatsAppLink').href = urlZap;
     }
 
     function copiarPix() {
@@ -185,18 +176,6 @@
             alert('Erro ao copiar automaticamente. Por favor, selecione o texto do código manualmente.');
         }
         document.body.removeChild(textArea);
-    }
-
-    function copiarPixAntesDeIr() {
-        const txt = document.getElementById('pixCode').innerText;
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(txt).catch(() => {});
-        }
-        // Limpa o simulador se ele tiver sido usado
-        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
-        if (precoSimulado === "1.99") {
-            localStorage.removeItem('jcs_preco_simulado');
-        }
     }
 </script>
 </body>
