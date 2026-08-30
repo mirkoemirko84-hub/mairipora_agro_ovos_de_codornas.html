@@ -105,7 +105,10 @@
     <div class="pix-code-box" id="pixCode">00020126360014BR.GOV.BCB.PIX0114seuPixAqui4971</div>
 
     <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
-    <button class="btn-acao btn-share" onclick="compartilharEComprovante()">🔗 Copiar Chave e Enviar Comprovante WhatsApp</button>
+    
+    <!-- Link nativo direto para burlar o bloqueio de pop-up do Microsoft Edge -->
+    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="#" target="_blank" onclick="prepararEnvioWhatsApp(event)">🔗 Copiar Chave e Enviar Comprovante WhatsApp</a>
+    
     <a class="btn-voltar" href="./index.html">⬅️ Voltar e Comprar Mais Cartelas</a>
 
     <div class="credits-footer">
@@ -169,9 +172,10 @@
         document.body.removeChild(textArea);
     }
 
-    function compartilharEComprovante() {
+    function prepararEnvioWhatsApp(event) {
         const txt = document.getElementById('pixCode').innerText;
         
+        // Faz a cópia do código Pix em segundo plano
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).catch(() => {});
         }
@@ -186,10 +190,9 @@
             mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
         }
         
-        // Link oficial universal e blindado para PC e Celular com número correto
+        // Define o endereço final diretamente no link HTML
         const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
-        
-        window.location.href = urlZap;
+        document.getElementById('btnWhatsAppLink').href = urlZap;
     }
 </script>
 </body>
