@@ -72,15 +72,17 @@
             margin-bottom: 12px;
             border: 1px solid #e0e0e0;
         }
-        .btn-acao { background-color: #007bff; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 10px; }
-        .btn-share { background-color: #17a2b8; color: white; }
+        .btn-acao { background-color: #007bff; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 10px; display: block; text-decoration: none; box-sizing: border-box; }
+        .btn-share { background-color: #25d366; color: white; }
+        .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 0.95rem; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
+        .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
     </style>
 </head>
 <body onload="iniciarRelogio()">
 
 <div class="container">
     <div class="header-system">
-        ⏱️ SISTEMA: 29/08/2026 <span id="live-clock">Carregando...</span>
+        ⏱️ SISTEMA: 30/08/2026 <span id="live-clock">Carregando...</span>
     </div>
 
     <div class="header">
@@ -89,7 +91,7 @@
     </div>
 
     <div class="resumo-box">
-        <div class="resumo-linha"><span>Produto:</span> <span>Ovos de Codorna Jumbo</span></div>
+        <div class="resumo-linha"><span>Produto:</span> <span>Cartela de Ovos de Codorna Jumbo</span></div>
         <div class="resumo-linha"><span>Valor unitário:</span> <span>R$ 13,00</span></div>
         <div class="resumo-linha"><span>Total:</span> <span>R$ 13,00</span></div>
     </div>
@@ -103,7 +105,14 @@
     <div class="pix-code-box" id="pixCode">00020126360014BR.GOV.BCB.PIX0114seuPixAqui4971</div>
 
     <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
-    <button class="btn-acao btn-share" onclick="compartilharLoja()">🔗 Compartilhar Site e Comprovantes</button>
+    <button class="btn-acao btn-share" onclick="compartilharEComprovante()">🔗 Copiar Chave e Enviar Comprovante WhatsApp</button>
+    <a class="btn-voltar" href="./index.html">⬅️ Voltar e Comprar Mais Cartelas</a>
+
+    <div class="credits-footer">
+        JCS_software . JCS_criatório<br>
+        versão 26.08.30.01 | 🔏 cadeado de segurança<br>
+        © direitos autorais protegidos
+    </div>
 </div>
 
 <script>
@@ -125,24 +134,45 @@
 
     function copiarPix() {
         const txt = document.getElementById('pixCode').innerText;
-        navigator.clipboard.writeText(txt).then(() => {
-            alert('Código Pix copiado com sucesso!');
-        }).catch(() => {
-            alert('Erro ao copiar automaticamente. Selecione o texto manualmente.');
-        });
+        
+        // Estrutura infalível para navegadores mobiles e desktop
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(txt).then(() => {
+                alert('Código Pix copiado com sucesso! Agora abra o app do seu banco e use a opção Pix Copia e Cola.');
+            }).catch(() => { fallbackCopiar(txt); });
+        } else {
+            fallbackCopiar(txt);
+        }
     }
 
-    function compartilharLoja() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Mairiporã Agro',
-                text: 'Compre Ovos de Codorna Jumbo direto do produtor local!',
-                url: window.location.origin
-            }).catch(console.error);
-        } else {
-            navigator.clipboard.writeText(window.location.origin);
-            alert('Link da loja copiado para a área de transferência!');
+    function fallbackCopiar(texto) {
+        const textArea = document.createElement("textarea");
+        textArea.value = texto;
+        textArea.style.position = "fixed"; 
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert('Código Pix copiado com sucesso!');
+        } catch (err) {
+            alert('Erro ao copiar automaticamente. Por favor, selecione o texto do código manualmente.');
         }
+        document.body.removeChild(textArea);
+    }
+
+    function compartilharEComprovante() {
+        const txt = document.getElementById('pixCode').innerText;
+        
+        // Garante a cópia antes de mandar pro WhatsApp
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(txt).catch(() => {});
+        }
+        
+        const mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
+        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        
+        window.location.href = urlZap;
     }
 </script>
 </body>
