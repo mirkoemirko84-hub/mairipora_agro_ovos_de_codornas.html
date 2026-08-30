@@ -104,10 +104,10 @@
     <p>Ou utilize o código Copia e Cola abaixo:</p>
     <div class="pix-code-box" id="pixCode">00020126360014BR.GOV.BCB.PIX0114seuPixAqui4971</div>
 
-    <button class="btn-acao" onclick="copiarPix()">📋 Copiar Código Pix</button>
+    <button class="btn-acao" onclick="copyPixManual()">📋 Copiar Código Pix</button>
     
-    <!-- Link corrigido com a formatação exata que o Edge exige para não dar erro de DNS -->
-    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="https://whatsapp.com">🔗 Enviar Comprovante via WhatsApp</a>
+    <!-- Rota direta wa.me sem desvios para abrir o chat na hora -->
+    <a class="btn-acao btn-share" id="btnWhatsAppLink" href="https://wa.me">🔗 Enviar Comprovante via WhatsApp</a>
     
     <a class="btn-voltar" href="./index.html">⬅️ Voltar e Comprar Mais Cartelas</a>
 
@@ -142,20 +142,18 @@
             document.getElementById('txt-valor-uni').textContent = "R$ 1,99";
             document.getElementById('txt-valor-total').textContent = "R$ 1,99";
             
-            // Texto de teste devidamente isolado para evitar erros no Edge
             const msgTeste = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
-            document.getElementById('btnWhatsAppLink').href = "https://whatsapp.com" + encodeURIComponent(msgTeste);
+            document.getElementById('btnWhatsAppLink').href = "https://wa.me" + encodeURIComponent(msgTeste);
             
             localStorage.removeItem('jcs_preco_simulado');
         }
     }
 
-    function copiarPix() {
+    function copyPixManual() {
         const txt = document.getElementById('pixCode').innerText;
-        
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).then(() => {
-                alert('Código Pix copiado com sucesso! Agora abra o app do seu banco e use a opção Pix Copia e Cola.');
+                alert('Código Pix copiado com sucesso! Agora abra o app do seu banco.');
             }).catch(() => { fallbackCopiar(txt); });
         } else {
             fallbackCopiar(txt);
@@ -173,7 +171,7 @@
             document.execCommand('copy');
             alert('Código Pix copiado com sucesso!');
         } catch (err) {
-            alert('Erro ao copiar automaticamente. Por favor, selecione o texto do código manualmente.');
+            alert('Erro ao copiar automaticamente.');
         }
         document.body.removeChild(textArea);
     }
