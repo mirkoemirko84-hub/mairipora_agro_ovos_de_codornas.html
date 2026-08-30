@@ -51,7 +51,6 @@
 <body>
 
 <div class="container">
-    <!-- Bloqueio Inicial de Segurança por Senha -->
     <div id="loginBlock" class="area-restrita">
         <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
@@ -61,7 +60,6 @@
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
-    <!-- Painel de Gerenciamento Oculto -->
     <div id="adminContent" style="display: none;">
         <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
         
@@ -124,7 +122,6 @@
 
         document.getElementById('lblEstoque').innerText = String(est).padStart(2, '0');
         document.getElementById('lblReservas').innerText = String(res).padStart(2, '0');
-        
         atualizarBotaoStatusVisual(sta);
     }
 
@@ -178,6 +175,11 @@
         localStorage.setItem('jcs_preco_simulado', "1.99");
         alert("Modo de teste ativado! Você será redirecionado para a página de pagamento no valor de R$ 1,99 para validar o Pix e o compartilhamento.");
         window.location.href = './pagamento.html';
+    }
+    
+    // Deixa as duas grafias funcionando para evitar travar o clique do botão laranja
+    function ativarSimuladorCompra() {
+        activarSimuladorCompra();
     }
 </script>
 </body>
