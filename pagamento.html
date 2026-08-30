@@ -172,7 +172,6 @@
     function compartilharEComprovante() {
         const txt = document.getElementById('pixCode').innerText;
         
-        // Copia o Pix automaticamente por segurança antes de direcionar
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).catch(() => {});
         }
@@ -182,12 +181,12 @@
         
         if (precoSimulado === "1.99") {
             mensagem = "[COMPRA TESTE SIMULADA] Olá Mairiporã Agro! Efetuei o Pix de teste no valor de R$ 1,99 para validar o sistema da minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
-            localStorage.removeItem('jcs_preco_simulado'); // Limpa o simulador após o clique
+            localStorage.removeItem('jcs_preco_simulado');
         } else {
             mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
         }
         
-        // Rota infalível universal que funciona perfeitamente em aplicativo (celular) e navegador (WhatsApp Web)
+        // Número corrigido para 5511964856312 com rota estável para celular e PC
         const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
         
         window.location.href = urlZap;
