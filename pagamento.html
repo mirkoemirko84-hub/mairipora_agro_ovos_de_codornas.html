@@ -136,8 +136,8 @@
     function checarPrecoSimulado() {
         let precoSimulado = localStorage.getItem('jcs_preco_simulado');
         if (precoSimulado === "1.99") {
-            document.getElementById('txt-valor-uni').innerText = "R$ 1,99";
-            document.getElementById('txt-valor-total').innerText = "R$ 1,99";
+            document.getElementById('txt-valor-uni').textContent = "R$ 1,99";
+            document.getElementById('txt-valor-total').textContent = "R$ 1,99";
         }
     }
 
@@ -186,7 +186,7 @@
             mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
         }
         
-        // Rota universal corrigida e blindada com número correto para disparar no PC e Celular
+        // Link oficial universal e blindado para PC e Celular com número correto
         const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
         
         window.location.href = urlZap;
