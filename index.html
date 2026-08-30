@@ -31,7 +31,7 @@
     
     <p class="footer-text">🛒 COMPRE DIRETO E APOIE O PRODUTOR LOCAL!</p>
     
-    <div class="price-tag">CARTELA R$ 13,00</div>
+    <div class="price-tag" id="exibicao-preco">CARTELA R$ 13,00</div>
 
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
@@ -86,6 +86,13 @@
         let estoqueReal = localStorage.getItem('jcs_estoque_atual') || "03";
         let reservasReais = localStorage.getItem('jcs_reservas_atual') || "16";
         let statusSite = localStorage.getItem('jcs_status_site') || 'online';
+        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
+
+        if (precoSimulado === "1.99") {
+            document.getElementById('exibicao-preco').textContent = "CARTELA R$ 1,99 [TESTE]";
+        } else {
+            document.getElementById('exibicao-preco').textContent = "CARTELA R$ 13,00";
+        }
 
         document.getElementById('val-estoque-loja').textContent = String(estoqueReal).padStart(2, '0');
         document.getElementById('val-reservas-loja').textContent = String(reservasReais).padStart(2, '0');
