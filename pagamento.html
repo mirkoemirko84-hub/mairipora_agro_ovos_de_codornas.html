@@ -135,7 +135,6 @@
     function copiarPix() {
         const txt = document.getElementById('pixCode').innerText;
         
-        // Estrutura infalível para navegadores mobiles e desktop
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).then(() => {
                 alert('Código Pix copiado com sucesso! Agora abra o app do seu banco e use a opção Pix Copia e Cola.');
@@ -164,15 +163,24 @@
     function compartilharEComprovante() {
         const txt = document.getElementById('pixCode').innerText;
         
-        // Garante a cópia antes de mandar pro WhatsApp
+        // Copia o Pix automaticamente para a área de transferência do cliente
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(txt).catch(() => {});
         }
         
         const mensagem = "Olá Mairiporã Agro! Efetuei o Pix no valor de R$ 13,00 para a minha cartela de ovos de codorna jumbo. Segue meu comprovante de pagamento:";
-        const urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
         
-        window.location.href = urlZap;
+        // Verifica se é um dispositivo móvel para usar o link correto do WhatsApp
+        const esCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        let urlZap = "";
+        
+        if (esCelular) {
+            urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        } else {
+            urlZap = "https://whatsapp.com" + encodeURIComponent(mensagem);
+        }
+        
+        window.open(urlZap, '_blank');
     }
 </script>
 </body>
