@@ -13,17 +13,16 @@
         
         /* Bloco Central Unificado Amarelo */
         .order-summary { background: #fff3cd; border: 2px solid #ffeeba; padding: 15px; border-radius: 10px; margin: 15px auto; font-size: 16px; font-weight: bold; color: #856404; }
-        .action-row { display: flex; justify-content: center; gap: 15px; margin-top: 12px; border-top: 1px dashed #ffeeba; padding-top: 12px; }
-        .icon-btn { border: none; border-radius: 8px; padding: 8px 15px; font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .btn-zap-small { background-color: #25d366; }
+        .action-row { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 12px; border-top: 1px dashed #ffeeba; padding-top: 12px; }
+        .icon-btn { border: none; border-radius: 8px; padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 90%; justify-content: center; }
         .btn-share-small { background-color: #3498db; }
+        .btn-zap-small { background-color: #25d366; }
         .icon-btn:active { transform: scale(0.95); }
 
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
-        .footer-text { font-size: 15px; color: #333; font-weight: bold; margin-top: 20px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
     </style>
@@ -38,13 +37,16 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- Bloco Central Amarelo Unificado com os Ícones Dentro -->
+    <!-- Bloco Central Amarelo com Fluxo Corrigido -->
     <div class="order-summary">
         <div id="resumo-texto">Carregando resumo do pedido...</div>
         
         <div class="action-row">
-            <button class="icon-btn btn-zap-small" onclick="dispararAcao('zap')">🟢 Enviar Zap</button>
-            <button class="icon-btn btn-share-small" onclick="dispararAcao('copiar')">📋 Copiar Texto</button>
+            <!-- PASSO 1: Copiar o resumo e avisar o que fazer -->
+            <button class="icon-btn btn-share-small" onclick="dispararAcao('copiar')">📋 1º Passo: Copiar Resumo do Pedido</button>
+            
+            <!-- PASSO 2: Link universal estável do Zap -->
+            <button class="icon-btn btn-zap-small" onclick="dispararAcao('zap')">🟢 2º Passo: Ir para o WhatsApp</button>
         </div>
     </div>
 
@@ -64,7 +66,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.12 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.13 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -98,7 +100,7 @@
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         
         const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
+        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutes + ":" + segundos; }
     }
 
     function calcularPedido() {
@@ -119,7 +121,7 @@
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         const elementoChave = document.getElementById('chave-pix-config');
         if (chaveSalva && elementoChave) {
-            elementoChave.textContent = chaveSalva;
+            elementChave.textContent = chaveSalva;
         }
     }
 
@@ -130,16 +132,17 @@
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
                               `💵 *Valor Total:* R$ ${totalGlobal}\n` +
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
-                              `--- Enviarei o comprovante do PIX abaixo ---`;
+                              `--- Segue o comprovante do PIX em anexo ---`;
 
         if (tipo === 'copiar') {
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textoMensagem).then(function() {
-                    alert("📋 Resumo copiado para a memória! Pronto para colar onde quiser.");
+                    alert("📋 Resumo copiado para a memória com sucesso!\n\nAgora clique no botão verde do 2º Passo para ir ao WhatsApp e colar a mensagem junto com o comprovante.");
                 });
             }
         } else if (tipo === 'zap') {
-            const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
+            // Nova URL curta universal wa.me limpa para forçar o aplicativo a abrir sem erros 4xx no Windows
+            const urlSegura = "https://wa.me" + telefone + "?text=" + encodeURIComponent(textoMensagem);
             window.open(urlSegura, '_blank');
         }
     }
