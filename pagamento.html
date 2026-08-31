@@ -10,12 +10,19 @@
         .header-system { font-size: 20px; font-weight: bold; color: #ffffff; background: #cc0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
-        .order-summary { background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 8px; margin: 15px auto; font-size: 16px; font-weight: bold; color: #856404; }
+        
+        /* Bloco Central Unificado Amarelo */
+        .order-summary { background: #fff3cd; border: 2px solid #ffeeba; padding: 15px; border-radius: 10px; margin: 15px auto; font-size: 16px; font-weight: bold; color: #856404; }
+        .action-row { display: flex; justify-content: center; gap: 15px; margin-top: 12px; border-top: 1px dashed #ffeeba; padding-top: 12px; }
+        .icon-btn { border: none; border-radius: 8px; padding: 8px 15px; font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-zap-small { background-color: #25d366; }
+        .btn-share-small { background-color: #3498db; }
+        .icon-btn:active { transform: scale(0.95); }
+
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
-        .btn-whatsapp { background-color: #25d366; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .footer-text { font-size: 15px; color: #333; font-weight: bold; margin-top: 20px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
@@ -31,8 +38,14 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <div class="order-summary" id="resumo-pedido">
-        Carregando resumo do pedido...
+    <!-- Bloco Central Amarelo Unificado com os Ícones Dentro -->
+    <div class="order-summary">
+        <div id="resumo-texto">Carregando resumo do pedido...</div>
+        
+        <div class="action-row">
+            <button class="icon-btn btn-zap-small" onclick="dispararAcao('zap')">🟢 Enviar Zap</button>
+            <button class="icon-btn btn-share-small" onclick="dispararAcao('copiar')">📋 Copiar Texto</button>
+        </div>
     </div>
 
     <div class="pix-box">
@@ -40,14 +53,8 @@
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br><br>
-        <small style="color: #666;">(Escaneie o QR Code ou transfira o valor total informado acima)</small>
+        <small style="color: #666;">(Escaneie o QR Code ou transfira o valor informado no bloco amarelo)</small>
     </div>
-
-    <p class="footer-text">📢 APÓS O PAGAMENTO:</p>
-    <p style="font-size: 15px; margin: 5px 0;">Clique no botão abaixo. O resumo do pedido será copiado e seu WhatsApp abrirá automaticamente!</p>
-
-    <!-- Chamando a função diretamente pelo clique do botão -->
-    <button class="btn-whatsapp" onclick="finalizarECompartilhar()">🟢 Confirmar Pedido e Enviar no WhatsApp</button>
 
     <a class="btn-voltar" href="./index.html">⬅️ Voltar para a Loja</a>
 
@@ -57,7 +64,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.11 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.12 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -102,9 +109,9 @@
         let valorTotal = qtdGlobal * precoUnitario;
         totalGlobal = valorTotal.toFixed(2).replace('.', ',');
 
-        const elementoResumo = document.getElementById('resumo-pedido');
-        if (elementoResumo) {
-            elementoResumo.innerHTML = `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s)<br>💰 Total a Pagar: R$ ${totalGlobal}`;
+        const elementoTexto = document.getElementById('resumo-texto');
+        if (elementoTexto) {
+            elementoTexto.innerHTML = `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s) | 💰 Total: R$ ${totalGlobal}`;
         }
     }
 
@@ -116,9 +123,8 @@
         }
     }
 
-    function finalizarECompartilhar() {
+    function dispararAcao(tipo) {
         const telefone = "5511964856312";
-        
         const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
@@ -126,21 +132,16 @@
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
                               `--- Enviarei o comprovante do PIX abaixo ---`;
 
-        // Copia automática de segurança antes de disparar o redirecionamento
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(textoMensagem).then(function() {
-                abrirLinkDiretoWhatsApp(telefone, textoMensagem);
-            }).catch(function() {
-                abrirLinkDiretoWhatsApp(telefone, textoMensagem);
-            });
-        } else {
-            abrirLinkDiretoWhatsApp(telefone, textoMensagem);
+        if (tipo === 'copiar') {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textoMensagem).then(function() {
+                    alert("📋 Resumo copiado para a memória! Pronto para colar onde quiser.");
+                });
+            }
+        } else if (tipo === 'zap') {
+            const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
+            window.open(urlSegura, '_blank');
         }
-    }
-
-    function abrirLinkDiretoWhatsApp(tel, msg) {
-        const urlSegura = "https://whatsapp.com" + tel + "&text=" + encodeURIComponent(msg);
-        window.open(urlSegura, '_blank');
     }
 </script>
 </body>
