@@ -11,13 +11,10 @@
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Bloco Central Unificado Amarelo */
-        .order-summary { background: #fff3cd; border: 2px solid #ffeeba; padding: 15px; border-radius: 10px; margin: 15px auto; font-size: 16px; font-weight: bold; color: #856404; }
-        .action-row { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 12px; border-top: 1px dashed #ffeeba; padding-top: 12px; }
-        .icon-btn { border: none; border-radius: 8px; padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 90%; justify-content: center; }
-        .btn-share-small { background-color: #3498db; }
-        .btn-zap-small { background-color: #25d366; }
-        .icon-btn:active { transform: scale(0.95); }
+        /* Bloco Central Amarelo de Clique Único e Imediato */
+        .order-summary { background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .order-summary:active { transform: scale(0.98); }
+        .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
@@ -37,17 +34,10 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- Bloco Central Amarelo com Resumo -->
-    <div class="order-summary">
+    <!-- CLIQUE ÚNICO: Tocou aqui, copia o texto e abre o WhatsApp instantaneamente -->
+    <div class="order-summary" onclick="dispararEnvioImediato()">
         <div id="resumo-texto">Carregando resumo do pedido...</div>
-        
-        <div class="action-row">
-            <!-- PASSO 1: Copiar o resumo -->
-            <button class="icon-btn btn-share-small" onclick="dispararAcao('copiar')">📋 1º Passo: Copiar Resumo do Pedido</button>
-            
-            <!-- PASSO 2: Link universal estável do Zap -->
-            <button class="icon-btn btn-zap-small" onclick="dispararAcao('zap')">🟢 2º Passo: Ir para o WhatsApp</button>
-        </div>
+        <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE VIA WHATSAPP</span>
     </div>
 
     <div class="pix-box">
@@ -55,7 +45,7 @@
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br><br>
-        <small style="color: #666;">(Escaneie o QR Code ou transfira o valor informado no bloco amarelo)</small>
+        <small style="color: #666;">(Escaneie o QR Code acima para transferir o valor)</small>
     </div>
 
     <a class="btn-voltar" href="./index.html">⬅️ Voltar para a Loja</a>
@@ -66,7 +56,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.14 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.17 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -113,21 +103,21 @@
 
         const elementoTexto = document.getElementById('resumo-texto');
         if (elementoTexto) {
-            elementoTexto.innerHTML = `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s) | 💰 Total: R$ ${totalGlobal}`;
+            elementoTexto.innerHTML = `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s)<br>💰 Total a Pagar: R$ ${totalGlobal}`;
         }
     }
 
     function carregarConfiguracoes() {
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         const elementoChave = document.getElementById('chave-pix-config');
-        // Correção efetuada aqui: ajustado de elementChave para elementoChave
         if (chaveSalva && elementoChave) {
             elementoChave.textContent = chaveSalva;
         }
     }
 
-    function dispararAcao(tipo) {
+    function dispararEnvioImediato() {
         const telefone = "5511964856312";
+        
         const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
@@ -135,24 +125,19 @@
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
                               `--- Segue o comprovante do PIX em anexo ---`;
 
-        if (tipo === 'copiar') {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textoMensagem).then(function() {
-                    alert("📋 Resumo copiado para a memória com sucesso!\n\nAgora clique no botão verde do 2º Passo para ir ao WhatsApp e colar a mensagem junto com o comprovante.");
-                });
-            }
-               } else if (tipo === 'zap') {
-            // CORREÇÃO: Adicionada a barra "/" logo após o wa.me para o link funcionar
-            const urlSegura = "https://wa.me" + telefone + "?text=" + encodeURIComponent(textoMensagem);
-            
-            // Caso o wa.me ainda dê erro por causa do cache, use a linha de baixo apagando as duas barras da frente:
-            // const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
-            
+        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
+
+        // Copia para a memória de forma invisível e abre o WhatsApp sem nenhuma mensagem de alerta na tela
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textoMensagem).then(function() {
+                window.open(urlSegura, '_blank');
+            }).catch(function() {
+                window.open(urlSegura, '_blank');
+            });
+        } else {
             window.open(urlSegura, '_blank');
         }
-
     }
 </script>
 </body>
 </html>
-
