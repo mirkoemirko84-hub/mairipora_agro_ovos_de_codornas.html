@@ -109,7 +109,8 @@
         const btnWhats = document.getElementById('btn-whatsapp-link');
         
         if (btnWhats) {
-            btnWhats.href = `https://wa.me{whatsSalva}?text=${msgTexto}`;
+            // Correção da montagem do link concatenando a variável de forma nativa e segura
+            btnWhats.href = "https://wa.me" + whatsSalva + "?text=" + msgTexto;
         }
     }
 </script>
