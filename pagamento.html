@@ -11,7 +11,7 @@
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Bloco Central Amarelo Convertido em Link Seguro */
+        /* Bloco Central Amarelo Convertido em Link Puro e Seguro */
         .order-summary-link { display: block; text-decoration: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
@@ -34,8 +34,8 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- MANOBRA DO LINK DIRETO: O bloco amarelo agora é um elemento 'a' nativo com id para injetar o link -->
-    <a href="#" id="bloco-whatsapp-link" class="order-summary-link" target="_blank" rel="noopener noreferrer" onclick="copiarTextoInvisivel()">
+    <!-- LINK 100% PURO E SEGURO: Sem eventos de 'onclick' para o navegador não bloquear o pop-up -->
+    <a href="#" id="bloco-whatsapp-link" class="order-summary-link" target="_blank" rel="noopener noreferrer">
         <div id="resumo-texto">Carregando resumo do pedido...</div>
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE VIA WHATSAPP</span>
     </a>
@@ -56,7 +56,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.18 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.19 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -64,7 +64,6 @@
 <script>
     let totalGlobal = "13,00";
     let qtdGlobal = 1;
-    let textoMensagemGlobal = "";
 
     function inicializarPagamento() {
         iniciarRelogio();
@@ -120,26 +119,19 @@
     function montarLinkWhatsApp() {
         const telefone = "5511964856312";
         
-        textoMensagemGlobal = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
+        const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
                               `💵 *Valor Total:* R$ ${totalGlobal}\n` +
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
                               `--- Segue o comprovante do PIX em anexo ---`;
 
-        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagemGlobal);
+        // Monta a URL de API expandida oficial direto no atributo href
+        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
         
-        // Injeta o link estático direto no elemento antes do clique do usuário, impedindo travas do navegador
         const linkBloco = document.getElementById('bloco-whatsapp-link');
         if (linkBloco) {
             linkBloco.href = urlSegura;
-        }
-    }
-
-    function copiarTextoInvisivel() {
-        // Roda a cópia para a área de transferência simultaneamente ao clique de redirecionamento nativo
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(textoMensagemGlobal).catch(function(e){ console.log(e); });
         }
     }
 </script>
