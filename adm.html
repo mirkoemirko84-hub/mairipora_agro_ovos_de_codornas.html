@@ -29,7 +29,7 @@
         .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; line-height: 1.4; font-family: monospace; }
     </style>
 </head>
-<body>
+<body onload="verificarSessaoInicial()">
 
 <div class="container">
     <div id="loginBlock" class="area-restrita">
@@ -68,16 +68,17 @@
             <div class="app-label">🚦 Status de Vendas do Site:</div>
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
+            <!-- APENAS O SIMULADOR DO R$ 1,99 TRADICIONAL -->
             <div class="app-label">🧪 Testes do Sistema:</div>
             <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste (R$ 1,99) / Normal</button>
 
-            <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;">⬅️ Sair e Voltar para a Loja</a>
+            <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;" onclick="encerrarSessao()">⬅️ Sair e Voltar para a Loja</a>
         </div>
     </div>
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.08 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.22 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -85,15 +86,30 @@
 <script>
     const CONFIG_SENHA = "4971";
 
+    function verificarSessaoInicial() {
+        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') {
+            exibirPainelControle();
+        }
+    }
+
     function validarSenha() {
         const campo = document.getElementById('senhaAcesso').value;
         if (campo === CONFIG_SENHA) {
-            document.getElementById('loginBlock').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            inicializarValores();
+            sessionStorage.setItem('jcs_adm_autenticado', 'sim');
+            exibirPainelControle();
         } else {
             alert('Senha Incorreta! Acesso estritamente negado.');
         }
+    }
+
+    function exibirPainelControle() {
+        document.getElementById('loginBlock').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        inicializarValores();
+    }
+
+    function encerrarSessao() {
+        sessionStorage.removeItem('jcs_adm_autenticado');
     }
 
     function inicializarValores() {
@@ -164,4 +180,3 @@
     }
 </script>
 </body>
-</html>
