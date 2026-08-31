@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JCS Admin App</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#17509e">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 20px; user-select: none; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
+        .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+        .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
+        .app-label { font-size: 16px; color: #333333; font-weight: bold; margin-bottom: -5px; }
+        .control-box { background-color: #ffffff; border: 2px solid #cccccc; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .counter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .counter-value { font-size: 26px; font-weight: bold; color: #17509e; min-width: 60px; text-align: center; font-family: monospace; }
+        .btn-calc { background-color: #34495e; color: white; border: none; font-size: 24px; font-weight: bold; width: 55px; height: 55px; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); }
+        .btn-calc:active { transform: scale(0.95); }
+        .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
+        .btn-gray { background-color: #6c757d; margin-top: 5px; }
+        .btn-orange { background-color: #e67e22; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; margin-top: 5px; }
+        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .area-restrita { padding: 30px 20px; text-align: center; }
+        .input-senha { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; box-sizing: border-box; margin: 15px 0; text-align: center; }
+        .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; line-height: 1.4; font-family: monospace; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div id="loginBlock" class="area-restrita">
+        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+        <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
+        <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
+        <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
+        <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
+    </div>
+
+    <div id="adminContent" style="display: none;">
+        <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
+        
+        <div class="app-container">
+            <div class="app-label">📦 Estoque de Cartelas Atual:</div>
+            <div class="control-box">
+                <div class="counter-row">
+                    <button class="btn-calc" onclick="alterarEstoque(-1)">-</button>
+                    <div class="counter-value" id="lblEstoque">03</div>
+                    <button class="btn-calc" onclick="alterarEstoque(1)">+</button>
+                </div>
+                <button class="btn-zerar" onclick="zerarEstoque()">Zerar Estoque ❌</button>
+            </div>
+
+            <div class="app-label">🔒 Ovos Reservados (Unidades):</div>
+            <div class="control-box">
+                <div class="counter-row">
+                    <button class="btn-calc" onclick="alterarReservas(-1)">-</button>
+                    <div class="counter-value" id="lblReservas">16</div>
+                    <button class="btn-calc" onclick="alterarReservas(1)">+</button>
+                </div>
+                <button class="btn-zerar" onclick="zerarReservas()">Limpar Reservas 🔄</button>
+            </div>
+
+            <div class="app-label">🚦 Status de Vendas do Site:</div>
+            <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
+
+            <div class="app-label">🧪 Testes do Sistema:</div>
+            <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste (R$ 1,99) / Normal</button>
+
+            <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;">⬅️ Sair e Voltar para a Loja</a>
+        </div>
+    </div>
+
+    <div class="credits-footer">
+        JCS_software . JCS_criatório<br>
+        versão 26.08.31.08 | 🔏 cadeado de segurança<br>
+        © direitos autorais protegidos
+    </div>
+</div>
+
+<script>
+    const CONFIG_SENHA = "4971";
+
+    function validarSenha() {
+        const campo = document.getElementById('senhaAcesso').value;
+        if (campo === CONFIG_SENHA) {
+            document.getElementById('loginBlock').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            inicializarValores();
+        } else {
+            alert('Senha Incorreta! Acesso estritamente negado.');
+        }
+    }
+
+    function inicializarValores() {
+        let est = localStorage.getItem('jcs_estoque_atual') || "03";
+        let res = localStorage.getItem('jcs_reservas_atual') || "16";
+        let sta = localStorage.getItem('jcs_status_site') || "online";
+
+        document.getElementById('lblEstoque').innerText = String(est).padStart(2, '0');
+        document.getElementById('lblReservas').innerText = String(res).padStart(2, '0');
+        atualizarBotaoStatusVisual(sta);
+    }
+
+    function alterarEstoque(v) {
+        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblEstoque').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_estoque_atual', novo);
+    }
+
+    function zerarEstoque() {
+        if(confirm("Deseja zerar o estoque de cartelas produzidas?")) {
+            document.getElementById('lblEstoque').innerText = "00";
+            localStorage.setItem('jcs_estoque_atual', 0);
+        }
+    }
+
+    function alterarReservas(v) {
+        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblReservas').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_reservas_atual', novo);
+    }
+
+    function zerarReservas() {
+        if(confirm("Deseja limpar as reservas de ovos?")) {
+            document.getElementById('lblReservas').innerText = "00";
+            localStorage.setItem('jcs_reservas_atual', 0);
+        }
+    }
+
+    function alternarStatusSite() {
+        let atual = localStorage.getItem('jcs_status_site') || "online";
+        let novo = (atual === "online") ? "manutencao" : "online";
+        localStorage.setItem('jcs_status_site', novo);
+        atualizarBotaoStatusVisual(novo);
+    }
+
+    function atualizarBotaoStatusVisual(status) {
+        const btn = document.getElementById('btnStatusSite');
+        if (status === "manutencao") {
+            btn.className = "btn-status-manutencao";
+            btn.innerText = "❌ Loja em Manutenção / Suspensa";
+        } else {
+            btn.className = "btn-status-online";
+            btn.innerText = "🟢 Loja Online / Ativa";
+        }
+    }
+
+    function alternarSimuladorCompra() {
+        let atual = localStorage.getItem('jcs_preco_simulado');
+        if (atual === "1.99") {
+            localStorage.removeItem('jcs_preco_simulado');
+            alert("Simulador Desativado! O site voltou ao preço comercial de R$ 13,00.");
+        } else {
+            localStorage.setItem('jcs_preco_simulado', "1.99");
+            alert("Simulador Ativado! O site exibirá o valor de R$ 1,99 para seus testes.");
+        }
+    }
+</script>
+</body>
+</html>
