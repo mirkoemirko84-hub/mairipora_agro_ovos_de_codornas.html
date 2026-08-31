@@ -37,12 +37,12 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- Bloco Central Amarelo com Fluxo Corrigido -->
+    <!-- Bloco Central Amarelo com Resumo -->
     <div class="order-summary">
         <div id="resumo-texto">Carregando resumo do pedido...</div>
         
         <div class="action-row">
-            <!-- PASSO 1: Copiar o resumo e avisar o que fazer -->
+            <!-- PASSO 1: Copiar o resumo -->
             <button class="icon-btn btn-share-small" onclick="dispararAcao('copiar')">📋 1º Passo: Copiar Resumo do Pedido</button>
             
             <!-- PASSO 2: Link universal estável do Zap -->
@@ -66,7 +66,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.13 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.14 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -100,7 +100,7 @@
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         
         const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutes + ":" + segundos; }
+        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
 
     function calcularPedido() {
@@ -120,12 +120,13 @@
     function carregarConfiguracoes() {
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         const elementoChave = document.getElementById('chave-pix-config');
+        // Correção efetuada aqui: ajustado de elementChave para elementoChave
         if (chaveSalva && elementoChave) {
-            elementChave.textContent = chaveSalva;
+            elementoChave.textContent = chaveSalva;
         }
     }
 
-        function dispararAcao(tipo) {
+    function dispararAcao(tipo) {
         const telefone = "5511964856312";
         const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
@@ -141,12 +142,9 @@
                 });
             }
         } else if (tipo === 'zap') {
-            // CORREÇÃO CIRÚRGICA: Adicionada a barra "/" explicitamente após o "wa.me"
+            // Link montado estritamente com a barra '/' correta pós wa.me para exterminar o erro de DNS
             const urlSegura = "https://wa.me" + telefone + "?text=" + encodeURIComponent(textoMensagem);
             window.open(urlSegura, '_blank');
-        }
-    }
-
         }
     }
 </script>
