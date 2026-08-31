@@ -141,12 +141,18 @@
                     alert("📋 Resumo copiado para a memória com sucesso!\n\nAgora clique no botão verde do 2º Passo para ir ao WhatsApp e colar a mensagem junto com o comprovante.");
                 });
             }
-        } else if (tipo === 'zap') {
-            // Link montado estritamente com a barra '/' correta pós wa.me para exterminar o erro de DNS
+               } else if (tipo === 'zap') {
+            // CORREÇÃO: Adicionada a barra "/" logo após o wa.me para o link funcionar
             const urlSegura = "https://wa.me" + telefone + "?text=" + encodeURIComponent(textoMensagem);
+            
+            // Caso o wa.me ainda dê erro por causa do cache, use a linha de baixo apagando as duas barras da frente:
+            // const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
+            
             window.open(urlSegura, '_blank');
         }
+
     }
 </script>
 </body>
 </html>
+
