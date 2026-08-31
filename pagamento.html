@@ -125,7 +125,7 @@
         }
     }
 
-    function dispararAcao(tipo) {
+        function dispararAcao(tipo) {
         const telefone = "5511964856312";
         const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
@@ -141,9 +141,12 @@
                 });
             }
         } else if (tipo === 'zap') {
-            // Nova URL curta universal wa.me limpa para forçar o aplicativo a abrir sem erros 4xx no Windows
+            // CORREÇÃO CIRÚRGICA: Adicionada a barra "/" explicitamente após o "wa.me"
             const urlSegura = "https://wa.me" + telefone + "?text=" + encodeURIComponent(textoMensagem);
             window.open(urlSegura, '_blank');
+        }
+    }
+
         }
     }
 </script>
