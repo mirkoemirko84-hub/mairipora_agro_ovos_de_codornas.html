@@ -91,11 +91,28 @@
         }
     }
 
-    function carregarConfiguracoes() {
+        function carregarConfiguracoes() {
         // 1. Controle da Chave Pix
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         if (chaveSalva) {
             document.getElementById('chave-pix-config').textContent = chaveSalva;
+        }
+
+        // 2. Controle e Correção do Link do WhatsApp
+        let whatsSalva = localStorage.getItem('jcs_whatsapp_numero') || "5511964856312"; 
+        
+        // Remove absolutamente tudo o que não for número (tira pontos, espaços e chaves)
+        whatsSalva = whatsSalva.replace(/\D/g, ''); 
+        
+        const msgTexto = encodeURIComponent("Olá! Fiz o pagamento do meu pedido de ovos jumbo. Segue o comprovante.");
+        const btnWhats = document.getElementById('btn-whatsapp-link');
+        
+        if (btnWhats) {
+            // Garante a barra '/' obrigatória após o wa.me e elimina o erro de DNS
+            btnWhats.href = "https://wa.me" + whatsSalva + "?text=" + msgTexto;
+        }
+    }
+
         }
 
         // 2. Controle e Correção do Link do WhatsApp
