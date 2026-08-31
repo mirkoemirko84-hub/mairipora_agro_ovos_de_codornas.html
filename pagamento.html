@@ -11,7 +11,7 @@
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Bloco Central Amarelo Convertido em Link Nativo e Direto */
+        /* Bloco Central Amarelo Convertido em Link HTML Direto e Puro */
         .order-summary-link { display: block; text-decoration: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
@@ -34,10 +34,10 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- MUDANÇA FATAL: target="_self" força a abertura na mesma aba, destruindo o bloqueador de pop-ups -->
-    <a href="#" id="bloco-whatsapp-link" class="order-summary-link" target="_self">
-        <div id="resumo-texto">Carregando resumo do pedido...</div>
-        <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE VIA WHATSAPP</span>
+    <!-- LINK PUREZZA ABSOLUTA: Sem JavaScript intermediário para evitar qualquer trava de pop-up ou tela preta -->
+    <a href="https://whatsapp.com" class="order-summary-link" target="_self">
+        <div id="resumo-texto">🛒 Verifique o valor total abaixo</div>
+        <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
     <div class="pix-box">
@@ -56,20 +56,15 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.20 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.21 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
 
 <script>
-    let totalGlobal = "13,00";
-    let qtdGlobal = 1;
-
     function inicializarPagamento() {
         iniciarRelogio();
-        calcularPedido();
         carregarConfiguracoes();
-        montarLinkWhatsApp();
     }
 
     function iniciarRelogio() {
@@ -94,44 +89,11 @@
         if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
 
-    function calcularPedido() {
-        qtdGlobal = parseInt(localStorage.getItem('jcs_qtd_pedido')) || 1;
-        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
-        let precoUnitario = (precoSimulado === "1.99") ? 1.99 : 13.00;
-        
-        let valorTotal = qtdGlobal * precoUnitario;
-        totalGlobal = valorTotal.toFixed(2).replace('.', ',');
-
-        const elementoTexto = document.getElementById('resumo-texto');
-        if (elementoTexto) {
-            elementoTexto.innerHTML = `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s)<br>💰 Total a Pagar: R$ ${totalGlobal}`;
-        }
-    }
-
     function carregarConfiguracoes() {
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         const elementoChave = document.getElementById('chave-pix-config');
         if (chaveSalva && elementoChave) {
             elementoChave.textContent = chaveSalva;
-        }
-    }
-
-    function montarLinkWhatsApp() {
-        const telefone = "5511964856312";
-        
-        const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
-                              `📦 *Produto:* Ovos de Codorna Jumbo\n` +
-                              `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
-                              `💵 *Valor Total:* R$ ${totalGlobal}\n` +
-                              `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
-                              `--- Segue o comprovante do PIX em anexo ---`;
-
-        // Link de API expandida oficial ultra estável
-        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
-        
-        const linkBloco = document.getElementById('bloco-whatsapp-link');
-        if (linkBloco) {
-            linkBloco.href = urlSegura;
         }
     }
 </script>
