@@ -88,7 +88,7 @@
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
             <div class="app-label">🧪 Testes do Sistema:</div>
-            <button class="btn-orange" onclick="ativarSimuladorCompra()">🛒 Executar Compra de Teste (R$ 1,99)</button>
+            <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste (R$ 1,99) / Normal</button>
 
             <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;">⬅️ Sair e Voltar para a Loja</a>
         </div>
@@ -96,7 +96,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.30.01 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.07 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -147,39 +147,39 @@
     }
 
     function zerarReservas() {
-        if(confirm("Deseja zerar o contador de ovos reservados?")) {
+        if(confirm("Deseja limpar as reservas de ovos?")) {
             document.getElementById('lblReservas').innerText = "00";
             localStorage.setItem('jcs_reservas_atual', 0);
         }
     }
 
     function alternarStatusSite() {
-        let statusAtual = localStorage.getItem('jcs_status_site') || "online";
-        let novoStatus = (statusAtual === "online") ? "manutencao" : "online";
-        localStorage.setItem('jcs_status_site', novoStatus);
-        atualizarBotaoStatusVisual(novoStatus);
+        let atual = localStorage.getItem('jcs_status_site') || "online";
+        let novo = (atual === "online") ? "manutencao" : "online";
+        localStorage.setItem('jcs_status_site', novo);
+        atualizarBotaoStatusVisual(novo);
     }
 
     function atualizarBotaoStatusVisual(status) {
         const btn = document.getElementById('btnStatusSite');
-        if (status === "online") {
+        if (status === "manutencao") {
+            btn.className = "btn-status-manutencao";
+            btn.innerText = "❌ Loja em Manutenção / Suspensa";
+        } else {
             btn.className = "btn-status-online";
             btn.innerText = "🟢 Loja Online / Ativa";
-        } else {
-            btn.className = "btn-status-manutencao";
-            btn.innerText = "🔴 Manutenção / Compras Suspensas";
         }
     }
 
-    function activarSimuladorCompra() {
-        localStorage.setItem('jcs_preco_simulado', "1.99");
-        alert("Modo de teste ativado! Você será redirecionado para a página de pagamento no valor de R$ 1,99 para validar o Pix e o compartilhamento.");
-        window.location.href = './pagamento.html';
-    }
-    
-    // Deixa as duas grafias funcionando para evitar travar o clique do botão laranja
-    function ativarSimuladorCompra() {
-        activarSimuladorCompra();
+    function alternarSimuladorCompra() {
+        let atual = localStorage.getItem('jcs_preco_simulado');
+        if (atual === "1.99") {
+            localStorage.removeItem('jcs_preco_simulado');
+            alert("Simulador Desativado! O site voltou ao preço comercial de R$ 13,00.");
+        } else {
+            localStorage.setItem('jcs_preco_simulado', "1.99");
+            alert("Simulador Ativado! O site exibirá o valor de R$ 1,99 para seus testes.");
+        }
     }
 </script>
 </body>
