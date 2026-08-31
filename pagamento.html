@@ -11,9 +11,9 @@
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Bloco Central Amarelo de Clique Único e Imediato */
-        .order-summary { background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .order-summary:active { transform: scale(0.98); }
+        /* Bloco Central Amarelo Convertido em Link Seguro */
+        .order-summary-link { display: block; text-decoration: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
@@ -34,11 +34,11 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- CLIQUE ÚNICO: Tocou aqui, copia o texto e abre o WhatsApp instantaneamente -->
-    <div class="order-summary" onclick="dispararEnvioImediato()">
+    <!-- MANOBRA DO LINK DIRETO: O bloco amarelo agora é um elemento 'a' nativo com id para injetar o link -->
+    <a href="#" id="bloco-whatsapp-link" class="order-summary-link" target="_blank" rel="noopener noreferrer" onclick="copiarTextoInvisivel()">
         <div id="resumo-texto">Carregando resumo do pedido...</div>
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE VIA WHATSAPP</span>
-    </div>
+    </a>
 
     <div class="pix-box">
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
@@ -56,7 +56,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.17 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.18 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -64,11 +64,13 @@
 <script>
     let totalGlobal = "13,00";
     let qtdGlobal = 1;
+    let textoMensagemGlobal = "";
 
     function inicializarPagamento() {
         iniciarRelogio();
         calcularPedido();
         carregarConfiguracoes();
+        montarLinkWhatsApp();
     }
 
     function iniciarRelogio() {
@@ -115,27 +117,29 @@
         }
     }
 
-    function dispararEnvioImediato() {
+    function montarLinkWhatsApp() {
         const telefone = "5511964856312";
         
-        const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
+        textoMensagemGlobal = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
                               `💵 *Valor Total:* R$ ${totalGlobal}\n` +
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
                               `--- Segue o comprovante do PIX em anexo ---`;
 
-        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagem);
+        const urlSegura = "https://whatsapp.com" + telefone + "&text=" + encodeURIComponent(textoMensagemGlobal);
+        
+        // Injeta o link estático direto no elemento antes do clique do usuário, impedindo travas do navegador
+        const linkBloco = document.getElementById('bloco-whatsapp-link');
+        if (linkBloco) {
+            linkBloco.href = urlSegura;
+        }
+    }
 
-        // Copia para a memória de forma invisível e abre o WhatsApp sem nenhuma mensagem de alerta na tela
+    function copiarTextoInvisivel() {
+        // Roda a cópia para a área de transferência simultaneamente ao clique de redirecionamento nativo
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(textoMensagem).then(function() {
-                window.open(urlSegura, '_blank');
-            }).catch(function() {
-                window.open(urlSegura, '_blank');
-            });
-        } else {
-            window.open(urlSegura, '_blank');
+            navigator.clipboard.writeText(textoMensagemGlobal).catch(function(e){ console.log(e); });
         }
     }
 </script>
