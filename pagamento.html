@@ -10,11 +10,12 @@
         .header-system { font-size: 20px; font-weight: bold; color: #ffffff; background: #cc0000; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
+        .order-summary { background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 8px; margin: 15px auto; font-size: 16px; font-weight: bold; color: #856404; }
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
-        .btn-whatsapp { background-color: #25d366; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
+        .btn-whatsapp { background-color: #25d366; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .footer-text { font-size: 15px; color: #333; font-weight: bold; margin-top: 20px; line-height: 1.5; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
@@ -30,19 +31,23 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
+    <div class="order-summary" id="resumo-pedido">
+        Carregando resumo do pedido...
+    </div>
+
     <div class="pix-box">
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br><br>
-        <small style="color: #666;">(Escaneie o QR Code ou transfira para a chave acima)</small>
+        <small style="color: #666;">(Escaneie o QR Code ou transfira o valor total informado acima)</small>
     </div>
 
     <p class="footer-text">📢 APÓS O PAGAMENTO:</p>
-    <p style="font-size: 15px; margin: 5px 0;">Clique no botão abaixo para enviar o comprovante e combinar a retirada na Rodoviária!</p>
+    <p style="font-size: 15px; margin: 5px 0;">Clique no botão abaixo para compartilhar os dados do seu pedido e enviar o comprovante!</p>
 
-<a href="https://whatsapp.com." class="btn-whatsapp" target="_blank" rel="noopener noreferrer">🟢 Enviar Comprovante no WhatsApp</a>
-
+    <!-- BOTÃO INTELIGENTE: Decide sozinho se abre o Zap ou a caixa de compartilhamento do sistema -->
+    <button class="btn-whatsapp" onclick="finalizarECompartilhar()">🟢 Confirmar Pedido e Compartilhar</button>
 
     <a class="btn-voltar" href="./index.html">⬅️ Voltar para a Loja</a>
 
@@ -52,14 +57,18 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.08 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.10 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
 
 <script>
+    let totalGlobal = "13,00";
+    let qtdGlobal = 1;
+
     function inicializarPagamento() {
         iniciarRelogio();
+        calcularPedido();
     }
 
     function iniciarRelogio() {
@@ -72,14 +81,55 @@
         const dia = String(agora.getDate()).padStart(2, '0');
         const mes = String(agora.getMonth() + 1).padStart(2, '0');
         const ano = agora.getFullYear();
-        const elementoData = document.getElementById('live-date');
-        if (elementoData) { elementoData.innerText = dia + "/" + mes + "/" + ano; }
+        document.getElementById('live-date').innerText = dia + "/" + mes + "/" + ano;
 
         const horas = String(agora.getHours()).padStart(2, '0');
         const minutos = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
-        const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
+        document.getElementById('live-clock').innerText = horas + ":" + minutos + ":" + segundos;
+    }
+
+    function calcularPedido() {
+        qtdGlobal = parseInt(localStorage.getItem('jcs_qtd_pedido')) || 1;
+        let precoSimulado = localStorage.getItem('jcs_preco_simulado');
+        let precoUnitario = (precoSimulado === "1.99") ? 1.99 : 13.00;
+        
+        let valorTotal = qtdGlobal * precoUnitario;
+        totalGlobal = valorTotal.toFixed(2).replace('.', ',');
+
+        document.getElementById('resumo-pedido').innerHTML = 
+            `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s)<br>💰 Total a Pagar: R$ ${totalGlobal}`;
+    }
+
+    function finalizarECompartilhar() {
+        const telefone = "5511964856312";
+        
+        // 📝 Mensagem Profissional, Limpa e Organizada por Tópicos
+        const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
+                              `📦 *Produto:* Ovos de Codorna Jumbo\n` +
+                              `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
+                              `💵 *Valor Total:* R$ ${totalGlobal}\n` +
+                              `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
+                              `--- Estarei enviando o comprovante do PIX abaixo ---`;
+
+        // Se o navegador aceitar o compartilhamento nativo moderno (Celular ou Computadores modernos)
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pedido Mairiporã Agro',
+                text: textoMensagem
+            }).catch(function() {
+                // Caso o usuário cancele o compartilhamento nativo, manda pro link direto do Zap de segurança
+                abrirLinkDiretoWhatsApp(telefone, textoMensagem);
+            });
+        } else {
+            // Caso o navegador seja antigo, usa o redirecionamento direto sem erro 4xx
+            abrirLinkDiretoWhatsApp(telefone, textoMensagem);
+        }
+    }
+
+    function abrirLinkDiretoWhatsApp(tel, msg) {
+        const urlSegura = "https://whatsapp.com" + tel + "&text=" + encodeURIComponent(msg);
+        window.open(urlSegura, '_blank');
     }
 </script>
 </body>
