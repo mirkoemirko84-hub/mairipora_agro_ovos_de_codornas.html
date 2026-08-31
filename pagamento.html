@@ -101,16 +101,32 @@
             `🛒 Seu Pedido: ${String(qtdGlobal).padStart(2, '0')} Cartela(s)<br>💰 Total a Pagar: R$ ${totalGlobal}`;
     }
 
-    function finalizarECompartilhar() {
+        function finalizarECompartilhar() {
         const telefone = "5511964856312";
         
-        // 📝 Mensagem Profissional, Limpa e Organizada por Tópicos
+        // 📝 Mensagem Profissional formatada para o WhatsApp
         const textoMensagem = `🥚 *NOVO PEDIDO - MAIRIPORÃ AGRO*\n\n` +
                               `📦 *Produto:* Ovos de Codorna Jumbo\n` +
                               `🔢 *Quantidade:* ${qtdGlobal} cartela(s)\n` +
                               `💵 *Valor Total:* R$ ${totalGlobal}\n` +
                               `📍 *Retirada:* Rodoviária de Mairiporã\n\n` +
-                              `--- Estarei enviando o comprovante do PIX abaixo ---`;
+                              `--- Enviarei o comprovante do PIX abaixo ---`;
+
+        // 📋 Copia o texto automaticamente para a área de transferência do cliente (Ctrl+V)
+        navigator.clipboard.writeText(textoMensagem).then(function() {
+            alert("📋 Resumo do pedido copiado automaticamente!\n\nAgora você será direcionado para o WhatsApp para colar a mensagem e enviar o comprovante.");
+            abrirLinkDiretoWhatsApp(telefone, textoMensagem);
+        }).catch(function() {
+            // Caso o navegador bloqueie a cópia automática, abre o link direto sem travar
+            abrirLinkDiretoWhatsApp(telefone, textoMensagem);
+        });
+    }
+
+    function abrirLinkDiretoWhatsApp(tel, msg) {
+        // Usa o link universal de API expandida oficial que o Windows não consegue interceptar
+        const urlSegura = "https://whatsapp.com" + tel + "&text=" + encodeURIComponent(msg);
+        window.open(urlSegura, '_blank');
+    }
 
         // Se o navegador aceitar o compartilhamento nativo moderno (Celular ou Computadores modernos)
         if (navigator.share) {
