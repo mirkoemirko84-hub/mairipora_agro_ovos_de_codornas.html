@@ -37,15 +37,15 @@
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         
         <strong>Chave Pix:</strong><br>
-        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6 
-</span><br><br>
+        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br><br>
         <small style="color: #666;">(Escaneie o QR Code ou transfira para a chave acima)</small>
     </div>
 
     <p class="footer-text">📢 APÓS O PAGAMENTO:</p>
     <p style="font-size: 15px; margin: 5px 0;">Clique no botão abaixo para enviar o comprovante e combinar a retirada na Rodoviária!</p>
 
-    <a href="https://wa.me." class="btn-whatsapp" target="_blank">🟢 Enviar Comprovante no WhatsApp</a>
+    <!-- O link correto (href) será gerado dinamicamente pelo JavaScript abaixo -->
+    <a href="#" id="btn-whatsapp-link" class="btn-whatsapp" target="_blank">🟢 Enviar Comprovante no WhatsApp</a>
 
     <a class="btn-voltar" href="./index.html">⬅️ Voltar para a Loja</a>
 
@@ -55,7 +55,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.01 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.02 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -83,18 +83,33 @@
         }
 
         const horas = String(agora.getHours()).padStart(2, '0');
-        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const minutes = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         const elementoRelogio = document.getElementById('live-clock');
         if (elementoRelogio) {
-            elementoRelogio.innerText = `${horas}:${minutos}:${segundos}`;
+            elementoRelogio.innerText = `${horas}:${minutes}:${segundos}`;
         }
     }
 
     function carregarConfiguracoes() {
+        // 1. Controle da Chave Pix
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         if (chaveSalva) {
             document.getElementById('chave-pix-config').textContent = chaveSalva;
+        }
+
+        // 2. Controle e Correção do Link do WhatsApp
+        // Caso não exista número no localStorage, ele usará o número padrão inserido abaixo
+        let whatsSalva = localStorage.getItem('jcs_whatsapp_numero') || "5511999999999"; 
+        
+        // Remove caracteres extras se o usuário digitar errado no painel (deixa só números)
+        whatsSalva = whatsSalva.replace(/\D/g, ''); 
+        
+        const msgTexto = encodeURIComponent("Olá! Fiz o pagamento do meu pedido de ovos jumbo. Segue o comprovante.");
+        const btnWhats = document.getElementById('btn-whatsapp-link');
+        
+        if (btnWhats) {
+            btnWhats.href = `https://wa.me{whatsSalva}?text=${msgTexto}`;
         }
     }
 </script>
