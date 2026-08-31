@@ -12,6 +12,7 @@
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
+        .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .btn-whatsapp { background-color: #25d366; color: white; border: none; padding: 16px 20px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .footer-text { font-size: 15px; color: #333; font-weight: bold; margin-top: 20px; line-height: 1.5; }
@@ -30,9 +31,14 @@
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
     <div class="pix-box">
-        <div class="pix-title">🔑 CHAVE PIX (CNPJ/Celular/Email):</div>
+        <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
+        
+        <!-- Puxa automaticamente a imagem que já está no seu GitHub -->
+        <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
+        
+        <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config">SuaChavePixAqui</span><br><br>
-        <small style="color: #666;">(Transfira o valor total das suas cartelas para a chave acima)</small>
+        <small style="color: #666;">(Escaneie o QR Code ou transfira para a chave acima)</small>
     </div>
 
     <p class="footer-text">📢 APÓS O PAGAMENTO:</p>
@@ -67,7 +73,6 @@
     function atualizarTempo() {
         const agora = new Date();
         
-        // Atualiza a Data Dinamicamente
         const dia = String(agora.getDate()).padStart(2, '0');
         const mes = String(agora.getMonth() + 1).padStart(2, '0');
         const ano = agora.getFullYear();
@@ -76,7 +81,6 @@
             elementoData.innerText = `${dia}/${mes}/${ano}`;
         }
 
-        // Atualiza o Relógio Dinamicamente
         const horas = String(agora.getHours()).padStart(2, '0');
         const minutos = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
@@ -87,7 +91,6 @@
     }
 
     function carregarConfiguracoes() {
-        // Se você salvar a chave pix no localStorage pelo painel ADM, ela carrega aqui automaticamente
         let chaveSalva = localStorage.getItem('jcs_chave_pix');
         if (chaveSalva) {
             document.getElementById('chave-pix-config').textContent = chaveSalva;
