@@ -8,7 +8,6 @@
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; user-select: none; }
         .container { max-width: 480px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #e0e0e0; }
         
-        /* Topo do sistema com layout corrigido para o botão de início rápido */
         .header-system { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; color: #ffffff; background: #cc0000; padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
         .btn-top-inicio { background: #ffffff; color: #cc0000; text-decoration: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; transition: opacity 0.2s; }
         .btn-top-inicio:active { opacity: 0.8; }
@@ -16,7 +15,6 @@
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
         .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Bloco Central Amarelo Convertido em Link HTML Direto e Puro */
         .order-summary-link { display: block; text-decoration: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 18px; font-weight: bold; color: #856404; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
@@ -25,21 +23,19 @@
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
-        /* Botão de voltar repensado com cor comercial atraente */
         .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
         .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
         
-        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; }
+        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; -webkit-tap-highlight-color: transparent; }
         .btn-copiar-pix:active { transform: scale(0.98); }
     </style>
 </head>
 <body onload="inicializarPagamento()">
 
 <div class="container">
-    <!-- Topo atualizado com link direto para voltar ao início rápido se o cliente quiser -->
     <div class="header-system">
         <div>⏱️ <span id="live-date">..</span> <span id="live-clock">..</span></div>
         <a href="./index.html" class="btn-top-inicio">🏠 INÍCIO</a>
@@ -48,7 +44,6 @@
     <h1>🔒 Finalizar Pedido</h1>
     <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
 
-    <!-- CRITÉRIO DE CHARME: target="_blank" faz abrir o Zap em outra aba sem fechar o seu site -->
     <a href="https://whatsapp.com" class="order-summary-link" target="_blank">
         <div id="resumo-texto">🛒 Verifique o valor total abaixo</div>
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
@@ -60,7 +55,8 @@
         <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br>
         
-        <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copyCodePix()">
+        <!-- Botão com chamada direta e limpa para celulares -->
+        <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
             📋 Copiar Código Copia e Cola
         </button>
         <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-top: 8px; font-size: 14px; display: none;">
@@ -68,7 +64,6 @@
         </div>
     </div>
 
-    <!-- Botão de retorno principal da página mais chamativo -->
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
 
     <div class="secure-footer">
@@ -77,7 +72,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.23 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.24 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -118,25 +113,60 @@
         }
     }
 
-    function copyCodePix() {
-        const brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
+    // Função universal testada para navegadores mobile e desktop
+    function copiarCodigoPix() {
+        var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
         
-        navigator.clipboard.writeText(brCodeOficial).then(() => {
-            const msg = document.getElementById("msgSucesso");
-            const btn = document.getElementById("btnCopiarPix");
-            
-            msg.style.display = "block";
-            btn.innerHTML = "👍 Copiado!";
-            btn.style.backgroundColor = "#1e7e34";
-            
-            setTimeout(() => {
-                msg.style.display = "none";
-                btn.innerHTML = "📋 Copiar Código Copia e Cola";
-                btn.style.backgroundColor = "#27ae60";
-            }, 4000);
-        }).catch(err => {
-            alert("Erro ao copiar automaticamente. Copie a chave exibida na tela.");
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(brCodeOficial).then(function() {
+                mostrarSucessoPix();
+            }).catch(function(err) {
+                fallbackCopiarPix(brCodeOficial);
+            });
+        } else {
+            fallbackCopiarPix(brCodeOficial);
+        }
+    }
+
+    function mostrarSucessoPix() {
+        var msg = document.getElementById("msgSucesso");
+        var btn = document.getElementById("btnCopiarPix");
+        
+        msg.style.display = "block";
+        btn.innerHTML = "👍 Copiado!";
+        btn.style.backgroundColor = "#1e7e34";
+        
+        setTimeout(function() {
+            msg.style.display = "none";
+            btn.innerHTML = "📋 Copiar Código Copia e Cola";
+            btn.style.backgroundColor = "#27ae60";
+        }, 4000);
+    }
+
+    // Sistema de segurança reserva caso o celular bloqueie o comando principal
+    function fallbackCopiarPix(texto) {
+        var textArea = document.createElement("textarea");
+        textArea.value = texto;
+        textArea.style.position = "fixed"; 
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.width = "2em";
+        textArea.style.height = "2em";
+        textArea.style.padding = "0";
+        textArea.style.border = "none";
+        textArea.style.outline = "none";
+        textArea.style.boxShadow = "none";
+        textArea.style.background = "transparent";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            mostrarSucessoPix();
+        } catch (err) {
+            alert("Por favor, tire um print do QR Code para pagar.");
+        }
+        document.body.removeChild(textArea);
     }
 </script>
 </body>
