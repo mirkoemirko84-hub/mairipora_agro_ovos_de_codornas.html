@@ -22,6 +22,10 @@
         .btn-voltar { background-color: #7f8c8d; color: white; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         .credits-footer { margin-top: 25px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; padding-top: 10px; line-height: 1.4; font-family: monospace; }
+        
+        /* Estilo elegante para o novo botão do Pix Copia e Cola */
+        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; }
+        .btn-copiar-pix:active { transform: scale(0.98); }
     </style>
 </head>
 <body onload="inicializarPagamento()">
@@ -44,8 +48,15 @@
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         <strong>Chave Pix:</strong><br>
-        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br><br>
-        <small style="color: #666;">(Escaneie o QR Code acima para transferir o valor)</small>
+        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br>
+        
+        <!-- NOVO: Botão Copia e Cola do Pix Oficial -->
+        <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
+            📋 Copiar Código Copia e Cola
+        </button>
+        <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-top: 8px; font-size: 14px; display: none;">
+            ✅ Código Pix copiado! Abra o app do seu banco.
+        </div>
     </div>
 
     <a class="btn-voltar" href="./index.html">⬅️ Voltar para a Loja</a>
@@ -56,7 +67,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.21 | 🔏 cadeado de segurança<br>
+        versão 26.08.31.22 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -95,6 +106,28 @@
         if (chaveSalva && elementoChave) {
             elementoChave.textContent = chaveSalva;
         }
+    }
+
+    // NOVA FUNÇÃO: Copia o código BR Code oficial do Bradesco com segurança
+    function copiarCodigoPix() {
+        const brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
+        
+        navigator.clipboard.writeText(brCodeOficial).then(() => {
+            const msg = document.getElementById("msgSucesso");
+            const btn = document.getElementById("btnCopiarPix");
+            
+            msg.style.display = "block";
+            btn.innerHTML = "👍 Copiado!";
+            btn.style.backgroundColor = "#1e7e34";
+            
+            setTimeout(() => {
+                msg.style.display = "none";
+                btn.innerHTML = "📋 Copiar Código Copia e Cola";
+                btn.style.backgroundColor = "#27ae60";
+            }, 4000);
+        }).catch(err => {
+            alert("Erro ao copiar automaticamente. Copie a chave exibida na tela.");
+        });
     }
 </script>
 </body>
