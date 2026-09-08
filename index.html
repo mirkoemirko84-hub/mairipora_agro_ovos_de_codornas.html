@@ -35,7 +35,7 @@
 
     <div class="stock-box">
         📌 <strong>Status do Dia:</strong><br>
-        📦 Estoque Produzidas: <span id="val-estoque-loja" style="font-weight:bold;">12</span> cartelas<br>
+        📦 Estoque Produzidas: <span id="val-estoque-loja" style="font-weight:bold;">13</span> cartelas<br>
         🔒 Reservas: <span id="val-reservas-loja" style="font-weight:bold;">24</span> unidades de ovos soltos
     </div>
 
@@ -54,7 +54,7 @@
 
     <div class="credits-footer">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.08 | 🔏 cadeado de segurança<br>
+        versão 26.09.08.13 | 🔏 cadeado de segurança<br>
         © direitos autorais protegidos
     </div>
 </div>
@@ -83,12 +83,12 @@
         const minutos = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutes + ":" + segundos; }
+        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
 
     function carregarEstoqueLoja() {
-        // Alinhado com o cofre de hoje: 12 cartelas prontas e 24 ovos avulsos padrão
-        let estoqueReal = localStorage.getItem('jcs_estoque_atual') || "12";
+        // Alinhado com o estoque real de hoje: 13 cartelas prontas (390 ovos) e 24 avulsos
+        let estoqueReal = localStorage.getItem('jcs_estoque_atual') || "13";
         let reservasReais = localStorage.getItem('jcs_reservas_atual') || "24";
         let statusSite = localStorage.getItem('jcs_status_site') || 'online';
         let precoSimulado = localStorage.getItem('jcs_preco_simulado');
