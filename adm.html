@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>JCS Admin App</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#17509e">
     <style>
         body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 20px; user-select: none; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
         .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
-        .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+        .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; }
         .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
         .app-label { font-size: 16px; color: #333333; font-weight: bold; margin-bottom: -5px; }
         .control-box { background-color: #ffffff; border: 2px solid #cccccc; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .counter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .counter-value { font-size: 26px; font-weight: bold; color: #17509e; min-width: 60px; text-align: center; font-family: monospace; }
-        .btn-calc { background-color: #34495e; color: white; border: none; font-size: 24px; font-weight: bold; width: 55px; height: 55px; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); }
-        .btn-calc:active { transform: scale(0.95); }
-        .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
-        .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0px 3px 0px rgba(0,0,0,0.2); display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
+        .btn-calc { background-color: #34495e; color: white; border: none; font-size: 24px; font-weight: bold; width: 55px; height: 55px; border-radius: 8px; cursor: pointer; }
+        .btn-zerar { background-color: #cc092f; color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center; }
+        .app-button { width: 100%; padding: 18px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 8px; display: block; box-sizing: border-box; text-align: center; text-decoration: none; }
         .btn-gray { background-color: #6c757d; margin-top: 5px; }
-        .btn-orange { background-color: #e67e22; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; margin-top: 5px; }
-        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
-        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; }
+        .btn-orange { background-color: #e67e22; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; text-align: center; margin-top: 5px; cursor: pointer; }
+        .btn-status-online { background-color: #27ae60; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; text-align: center; cursor: pointer; }
+        .btn-status-manutencao { background-color: #d35400; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; text-align: center; cursor: pointer; }
         .area-restrita { padding: 30px 20px; text-align: center; }
         .input-senha { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; box-sizing: border-box; margin: 15px 0; text-align: center; }
-        .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; line-height: 1.4; font-family: monospace; }
-        
-        /* Estilos da Manobra de Venda no Portão */
-        .btn-portao { background-color: #9b59b6; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; margin-top: 5px; }
+        .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; font-family: monospace; }
+        .btn-portao { background-color: #9b59b6; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; text-align: center; margin-top: 5px; cursor: pointer; }
         .box-portao-ativo { background-color: #f9f9f9; border: 2px dashed #9b59b6; border-radius: 8px; padding: 15px; text-align: center; display: none; flex-direction: column; align-items: center; gap: 10px; margin-top: 5px; }
         .timer-regressivo { font-size: 18px; font-weight: bold; color: #cc092f; font-family: monospace; background: #ffebeb; padding: 5px 10px; border-radius: 4px; border: 1px solid #ffccd5; }
         .qrcode-wrapper { background: white; padding: 10px; border: 1px solid #ddd; border-radius: 8px; display: inline-block; }
@@ -43,13 +37,12 @@
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
         <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
         <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
-        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Panel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
     <div id="adminContent" style="display: none;">
         <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
-        
         <div class="app-container">
             <div class="app-label">📦 Estoque de Cartelas Atual:</div>
             <div class="control-box">
@@ -74,24 +67,21 @@
             <div class="app-label">🚦 Status de Vendas do Site:</div>
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
-            <!-- 🚪 MANOBRA DISCRETA: VENDA DE FINAL DE SEMANA NO PORTÃO -->
-            <div class="app-label">🚪 Venda Rápida no Portão (Sem Sinal Celular):</div>
+            <div class="app-label">🚪 Venda Rápida no Portão:</div>
             <button id="btnAtivarPortao" class="btn-portao" onclick="liberarAcessoPortao()">⏱️ Ativar Wi-Fi + PIX (2 Minutos)</button>
             
             <div id="boxPortaoArea" class="box-portao-ativo">
                 <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
-                <p style="margin: 0; font-size: 12px; color: #555;"><b>Instruções:</b> Peça para o cliente escanear o QR Code abaixo para conectar no Wi-Fi automaticamente ou use a senha manual.</p>
+                <p style="margin: 0; font-size: 12px; color: #555;">Peça para o cliente escanear o QR Code para conectar no Wi-Fi.</p>
                 <div class="qrcode-wrapper" id="qrWifiContainer"></div>
                 <div style="font-size: 13px; font-family: monospace; background: #eee; padding: 6px; border-radius: 4px; width: 90%; word-break: break-all;">
                     <b>Senha Wi-Fi Manual:</b> lilian123
                 </div>
-                <p style="margin: 5px 0 0 0; font-size: 12px; color: #555;"><b>Pagamento Direto:</b> Abra o PIX do site para o recebimento.</p>
                 <button class="btn-zerar" style="width: 100%; margin-top: 5px; padding: 8px;" onclick="trancarPortaoImediato()">Trancar Imediatamente 🔒</button>
             </div>
 
-            <!-- APENAS O SIMULADOR DO R$ 1,99 TRADICIONAL -->
             <div class="app-label">🧪 Testes do Sistema:</div>
-            <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste (R$ 1,99) / Normal</button>
+            <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste / Normal</button>
 
             <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;" onclick="encerrarSessao()">⬅️ Sair e Voltar para a Loja</a>
         </div>
@@ -109,40 +99,49 @@
     let timerIntervalo = null;
 
     function verificarSessaoInicial() {
-        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') {
-            exibirPainelControle();
-        }
+        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { exibirPainelControle(); }
     }
-
     function validarSenha() {
-        const campo = document.getElementById('senhaAcesso').value;
-        if (campo === CONFIG_SENHA) {
+        if (document.getElementById('senhaAcesso').value === CONFIG_SENHA) {
             sessionStorage.setItem('jcs_adm_autenticado', 'sim');
             exibirPainelControle();
-        } else {
-            alert('Senha Incorreta! Acesso estritamente negado.');
-        }
+        } else { alert('Senha Incorreta!'); }
     }
-
     function exibirPainelControle() {
         document.getElementById('loginBlock').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
         inicializarValores();
     }
-
     function encerrarSessao() {
         trancarPortaoImediato();
         sessionStorage.removeItem('jcs_adm_autenticado');
     }
-
     function inicializarValores() {
         let est = localStorage.getItem('jcs_estoque_atual') || "03";
         let res = localStorage.getItem('jcs_reservas_atual') || "16";
         let sta = localStorage.getItem('jcs_status_site') || "online";
-
         document.getElementById('lblEstoque').innerText = String(est).padStart(2, '0');
         document.getElementById('lblReservas').innerText = String(res).padStart(2, '0');
         atualizarBotaoStatusVisual(sta);
     }
-
     function alterarEstoque(v) {
+        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblEstoque').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_estoque_atual', novo);
+    }
+    function zerarEstoque() {
+        if(confirm("Zerar estoque?")) { document.getElementById('lblEstoque').innerText = "00"; localStorage.setItem('jcs_estoque_atual', 0); }
+    }
+    function alterarReservas(v) {
+        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
+        let novo = Math.max(0, atual + v);
+        document.getElementById('lblReservas').innerText = String(novo).padStart(2, '0');
+        localStorage.setItem('jcs_reservas_atual', novo);
+    }
+    function zerarReservas() {
+        if(confirm("Limpar reservas?")) { document.getElementById('lblReservas').innerText = "00"; localStorage.setItem('jcs_reservas_atual', 0); }
+    }
+    function alternarStatusSite() {
+        let atual = localStorage.getItem('jcs_status_site') || "online";
+        let novo = (atual === "online") ? "manutencao" : "online";
