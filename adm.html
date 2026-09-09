@@ -27,6 +27,12 @@
         .area-restrita { padding: 30px 20px; text-align: center; }
         .input-senha { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; line-height: 1.4; font-family: monospace; }
+        
+        /* Estilos da Manobra de Venda no Portão */
+        .btn-portao { background-color: #9b59b6; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; box-shadow: 0px 2px 0px rgba(0,0,0,0.2); text-align: center; margin-top: 5px; }
+        .box-portao-ativo { background-color: #f9f9f9; border: 2px dashed #9b59b6; border-radius: 8px; padding: 15px; text-align: center; display: none; flex-direction: column; align-items: center; gap: 10px; margin-top: 5px; }
+        .timer-regressivo { font-size: 18px; font-weight: bold; color: #cc092f; font-family: monospace; background: #ffebeb; padding: 5px 10px; border-radius: 4px; border: 1px solid #ffccd5; }
+        .qrcode-wrapper { background: white; padding: 10px; border: 1px solid #ddd; border-radius: 8px; display: inline-block; }
     </style>
 </head>
 <body onload="verificarSessaoInicial()">
@@ -68,6 +74,21 @@
             <div class="app-label">🚦 Status de Vendas do Site:</div>
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
+            <!-- 🚪 MANOBRA DISCRETA: VENDA DE FINAL DE SEMANA NO PORTÃO -->
+            <div class="app-label">🚪 Venda Rápida no Portão (Sem Sinal Celular):</div>
+            <button id="btnAtivarPortao" class="btn-portao" onclick="liberarAcessoPortao()">⏱️ Ativar Wi-Fi + PIX (2 Minutos)</button>
+            
+            <div id="boxPortaoArea" class="box-portao-ativo">
+                <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
+                <p style="margin: 0; font-size: 12px; color: #555;"><b>Instruções:</b> Peça para o cliente escanear o QR Code abaixo para conectar no Wi-Fi automaticamente ou use a senha manual.</p>
+                <div class="qrcode-wrapper" id="qrWifiContainer"></div>
+                <div style="font-size: 13px; font-family: monospace; background: #eee; padding: 6px; border-radius: 4px; width: 90%; word-break: break-all;">
+                    <b>Senha Wi-Fi Manual:</b> lilian123
+                </div>
+                <p style="margin: 5px 0 0 0; font-size: 12px; color: #555;"><b>Pagamento Directo:</b> Abra o PIX do site para o recebimento.</p>
+                <button class="btn-zerar" style="width: 100%; margin-top: 5px; padding: 8px;" onclick="trancarPortaoImediato()">Trancar Imediatamente 🔒</button>
+            </div>
+
             <!-- APENAS O SIMULADOR DO R$ 1,99 TRADICIONAL -->
             <div class="app-label">🧪 Testes do Sistema:</div>
             <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste (R$ 1,99) / Normal</button>
@@ -85,6 +106,7 @@
 
 <script>
     const CONFIG_SENHA = "4971";
+    let timerIntervalo = null;
 
     function verificarSessaoInicial() {
         if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') {
@@ -109,6 +131,7 @@
     }
 
     function encerrarSessao() {
+        trancarPortaoImediato();
         sessionStorage.removeItem('jcs_adm_autenticado');
     }
 
@@ -123,60 +146,3 @@
     }
 
     function alterarEstoque(v) {
-        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
-        let novo = Math.max(0, atual + v);
-        document.getElementById('lblEstoque').innerText = String(novo).padStart(2, '0');
-        localStorage.setItem('jcs_estoque_atual', novo);
-    }
-
-    function zerarEstoque() {
-        if(confirm("Deseja zerar o estoque de cartelas produzidas?")) {
-            document.getElementById('lblEstoque').innerText = "00";
-            localStorage.setItem('jcs_estoque_atual', 0);
-        }
-    }
-
-    function alterarReservas(v) {
-        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
-        let novo = Math.max(0, atual + v);
-        document.getElementById('lblReservas').innerText = String(novo).padStart(2, '0');
-        localStorage.setItem('jcs_reservas_atual', novo);
-    }
-
-    function zerarReservas() {
-        if(confirm("Deseja limpar as reservas de ovos?")) {
-            document.getElementById('lblReservas').innerText = "00";
-            localStorage.setItem('jcs_reservas_atual', 0);
-        }
-    }
-
-    function alternarStatusSite() {
-        let atual = localStorage.getItem('jcs_status_site') || "online";
-        let novo = (atual === "online") ? "manutencao" : "online";
-        localStorage.setItem('jcs_status_site', novo);
-        atualizarBotaoStatusVisual(novo);
-    }
-
-    function atualizarBotaoStatusVisual(status) {
-        const btn = document.getElementById('btnStatusSite');
-        if (status === "manutencao") {
-            btn.className = "btn-status-manutencao";
-            btn.innerText = "❌ Loja em Manutenção / Suspensa";
-        } else {
-            btn.className = "btn-status-online";
-            btn.innerText = "🟢 Loja Online / Ativa";
-        }
-    }
-
-    function alternarSimuladorCompra() {
-        let atual = localStorage.getItem('jcs_preco_simulado');
-        if (atual === "1.99") {
-            localStorage.removeItem('jcs_preco_simulado');
-            alert("Simulador Desativado! O site voltou ao preço comercial de R$ 13,00.");
-        } else {
-            localStorage.setItem('jcs_preco_simulado', "1.99");
-            alert("Simulador Ativado! O site exibirá o valor de R$ 1,99 para seus testes.");
-        }
-    }
-</script>
-</body>
