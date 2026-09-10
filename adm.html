@@ -37,7 +37,7 @@
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
         <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
         <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
-        <button class="btn-status-online" onclick="validarSenha()">Entrar no Panel 🔑</button>
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
@@ -73,7 +73,7 @@
             <div id="boxPortaoArea" class="box-portao-ativo">
                 <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
                 <p style="margin: 0; font-size: 12px; color: #555;">Peça para o cliente escanear o QR Code para conectar no Wi-Fi.</p>
-                <div class="qrcode-wrapper" id="qrWifiContainer"></div>
+                <div class="qrcode-wrapper" id="qrWifiContainer">💾 [QR Code WiFi]</div>
                 <div style="font-size: 13px; font-family: monospace; background: #eee; padding: 6px; border-radius: 4px; width: 90%; word-break: break-all;">
                     <b>Senha Wi-Fi Manual:</b> lilian123
                 </div>
@@ -99,49 +99,72 @@
     let timerIntervalo = null;
 
     function verificarSessaoInicial() {
-        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { exibirPainelControle(); }
+        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { 
+            exibirPainelControle(); 
+        }
     }
+
     function validarSenha() {
         if (document.getElementById('senhaAcesso').value === CONFIG_SENHA) {
             sessionStorage.setItem('jcs_adm_autenticado', 'sim');
             exibirPainelControle();
-        } else { alert('Senha Incorreta!'); }
+        } else { 
+            alert('Senha Incorreta!'); 
+        }
     }
+
     function exibirPainelControle() {
         document.getElementById('loginBlock').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
-        inicializarValores();
     }
+
     function encerrarSessao() {
-        trancarPortaoImediato();
         sessionStorage.removeItem('jcs_adm_autenticado');
     }
-    function inicializarValores() {
-        let est = localStorage.getItem('jcs_estoque_atual') || "03";
-        let res = localStorage.getItem('jcs_reservas_atual') || "16";
-        let sta = localStorage.getItem('jcs_status_site') || "online";
-        document.getElementById('lblEstoque').innerText = String(est).padStart(2, '0');
-        document.getElementById('lblReservas').innerText = String(res).padStart(2, '0');
-        atualizarBotaoStatusVisual(sta);
+
+    function alterarEstoque(valor) {
+        let campo = document.getElementById('lblEstoque');
+        let atual = parseInt(campo.innerText, 10);
+        let novo = Math.max(0, atual + valor);
+        campo.innerText = novo.toString().padStart(2, '0');
     }
-    function alterarEstoque(v) {
-        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
-        let novo = Math.max(0, atual + v);
-        document.getElementById('lblEstoque').innerText = String(novo).padStart(2, '0');
-        localStorage.setItem('jcs_estoque_atual', novo);
-    }
+
     function zerarEstoque() {
-        if(confirm("Zerar estoque?")) { document.getElementById('lblEstoque').innerText = "00"; localStorage.setItem('jcs_estoque_atual', 0); }
+        if(confirm("Deseja mesmo zerar o estoque?")) {
+            document.getElementById('lblEstoque').innerText = "00";
+        }
     }
-    function alterarReservas(v) {
-        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
-        let novo = Math.max(0, atual + v);
-        document.getElementById('lblReservas').innerText = String(novo).padStart(2, '0');
-        localStorage.setItem('jcs_reservas_atual', novo);
+
+    function alterarReservas(valor) {
+        let campo = document.getElementById('lblReservas');
+        let atual = parseInt(campo.innerText, 10);
+        let novo = Math.max(0, atual + valor);
+        campo.innerText = novo.toString().padStart(2, '0');
     }
+
     function zerarReservas() {
-        if(confirm("Limpar reservas?")) { document.getElementById('lblReservas').innerText = "00"; localStorage.setItem('jcs_reservas_atual', 0); }
+        if(confirm("Deseja limpar todas as reservas?")) {
+            document.getElementById('lblReservas').innerText = "00";
+        }
     }
+
     function alternarStatusSite() {
-        let atual = localStorage.getItem('jcs_status_site') || "online";
-        let novo = (atual === "online") ? "manutencao" : "online";
+        let btn = document.getElementById('btnStatusSite');
+        if (btn.classList.contains('btn-status-online')) {
+            btn.classList.remove('btn-status-online');
+            btn.classList.add('btn-status-manutencao');
+            btn.innerText = "🟠 Loja em Manutenção";
+        } else {
+            btn.classList.remove('btn-status-manutencao');
+            btn.classList.add('btn-status-online');
+            btn.innerText = "🟢 Loja Online / Ativa";
+        }
+    }
+
+    function liberarAcessoPortao() {
+        document.getElementById('boxPortaoArea').style.display = 'flex';
+        let tempo = 120;
+        clearInterval(timerIntervalo);
+        
+        timerIntervalo = setInterval(() => {
+            tempo--;
