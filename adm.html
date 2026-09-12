@@ -96,42 +96,49 @@
 
             <div class="app-label">🧪 Testes de Validação e Cache:</div>
             <button class="btn-orange" onclick="limparDadosCache()">Forçar Limpeza de Cache Local 🌀</button>
-            <button class="btn-gray" style="width: 100%; font-weight: bold;" onclick="fazerLogout()">Sair do Painel 🚪</button>
+            <button class="app-button btn-gray" onclick="deslogarPainel()">🔒 Sair do Painel</button>
         </div>
-        <div class="credits-footer">Mairiporã Agro - JCS ADM v24</div>
+        <div class="credits-footer">JCS SISTEMA v2.5 • PROTEGIDO</div>
     </div>
 </div>
 
 <script>
-    const SENHA_CORRETA = "4971";
-    let tempoPortaoTimer = null;
+    let tempoPortaoInterval = null;
 
-    function exibirAlerta(mensagem, tipo = "sucesso") {
-        const toast = document.getElementById("toastNotificacao");
+    function mostrarToast(mensagem, tipo = 'sucesso') {
+        const toast = document.getElementById('toastNotificacao');
         toast.innerText = mensagem;
-        toast.className = "toast-alerta " + (tipo === "sucesso" ? "toast-sucesso" : "toast-erro");
-        toast.classList.add("show");
-        setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        toast.className = 'toast-alerta ' + (tipo === 'sucesso' ? 'toast-sucesso' : 'toast-erro');
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 3000);
     }
 
     function verificarSessaoInicial() {
-        if (sessionStorage.getItem("jcs_adm_autenticado") === "true") {
-            document.getElementById("loginBlock").style.display = "none";
-            document.getElementById("adminContent").style.display = "block";
-            atualizarInterface();
+        if (sessionStorage.getItem('adm_autenticado') === 'true') {
+            document.getElementById('loginBlock').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            carregarValoresIniciais();
         }
-        if (localStorage.getItem("estoque_cartelas") === null) localStorage.setItem("estoque_cartelas", "16");
-        if (localStorage.getItem("ovos_reservados") === null) localStorage.setItem("ovos_reservados", "16");
-        if (localStorage.getItem("status_site") === null) localStorage.setItem("status_site", "online");
+        
+        // Listener para permitir entrar apertando a tecla Enter
+        document.getElementById('senhaAcesso').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validarSenha();
+        });
     }
 
     function validarSenha() {
-        const inputSenha = document.getElementById("senhaAcesso").value;
-        if (inputSenha === SENHA_CORRETA) {
-            sessionStorage.setItem("jcs_adm_autenticado", "true");
-            document.getElementById("loginBlock").style.display = "none";
-            document.getElementById("adminContent").style.display = "block";
-            exibirAlerta("Acesso autorizado com sucesso!", "sucesso");
-            atualizarInterface();
+        const senhaDigitada = document.getElementById('senhaAcesso').value;
+        if (senhaDigitada === "4971") {
+            sessionStorage.setItem('adm_autenticado', 'true');
+            document.getElementById('loginBlock').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            carregarValoresIniciais();
+            mostrarToast("Acesso liberado com sucesso! 🔓");
         } else {
-            exibirAlerta("Senha inválida! Tente novamente.", "erro");
+            mostrarToast("Senha de Administrador Incorreta! ❌", "erro");
+            document.getElementById('senhaAcesso').value = '';
+            document.getElementById('senhaAcesso').focus();
+        }
+    }
+
+    function deslogarPainel() {
