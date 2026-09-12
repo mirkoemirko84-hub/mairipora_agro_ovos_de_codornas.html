@@ -1,4 +1,0 @@
-<!-- O ADM agora busca a imagem física do QR Code na pasta, sem embutir códigos pesados -->
-<div class="qrcode-wrapper" id="qrWifiContainer">
-    <img src="./qrcode-wifi.png" alt="QR Code WiFi" style="width: 150px; height: 150px; display: block;">
-</div>
