@@ -46,7 +46,7 @@
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
         <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
         <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM" autofocus>
-        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Panel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
@@ -84,7 +84,6 @@
                 <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
                 <p style="margin: 0; font-size: 12px; color: #555;">Peça para o cliente escanear o QR Code para conectar no Wi-Fi.</p>
                 
-                <!-- CHAMADA DA IMAGEM ISOLADA NA PASTA JCS ADM CONFORME SUA ESTRATÉGIA -->
                 <div class="qrcode-wrapper" id="qrWifiContainer">
                     <img src="./JCS ADM/qrcode-wifi.png" alt="QR Code WiFi" style="width: 150px; height: 150px; display: block;" onerror="this.src='./qrcode-pagamento.png'">
                 </div>
@@ -95,45 +94,45 @@
                 <button class="btn-zerar" style="width: 100%; margin-top: 5px; padding: 8px;" onclick="trancarPortaoImediato()">Trancar Imediatamente 🔒</button>
             </div>
 
-            <div class="app-label">🧪 Testes de Pagamento do Sistema:</div>
-            <button class="btn-orange" onclick="testarValorPagamento(13)">🛒 Simular Pagamento R$ 13,00 (Aceito)</button>
-            <button class="btn-orange" onclick="testarValorPagamento(12)" style="background-color: #2980b9; margin-top: 8px;">🛒 Simular Pagamento R$ 12,00 (Aceito)</button>
-            <button class="btn-zerar" onclick="testarValorPagamento(11)" style="width: 100%; margin-top: 8px; padding: 15px; font-size: 16px;">🛒 Simular Pagamento R$ 11,00 (Rejeitado)</button>
-
-            <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;" onclick="encerrarSessao()">⬅️ Sair e Voltar para a Loja</a>
+            <div class="app-label">🧪 Testes de Validação e Cache:</div>
+            <button class="btn-orange" onclick="limparDadosCache()">Forçar Limpeza de Cache Local 🌀</button>
+            <button class="btn-gray" style="width: 100%; font-weight: bold;" onclick="fazerLogout()">Sair do Painel 🚪</button>
         </div>
-    </div>
-
-    <div class="credits-footer">
-        JCS_software . JCS_criatório<br>
-        versão 26.09.25.01 | 🔏 cadeado de segurança<br>
-        © direitos autorais protegidos
+        <div class="credits-footer">Mairiporã Agro - JCS ADM v24</div>
     </div>
 </div>
 
 <script>
-    const CONFIG_SENHA = "4971";
-    let timerIntervalo = null;
+    // Configurações Globais baseadas no LocalStorage
+    const SENHA_CORRETA = "4971";
+    let tempoPortaoTimer = null;
 
-    document.getElementById('senhaAcesso').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') validarSenha();
-    });
-
-    function mostrarAlerta(mensagem, tipo = 'sucesso') {
-        const toast = document.getElementById('toastNotificacao');
+    function exibirAlerta(mensagem, tipo = "sucesso") {
+        const toast = document.getElementById("toastNotificacao");
         toast.innerText = mensagem;
-        toast.className = `toast-alerta toast-${tipo} show`;
-        setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        toast.className = "toast-alerta " + (tipo === "sucesso" ? "toast-sucesso" : "toast-erro");
+        toast.classList.add("show");
+        setTimeout(() => { toast.classList.remove("show"); }, 3000);
     }
 
     function verificarSessaoInicial() {
-        document.getElementById('lblEstoque').innerText = (localStorage.getItem('jcs_estoque') || '16').padStart(2, '0');
-        document.getElementById('lblReservas').innerText = (localStorage.getItem('jcs_reservas') || '16').padStart(2, '0');
-        
-        if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { 
-            exibirPainelControle(); 
+        if (sessionStorage.getItem("jcs_adm_autenticado") === "true") {
+            document.getElementById("loginBlock").style.display = "none";
+            document.getElementById("adminContent").style.display = "block";
+            atualizarInterface();
         }
+        
+        // Inicializar os valores caso não existam
+        if (localStorage.getItem("estoque_cartelas") === null) localStorage.setItem("estoque_cartelas", "16");
+        if (localStorage.getItem("ovos_reservados") === null) localStorage.setItem("ovos_reservados", "16");
+        if (localStorage.getItem("status_site") === null) localStorage.setItem("status_site", "online");
     }
 
     function validarSenha() {
-        const senhaInserida = document.getElementById('senhaAcesso').value;
+        const inputSenha = document.getElementById("senhaAcesso").value;
+        if (inputSenha === SENHA_CORRETA) {
+            sessionStorage.setItem("jcs_adm_autenticado", "true");
+            document.getElementById("loginBlock").style.display = "none";
+            document.getElementById("adminContent").style.display = "block";
+            exibirAlerta("Acesso autorizado com sucesso!", "sucesso");
+            atualizarInterface();
