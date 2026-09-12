@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>JCS Admin App</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 20px; user-select: none; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
@@ -107,7 +110,7 @@
 
     function mostrarToast(mensagem, tipo = 'sucesso') {
         const toast = document.getElementById('toastNotificacao');
-        toast.innerText = message = mensagem;
+        toast.innerText = mensagem;
         toast.className = 'toast-alerta ' + (tipo === 'sucesso' ? 'toast-sucesso' : 'toast-erro');
         toast.classList.add('show');
         setTimeout(() => { toast.classList.remove('show'); }, 3000);
@@ -137,9 +140,3 @@
             carregarValoresIniciais();
             mostrarToast("Acesso liberado com sucesso! 🔓");
         } else {
-            mostrarToast("Senha de Administrador Incorreta! ❌", "erro");
-            document.getElementById('senhaAcesso').value = '';
-            document.getElementById('senhaAcesso').focus();
-        }
-    }
-
