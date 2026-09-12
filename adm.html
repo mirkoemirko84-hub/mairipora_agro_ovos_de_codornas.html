@@ -83,7 +83,12 @@
             <div id="boxPortaoArea" class="box-portao-ativo">
                 <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
                 <p style="margin: 0; font-size: 12px; color: #555;">Peça para o cliente escanear o QR Code para conectar no Wi-Fi.</p>
-                <div class="qrcode-wrapper" id="qrWifiContainer">💾 [QR Code WiFi]</div>
+                
+                <!-- CHAMADA DA IMAGEM ISOLADA NA PASTA JCS ADM CONFORME SUA ESTRATÉGIA -->
+                <div class="qrcode-wrapper" id="qrWifiContainer">
+                    <img src="./JCS ADM/qrcode-wifi.png" alt="QR Code WiFi" style="width: 150px; height: 150px; display: block;" onerror="this.src='./qrcode-pagamento.png'">
+                </div>
+
                 <div style="font-size: 13px; font-family: monospace; background: #eee; padding: 6px; border-radius: 4px; width: 90%; word-break: break-all;">
                     <b>Senha Wi-Fi Manual:</b> lilian123
                 </div>
@@ -132,9 +137,3 @@
 
     function validarSenha() {
         const senhaInserida = document.getElementById('senhaAcesso').value;
-        if (senhaInserida === CONFIG_SENHA) {
-            sessionStorage.setItem('jcs_adm_autenticado', 'sim');
-            exibirPainelControle();
-            mostrarAlerta('Acesso concedido! Bem-vindo.', 'sucesso');
-        } else { 
-            mostrarAlerta('Senha Incorreta! Tente de novo.', 'erro');
