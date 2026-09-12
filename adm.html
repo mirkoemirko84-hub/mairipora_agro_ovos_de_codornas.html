@@ -6,7 +6,7 @@
     <title>JCS Admin App</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 20px; user-select: none; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
+        .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; position: relative; }
         .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; }
         .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
         .app-label { font-size: 16px; color: #333333; font-weight: bold; margin-bottom: -5px; }
@@ -27,9 +27,17 @@
         .box-portao-ativo { background-color: #f9f9f9; border: 2px dashed #9b59b6; border-radius: 8px; padding: 15px; text-align: center; display: none; flex-direction: column; align-items: center; gap: 10px; margin-top: 5px; }
         .timer-regressivo { font-size: 18px; font-weight: bold; color: #cc092f; font-family: monospace; background: #ffebeb; padding: 5px 10px; border-radius: 4px; border: 1px solid #ffccd5; }
         .qrcode-wrapper { background: white; padding: 10px; border: 1px solid #ddd; border-radius: 8px; display: inline-block; }
+        
+        /* Alertas Customizados */
+        .toast-alerta { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #333; color: white; padding: 12px 25px; border-radius: 30px; font-size: 14px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease-in-out; z-index: 1000; display: flex; align-items: center; gap: 8px; }
+        .toast-alerta.show { transform: translateX(-50%) translateY(0); }
+        .toast-sucesso { background: #27ae60; }
+        .toast-erro { background: #cc092f; }
     </style>
 </head>
 <body onload="verificarSessaoInicial()">
+
+<div id="toastNotificacao" class="toast-alerta"></div>
 
 <div class="container">
     <!-- BLOCO DE LOGIN -->
@@ -37,8 +45,8 @@
         <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
         <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
-        <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
-        <button class="btn-status-online" onclick="validarSenha()">Entrar no Panel 🔑</button>
+        <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM" autofocus>
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
@@ -50,7 +58,7 @@
             <div class="control-box">
                 <div class="counter-row">
                     <button class="btn-calc" onclick="alterarEstoque(-1)">-</button>
-                    <div class="counter-value" id="lblEstoque">03</div>
+                    <div class="counter-value" id="lblEstoque">16</div>
                     <button class="btn-calc" onclick="alterarEstoque(1)">+</button>
                 </div>
                 <button class="btn-zerar" onclick="zerarEstoque()">Zerar Estoque ❌</button>
@@ -82,8 +90,10 @@
                 <button class="btn-zerar" style="width: 100%; margin-top: 5px; padding: 8px;" onclick="trancarPortaoImediato()">Trancar Imediatamente 🔒</button>
             </div>
 
-            <div class="app-label">🧪 Testes do Sistema:</div>
-            <button class="btn-orange" onclick="alternarSimuladorCompra()">🛒 Alternar Preço de Teste / Normal</button>
+            <div class="app-label">🧪 Testes de Pagamento do Sistema:</div>
+            <button class="btn-orange" onclick="testarValorPagamento(13)">🛒 Simular Pagamento R$ 13,00 (Aceito)</button>
+            <button class="btn-orange" onclick="testarValorPagamento(12)" style="background-color: #2980b9; margin-top: 8px;">🛒 Simular Pagamento R$ 12,00 (Aceito)</button>
+            <button class="btn-zerar" onclick="testarValorPagamento(11)" style="width: 100%; margin-top: 8px; padding: 15px; font-size: 16px;">🛒 Simular Pagamento R$ 11,00 (Rejeitado)</button>
 
             <a class="app-button btn-gray" href="./index.html" style="margin-top: 15px;" onclick="encerrarSessao()">⬅️ Sair e Voltar para a Loja</a>
         </div>
@@ -100,8 +110,21 @@
     const CONFIG_SENHA = "4971";
     let timerIntervalo = null;
 
-    // 1. Controle de Sessão e Login
+    document.getElementById('senhaAcesso').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') validarSenha();
+    });
+
+    function mostrarAlerta(mensagem, tipo = 'sucesso') {
+        const toast = document.getElementById('toastNotificacao');
+        toast.innerText = mensagem;
+        toast.className = `toast-alerta toast-${tipo} show`;
+        setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    }
+
     function verificarSessaoInicial() {
+        document.getElementById('lblEstoque').innerText = (localStorage.getItem('jcs_estoque') || '16').padStart(2, '0');
+        document.getElementById('lblReservas').innerText = (localStorage.getItem('jcs_reservas') || '16').padStart(2, '0');
+        
         if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { 
             exibirPainelControle(); 
         }
@@ -112,59 +135,6 @@
         if (senhaInserida === CONFIG_SENHA) {
             sessionStorage.setItem('jcs_adm_autenticado', 'sim');
             exibirPainelControle();
+            mostrarAlerta('Acesso concedido! Bem-vindo.', 'sucesso');
         } else { 
-            alert('Senha Incorreta!'); 
-        }
-    }
-
-    function exibirPainelControle() {
-        document.getElementById('loginBlock').style.display = 'none';
-        document.getElementById('adminContent').style.display = 'block';
-    }
-
-    function encerrarSessao() {
-        sessionStorage.removeItem('jcs_adm_autenticado');
-    }
-
-    // 2. Controle do Estoque de Cartelas
-    function alterarEstoque(valor) {
-        const lbl = document.getElementById('lblEstoque');
-        let atual = parseInt(lbl.innerText, 10);
-        atual = Math.max(0, atual + valor);
-        lbl.innerText = atual.toString().padStart(2, '0');
-    }
-
-    function zerarEstoque() {
-        if(confirm("Deseja realmente ZERAR o estoque?")) {
-            document.getElementById('lblEstoque').innerText = "00";
-        }
-    }
-
-    // 3. Controle de Ovos Reservados
-    function alterarReservas(valor) {
-        const lbl = document.getElementById('lblReservas');
-        let atual = parseInt(lbl.innerText, 10);
-        atual = Math.max(0, atual + valor);
-        lbl.innerText = atual.toString().padStart(2, '0');
-    }
-
-    function zerarReservas() {
-        if(confirm("Deseja realmente LIMPAR as reservas?")) {
-            document.getElementById('lblReservas').innerText = "00";
-        }
-    }
-
-    // 4. Status da Loja Online
-    function alternarStatusSite() {
-        const btn = document.getElementById('btnStatusSite');
-        if (btn.classList.contains('btn-status-online')) {
-            btn.classList.remove('btn-status-online');
-            btn.classList.add('btn-status-manutencao');
-            btn.innerText = "🟠 Loja em Manutenção";
-        } else {
-            btn.classList.remove('btn-status-manutencao');
-            btn.classList.add('btn-status-online');
-            btn.innerText = "🟢 Loja Online / Ativa";
-        }
-    }
-
+            mostrarAlerta('Senha Incorreta! Tente de novo.', 'erro');
