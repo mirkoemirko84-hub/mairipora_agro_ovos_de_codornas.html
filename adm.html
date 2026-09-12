@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>JCS Admin App</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #EFEFEF; margin: 0; padding: 20px; user-select: none; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; position: relative; }
+        .container { width: 100%; max-width: 450px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
         .app-header { background-color: #17509e; color: white; padding: 15px; font-size: 20px; font-weight: bold; text-align: center; }
         .app-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
         .app-label { font-size: 16px; color: #333333; font-weight: bold; margin-bottom: -5px; }
@@ -26,13 +23,9 @@
         .area-restrita { padding: 30px 20px; text-align: center; }
         .input-senha { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; box-sizing: border-box; margin: 15px 0; text-align: center; }
         .credits-footer { padding: 15px; font-size: 11px; color: #7f8c8d; border-top: 1px dashed #bdc3c7; background: #fafafa; text-align: center; font-family: monospace; }
-        .btn-portao { background-color: #9b59b6; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px; width: 100%; text-align: center; margin-top: 5px; cursor: pointer; }
-        .box-portao-ativo { background-color: #f9f9f9; border: 2px dashed #9b59b6; border-radius: 8px; padding: 15px; text-align: center; display: none; flex-direction: column; align-items: center; gap: 10px; margin-top: 5px; }
-        .timer-regressivo { font-size: 18px; font-weight: bold; color: #cc092f; font-family: monospace; background: #ffebeb; padding: 5px 10px; border-radius: 4px; border: 1px solid #ffccd5; }
-        .qrcode-wrapper { background: white; padding: 10px; border: 1px solid #ddd; border-radius: 8px; display: inline-block; }
         
-        /* Alertas Customizados */
-        .toast-alerta { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #333; color: white; padding: 12px 25px; border-radius: 30px; font-size: 14px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease-in-out; z-index: 1000; display: flex; align-items: center; gap: 8px; }
+        /* Alertas */
+        .toast-alerta { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #333; color: white; padding: 12px 25px; border-radius: 30px; font-size: 14px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease-in-out; z-index: 1000; }
         .toast-alerta.show { transform: translateX(-50%) translateY(0); }
         .toast-sucesso { background: #27ae60; }
         .toast-erro { background: #cc092f; }
@@ -55,7 +48,7 @@
 
     <!-- CONTEÚDO DO ADMINISTRADOR -->
     <div id="adminContent" style="display: none;">
-        <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
+        <div class="app-header">🛠️ PAINEL DE CONTROLE v2.2</div>
         <div class="app-container">
             <div class="app-label">📦 Estoque de Cartelas Atual:</div>
             <div class="control-box">
@@ -80,34 +73,15 @@
             <div class="app-label">🚦 Status de Vendas do Site:</div>
             <button id="btnStatusSite" class="btn-status-online" onclick="alternarStatusSite()">🟢 Loja Online / Ativa</button>
 
-            <div class="app-label">🚪 Venda Rápida no Portão:</div>
-            <button id="btnAtivarPortao" class="btn-portao" onclick="liberarAcessoPortao()">⏱️ Ativar Wi-Fi + PIX (2 Minutos)</button>
-            
-            <div id="boxPortaoArea" class="box-portao-ativo">
-                <div class="timer-regressivo" id="cronometroPortao">Tempo Restante: 02:00</div>
-                <p style="margin: 0; font-size: 12px; color: #555;">Peça para o cliente escanear o QR Code para conectar no Wi-Fi.</p>
-                
-                <div class="qrcode-wrapper" id="qrWifiContainer">
-                    <img src="./qrcode-wifi.png" alt="QR Code WiFi" style="width: 150px; height: 150px; display: block;" onerror="this.src='./qrcode-pagamento.png'">
-                </div>
-
-                <div style="font-size: 13px; font-family: monospace; background: #eee; padding: 6px; border-radius: 4px; width: 90%; word-break: break-all;">
-                    <b>Senha Wi-Fi Manual:</b> lilian123
-                </div>
-                <button class="btn-zerar" style="width: 100%; margin-top: 5px; padding: 8px;" onclick="trancarPortaoImediato()">Trancar Imediatamente 🔒</button>
-            </div>
-
             <div class="app-label">🧪 Testes de Validação e Cache:</div>
             <button class="btn-orange" onclick="limparDadosCache()">Forçar Limpeza de Cache Local 🌀</button>
             <button class="app-button btn-gray" onclick="deslogarPainel()">🔒 Sair do Painel</button>
         </div>
-        <div class="credits-footer">JCS SISTEMA v2.5 • PROTEGIDO</div>
+        <div class="credits-footer">JCS SISTEMA v2.2 • PROTEGIDO</div>
     </div>
 </div>
 
 <script>
-    let tempoPortaoInterval = null;
-
     function mostrarToast(mensagem, tipo = 'sucesso') {
         const toast = document.getElementById('toastNotificacao');
         toast.innerText = mensagem;
@@ -122,13 +96,9 @@
             document.getElementById('adminContent').style.display = 'block';
             carregarValoresIniciais();
         }
-        
-        const senhaInput = document.getElementById('senhaAcesso');
-        if(senhaInput) {
-            senhaInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') validarSenha();
-            });
-        }
+        document.getElementById('senhaAcesso').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validarSenha();
+        });
     }
 
     function validarSenha() {
@@ -138,5 +108,66 @@
             document.getElementById('loginBlock').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
             carregarValoresIniciais();
-            mostrarToast("Acesso liberado com sucesso! 🔓");
+            mostrarToast("Acesso liberado! 🔓");
         } else {
+            mostrarToast("Senha Incorreta! ❌", "erro");
+            document.getElementById('senhaAcesso').value = '';
+            document.getElementById('senhaAcesso').focus();
+        }
+    }
+
+    function deslogarPainel() {
+        sessionStorage.removeItem('adm_autenticado');
+        document.getElementById('adminContent').style.display = 'none';
+        document.getElementById('loginBlock').style.display = 'block';
+        document.getElementById('senhaAcesso').value = '';
+    }
+
+    function carregarValoresIniciais() {
+        let estoque = localStorage.getItem('prod_estoque') || 16;
+        let reservas = localStorage.getItem('prod_reservas') || 16;
+        let statusSite = localStorage.getItem('prod_status_site') || 'online';
+
+        document.getElementById('lblEstoque').innerText = estoque;
+        document.getElementById('lblReservas').innerText = reservas;
+        atualizarBotaoStatusInterface(statusSite);
+    }
+
+    function alterarEstoque(valor) {
+        let atual = parseInt(document.getElementById('lblEstoque').innerText) || 0;
+        let novo = Math.max(0, atual + valor);
+        document.getElementById('lblEstoque').innerText = novo;
+        localStorage.setItem('prod_estoque', novo);
+    }
+
+    function zerarEstoque() {
+        if(confirm("Zerar estoque disponível?")) {
+            document.getElementById('lblEstoque').innerText = 0;
+            localStorage.setItem('prod_estoque', 0);
+        }
+    }
+
+    function alterarReservas(valor) {
+        let atual = parseInt(document.getElementById('lblReservas').innerText) || 0;
+        let novo = Math.max(0, atual + valor);
+        document.getElementById('lblReservas').innerText = novo;
+        localStorage.setItem('prod_reservas', novo);
+    }
+
+    function zerarReservas() {
+        if(confirm("Limpar reservas?")) {
+            document.getElementById('lblReservas').innerText = 0;
+            localStorage.setItem('prod_reservas', 0);
+        }
+    }
+
+    function alternarStatusSite() {
+        let statusAtual = localStorage.getItem('prod_status_site') || 'online';
+        let novoStatus = (statusAtual === 'online') ? 'manutencao' : 'online';
+        localStorage.setItem('prod_status_site', novoStatus);
+        atualizarBotaoStatusInterface(novoStatus);
+    }
+
+    function atualizarBotaoStatusInterface(status) {
+        const btn = document.getElementById('btnStatusSite');
+        if (status === 'online') {
