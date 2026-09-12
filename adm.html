@@ -32,15 +32,17 @@
 <body onload="verificarSessaoInicial()">
 
 <div class="container">
+    <!-- BLOCO DE LOGIN -->
     <div id="loginBlock" class="area-restrita">
         <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
         <h2 style="margin: 0; color: #17509e;">Painel Administrativo</h2>
         <p style="color: #666; font-size: 14px;">Identificação Obrigatória do Produtor</p>
         <input type="password" id="senhaAcesso" class="input-senha" placeholder="Digite a senha de ADM">
-        <button class="btn-status-online" onclick="validarSenha()">Entrar no Painel 🔑</button>
+        <button class="btn-status-online" onclick="validarSenha()">Entrar no Panel 🔑</button>
         <a class="app-button btn-gray" href="./index.html" style="font-size: 14px; padding: 12px;">⬅️ Cancelar e Voltar</a>
     </div>
 
+    <!-- CONTEÚDO DO ADMINISTRADOR -->
     <div id="adminContent" style="display: none;">
         <div class="app-header">🛠️ PAINEL DE CONTROLE</div>
         <div class="app-container">
@@ -98,6 +100,7 @@
     const CONFIG_SENHA = "4971";
     let timerIntervalo = null;
 
+    // 1. Controle de Sessão e Login
     function verificarSessaoInicial() {
         if (sessionStorage.getItem('jcs_adm_autenticado') === 'sim') { 
             exibirPainelControle(); 
@@ -105,7 +108,8 @@
     }
 
     function validarSenha() {
-        if (document.getElementById('senhaAcesso').value === CONFIG_SENHA) {
+        const senhaInserida = document.getElementById('senhaAcesso').value;
+        if (senhaInserida === CONFIG_SENHA) {
             sessionStorage.setItem('jcs_adm_autenticado', 'sim');
             exibirPainelControle();
         } else { 
@@ -122,34 +126,37 @@
         sessionStorage.removeItem('jcs_adm_autenticado');
     }
 
+    // 2. Controle do Estoque de Cartelas
     function alterarEstoque(valor) {
-        let campo = document.getElementById('lblEstoque');
-        let atual = parseInt(campo.innerText, 10);
-        let novo = Math.max(0, atual + valor);
-        campo.innerText = novo.toString().padStart(2, '0');
+        const lbl = document.getElementById('lblEstoque');
+        let atual = parseInt(lbl.innerText, 10);
+        atual = Math.max(0, atual + valor);
+        lbl.innerText = atual.toString().padStart(2, '0');
     }
 
     function zerarEstoque() {
-        if(confirm("Deseja mesmo zerar o estoque?")) {
+        if(confirm("Deseja realmente ZERAR o estoque?")) {
             document.getElementById('lblEstoque').innerText = "00";
         }
     }
 
+    // 3. Controle de Ovos Reservados
     function alterarReservas(valor) {
-        let campo = document.getElementById('lblReservas');
-        let atual = parseInt(campo.innerText, 10);
-        let novo = Math.max(0, atual + valor);
-        campo.innerText = novo.toString().padStart(2, '0');
+        const lbl = document.getElementById('lblReservas');
+        let atual = parseInt(lbl.innerText, 10);
+        atual = Math.max(0, atual + valor);
+        lbl.innerText = atual.toString().padStart(2, '0');
     }
 
     function zerarReservas() {
-        if(confirm("Deseja limpar todas as reservas?")) {
+        if(confirm("Deseja realmente LIMPAR as reservas?")) {
             document.getElementById('lblReservas').innerText = "00";
         }
     }
 
+    // 4. Status da Loja Online
     function alternarStatusSite() {
-        let btn = document.getElementById('btnStatusSite');
+        const btn = document.getElementById('btnStatusSite');
         if (btn.classList.contains('btn-status-online')) {
             btn.classList.remove('btn-status-online');
             btn.classList.add('btn-status-manutencao');
@@ -161,10 +168,3 @@
         }
     }
 
-    function liberarAcessoPortao() {
-        document.getElementById('boxPortaoArea').style.display = 'flex';
-        let tempo = 120;
-        clearInterval(timerIntervalo);
-        
-        timerIntervalo = setInterval(() => {
-            tempo--;
