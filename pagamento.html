@@ -66,17 +66,17 @@
         .btn-top-inicio:active { opacity: 0.8; }
 
         h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
-        .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
+        .subtitle { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
         .order-summary-link { 
             display: block; 
             text-decoration: none; 
             background: #fff3cd; 
             border: 2px solid #ffeeba; 
-            padding: 20px; 
+            padding: 15px; 
             border-radius: 10px; 
             margin: 20px auto; 
-            font-size: 18px; 
+            font-size: 16px; 
             font-weight: bold; 
             color: #856404; 
             cursor: pointer; 
@@ -84,27 +84,64 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
         }
         .order-summary-link:active { transform: scale(0.98); }
-        .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
+        .click-hint { font-size: 13px; color: #27ae60; font-weight: bold; margin-top: 8px; display: block; }
 
-        /* Título do PIX e Imagem livres na tela */
-        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-top: 25px; margin-bottom: 10px; }
-        .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
-        
-        /* Instrução clara acima do código */
-        .instrucao-copia {
-            margin-top: 25px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #c2410c;
-            padding: 0 10px;
+        /* Menu de Abas Estilo Shopee / Mercado Livre */
+        .tabs-pagamento {
+            display: flex;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 6px;
+            border-radius: 10px;
+            margin: 25px 0 20px 0;
+            border: 1px solid #cbd5e1;
         }
 
-        /* BLOCO DE TEXTO EXPOSTO: Configurado para aceitar seleção nativa do dedo */
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #1e293b;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        /* Conteúdos das Abas */
+        .tab-content {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
+        .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
+        
+        .instrucao-copia {
+            font-size: 14px;
+            font-weight: bold;
+            color: #c2410c;
+            margin-bottom: 8px;
+        }
+
+        /* BLOCO DO CÓDIGO PIX COPIA E COLA */
         .codigo-pix-exposto {
             width: 100%;
             font-family: monospace;
             font-weight: bold;
-            font-size: 13.5px;
+            font-size: 13px;
             color: #166534;
             display: block;
             word-break: break-all;
@@ -112,16 +149,46 @@
             background: #f0fdf4;
             border: 2px dashed #27ae60;
             border-radius: 8px;
-            margin: 10px 0 25px 0;
             text-align: left;
-            /* Força o destravamento total da seleção de texto nativa do celular */
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            /* Permite também a seleção manual clássica se segurar o dedo */
             user-select: text !important;
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
         }
 
-        .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
+        /* Alerta de Sucesso Flutuante ou Fixo */
+        .alerta-sucesso {
+            color: #166534;
+            background-color: #dcfce7;
+            border: 1px solid #bbf7d0;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Estilo da Caixa do Boleto Desativado */
+        .boleto-box {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            padding: 30px 20px;
+            border-radius: 10px;
+            color: #64748b;
+        }
+        .boleto-aviso {
+            font-size: 14px;
+            font-weight: bold;
+            color: #94a3b8;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 25px 0 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
         .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
         .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
@@ -146,7 +213,6 @@
         }
     </style>
 </head>
-<!-- Travas de segurança globais ativas nas outras áreas do site -->
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
@@ -157,21 +223,44 @@
     </div>
 
     <h1>🔒 Finalizar Pedido</h1>
-    <div class="subtitle">Mairiporã Agro - Ovos de Codorna Jumbo</div>
+    <div class="subtitle">Mairiporã Agro • Checkout Oficial</div>
 
     <a href="https://whatsapp.com" class="order-summary-link" target="_blank">
         <div id="resumo-texto">🛒 Verifique o valor total abaixo</div>
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- QR Code Livre na Tela -->
-    <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
-    <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
+    <!-- MENU DE SELEÇÃO INSTITUCIONAL (Estilo Shopee) -->
+    <div class="tabs-pagamento">
+        <button class="tab-btn active" onclick="alternarAba('aba-pix', this)">⚡ PIX COPIA</button>
+        <button class="tab-btn" onclick="alternarAba('aba-qrcode', this)">📸 QR CODE</button>
+        <button class="tab-btn" onclick="alternarAba('aba-boleto', this)">📄 BOLETO</button>
+    </div>
 
-    <!-- Indicação em formato de texto simples e o código exposto para cópia manual -->
-    <p class="instrucao-copia">👉 Pressione e segure o dedo sobre o código abaixo para selecionar e copiar:</p>
-    
-    <p id="chave-pix-config" class="codigo-pix-exposto">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</p>
+    <!-- ABA 1: PIX COPIA E COLA -->
+    <div id="aba-pix" class="tab-content active">
+        <div class="pix-title">🔑 COPIA E COLA</div>
+        <p class="instrucao-copia">👇 Toque uma vez em cima do código para copiar:</p>
+        <p id="chave-pix-config" class="codigo-pix-exposto" onclick="copiarCodigoPixManual()">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</p>
+        <div id="msgSucesso" class="alerta-sucesso">✅ Código Pix copiado! Abra o app do seu banco e cole na opção Pix Copia e Cola.</div>
+    </div>
+
+    <!-- ABA 2: QR CODE -->
+    <div id="aba-qrcode" class="tab-content">
+        <div class="pix-title">📸 ESCANEAR CÓDIGO</div>
+        <p class="instrucao-copia">Utilize um segundo aparelho celular para escanear:</p>
+        <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
+    </div>
+
+    <!-- ABA 3: BOLETO BANCÁRIO (DESATIVADO SISTÊMICO) -->
+    <div id="aba-boleto" class="tab-content">
+        <div class="boleto-box">
+            <svg style="width:48px; height:48px; fill:#94a3b8;" viewBox="0 0 24 24">
+                <path d="M3 3h2v18H3V3zm3 0h1v18H6V3zm3 0h2v18H9V3zm3 0h3v18h-3V3zm4 0h1v18h-1V3zm2 0h2v18h-2V3zm3 0h1v18h-1V3z"/>
+            </svg>
+            <div class="boleto-aviso">⚠️ Opção desativada para manutenção do lote</div>
+        </div>
+    </div>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
 
@@ -181,37 +270,3 @@
 
     <footer class="footer-oficial">
         JCS_software . JCS_criatório<br>
-        versão 26.08.31.24 | 🔏 cadeado de segurança<br>
-        <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
-    </footer>
-</div>
-
-<script>
-    function inicializarPagamento() {
-        iniciarRelogio();
-    }
-
-    function iniciarRelogio() {
-        atualizarTempo(); 
-        setInterval(atualizarTempo, 1000);
-    }
-
-    function atualizarTempo() {
-        const agora = new Date();
-        const dia = String(agora.getDate()).padStart(2, '0');
-        const mes = String(agora.getMonth() + 1).padStart(2, '0');
-        const ano = "2026";
-        
-        const elementoData = document.getElementById('live-date');
-        if (elementoData) { elementoData.innerText = dia + "/" + mes + "/" + ano; }
-
-        const horas = String(agora.getHours()).padStart(2, '0');
-        const minutos = String(agora.getMinutes()).padStart(2, '0');
-        const segundos = String(agora.getSeconds()).padStart(2, '0');
-        
-        const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
-    }
-</script>
-</body>
-</html>
