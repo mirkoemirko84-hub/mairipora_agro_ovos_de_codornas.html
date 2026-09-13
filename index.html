@@ -3,233 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro - Ovos de Codorna</title>
+    <title>Mairiporã Agro • Sistema de Gestão</title>
     <style>
-        :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --border: #e5e7eb;
-            --success: #10b981;
-            --purple-accent: #6b21a8;
+        /* Configurações Gerais e Bloqueio de Seleção */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none; /* Bloqueia seleção de texto */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             padding: 20px;
-            line-height: 1.5;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
+            width: 100%;
+            flex: 1;
         }
 
-        .header {
+        /* Topo Chamativo e Atraente */
+        header {
             text-align: center;
-            padding: 25px 20px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, #1b4332, #2d6a4f);
+            color: #fff;
+            padding: 30px 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
-            border: 1px solid var(--border);
+            border: 3px solid #081c15; /* Borda forte de acabamento */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        .header .logo { font-size: 40px; margin-bottom: 8px; }
-        .header h1 { font-size: 24px; color: var(--primary); font-weight: 800; }
-        .header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
+        }
 
-        .live-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #111827;
+        header p {
+            font-size: 0.95rem;
+            color: #d8f3dc;
+            font-weight: 500;
+        }
+
+        /* Relógio Digital em Foco (Fundo Vermelho, Letra Branca) */
+        .status-clock {
+            background-color: #d90429;
             color: #ffffff;
-            padding: 12px 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-            font-family: monospace;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--success);
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 13px;
-            animation: pulse 2s infinite;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            border: 2px solid #b3001b;
+            box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
+            letter-spacing: 0.5px;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .live-time {
-            font-size: 14px;
-            color: #f59e0b;
-            font-weight: bold;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
+        /* Cartões com Mais Vida e Bordas Definidas */
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            background-color: #fff;
+            border: 2px solid #d8f3dc; /* Borda visível */
+            border-left: 6px solid #2d6a4f; /* Destaque lateral verde */
+            border-radius: 8px;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s, border-color 0.2s;
         }
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #52b788;
         }
 
-        .card-content h2 {
-            font-size: 17px;
-            color: var(--text-main);
+        .card h2 {
+            font-size: 1.25rem;
+            color: #1b4332;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .card-content p {
-            font-size: 13px;
-            color: var(--text-muted);
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
             margin-bottom: 15px;
         }
 
-        .btn {
-            display: block;
-            width: 100%;
-            background-color: var(--primary);
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
+        /* Cartão Especial Hobby (Borda Diferenciada) */
+        .card.hobby {
+            border: 2px solid #b7e4c7;
+            border-left: 6px solid #40916c;
+            background-color: #f7fbf8;
         }
 
-        .btn:hover { background-color: var(--primary-hover); }
-        .btn-alt { background-color: #4b5563; }
-        .btn-alt:hover { background-color: #374151; }
-        .btn-green { background-color: #166534; }
-        .btn-green:hover { background-color: #14532d; }
-
-        .footer {
+        /* Botões Estilizados */
+        .btn {
+            display: inline-block;
+            width: 100%;
             text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 40px;
-            padding: 20px 0;
-            border-top: 1px solid var(--border);
+            background-color: #2d6a4f;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1b4332;
+        }
+
+        /* Rodapé Padronizado Oficial */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .selo-seguranca {
+            color: #2d6a4f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
         }
     </style>
 </head>
-<body>
+<!-- Travas de segurança: Bloqueia clique direito e teclas de atalho de inspeção -->
+<body oncontextmenu="return false;" onkeydown="return false;">
 
     <div class="container">
-        <!-- Cabeçalho -->
-        <header class="header">
-            <div class="logo">🥚</div>
+        
+        <!-- Topo Principal Atrenete -->
+        <header>
             <h1>Mairiporã Agro</h1>
             <p>Sistema Integrado de Gestão • Ovos de Codorna & Conservas</p>
         </header>
 
-        <!-- Barra Industrial Online -->
-        <div class="live-box">
-            <div class="status-indicator">
-                <span>● SYSTEM ONLINE</span>
-            </div>
-            <div id="liveClock" class="live-time">00/00/0000 - 00:00:00</div>
+        <!-- Relógio Digital em Foco -->
+        <div class="status-clock">
+            ● SYSTEM ONLINE: <span id="relogio">13/09/2026 - 12:07:58</span>
         </div>
 
-        <!-- Grade de Acesso da Porteira -->
-        <main class="grid">
-            
-            <!-- Dicas para o Cliente -->
-            <section class="card" style="border-color: #bbf7d0; background-color: #f0fdf4;">
-                <div class="card-content">
-                    <h2 style="color: #166534;">💡 Dicas & Benefícios</h2>
-                    <p>Veja o método de descasque perfeito e os fatos científicos do superalimento.</p>
-                </div>
-                <a href="dicas.html" class="btn btn-green">Abrir Dicas</a>
-            </section>
-
-            <!-- Pagamentos para o Cliente -->
-            <section class="card">
-                <div class="card-content">
-                    <h2>💰 Vendas & Faturamento</h2>
-                    <p>Acesse a tela de pagamento rápido via PIX Copia e Cola ou QR Code.</p>
-                </div>
-                <a href="pagamento.html" class="btn">Ir para Pagamento</a>
-            </section>
-
-            <!-- Painel ADM Privado -->
-            <section class="card">
-                <div class="card-content">
-                    <h2>📊 Painel de Controle</h2>
-                    <p>Área reservada ao produtor para o lançamento diário de estoque absoluto de cartelas fechadas.</p>
-                </div>
-                <a href="adm.html" class="btn btn-alt">Acessar ADM</a>
-            </section>
-
-        </main>
-
-        <!-- Bloco do Espaço Hobby e Projeção -->
-        <div class="card" style="background-color: #f3e8ff; border-color: #e9d5ff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-            <h2 style="color: var(--purple-accent); font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e9d5ff; padding-bottom: 8px;">🏡 Espaço Hobby & Projeção Real</h2>
-            <p style="font-size: 13px; color: #581c87; line-height: 1.6;">
-                O sistema opera focado no <strong>"Tamagotchi da Vida Real"</strong>. Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a projeção científica de eficiência acumulada (85%) prevê uma colheita estável de <strong>~30 ovos por semana</strong> — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.
-            </p>
+        <!-- Seções em Formato de Cartões com Bordas -->
+        <div class="card">
+            <h2>💡 Dicas & Benefícios</h2>
+            <p>Veja o método de descasque perfeito e os fatos científicos do superalimento.</p>
+            <a href="dicas.html" class="btn">Abrir Dicas</a>
         </div>
 
-        <footer class="footer">
-            <div>Mairiporã Agro © 2026</div>
-            <div style="margin-top: 4px;">Código de Matriz: v26.09.13.1.2 (Segurança Monitorada)</div>
+        <div class="card">
+            <h2>💰 Vendas & Faturamento</h2>
+            <p>Acesse a tela de pagamento rápido via PIX Copia e Cola ou QR Code.</p>
+            <a href="pagamento.html" class="btn">Ir para Pagamento</a>
+        </div>
+
+        <div class="card">
+            <h2>📊 Painel de Controle</h2>
+            <p>Área reservada ao produtor para o lançamento diário de estoque absoluto de cartelas fechadas.</p>
+            <a href="adm.html" class="btn">Acessar ADM</a>
+        </div>
+
+        <!-- Cartão Hobby -->
+        <div class="card hobby">
+            <h2>🏡 Espaço Hobby & Projeção Real</h2>
+            <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a projeção científica de eficiência acumulada (85%) prevê uma colheita estável de ~30 ovos por semana — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.</p>
+        </div>
+
+        <!-- Rodapé Padronizado -->
+        <footer>
+            Mairiporã Agro © 2026 <br>
+            Matriz: v26.09.13.1.2 (Segurança Monitorada) <br>
+            <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
         </footer>
+
     </div>
 
+    <!-- Script para manter o relógio rodando em tempo real se desejar -->
     <script>
-        function iniciarRelogio() {
-            setInterval(function() {
-                var agora = new Date();
-                var dia = String(agora.getDate()).padStart(2, '0');
-                var mes = String(agora.getMonth() + 1).padStart(2, '0');
-                var ano = agora.getFullYear();
-                var horas = String(agora.getHours()).padStart(2, '0');
-                var minutos = String(agora.getMinutes()).padStart(2, '0');
-                var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
-            }, 1000);
+        function atualizarRelogio() {
+            const agora = new Date();
+            // Mantendo o ano travado em 2026 conforme seu sistema operacional
+            const dataStr = "13/09/2026"; 
+            const horaStr = agora.toLocaleTimeString('pt-BR');
+            document.getElementById('relogio').textContent = `${dataStr} - ${horaStr}`;
         }
-        iniciarRelogio();
+        setInterval(atualizarRelogio, 1000);
     </script>
-
 </body>
 </html>
