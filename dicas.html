@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro - Conhecimento e Hobby</title>
+    <style>
+        :root {
+            --primary: #d97706;
+            --primary-hover: #b45309;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --border: #e5e7eb;
+            --accent: #166534;
+            --accent-bg: #f0fdf4;
+            --blue-accent: #1e3a8a;
+            --blue-bg: #eff6ff;
+            --purple-accent: #6b21a8;
+            --purple-bg: #f3e8ff;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.6;
+        }
 
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .navbar h1 {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-back {
+            background-color: #4b5563;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-back:hover { background-color: #374151; }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .layout-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .card h2.blue-title { color: var(--blue-accent); }
+        .card h2.purple-title { color: var(--purple-accent); }
+
+        .step-item {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border);
+            font-size: 14px;
+        }
+        .step-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .step-item strong { color: var(--primary); display: block; margin-bottom: 4px; }
+
+        .gold-tips {
+            background-color: var(--accent-bg);
+            border: 1px solid #bbf7d0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        .gold-tips h3 { color: var(--accent); margin-bottom: 8px; font-size: 15px; }
+
+        .science-item {
+            background-color: var(--blue-bg);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+        .science-item strong { color: var(--blue-accent); display: block; margin-bottom: 2px; }
+
+        .hobby-box {
+            background-color: var(--purple-bg);
+            border: 1px solid #e9d5ff;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 13px;
+            color: #581c87;
+        }
+        .hobby-calc {
+            background: #ffffff;
+            border: 1px solid #e9d5ff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .appetite {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Menu Superior -->
+        <header class="navbar">
+            <h1>💡 Painel de Conhecimento e Práticas Agro</h1>
+            <a href="adm.html" class="btn-back">← Voltar ao ADM</a>
+        </header>
+
+        <div class="layout-grid">
+            
+            <!-- COLUNA ESQUERDA: Protocolo Operacional de Cozimento -->
+            <div class="left-panel">
+                <div class="card">
+                    <h2>🥚 Protocolo de Cozimento Perfeito</h2>
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
+                        Itens obrigatórios de bancada para eliminar perdas e trincas no processamento.
+                    </p>
+
+                    <div class="step-item">
+                        <strong>Item 1: Preparação com Concha</strong>
+                        Aqueça a água na vasilha até quase ferver e desligue momentaneamente o fogo. Utilize obrigatoriamente uma <strong>concha ou escumadeira</strong> para depositar os ovos com suavidade. Isso evita impactos mecânicos que trincam a casca.
+                    </div>
+
+                    <div class="step-item">
+                        <strong>Item 2: Centralização Dinâmica da Gema</strong>
+                        Ligue o fogo novamente e **mexa os ovos de forma constante e suave por 3 minutes**. Esse movimento fixa a gema no centro exato do ovo, impedindo que ela grude na parede da casca e rasgue a clara no descasque.
+                    </div>
+
+                    <div class="step-item">
+                        <strong>Item 3: Cozimento e Repouso</strong>
+                        Deixe ferver normalmente por mais ou menos **10 minutos**. Se preferir baseado no lote, tampe a vasilha e deixe descansar por alguns minutos com o fogo desligado para estabilizar.
+                    </div>
+
+                    <div class="step-item">
+                        <strong>Item 4: Choque Térmico Estrutural</strong>
+                        Transfira os ovos imediatamente para uma vasilha separada com água de torneira ou gelada. O choque faz a clara se retrair, soltando a película interna da casca.
+                    </div>
+
+                    <div class="step-item">
+                        <strong>Item 5: Rompimento por Impacto Controlado</strong>
+                        Retire da água fria, coloque os ovos na vasilha de origem (vazia), tampe e **sacuda vigorosamente cerca de 4 vezes**. A casca quebrará uniformemente em microfragmentos sem ferir a estrutura interna.
+                    </div>
+
+                    <!-- Bloco das Dicas de Ouro -->
+                    <div class="gold-tips">
+                        <h3>✨ Dicas de Ouro da Bancada</h3>
+                        <p><strong>Ouro 1 (Bolsa de Ar):</strong> Comece a descascar sempre pela **parte mais larga e redonda** do ovo. É ali que fica a bolsa de ar; ao rompê-la, a película se solta por inteiro de forma rápida.</p>
+                        <p style="margin-top: 8px;"><strong>Ouro 2 (Lubrificação Hidráulica):</strong> Descasque mantendo o ovo posicionado logo abaixo de um **fio de água corrente da torneira** para remover fragmentos e limpar instantaneamente.</p>
+                    </div>
+                    
+                    <div class="appetite">"BOM APETITE!" 🥚✨</div>
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA: Fatos Científicos e Espaço Hobby -->
+            <div class="side-panel">
+                
+                <!-- Painel Nutricional Científico -->
+                <div class="card">
+                    <h2 class="blue-title">🔬 Benefícios Científicos à Saúde</h2>
+                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">
+                        Por que o ovo de codorna é considerado um superalimento concentrado?
+                    </p>
+                    
+                    <div class="science-item">
+                        <strong>🧠 Estímulo Cerebral (Colina)</strong>
+                        Contém altas doses de Colina, nutriente essencial que atua na melhora da memória, foco, cognição e saúde do sistema nervoso.
+                    </div>
+                    <div class="science-item">
+                        <strong>🩸 Combate Ativo à Anemia</strong>
+                        Concentração densa de **Ferro, Vitamina B12 e Ácido Fólico**, fundamentais para a correta produção de hemácias e oxigenação sanguínea.
+                    </div>
+                    <div class="science-item">
+                        <strong>👁️ Proteção Ocular (Vitamina A)</strong>
+                        Fonte rica de Vitamina A, ideal para blindar a saúde da retina e prevenir a fadiga ocular do dia a dia.
+                    </div>
+                    <div class="science-item">
+                        <strong>⚡ Metabolismo Energético</strong>
+                        Sua gema proporcionalmente maior concentra Vitaminas B1 e B2 de forma muito mais densa, otimizando a quebra de energia das células.
+                    </div>
+                </div>
+
+                <!-- Espaço Hobby Familiar -->
+                <div class="card">
