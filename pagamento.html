@@ -17,14 +17,14 @@
         }
 
         body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background-color: #f4f6f8; 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9; 
             color: #333; 
             text-align: center; 
             padding: 20px; 
         }
 
-        /* Container com Bordas Verdes mais Vivas */
+        /* Container Original - Sem molduras verdes, limpo como antes */
         .container { 
             max-width: 480px; 
             margin: 0 auto; 
@@ -32,8 +32,7 @@
             padding: 30px; 
             border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            border: 2px solid #d8f3dc; 
-            border-top: 6px solid #2d6a4f; /* Detalhe superior em verde forte */
+            border: 2px solid #e0e0e0; 
         }
         
         /* Relógio Digital Administrativo em Foco Total (Fundo Vermelho Vivo, Letra Branca) */
@@ -45,19 +44,19 @@
             font-weight: bold; 
             color: #ffffff; 
             background: #d90429; 
-            padding: 12px 15px; 
+            padding: 10px 15px; 
             border-radius: 8px; 
             margin-bottom: 20px; 
-            font-family: 'Segoe UI', monospace; 
+            font-family: monospace; 
             border: 2px solid #b3001b;
             box-shadow: 0 4px 10px rgba(217, 4, 41, 0.25);
         }
 
         .btn-top-inicio { 
             background: #ffffff; 
-            color: #1b4332; 
+            color: #cc0000; 
             text-decoration: none; 
-            padding: 5px 12px; 
+            padding: 4px 10px; 
             border-radius: 4px; 
             font-weight: bold; 
             font-size: 12px; 
@@ -66,57 +65,54 @@
         }
         .btn-top-inicio:active { opacity: 0.8; }
 
-        h1 { color: #1b4332; font-size: 26px; margin-top: 20px; margin-bottom: 5px; text-transform: uppercase; font-weight: 700; }
-        .subtitle { font-size: 15px; font-weight: bold; color: #4b5563; margin-bottom: 20px; }
+        h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
+        .subtitle { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
         
-        /* Botão do WhatsApp Integrado */
         .order-summary-link { 
             display: block; 
             text-decoration: none; 
-            background: #e7f5ec; 
-            border: 2px solid #a3e635; 
+            background: #fff3cd; 
+            border: 2px solid #ffeeba; 
             padding: 20px; 
             border-radius: 10px; 
             margin: 20px auto; 
-            font-size: 17px; 
+            font-size: 18px; 
             font-weight: bold; 
-            color: #166534; 
+            color: #856404; 
             cursor: pointer; 
             transition: transform 0.2s; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
         }
         .order-summary-link:active { transform: scale(0.98); }
-        .click-hint { font-size: 13px; color: #22c55e; font-weight: bold; margin-top: 10px; display: block; }
+        .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
-        /* Caixa do PIX com Destaques Verdes */
-        .pix-box { background: #f8f9fa; border: 2px dashed #2d6a4f; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 15px; color: #1b4332; word-break: break-all; }
-        .pix-title { font-weight: bold; font-size: 18px; color: #2d6a4f; margin-bottom: 10px; }
+        .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
+        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
-        .btn-voltar { background-color: #6c757d; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
-        .btn-voltar:active { transform: scale(0.98); background-color: #5a6268; }
+        .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
+        .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
-        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #2d6a4f; font-weight: bold; }
+        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         
-        /* Botão Copiar Dinâmico */
-        .btn-copiar-pix { background-color: #2d6a4f; color: white; border: none; padding: 14px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; -webkit-tap-highlight-color: transparent; }
         .btn-copiar-pix:active { transform: scale(0.98); }
 
-        /* Rodapé Oficial Padronizado */
+        /* Rodapé Oficial Padronizado Limpo */
         .footer-oficial {
             text-align: center;
             font-size: 12px;
-            color: #666;
+            color: #7f8c8d;
             margin-top: 25px;
             padding-top: 15px;
-            border-top: 1px dashed #ddd;
+            border-top: 1px dashed #bdc3c7;
             line-height: 1.6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: monospace;
         }
         .selo-seguranca {
-            color: #2d6a4f;
+            color: #27ae60;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 13px;
             margin-top: 4px;
             display: block;
         }
@@ -126,7 +122,7 @@
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
-    <!-- Relógio em Foco Alinhado com a ADM -->
+    <!-- Relógio em Foco Redesenhado -->
     <div class="header-system">
         <div>⏱️ <span id="live-date">13/09/2026</span> <span id="live-clock">00:00:00</span></div>
         <a href="./index.html" class="btn-top-inicio">🏠 INÍCIO</a>
@@ -161,10 +157,10 @@
         🔒 AMBIENTE 100% SEGURO | PAGAMENTO DIRETO <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 2/2</span>
     </div>
 
-    <!-- Rodapé Padronizado Incorporado Conforme Versão Atual -->
+    <!-- Rodapé Padronizado Sem Remendos -->
     <footer class="footer-oficial">
-        Mairiporã Agro © 2026 • Linha de Transação<br>
-        Matriz: v26.08.31.24 (Segurança Monitorada)<br>
+        JCS_software . JCS_criatório<br>
+        versão 26.08.31.24 | 🔏 cadeado de segurança<br>
         <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
     </footer>
 </div>
@@ -205,7 +201,7 @@
         }
     }
 
-    // Função de cópia estável do BR Code
+    // Função universal para cópia estável do BR Code
     function copiarCodigoPix() {
         var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
         
@@ -226,12 +222,12 @@
         
         msg.style.display = "block";
         btn.innerHTML = "👍 Copiado!";
-        btn.style.backgroundColor = "#1b4332";
+        btn.style.backgroundColor = "#1e7e34";
         
         setTimeout(function() {
             msg.style.display = "none";
             btn.innerHTML = "📋 Copiar Código Copia e Cola";
-            btn.style.backgroundColor = "#2d6a4f";
+            btn.style.backgroundColor = "#27ae60";
         }, 4000);
     }
 
@@ -239,3 +235,12 @@
     function fallbackCopiarPix(texto) {
         var textArea = document.createElement("textarea");
         textArea.value = texto;
+        textArea.style.position = "fixed"; 
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.width = "2em";
+        textArea.style.height = "2em";
+        textArea.style.padding = "0";
+        textArea.style.border = "none";
+        textArea.style.outline = "none";
+        textArea.style.boxShadow = "none";
