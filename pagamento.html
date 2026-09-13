@@ -90,30 +90,31 @@
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-top: 25px; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
-        .chave-externa-box {
-            margin: 20px 0 25px 0;
-            font-size: 16px;
-            color: #333;
-            line-height: 1.5;
+        /* Instrução clara acima do código */
+        .instrucao-copia {
+            margin-top: 25px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #c2410c;
+            padding: 0 10px;
         }
 
-        /* CAIXA DE CÓPIA DIRETA POR TOQUE: Liberada e responsiva para o cliente */
-        .chave-texto-clicavel {
+        /* BLOCO DE TEXTO EXPOSTO: Configurado para aceitar seleção nativa do dedo */
+        .codigo-pix-exposto {
             width: 100%;
             font-family: monospace;
             font-weight: bold;
             font-size: 13.5px;
             color: #166534;
-            display: inline-block;
+            display: block;
             word-break: break-all;
-            padding: 12px;
+            padding: 15px;
             background: #f0fdf4;
             border: 2px dashed #27ae60;
-            border-radius: 6px;
-            margin-top: 8px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            /* Destrava a seleção manual completa se ele preferir segurar o dedo */
+            border-radius: 8px;
+            margin: 10px 0 25px 0;
+            text-align: left;
+            /* Força o destravamento total da seleção de texto nativa do celular */
             user-select: text !important;
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -145,6 +146,7 @@
         }
     </style>
 </head>
+<!-- Travas de segurança globais ativas nas outras áreas do site -->
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
@@ -166,15 +168,10 @@
     <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
     <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
 
-    <!-- Instrução Direta e Caixa Inteligente para Copiar por Toque -->
-    <div class="chave-externa-box">
-        <strong>Clique uma vez em cima do código para copiar:</strong><br>
-        <span id="chave-pix-texto" class="chave-texto-clicavel" onclick="copiarTextoDireto()">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</span>
-    </div>
+    <!-- Indicação em formato de texto simples e o código exposto para cópia manual -->
+    <p class="instrucao-copia">👉 Pressione e segure o dedo sobre o código abaixo para selecionar e copiar:</p>
     
-    <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; font-size: 14px; display: none;">
-        ✅ Código Pix copiado! Abra o app do seu banco.
-    </div>
+    <p id="chave-pix-config" class="codigo-pix-exposto">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</p>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
 
@@ -215,48 +212,6 @@
         const elementoRelogio = document.getElementById('live-clock');
         if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
-
-    // Função de Cópia Automática Inteligente por Clique direto no texto
-    function copiarTextoDireto() {
-        var textoPix = document.getElementById("chave-pix-texto").innerText;
-        
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(textoPix).then(function() {
-                mostrarAvisoSucesso();
-            }).catch(function() {
-                fallbackCopiaTexto(textoPix);
-            });
-        } else {
-            fallbackCopiaTexto(textoPix);
-        }
-    }
-
-    function mostrarAvisoSucesso() {
-        var msg = document.getElementById("msgSucesso");
-        msg.style.display = "block";
-        setTimeout(function() {
-            msg.style.display = "none";
-        }, 4000);
-    }
-
-    function fallbackCopiaTexto(texto) {
-        var textArea = document.createElement("textarea");
-        textArea.value = texto;
-        textArea.style.position = "fixed"; 
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.width = "2em";
-        textArea.style.height = "2em";
-        textArea.style.padding = "0";
-        textArea.style.border = "none";
-        textArea.style.outline = "none";
-        textArea.style.boxShadow = "none";
-        textArea.style.background = "transparent";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            mostrarAvisoSucesso();
-        } catch (err) {
-            console.error('Erro ao processar clique manual', err);
+</script>
+</body>
+</html>
