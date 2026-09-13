@@ -46,7 +46,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -123,29 +123,38 @@
 
         <main class="grid">
             
-            <!-- Painel Administrativo -->
+            <!-- ABA 1: Dicas de Culinária e Saúde (Para o Cliente ver na Porteira) -->
+            <section class="card" style="border-color: #bbf7d0; background-color: #f0fdf4;">
+                <div class="card-content">
+                    <h2 style="color: #166534;">💡 Dicas & Benefícios</h2>
+                    <p>Aprenda o método de descasque perfeito e descubra por que o ovo de codorna é um superalimento.</p>
+                </div>
+                <a href="dicas.html" class="btn" style="background-color: #166534;">Abrir Dicas</a>
+            </section>
+
+            <!-- ABA 2: Módulo do Cliente (Pagamentos) -->
+            <section class="card">
+                <div class="card-content">
+                    <h2>💰 Vendas & Faturamento</h2>
+                    <p>Acesse a tela de pagamento rápido com botão de cópia de PIX e QR Code integrado.</p>
+                </div>
+                <a href="pagamento.html" class="btn">Ir para Pagamento</a>
+            </section>
+
+            <!-- ABA 3: Painel Administrativo (Uso seu na Bancada) -->
             <section class="card">
                 <div class="card-content">
                     <h2>📊 Painel de Controle</h2>
-                    <p>Gerencie lotes de aves, pesagens diárias, relatórios de produção e descarte técnico.</p>
+                    <p>Área reservada para o lançamento diário de estoque absoluto de cartelas fechadas.</p>
                 </div>
-                <a href="adm.html" class="btn">Acessar ADM</a>
-            </section>
-
-            <!-- Módulo do Cliente -->
-            <section class="card">
-                <div class="card-content">
-                    <h2>💰 Vendas & Pagamentos</h2>
-                    <p>Acesse a tela de faturamento rápido com botão de cópia de PIX e QR Code integrado.</p>
-                </div>
-                <a href="pagamento.html" class="btn btn-alt">Abrir Pagamentos</a>
+                <a href="adm.html" class="btn btn-alt">Acessar ADM</a>
             </section>
 
         </main>
 
         <footer class="footer">
             <div>Mairiporã Agro © 2026</div>
-            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.3.1 (Seguro)</div>
+            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.4.0 (Público)</div>
         </footer>
     </div>
 
