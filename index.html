@@ -46,7 +46,6 @@
         .header h1 { font-size: 24px; color: var(--primary); font-weight: 800; }
         .header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
 
-        /* Barra de Efeito Industrial com Relógio e Status ON-LINE */
         .live-box {
             display: flex;
             justify-content: space-between;
@@ -82,7 +81,6 @@
             font-weight: bold;
         }
 
-        /* Grade de Botões Principais */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -143,7 +141,6 @@
         .btn-green { background-color: #166534; }
         .btn-green:hover { background-color: #14532d; }
 
-        /* Rodapé */
         .footer {
             text-align: center;
             font-size: 12px;
@@ -204,7 +201,7 @@
 
         </main>
 
-        <!-- Bloco do Espaço Hobby e Projeção fixado na Vitrine Principal -->
+        <!-- Bloco do Espaço Hobby e Projeção com texto corrigido -->
         <div class="card" style="background-color: #f3e8ff; border-color: #e9d5ff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
             <h2 style="color: var(--purple-accent); font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e9d5ff; padding-bottom: 8px;">🏡 Espaço Hobby & Projeção Real</h2>
             <p style="font-size: 13px; color: #581c87; line-height: 1.6;">
@@ -214,7 +211,7 @@
 
         <footer class="footer">
             <div>Mairiporã Agro © 2026</div>
-            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.5.0 (Live & Vitrine)</div>
+            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.5.1 (Live & Vitrine)</div>
         </footer>
     </div>
 
@@ -229,7 +226,7 @@
                 var horas = String(agora.getHours()).padStart(2, '0');
                 var minutos = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
+                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
             }, 1000);
         }
         iniciarRelogio();
