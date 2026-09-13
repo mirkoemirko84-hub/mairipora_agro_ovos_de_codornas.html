@@ -161,7 +161,7 @@
             <p>Sistema Integrado de Gestão • Ovos de Codorna & Conservas</p>
         </header>
 
-        <!-- Barra Industrial Online ativa na primeira página -->
+        <!-- Barra Industrial Online -->
         <div class="live-box">
             <div class="status-indicator">
                 <span>● SYSTEM ONLINE</span>
@@ -190,18 +190,18 @@
                 <a href="pagamento.html" class="btn">Ir para Pagamento</a>
             </section>
 
-            <!-- Painel ADM Privado seu -->
+            <!-- Painel ADM Privado (Texto Corrigido Sem Expor a Senha) -->
             <section class="card">
                 <div class="card-content">
                     <h2>📊 Painel de Controle</h2>
-                    <p>Lançamento de estoque absoluto de cartelas. Requer senha de segurança (4971).</p>
+                    <p>Área reservada ao produtor para o lançamento diário de estoque absoluto de cartelas fechadas.</p>
                 </div>
                 <a href="adm.html" class="btn btn-alt">Acessar ADM</a>
             </section>
 
         </main>
 
-        <!-- Bloco do Espaço Hobby e Projeção com texto corrigido -->
+        <!-- Bloco do Espaço Hobby e Projeção -->
         <div class="card" style="background-color: #f3e8ff; border-color: #e9d5ff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
             <h2 style="color: var(--purple-accent); font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e9d5ff; padding-bottom: 8px;">🏡 Espaço Hobby & Projeção Real</h2>
             <p style="font-size: 13px; color: #581c87; line-height: 1.6;">
@@ -211,11 +211,10 @@
 
         <footer class="footer">
             <div>Mairiporã Agro © 2026</div>
-            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.5.1 (Live & Vitrine)</div>
+            <div style="margin-top: 4px;">Código de Matriz: v26.09.12.5.2 (Segurança Monitorada)</div>
         </footer>
     </div>
 
-    <!-- Motor do Relógio em Tempo Real -->
     <script>
         function iniciarRelogio() {
             setInterval(function() {
@@ -224,7 +223,7 @@
                 var mes = String(agora.getMonth() + 1).padStart(2, '0');
                 var ano = agora.getFullYear();
                 var horas = String(agora.getHours()).padStart(2, '0');
-                var minutos = String(agora.getMinutes()).padStart(2, '0');
+                var minutes = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
             }, 1000);
