@@ -35,7 +35,7 @@
             border: 2px solid #e0e0e0; 
         }
         
-        /* Relógio Digital Administrativo em Foco Total (Fundo Vermelho Vivo, Letra Branca) */
+        /* Relógio Digital Administrativo em Foco Total */
         .header-system { 
             display: flex; 
             justify-content: space-between; 
@@ -86,12 +86,12 @@
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
-        /* Retângulo do PIX - Fechando agora apenas com o QR Code e a chave textual */
+        /* Retângulo do PIX - Apenas QR Code e Chave */
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
-        /* Botão Copiar Fora do Retângulo - margens ajustadas para destaque vertical */
+        /* Botão Copiar Fora do Retângulo */
         .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .btn-copiar-pix:active { transform: scale(0.98); }
         
@@ -123,7 +123,6 @@
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
-    <!-- Relógio em Foco Redesenhado -->
     <div class="header-system">
         <div>⏱️ <span id="live-date">13/09/2026</span> <span id="live-clock">00:00:00</span></div>
         <a href="./index.html" class="btn-top-inicio">🏠 INÍCIO</a>
@@ -137,7 +136,6 @@
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- Bloco Tracejado (Agora contendo apenas Chave e QR Code) -->
     <div class="pix-box">
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
@@ -145,7 +143,7 @@
         <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
     </div>
 
-    <!-- Botão com chamada direta e aviso posicionados FORA do retângulo -->
+    <!-- Botão posicionado FORA do retângulo -->
     <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
         📋 Copiar Código Copia e Cola
     </button>
@@ -159,7 +157,6 @@
         🔒 AMBIENTE 100% SEGURO | PAGAMENTO DIRETO <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 2/2</span>
     </div>
 
-    <!-- Rodapé Padronizado Sem Remendos -->
     <footer class="footer-oficial">
         JCS_software . JCS_criatório<br>
         versão 26.08.31.24 | 🔏 cadeado de segurança<br>
@@ -203,7 +200,6 @@
         }
     }
 
-    // Função de cópia estável do BR Code
     function copiarCodigoPix() {
         var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
         
@@ -233,7 +229,6 @@
         }, 4000);
     }
 
-    // Mecanismo auxiliar de segurança para navegadores mobile
     function fallbackCopiarPix(texto) {
         var textArea = document.createElement("textarea");
         textArea.value = texto;
@@ -243,3 +238,14 @@
         textArea.style.width = "2em";
         textArea.style.height = "2em";
         textArea.style.padding = "0";
+        textArea.style.border = "none";
+        textArea.style.outline = "none";
+        textArea.style.boxShadow = "none";
+        textArea.style.background = "transparent";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            mostrarSucessoPix();
+        } catch (err) {
