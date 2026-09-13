@@ -40,7 +40,7 @@
             color: #fff;
             padding: 30px 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduzido levemente para encaixar o destaque */
             border: 3px solid #081c15; /* Borda forte de acabamento */
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
@@ -59,6 +59,22 @@
             font-weight: 500;
         }
 
+        /* Caixa de Destaque Visual: Incentivo ao Comércio Local */
+        .banner-comercio-local {
+            background-color: #fff3cd;
+            border: 2px solid #ffeeba;
+            border-left: 6px solid #d97706; /* Destaque lateral ouro/laranja */
+            color: #856404;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            letter-spacing: 0.3px;
+        }
+
         /* Relógio Digital em Foco (Fundo Vermelho, Letra Branca) */
         .status-clock {
             background-color: #d90429;
@@ -68,7 +84,7 @@
             border-radius: 8px;
             font-weight: bold;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border: 2px solid #b3001b;
             box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
             letter-spacing: 0.5px;
@@ -161,11 +177,16 @@
 
     <div class="container">
         
-        <!-- Topo Principal Atrenete -->
+        <!-- Topo Principal Atraente -->
         <header>
             <h1>Mairiporã Agro</h1>
             <p>Sistema Integrado de Gestão • Ovos de Codorna & Conservas</p>
         </header>
+
+        <!-- Destaque do Comércio Local (Entre o topo e o relógio) -->
+        <div class="banner-comercio-local">
+            🌾 FORTALEÇA O PEQUENO PRODUTOR • APOIE E INCENTIVE O COMÉRCIO LOCAL!
+        </div>
 
         <!-- Relógio Digital em Foco -->
         <div class="status-clock">
@@ -206,11 +227,10 @@
 
     </div>
 
-    <!-- Script para manter o relógio rodando em tempo real se desejar -->
+    <!-- Script para manter o relógio rodando em tempo real -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
-            // Mantendo o ano travado em 2026 conforme seu sistema operacional
             const dataStr = "13/09/2026"; 
             const horaStr = agora.toLocaleTimeString('pt-BR');
             document.getElementById('relogio').textContent = `${dataStr} - ${horaStr}`;
