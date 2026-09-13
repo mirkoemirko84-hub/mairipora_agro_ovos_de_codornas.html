@@ -86,12 +86,10 @@
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
-        /* Retângulo do PIX - Apenas o título e a imagem do QR Code dentro */
-        .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; }
-        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
+        /* Estilização da área PIX limpa e sem retângulo tracejado */
+        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-top: 25px; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
-        /* Estilo para a Chave Fora do Retângulo */
         .chave-externa-box {
             margin: 15px 0 5px 0;
             font-size: 15px;
@@ -110,7 +108,7 @@
             margin-top: 4px;
         }
 
-        /* Botão Copiar Fora do Retângulo */
+        /* Botão Copiar Livre de Caixas */
         .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .btn-copiar-pix:active { transform: scale(0.98); }
         
@@ -156,13 +154,10 @@
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- Bloco Tracejado (Contendo APENAS o QR Code agora) -->
-    <div class="pix-box">
-        <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
-        <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
-    </div>
+    <!-- Elementos PIX dispostos de forma totalmente livre, SEM RETÂNGULO TRACEJADO -->
+    <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
+    <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
 
-    <!-- Elementos jogados para FORA do retângulo conforme seu pedido -->
     <div class="chave-externa-box">
         <strong>Chave Pix:</strong><br>
         <span id="chave-pix-config" class="chave-texto">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
@@ -255,3 +250,10 @@
     }
 
     function fallbackCopiarPix(texto) {
+        var textArea = document.createElement("textarea");
+        textArea.value = texto;
+        textArea.style.position = "fixed"; 
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.width = "2em";
+        textArea.style.height = "2em";
