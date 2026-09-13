@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Painel ADM</title>
+    <script>
+        function verificarSenha() {
+            var senhaCorreta = "4971"; 
+            var senhaDigitada = prompt("Acesso Restrito ao Produtor.\nDigite a senha de segurança da bancada:");
+
+            if (senhaDigitada !== senhaCorreta) {
+                alert("Senha incorreta! Retornando à página inicial.");
+                window.location.href = "index.html";
+            }
+        }
+        verificarSenha();
+    </script>
     <style>
         :root {
             --primary: #d97706;
@@ -14,6 +26,7 @@
             --text-muted: #4b5563;
             --border: #e5e7eb;
             --purple-accent: #6b21a8;
+            --success: #10b981;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,6 +73,42 @@
             transition: background 0.2s;
         }
         .btn-back:hover { background-color: #374151; }
+
+        /* Painel do Relógio e Status Vivo */
+        .live-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111827;
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            font-family: monospace;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 14px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .live-time {
+            font-size: 16px;
+            color: #f59e0b;
+            font-weight: bold;
+        }
 
         .card {
             background: var(--card-bg);
@@ -117,7 +166,7 @@
             font-weight: 600;
             width: 100%;
             transition: background 0.2s;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
         .btn-submit:hover { background-color: var(--primary-hover); }
 
@@ -130,11 +179,9 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 13px;
-            margin-top: 10px;
+            margin-top: 15px;
             transition: background 0.2s;
         }
-        .btn-orange { background-color: var(--primary); color: white; }
-        .btn-orange:hover { background-color: var(--primary-hover); }
         .btn-dark { background-color: #374151; color: white; }
         .btn-dark:hover { background-color: #1f2937; }
 
@@ -156,10 +203,18 @@
             <a href="index.html" class="btn-back">← Voltar ao Hub</a>
         </header>
 
-        <!-- Controle de Estoque Limpo -->
+        <!-- NOVO: Barra de Efeito Industrial com Relógio e Status ON-LINE -->
+        <div class="live-box">
+            <div class="status-indicator">
+                <span>● SYSTEM ONLINE</span>
+            </div>
+            <div id="liveClock" class="live-time">00/00/0000 - 00:00:00</div>
+        </div>
+
+        <!-- Controle de Estoque Absoluto -->
         <div class="card">
             <h2>📊 Controle de Estoque Absoluto</h2>
-            <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso na v3.7!');">
+            <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso no estoque!');">
                 <div class="form-group">
                     <label for="cartelas">Cartelas Fechadas Prontas para Venda (Unidades):</label>
                     <input type="number" id="cartelas" class="form-control" min="0" value="0" placeholder="Ex: 16" required>
@@ -168,12 +223,10 @@
                 <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
             </form>
 
-            <!-- Atalhos de Navegação Técnicas/Wi-Fi -->
-            <a href="dicas.html" class="btn-side btn-orange">💡 Ver Dicas de Cozimento & Hobby</a>
             <a href="wifi-secreto.html" class="btn-side btn-dark">🔑 Exibir QR Code Wi-Fi</a>
         </div>
 
-        <!-- Seção Ajustada: Dica de Hobby & Projeção -->
+        <!-- Seção do Hobby e Projeção -->
         <div class="card" style="background-color: #f3e8ff; border-color: #e9d5ff;">
             <h2 style="color: var(--purple-accent);">🏡 Espaço Hobby & Projeção Real</h2>
             <p style="font-size: 13px; color: #581c87;">
@@ -183,9 +236,32 @@
 
         <footer class="footer">
             <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.7</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.4.3 (Live Status)</div>
         </footer>
     </div>
+
+    <!-- Motor de Atualização do Relógio em Tempo Real -->
+    <script>
+        function iniciarRelogio() {
+            setInterval(function() {
+                var agora = new Date();
+                
+                // Formata a data (DD/MM/AAAA)
+                var dia = String(agora.getDate()).padStart(2, '0');
+                var mes = String(agora.getMonth() + 1).padStart(2, '0');
+                var ano = agora.getFullYear();
+                
+                // Formata a hora (HH:MM:SS)
+                var horas = String(agora.getHours()).padStart(2, '0');
+                var minutos = String(agora.getMinutes()).padStart(2, '0');
+                var segundos = String(agora.getSeconds()).padStart(2, '0');
+                
+                // Atualiza a barra preta na tela
+                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
+            }, 1000);
+        }
+        iniciarRelogio();
+    </script>
 
 </body>
 </html>
