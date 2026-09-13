@@ -86,13 +86,32 @@
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
-        /* Retângulo do PIX - Apenas QR Code e Chave */
-        .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
+        /* Retângulo do PIX - Apenas o título e a imagem do QR Code dentro */
+        .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
+        /* Estilo para a Chave Fora do Retângulo */
+        .chave-externa-box {
+            margin: 15px 0 5px 0;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.4;
+        }
+        .chave-texto {
+            font-family: monospace;
+            font-weight: bold;
+            color: #166534;
+            display: inline-block;
+            word-break: break-all;
+            padding: 5px;
+            background: #f0fdf4;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+
         /* Botão Copiar Fora do Retângulo */
-        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .btn-copiar-pix:active { transform: scale(0.98); }
         
         .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
@@ -123,6 +142,7 @@
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
+    <!-- Relógio em Foco Redesenhado -->
     <div class="header-system">
         <div>⏱️ <span id="live-date">13/09/2026</span> <span id="live-clock">00:00:00</span></div>
         <a href="./index.html" class="btn-top-inicio">🏠 INÍCIO</a>
@@ -136,17 +156,22 @@
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
+    <!-- Bloco Tracejado (Contendo APENAS o QR Code agora) -->
     <div class="pix-box">
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
-        <strong>Chave Pix:</strong><br>
-        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
     </div>
 
-    <!-- Botão posicionado FORA do retângulo -->
+    <!-- Elementos jogados para FORA do retângulo conforme seu pedido -->
+    <div class="chave-externa-box">
+        <strong>Chave Pix:</strong><br>
+        <span id="chave-pix-config" class="chave-texto">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
+    </div>
+
     <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
         📋 Copiar Código Copia e Cola
     </button>
+    
     <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; font-size: 14px; display: none;">
         ✅ Código Pix copiado! Abra o app do seu banco.
     </div>
@@ -230,22 +255,3 @@
     }
 
     function fallbackCopiarPix(texto) {
-        var textArea = document.createElement("textarea");
-        textArea.value = texto;
-        textArea.style.position = "fixed"; 
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.width = "2em";
-        textArea.style.height = "2em";
-        textArea.style.padding = "0";
-        textArea.style.border = "none";
-        textArea.style.outline = "none";
-        textArea.style.boxShadow = "none";
-        textArea.style.background = "transparent";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            mostrarSucessoPix();
-        } catch (err) {
