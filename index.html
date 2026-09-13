@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Conservas - Início</title>
+    <title>Sistema de Monitoramento Agro - v26.08.31.21</title>
     <style>
         :root {
             --primary-color: #d97706;
@@ -12,75 +12,100 @@
             --text-color: #1f2937;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
         }
         .container {
-            max-width: 500px;
-            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .welcome-box {
             background: var(--card-color);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
             text-align: center;
         }
-        h1 {
+        .welcome-box h1 {
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
             font-size: 24px;
         }
-        p {
-            color: #4b5563;
-            margin-bottom: 25px;
+        .grid-modules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .grid-modules { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: var(--card-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--text-color);
         }
         .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            background-color: var(--primary-color);
+            display: block;
+            background: var(--primary-color);
             color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
             text-decoration: none;
-            border-radius: 6px;
             font-weight: bold;
-            box-sizing: border-box;
-            transition: background-color 0.2s;
+            margin-top: 15px;
         }
-        .btn:hover {
-            background-color: #b45309;
-        }
-        .btn-secondary {
-            background-color: #4b5563;
-        }
-        .btn-secondary:hover {
-            background-color: #374151;
-        }
-        .version {
+        .btn:hover { background: #b45309; }
+        .version-tag {
+            text-align: center;
+            margin-top: 30px;
             font-size: 12px;
             color: #9ca3af;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div>🥚🚀</div>
-        <h1>Sistema de Monitoramento</h1>
-        <p>Selecione uma das opções abaixo para acessar o painel ou iniciar as rotinas.</p>
-        
-        <a href="adm.html" class="btn">Acessar Painel ADM</a>
-        <a href="#" class="btn btn-secondary" onclick="alert('Iniciando rotina de testes...')">Iniciar Teste da Salmoura</a>
-        
-        <div class="version">Versão 26.08.31.22.1</div>
+        <div class="welcome-box">
+            <h1>Mairiporã Agro - Ovos de Codorna</h1>
+            <p>Painel Integrado de Monitoramento e Controle Operacional</p>
+        </div>
+
+        <div class="grid-modules">
+            <!-- Módulo de Produção -->
+            <div class="card">
+                <div>
+                    <h2>📊 Controle de Produção</h2>
+                    <p>Acesse os relatórios de colheita diária, pesagem dos lotes e registro de perdas das aves.</p>
+                </div>
+                <a href="adm.html" class="btn">Abrir Produção</a>
+            </div>
+
+            <!-- Módulo de Conservas -->
+            <div class="card">
+                <div>
+                    <h2>🧪 Rotina de Salmoura</h2>
+                    <p>Calculadora de densidade e salinidade da água para conservas de ovos de codorna.</p>
+                </div>
+                <a href="#" class="btn" onclick="alert('Iniciando calculadora de salmoura v21...')">Iniciar Salmoura</a>
+            </div>
+        </div>
+
+        <div class="version-tag">Versão: 26.08.31.21</div>
     </div>
 
 </body>
