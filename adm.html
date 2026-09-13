@@ -13,8 +13,7 @@
             --text-main: #111827;
             --text-muted: #4b5563;
             --border: #e5e7eb;
-            --success: #10b981;
-            --danger: #ef4444;
+            --purple-accent: #6b21a8;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +27,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -62,28 +61,13 @@
         }
         .btn-back:hover { background-color: #374151; }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-        }
-
-        .main-panel, .side-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
         }
 
         .card h2 {
@@ -133,28 +117,9 @@
             font-weight: 600;
             width: 100%;
             transition: background 0.2s;
+            margin-bottom: 15px;
         }
         .btn-submit:hover { background-color: var(--primary-hover); }
-
-        .status-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f3f4f6;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .badge {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
-            color: white;
-        }
-        .badge-success { background-color: var(--success); }
 
         .btn-side {
             display: block;
@@ -191,50 +156,34 @@
             <a href="index.html" class="btn-back">← Voltar ao Hub</a>
         </header>
 
-        <div class="dashboard-grid">
-            
-            <div class="main-panel">
-                <div class="card">
-                    <h2>📊 Controle de Estoque Absoluto</h2>
-                    <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso na v3.6!');">
-                        <div class="form-group">
-                            <label for="cartelas">Cartelas Fechadas Prontas para Venda (Unidades):</label>
-                            <input type="number" id="cartelas" class="form-control" min="0" value="0" placeholder="Ex: 16" required>
-                        </div>
-
-                        <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="side-panel">
-                <div class="card">
-                    <h2>🐔 Visão dos Lotes atuais</h2>
-                    
-                    <div class="status-box">
-                        <span>Lote Codorna #01</span>
-                        <span class="badge badge-success">Ativo</span>
-                    </div>
-                    <div class="status-box">
-                        <span>Lote Codorna #02</span>
-                        <span class="badge badge-success">Ativo</span>
-                    </div>
-                    
-                    <a href="dicas.html" class="btn-side btn-orange">💡 Ver Dicas de Cozimento</a>
-                    <a href="wifi-secreto.html" class="btn-side btn-dark">🔑 Exibir QR Code Wi-Fi</a>
+        <!-- Controle de Estoque Limpo -->
+        <div class="card">
+            <h2>📊 Controle de Estoque Absoluto</h2>
+            <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso na v3.7!');">
+                <div class="form-group">
+                    <label for="cartelas">Cartelas Fechadas Prontas para Venda (Unidades):</label>
+                    <input type="number" id="cartelas" class="form-control" min="0" value="0" placeholder="Ex: 16" required>
                 </div>
 
-                <div class="card" style="background-color: #fffbeb; border-color: #fef3c7;">
-                    <h2 style="color: #b45309;">💡 Dados Absolutos</h2>
-                    <p style="font-size: 13px; color: #78350f;">Sistema configurado para conta cheia. Lançamento rápido baseado apenas em cartelas prontas para saída comercial, sem reservas anteriores.</p>
-                </div>
-            </div>
+                <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
+            </form>
 
+            <!-- Atalhos de Navegação Técnicas/Wi-Fi -->
+            <a href="dicas.html" class="btn-side btn-orange">💡 Ver Dicas de Cozimento & Hobby</a>
+            <a href="wifi-secreto.html" class="btn-side btn-dark">🔑 Exibir QR Code Wi-Fi</a>
+        </div>
+
+        <!-- Seção Ajustada: Dica de Hobby & Projeção -->
+        <div class="card" style="background-color: #f3e8ff; border-color: #e9d5ff;">
+            <h2 style="color: var(--purple-accent);">🏡 Espaço Hobby & Projeção Real</h2>
+            <p style="font-size: 13px; color: #581c87;">
+                O sistema opera focado no <strong>"Tamagotchi da Vida Real"</strong>. Com a manutenção ideal de um lote padrão de 5 aves por 3 gerações (avós e netos), a projeção científica de eficiência acumulada (85%) prevê uma colheita estável de <strong>~30 ovos por semana</strong> — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.
+            </p>
         </div>
 
         <footer class="footer">
             <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.6</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.7</div>
         </footer>
     </div>
 
