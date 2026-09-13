@@ -24,7 +24,7 @@
             padding: 20px; 
         }
 
-        /* Container Original Limpo */
+        /* Container Estilo Aplicativo (Startup) */
         .container { 
             max-width: 480px; 
             margin: 0 auto; 
@@ -99,7 +99,7 @@
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px 5px;
             font-size: 13px;
             font-weight: bold;
             color: #64748b;
@@ -108,68 +108,46 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .tab-btn.active {
-            background: #ffffff;
-            color: #1e293b;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            background: #2d6a4f;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         /* Conteúdos das Abas */
         .tab-content {
             display: none;
-            padding: 10px 0;
+            padding: 15px 0;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
+        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 15px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
         .instrucao-copia {
             font-size: 14px;
             font-weight: bold;
             color: #c2410c;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        /* BLOCO DO CÓDIGO PIX COPIA E COLA */
-        .codigo-pix-exposto {
-            width: 100%;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 13px;
-            color: #166534;
-            display: block;
-            word-break: break-all;
-            padding: 15px;
-            background: #f0fdf4;
-            border: 2px dashed #27ae60;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            /* Permite também a seleção manual clássica se segurar o dedo */
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-        }
-
-        /* Alerta de Sucesso Flutuante ou Fixo */
+        /* Alerta de Sucesso Estilizado da Startup */
         .alerta-sucesso {
             color: #166534;
             background-color: #dcfce7;
-            border: 1px solid #bbf7d0;
-            padding: 10px;
-            border-radius: 6px;
+            border: 2px dashed #27ae60;
+            padding: 15px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 13px;
-            margin-top: 10px;
-            display: none;
+            font-size: 14px;
+            margin-top: 15px;
+            line-height: 1.4;
         }
 
         /* Estilo da Caixa do Boleto Desativado */
@@ -223,50 +201,76 @@
     </div>
 
     <h1>🔒 Finalizar Pedido</h1>
-    <div class="subtitle">Mairiporã Agro • Checkout Oficial</div>
+    <div class="subtitle">Mairiporã Agro • Checkout Startup</div>
 
     <a href="https://whatsapp.com" class="order-summary-link" target="_blank">
         <div id="resumo-texto">🛒 Verifique o valor total abaixo</div>
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- MENU DE SELEÇÃO INSTITUCIONAL (Estilo Shopee) -->
+    <!-- MENU DE SELEÇÃO E AÇÃO AUTOMÁTICA -->
     <div class="tabs-pagamento">
-        <button class="tab-btn active" onclick="alternarAba('aba-pix', this)">⚡ PIX COPIA</button>
+        <button class="tab-btn active" onclick="acionarAbaPix(this)">⚡ PIX COPIA</button>
         <button class="tab-btn" onclick="alternarAba('aba-qrcode', this)">📸 QR CODE</button>
         <button class="tab-btn" onclick="alternarAba('aba-boleto', this)">📄 BOLETO</button>
     </div>
 
-    <!-- ABA 1: PIX COPIA E COLA -->
+    <!-- ABA 1: PIX COPIA E COLA AUTOMÁTICO AO CLICAR NA ABA -->
     <div id="aba-pix" class="tab-content active">
-        <div class="pix-title">🔑 COPIA E COLA</div>
-        <p class="instrucao-copia">👇 Toque uma vez em cima do código para copiar:</p>
-        <p id="chave-pix-config" class="codigo-pix-exposto" onclick="copiarCodigoPixManual()">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</p>
-        <div id="msgSucesso" class="alerta-sucesso">✅ Código Pix copiado! Abra o app do seu banco e cole na opção Pix Copia e Cola.</div>
+        <div class="pix-title">⚡ SISTEMA COPIA E COLA ACTIVED</div>
+        <div class="alerta-sucesso" style="display: block;">
+            🎉 SUCESSO! O código Pix foi copiado automaticamente para a memória do seu aparelho!<br><br>
+            <strong>Próximo passo:</strong> Abra o aplicativo do seu banco e cole na opção "Pix Copia e Cola".
+        </div>
     </div>
 
     <!-- ABA 2: QR CODE -->
     <div id="aba-qrcode" class="tab-content">
         <div class="pix-title">📸 ESCANEAR CÓDIGO</div>
-        <p class="instrucao-copia">Utilize um segundo aparelho celular para escanear:</p>
+        <p class="instrucao-copia">Abra o app do banco e aponte a câmera para a tela:</p>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
     </div>
 
-    <!-- ABA 3: BOLETO BANCÁRIO (DESATIVADO SISTÊMICO) -->
+    <!-- ABA 3: BOLETO BANCÁRIO (EM AJUSTES) -->
     <div id="aba-boleto" class="tab-content">
         <div class="boleto-box">
             <svg style="width:48px; height:48px; fill:#94a3b8;" viewBox="0 0 24 24">
-                <path d="M3 3h2v18H3V3zm3 0h1v18H6V3zm3 0h2v18H9V3zm3 0h3v18h-3V3zm4 0h1v18h-1V3zm2 0h2v18h-2V3zm3 0h1v18h-1V3z"/>
+                <path d="M3 3h2v18H3V3zm3 0h1v18H6V3zm3 0h2v18H9V3zm3 0h3v18h-3V3zm4 0h1v18h-1V3zm2 0h2v18h-2V3zm3 0h1v18h-1V3zm-12 3h6v2h-6V6zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z"/>
             </svg>
-            <div class="boleto-aviso">⚠️ Opção desativada para manutenção do lote</div>
+            <div class="boleto-aviso">⚙️ Opção em ajustes no sistema</div>
         </div>
     </div>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
 
     <div class="secure-footer">
-        🔒 AMBIENTE 100% SEGURO | PAGAMENTO DIRETO <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. pagina 2/2</span>
+        🔒 AMBIENTE 100% SEGURO | INTERFACE STARTUP <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. PWA v2</span>
     </div>
 
     <footer class="footer-oficial">
         JCS_software . JCS_criatório<br>
+        versão 26.08.31.24 | 🔏 cadeado de segurança<br>
+        <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
+    </footer>
+</div>
+
+<script>
+    var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
+
+    function inicializarPagamento() {
+        iniciarRelogio();
+        // Copia automaticamente logo no carregamento inicial da página
+        executarCopiaReal(brCodeOficial);
+    }
+
+    function iniciarRelogio() {
+        atualizarTempo(); 
+        setInterval(atualizarTempo, 1000);
+    }
+
+    function atualizarTempo() {
+        const agora = new Date();
+        const dia = String(agora.getDate()).padStart(2, '0');
+        const mes = String(agora.getMonth() + 1).padStart(2, '0');
+        const ano = "2026";
+        
