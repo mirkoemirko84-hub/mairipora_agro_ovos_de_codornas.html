@@ -93,7 +93,7 @@
         .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
         .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
-        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
+        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #2d6a4f; font-weight: bold; }
         
         .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; -webkit-tap-highlight-color: transparent; }
         .btn-copiar-pix:active { transform: scale(0.98); }
@@ -186,11 +186,11 @@
         if (elementoData) { elementoData.innerText = dia + "/" + mes + "/" + ano; }
 
         const horas = String(agora.getHours()).padStart(2, '0');
-        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const minutes = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         
         const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
+        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutes + ":" + segundos; }
     }
 
     function carregarConfiguracoes() {
@@ -201,7 +201,7 @@
         }
     }
 
-    // Função universal para cópia estável do BR Code
+    // Função de cópia estável do BR Code
     function copiarCodigoPix() {
         var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
         
