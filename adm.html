@@ -168,6 +168,21 @@
         }
         .btn-submit:hover { background-color: var(--primary-hover); }
 
+        .btn-side {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+        .btn-dark { background-color: #374151; color: white; }
+        .btn-dark:hover { background-color: #1f2937; }
+
         .footer {
             text-align: center;
             font-size: 12px;
@@ -181,7 +196,7 @@
 <body>
 
     <div class="container">
-        <!-- Barra Superior apontando de volta para a Página Inicial Pública (index.html) -->
+        <!-- Retorna direto para a Página Inicial pública -->
         <header class="navbar">
             <h1>Painel de Administração Agro</h1>
             <a href="index.html" class="btn-back">← Voltar à Página Inicial</a>
@@ -206,6 +221,9 @@
 
                 <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
             </form>
+
+            <!-- O botão de Wi-Fi voltou para cá, protegido pela senha do ADM -->
+            <a href="wifi-secreto.html" class="btn-side btn-dark">🔑 Exibir QR Code Wi-Fi</a>
         </div>
 
         <!-- Seção do Hobby e Projeção -->
@@ -218,7 +236,7 @@
 
         <footer class="footer">
             <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.13.1.0 (Fluxo Seguro)</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.13.1.2 (Painel Exclusivo)</div>
         </footer>
     </div>
 
@@ -233,7 +251,7 @@
                 var horas = String(agora.getHours()).padStart(2, '0');
                 var minutos = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
+                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
             }, 1000);
         }
         iniciarRelogio();
