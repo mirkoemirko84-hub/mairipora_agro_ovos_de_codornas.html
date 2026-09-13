@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Versão 2.2</title>
+    <style>
+        :root {
+            --primary-color: #d97706;
+            --background-color: #f3f4f6;
+            --card-color: #ffffff;
+            --text-color: #1f2937;
+            --success-color: #10b981;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            background: var(--card-color);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .container { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: var(--card-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            border-bottom: 2px solid var(--background-color);
+            padding-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn:hover { background: #b45309; }
+        .btn-nav {
+            background: #4b5563;
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .btn-nav:hover { background: #374151; }
+        .status-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .footer-version {
+            text-align: center;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #9ca3af;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="header">
+        <h1>Painel de Controle Agro</h1>
+        <a href="index.html" class="btn btn-nav">← Voltar ao Início</a>
+    </div>
+
+    <div class="container">
+        <!-- Bloco de Monitoramento dos Ovos -->
+        <div class="card">
+            <h2>🥚 Monitoramento de Lotes</h2>
+            <p>Status do Sistema: <span class="status-badge">ONLINE</span></p>
+            <p>Pronto para receber dados das pesagens e registros diários de produção de ovos de codorna.</p>
+            <button class="btn" onclick="alert('Funcionalidade de lote ativada na v2.2')">Gerenciar Lotes</button>
+        </div>
+
+        <!-- Bloco de Testes da Salmoura -->
+        <div class="card">
+            <h2>🧪 Salmoura & Conservas</h2>
+            <p>Monitore a densidade, salinidade e qualidade da água para os ovos em conserva.</p>
+            <button class="btn" onclick="alert('Abrindo parâmetros de teste da salmoura...')">Iniciar Teste</button>
+        </div>
+
+        <div class="footer-version">Versão do Sistema: v26.08.31.22.1 (Estável 2.2)</div>
+    </div>
+
+</body>
+</html>
