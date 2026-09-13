@@ -6,14 +6,14 @@
     <title>Mairiporã Agro - Conhecimento e Hobby</title>
     <style>
         :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg: #f9fafb;
+            --primary: #2d6a4f; /* Alinhado ao verde institucional vibrante */
+            --primary-hover: #1b4332;
+            --bg: #f4f6f8;
             --card-bg: #ffffff;
             --text-main: #111827;
             --text-muted: #4b5563;
-            --border: #e5e7eb;
-            --accent: #166534;
+            --border: #d8f3dc; /* Bordas verdes claras para trazer mais vida */
+            --accent: #1b4332;
             --accent-bg: #f0fdf4;
             --blue-accent: #1e3a8a;
             --blue-bg: #eff6ff;
@@ -21,10 +21,19 @@
             --purple-bg: #f3e8ff;
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Configurações Gerais e Bloqueio de Seleção */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            user-select: none; /* Bloqueia seleção de texto */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             padding: 20px;
@@ -36,35 +45,43 @@
             margin: 0 auto;
         }
 
+        /* Topo Chamativo e Atraente Alinhado com a Home */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
-            padding: 16px 24px;
+            background: linear-gradient(135deg, #1b4332, #2d6a4f);
+            padding: 20px 24px;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             margin-bottom: 24px;
-            border: 1px solid var(--border);
+            border: 3px solid #081c15; /* Borda forte de acabamento */
         }
 
         .navbar h1 {
-            font-size: 20px;
-            color: var(--primary);
+            font-size: 22px;
+            color: #ffffff;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
         }
 
         .btn-back {
-            background-color: #4b5563;
-            color: white;
+            background-color: #ffffff;
+            color: #1b4332;
             text-decoration: none;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 6px;
             font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+            border: 2px solid #081c15;
         }
-        .btn-back:hover { background-color: #374151; }
+        .btn-back:hover { 
+            background-color: #d8f3dc; 
+            transform: translateY(-1px);
+        }
 
         .layout-grid {
             display: grid;
@@ -76,12 +93,14 @@
             .layout-grid { grid-template-columns: 1fr; }
         }
 
+        /* Cartões Robustos com Bordas Marcantes */
         .card {
             background: var(--card-bg);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border); /* Borda visível */
+            border-left: 6px solid #1b4332; /* Destaque lateral forte */
             border-radius: 12px;
             padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             margin-bottom: 24px;
         }
 
@@ -96,8 +115,14 @@
             padding-bottom: 8px;
         }
 
-        .card h2.blue-title { color: var(--blue-accent); }
-        .card h2.purple-title { color: var(--purple-accent); }
+        .card h2.blue-title { 
+            color: var(--blue-accent); 
+            border-bottom: 2px solid #bfdbfe;
+        }
+        .card h2.purple-title { 
+            color: var(--purple-accent); 
+            border-bottom: 2px solid #e9d5ff;
+        }
 
         .step-item {
             margin-bottom: 16px;
@@ -106,7 +131,7 @@
             font-size: 14px;
         }
         .step-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .step-item strong { color: var(--primary); display: block; margin-bottom: 4px; }
+        .step-item strong { color: #d97706; display: block; margin-bottom: 4px; }
 
         .gold-tips {
             background-color: var(--accent-bg);
@@ -153,24 +178,37 @@
             font-weight: 800;
             color: var(--accent);
             margin-top: 20px;
+            letter-spacing: 1px;
         }
 
+        /* Rodapé Padronizado Oficial */
         .footer {
             text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
+            font-size: 13px;
+            color: #666;
             margin-top: 40px;
             padding: 20px 0;
+            border-top: 1px solid #ddd;
+            line-height: 1.6;
+        }
+
+        .selo-seguranca {
+            color: #2d6a4f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
         }
     </style>
 </head>
-<body>
+<!-- Travas de segurança: Bloqueia clique direito e teclas de atalho de inspeção -->
+<body oncontextmenu="return false;" onkeydown="return false;">
 
     <div class="container">
-        <!-- Menu Superior -->
+        <!-- Menu Superior Atualizado -->
         <header class="navbar">
-            <h1>💡 Painel de Conhecimento e Práticas Agro</h1>
-            <a href="adm.html" class="btn-back">← Voltar ao ADM</a>
+            <h1>Mairiporã Agro</h1>
+            <a href="index.html" class="btn-back">← Voltar</a>
         </header>
 
         <div class="layout-grid">
@@ -219,33 +257,9 @@
                 </div>
             </div>
 
-            <!-- COLUNA DIREITA: Fatos Científicos e Espaço Hobby -->
-            <div class="side-panel">
-                
-                <!-- Painel Nutricional Científico -->
-                <div class="card">
-                    <h2 class="blue-title">🔬 Benefícios Científicos à Saúde</h2>
-                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">
-                        Por que o ovo de codorna é considerado um superalimento concentrado?
-                    </p>
+            <!-- COLUNA DIREITA: Fatos Científicos & Projeto Hobby -->
+            <div class="right-panel">
+                <!-- Seção de Fatos Científicos -->
+                <div class="card" style="border-left-color: var(--blue-accent);">
+                    <h2 class="blue-title">🔬 Fatos Científicos do Superalimento</h2>
                     
-                    <div class="science-item">
-                        <strong>🧠 Estímulo Cerebral (Colina)</strong>
-                        Contém altas doses de Colina, nutriente essencial que atua na melhora da memória, foco, cognição e saúde do sistema nervoso.
-                    </div>
-                    <div class="science-item">
-                        <strong>🩸 Combate Ativo à Anemia</strong>
-                        Concentração densa de **Ferro, Vitamina B12 e Ácido Fólico**, fundamentais para a correta produção de hemácias e oxigenação sanguínea.
-                    </div>
-                    <div class="science-item">
-                        <strong>👁️ Proteção Ocular (Vitamina A)</strong>
-                        Fonte rica de Vitamina A, ideal para blindar a saúde da retina e prevenir a fadiga ocular do dia a dia.
-                    </div>
-                    <div class="science-item">
-                        <strong>⚡ Metabolismo Energético</strong>
-                        Sua gema proporcionalmente maior concentra Vitaminas B1 e B2 de forma muito mais densa, otimizando a quebra de energia das células.
-                    </div>
-                </div>
-
-                <!-- NOVO Espaço Hobby Familiar Detalhado -->
-                <div class="card">
