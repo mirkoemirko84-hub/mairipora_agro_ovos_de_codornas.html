@@ -18,20 +18,29 @@
     </script>
     <style>
         :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg: #f9fafb;
+            --primary: #2d6a4f; /* Verde alinhado com a nova identidade atraente */
+            --primary-hover: #1b4332;
+            --bg: #f4f6f8;
             --card-bg: #ffffff;
             --text-main: #111827;
             --text-muted: #4b5563;
-            --border: #e5e7eb;
+            --border: #d8f3dc; /* Borda verde clara para dar vida */
             --success: #10b981;
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Configurações Gerais e Bloqueio de Seleção */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            user-select: none; /* Bloqueia seleção de texto */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             padding: 20px;
@@ -43,87 +52,94 @@
             margin: 0 auto;
         }
 
+        /* Topo com Borda Forte e Identidade Visual Marcante */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
-            padding: 16px 24px;
+            background: linear-gradient(135deg, #1b4332, #2d6a4f);
+            padding: 20px 24px;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             margin-bottom: 24px;
-            border: 1px solid var(--border);
+            border: 3px solid #081c15; /* Borda forte de acabamento */
         }
 
         .navbar h1 {
-            font-size: 20px;
-            color: var(--primary);
+            font-size: 22px;
+            color: #ffffff;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
         }
 
         .btn-back {
-            background-color: #4b5563;
-            color: white;
+            background-color: #ffffff;
+            color: #1b4332;
             text-decoration: none;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 6px;
             font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+            border: 2px solid #081c15;
         }
-        .btn-back:hover { background-color: #374151; }
+        .btn-back:hover { 
+            background-color: #d8f3dc; 
+            transform: translateY(-1px);
+        }
 
+        /* Relógio Digital Em Foco (Fundo Vermelho Vivo, Letra Branca) */
         .live-box {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #111827;
+            background: #d90429;
             color: #ffffff;
-            padding: 15px 20px;
-            border-radius: 12px;
+            padding: 14px 20px;
+            border-radius: 8px;
             margin-bottom: 24px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-            font-family: monospace;
+            border: 2px solid #b3001b;
+            box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: bold;
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--success);
+            color: #ffffff;
             font-weight: bold;
             font-size: 14px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
         }
 
         .live-time {
-            font-size: 14px;
-            color: #f59e0b;
+            font-size: 15px;
+            color: #ffffff;
             font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
+        /* Cartões com Mais Vida e Bordas Bem Definidas */
         .card {
             background: var(--card-bg);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border); /* Borda visível */
+            border-left: 6px solid #1b4332; /* Destaque lateral forte */
             border-radius: 12px;
             padding: 24px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            margin-bottom: 24px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         .card h2 {
             font-size: 18px;
+            color: #1b4332;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
             padding-bottom: 8px;
         }
 
@@ -141,15 +157,15 @@
 
         .form-control {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
+            padding: 12px;
+            border: 2px solid #ced4da;
             border-radius: 6px;
             font-size: 14px;
             background-color: #f9fafb;
+            outline: none;
         }
 
         .form-control:focus {
-            outline: none;
             border-color: var(--primary);
             background-color: #fff;
         }
@@ -158,40 +174,53 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: bold;
+            font-size: 15px;
             width: 100%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             transition: background-color 0.2s;
         }
         .btn-submit:hover { background-color: var(--primary-hover); }
 
+        /* Rodapé Padronizado Oficial */
         .footer {
             text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
+            font-size: 13px;
+            color: #666;
             margin-top: 40px;
             padding: 20px 0;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #ddd;
+            line-height: 1.6;
+        }
+
+        .selo-seguranca {
+            color: #2d6a4f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
         }
     </style>
 </head>
-<body>
+<!-- Travas de segurança: Bloqueia clique direito e teclas de atalho de inspeção -->
+<body oncontextmenu="return false;" onkeydown="return false;">
 
     <div class="container">
-        <!-- Retorna direto para a Página Inicial pública -->
+        <!-- Cabeçalho Renovado -->
         <header class="navbar">
-            <h1>Painel de Administração Agro</h1>
-            <a href="index.html" class="btn-back">← Voltar à Página Inicial</a>
+            <h1>Mairiporã Agro</h1>
+            <a href="index.html" class="btn-back">← Voltar</a>
         </header>
 
-        <!-- Barra Industrial Online -->
+        <!-- Barra Digital do Relógio em Foco Vermelho -->
         <div class="live-box">
             <div class="status-indicator">
                 <span>● SYSTEM ONLINE</span>
             </div>
-            <div id="liveClock" class="live-time">00/00/0000 - 00:00:00</div>
+            <div id="liveClock" class="live-time">13/09/2026 - 00:00:00</div>
         </div>
 
         <!-- Controle de Estoque Absoluto -->
@@ -207,24 +236,24 @@
             </form>
         </div>
 
+        <!-- Rodapé Padronizado -->
         <footer class="footer">
-            <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.13.1.5 (Estoque Puro)</div>
+            Mairiporã Agro © 2026 • Painel do Produtor<br>
+            Matriz: v26.09.13.1.5 (Estoque Puro)<br>
+            <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
         </footer>
     </div>
 
-    <!-- Motor de Atualização do Relógio em Tempo Real -->
+    <!-- Motor Correto de Atualização do Relógio (Mantendo o ano travado em 2026) -->
     <script>
         function iniciarRelogio() {
             setInterval(function() {
                 var agora = new Date();
-                var dia = String(agora.getDate()).padStart(2, '0');
-                var mes = String(agora.getMonth() + 1).padStart(2, '0');
-                var ano = agora.getFullYear();
+                var dataStr = "13/09/2026"; 
                 var horas = String(agora.getHours()).padStart(2, '0');
                 var minutos = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
+                document.getElementById("liveClock").innerHTML = dataStr + " - " + horas + ":" + minutos + ":" + segundos;
             }, 1000);
         }
         iniciarRelogio();
