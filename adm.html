@@ -251,7 +251,7 @@
                 var horas = String(agora.getHours()).padStart(2, '0');
                 var minutos = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
+                document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
             }, 1000);
         }
         iniciarRelogio();
