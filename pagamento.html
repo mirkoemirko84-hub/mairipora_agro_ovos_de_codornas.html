@@ -24,7 +24,7 @@
             padding: 20px; 
         }
 
-        /* Container Original - Sem molduras verdes, limpo como antes */
+        /* Container Original Limpo */
         .container { 
             max-width: 480px; 
             margin: 0 auto; 
@@ -86,18 +86,20 @@
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
+        /* Retângulo do PIX - Fechando agora apenas com o QR Code e a chave textual */
         .pix-box { background: #f8f9fa; border: 2px dashed #27ae60; padding: 20px; border-radius: 10px; margin: 20px auto; font-size: 16px; color: #27ae60; word-break: break-all; }
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
+        /* Botão Copiar Fora do Retângulo - margens ajustadas para destaque vertical */
+        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn-copiar-pix:active { transform: scale(0.98); }
+        
         .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
         .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
-        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #2d6a4f; font-weight: bold; }
+        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
         
-        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 12px 15px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; transition: background 0.3s; -webkit-tap-highlight-color: transparent; }
-        .btn-copiar-pix:active { transform: scale(0.98); }
-
         /* Rodapé Oficial Padronizado Limpo */
         .footer-oficial {
             text-align: center;
@@ -118,7 +120,6 @@
         }
     </style>
 </head>
-<!-- Travas de segurança: Bloqueia clique direito e teclas de atalho de inspeção -->
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
@@ -136,19 +137,20 @@
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
+    <!-- Bloco Tracejado (Agora contendo apenas Chave e QR Code) -->
     <div class="pix-box">
         <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
         <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
         <strong>Chave Pix:</strong><br>
-        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span><br>
-        
-        <!-- Botão com chamada direta e limpa para celulares -->
-        <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
-            📋 Copiar Código Copia e Cola
-        </button>
-        <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-top: 8px; font-size: 14px; display: none;">
-            ✅ Código Pix copiado! Abra o app do seu banco.
-        </div>
+        <span id="chave-pix-config">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
+    </div>
+
+    <!-- Botão com chamada direta e aviso posicionados FORA do retângulo -->
+    <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
+        📋 Copiar Código Copia e Cola
+    </button>
+    <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; font-size: 14px; display: none;">
+        ✅ Código Pix copiado! Abra o app do seu banco.
     </div>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
@@ -186,11 +188,11 @@
         if (elementoData) { elementoData.innerText = dia + "/" + mes + "/" + ano; }
 
         const horas = String(agora.getHours()).padStart(2, '0');
-        const minutes = String(agora.getMinutes()).padStart(2, '0');
+        const minutos = String(agora.getMinutes()).padStart(2, '0');
         const segundos = String(agora.getSeconds()).padStart(2, '0');
         
         const elementoRelogio = document.getElementById('live-clock');
-        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutes + ":" + segundos; }
+        if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
 
     function carregarConfiguracoes() {
@@ -231,7 +233,7 @@
         }, 4000);
     }
 
-    // Mecanismo auxiliar caso o sistema operacional do celular barre a cópia direta
+    // Mecanismo auxiliar de segurança para navegadores mobile
     function fallbackCopiarPix(texto) {
         var textArea = document.createElement("textarea");
         textArea.value = texto;
@@ -241,6 +243,3 @@
         textArea.style.width = "2em";
         textArea.style.height = "2em";
         textArea.style.padding = "0";
-        textArea.style.border = "none";
-        textArea.style.outline = "none";
-        textArea.style.boxShadow = "none";
