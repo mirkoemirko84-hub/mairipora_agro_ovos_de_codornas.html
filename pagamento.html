@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro - Pagamento Seguro</title>
     <style>
-        /* Configurações Gerais e Bloqueio de Seleção de Texto */
+        /* Configurações Gerais e Bloqueio de Seleção de Texto Global */
         * { 
             box-sizing: border-box; 
             margin: 0; 
@@ -86,32 +86,36 @@
         .order-summary-link:active { transform: scale(0.98); }
         .click-hint { font-size: 14px; color: #27ae60; font-weight: bold; margin-top: 10px; display: block; }
 
-        /* Estilização da área PIX limpa e sem retângulo tracejado */
+        /* Título do PIX e Imagem livres na tela */
         .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-top: 25px; margin-bottom: 10px; }
         .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
         
         .chave-externa-box {
-            margin: 15px 0 5px 0;
-            font-size: 15px;
+            margin: 20px 0 25px 0;
+            font-size: 16px;
             color: #333;
-            line-height: 1.4;
+            line-height: 1.5;
         }
+
+        /* LIBERAÇÃO DA SELEÇÃO DA CHAVE: Permite copiar com os dedos no celular */
         .chave-texto {
             font-family: monospace;
             font-weight: bold;
+            font-size: 15px;
             color: #166534;
             display: inline-block;
             word-break: break-all;
-            padding: 5px;
+            padding: 10px;
             background: #f0fdf4;
-            border-radius: 4px;
-            margin-top: 4px;
+            border: 2px dashed #27ae60;
+            border-radius: 6px;
+            margin-top: 8px;
+            user-select: text !important; /* Desbloqueia a cópia manual */
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
         }
 
-        /* Botão Copiar Livre de Caixas */
-        .btn-copiar-pix { background-color: #27ae60; color: white; border: none; padding: 14px 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin: 10px 0 15px 0; transition: background 0.3s; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .btn-copiar-pix:active { transform: scale(0.98); }
-        
         .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
         .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
         
@@ -137,6 +141,7 @@
         }
     </style>
 </head>
+<!-- Travas de segurança globais ativas -->
 <body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
 
 <div class="container">
@@ -154,21 +159,14 @@
         <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
     </a>
 
-    <!-- Elementos PIX dispostos de forma totalmente livre, SEM RETÂNGULO TRACEJADO -->
+    <!-- QR Code Livre na Tela -->
     <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
     <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
 
+    <!-- Instrução Direta para Cópia Manual com os Dedos -->
     <div class="chave-externa-box">
-        <strong>Chave Pix:</strong><br>
-        <span id="chave-pix-config" class="chave-texto">3d4ee862-439d-481d-9f5b-07d69a7182f6</span>
-    </div>
-
-    <button id="btnCopiarPix" class="btn-copiar-pix" onclick="copiarCodigoPix()">
-        📋 Copiar Código Copia e Cola
-    </button>
-    
-    <div id="msgSucesso" style="color: #27ae60; font-weight: bold; margin-bottom: 15px; font-size: 14px; display: none;">
-        ✅ Código Pix copiado! Abra o app do seu banco.
+        <strong>Copie o Código Pix Abaixo:</strong><br>
+        <span id="chave-pix-config" class="chave-texto">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</span>
     </div>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
@@ -187,7 +185,6 @@
 <script>
     function inicializarPagamento() {
         iniciarRelogio();
-        carregarConfiguracoes();
     }
 
     function iniciarRelogio() {
@@ -211,49 +208,6 @@
         const elementoRelogio = document.getElementById('live-clock');
         if (elementoRelogio) { elementoRelogio.innerText = horas + ":" + minutos + ":" + segundos; }
     }
-
-    function carregarConfiguracoes() {
-        let chaveSalva = localStorage.getItem('jcs_chave_pix');
-        const elementoChave = document.getElementById('chave-pix-config');
-        if (chaveSalva && elementoChave) {
-            elementoChave.textContent = chaveSalva;
-        }
-    }
-
-    function copiarCodigoPix() {
-        var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
-        
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(brCodeOficial).then(function() {
-                mostrarSucessoPix();
-            }).catch(function(err) {
-                fallbackCopiarPix(brCodeOficial);
-            });
-        } else {
-            fallbackCopiarPix(brCodeOficial);
-        }
-    }
-
-    function mostrarSucessoPix() {
-        var msg = document.getElementById("msgSucesso");
-        var btn = document.getElementById("btnCopiarPix");
-        
-        msg.style.display = "block";
-        btn.innerHTML = "👍 Copiado!";
-        btn.style.backgroundColor = "#1e7e34";
-        
-        setTimeout(function() {
-            msg.style.display = "none";
-            btn.innerHTML = "📋 Copiar Código Copia e Cola";
-            btn.style.backgroundColor = "#27ae60";
-        }, 4000);
-    }
-
-    function fallbackCopiarPix(texto) {
-        var textArea = document.createElement("textarea");
-        textArea.value = texto;
-        textArea.style.position = "fixed"; 
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.width = "2em";
-        textArea.style.height = "2em";
+</script>
+</body>
+</html>
