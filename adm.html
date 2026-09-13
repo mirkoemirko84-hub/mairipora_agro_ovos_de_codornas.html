@@ -3,120 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - Versão 2.2</title>
+    <title>Mairiporã Agro - Painel ADM</title>
     <style>
         :root {
-            --primary-color: #d97706;
-            --background-color: #f3f4f6;
-            --card-color: #ffffff;
-            --text-color: #1f2937;
-            --success-color: #10b981;
+            --primary: #d97706;
+            --primary-hover: #b45309;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #ef4444;
         }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             padding: 20px;
+            line-height: 1.5;
         }
-        .header {
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Barra de Navegação Superior */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            background: var(--card-color);
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
         }
-        .header h1 {
-            margin: 0;
+
+        .navbar h1 {
             font-size: 20px;
-            color: var(--primary-color);
+            color: var(--primary);
+            font-weight: 700;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 600px) {
-            .container { grid-template-columns: 1fr; }
-        }
-        .card {
-            background: var(--card-color);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .card h2 {
-            margin-top: 0;
-            font-size: 18px;
-            border-bottom: 2px solid var(--background-color);
-            padding-bottom: 10px;
-        }
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
+
+        .btn-back {
+            background-color: #4b5563;
             color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
             text-decoration: none;
-            text-align: center;
-        }
-        .btn:hover { background: #b45309; }
-        .btn-nav {
-            background: #4b5563;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 14px;
-            padding: 8px 12px;
+            font-weight: 600;
+            transition: background 0.2s;
         }
-        .btn-nav:hover { background: #374151; }
-        .status-badge {
-            background: var(--success-color);
+        .btn-back:hover { background-color: #374151; }
+
+        /* Grade de Monitoramento de Produção */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .main-panel, .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        /* Campos de Entrada de Dados */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #f9fafb;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
             color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s;
         }
-        .footer-version {
+        .btn-submit:hover { background-color: var(--primary-hover); }
+
+        /* Status de Lotes rápidos */
+        .status-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            color: white;
+        }
+        .badge-success { background-color: var(--success); }
+        .badge-danger { background-color: var(--danger); }
+
+        .footer {
             text-align: center;
-            margin-top: 4px;
-            font-size: 11px;
+            font-size: 12px;
             color: #9ca3af;
-            grid-column: 1 / -1;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Painel de Controle Agro</h1>
-        <a href="index.html" class="btn btn-nav">← Voltar ao Início</a>
-    </div>
-
     <div class="container">
-        <!-- Bloco de Monitoramento dos Ovos -->
-        <div class="card">
-            <h2>🥚 Monitoramento de Lotes</h2>
-            <p>Status do Sistema: <span class="status-badge">ONLINE</span></p>
-            <p>Pronto para receber dados das pesagens e registros diários de produção de ovos de codorna.</p>
-            <button class="btn" onclick="alert('Funcionalidade de lote ativada na v2.2')">Gerenciar Lotes</button>
+        <!-- Menu Superior -->
+        <header class="navbar">
+            <h1>Painel de Administração Agro</h1>
+            <a href="index.html" class="btn-back">← Voltar ao Hub</a>
+        </header>
+
+        <div class="dashboard-grid">
+            
+            <!-- Coluna Esquerda: Entrada de Dados Diários -->
+            <div class="main-panel">
+                <div class="card">
+                    <h2>📊 Lançamento Diário de Produção</h2>
+                    <form onsubmit="event.preventDefault(); alert('Dados retidos com sucesso na v3.0! Integrando com o processamento do lilian.py...');">
+                        <div class="form-group">
+                            <label for="colheita">Ovos Colhidos (Unidades):</label>
+                            <input type="number" id="colheita" class="form-control" placeholder="Ex: 1200" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="peso">Peso Total do Lote (Gramas):</label>
+                            <input type="number" id="peso" class="form-control" placeholder="Ex: 14400" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perdas">Descarte Técnico / Quebras:</label>
+                            <input type="number" id="perdas" class="form-control" placeholder="Ex: 15" required>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Registrar e Processar Dados</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Status dos Galpões e Lotes -->
+            <div class="side-panel">
+                <div class="card">
+                    <h2>🐔 Visão dos Lotes atuais</h2>
+                    
+                    <div class="status-box">
+                        <span>Lote Codorna #01</span>
+                        <span class="badge badge-success">Ativo</span>
+                    </div>
+                    <div class="status-box">
+                        <span>Lote Codorna #02</span>
+                        <span class="badge badge-success">Ativo</span>
+                    </div>
+                    <div class="status-box">
+                        <span>Filtro de Descarte</span>
+                        <span class="badge badge-danger">Revisar</span>
+                    </div>
+                </div>
+
+                <div class="card" style="background-color: #fffbeb; border-color: #fef3c7;">
+                    <h2 style="color: #b45309;">💡 Dica da Bancada</h2>
+                    <p style="font-size: 13px; color: #78350f;">Se os registros diários forem salvos corretamente, o script <strong>lilian.py</strong> conseguirá calcular automaticamente a taxa de postura e conversão alimentar dos lotes.</p>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Bloco de Testes da Salmoura -->
-        <div class="card">
-            <h2>🧪 Salmoura & Conservas</h2>
-            <p>Monitore a densidade, salinidade e qualidade da água para os ovos em conserva.</p>
-            <button class="btn" onclick="alert('Abrindo parâmetros de teste da salmoura...')">Iniciar Teste</button>
-        </div>
-
-        <div class="footer-version">Versão do Sistema: v26.08.31.22.1 (Estável 2.2)</div>
+        <!-- Rodapé -->
+        <footer class="footer">
+            <div>Mairiporã Agro • Painel do Produtor</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.0</div>
+        </footer>
     </div>
 
 </body>
