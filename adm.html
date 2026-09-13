@@ -74,7 +74,6 @@
         }
         .btn-back:hover { background-color: #374151; }
 
-        /* Painel do Relógio e Status Vivo */
         .live-box {
             display: flex;
             justify-content: space-between;
@@ -105,7 +104,7 @@
         }
 
         .live-time {
-            font-size: 16px;
+            font-size: 14px;
             color: #f59e0b;
             font-weight: bold;
         }
@@ -166,24 +165,8 @@
             font-weight: 600;
             width: 100%;
             transition: background 0.2s;
-            margin-bottom: 5px;
         }
         .btn-submit:hover { background-color: var(--primary-hover); }
-
-        .btn-side {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            margin-top: 15px;
-            transition: background 0.2s;
-        }
-        .btn-dark { background-color: #374151; color: white; }
-        .btn-dark:hover { background-color: #1f2937; }
 
         .footer {
             text-align: center;
@@ -198,12 +181,13 @@
 <body>
 
     <div class="container">
+        <!-- Barra Superior apontando de volta para a Página Inicial Pública (index.html) -->
         <header class="navbar">
             <h1>Painel de Administração Agro</h1>
-            <a href="index.html" class="btn-back">← Voltar ao Hub</a>
+            <a href="index.html" class="btn-back">← Voltar à Página Inicial</a>
         </header>
 
-        <!-- NOVO: Barra de Efeito Industrial com Relógio e Status ON-LINE -->
+        <!-- Barra Industrial Online -->
         <div class="live-box">
             <div class="status-indicator">
                 <span>● SYSTEM ONLINE</span>
@@ -222,8 +206,6 @@
 
                 <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
             </form>
-
-            <a href="wifi-secreto.html" class="btn-side btn-dark">🔑 Exibir QR Code Wi-Fi</a>
         </div>
 
         <!-- Seção do Hobby e Projeção -->
@@ -236,7 +218,7 @@
 
         <footer class="footer">
             <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.4.3 (Live Status)</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.13.1.0 (Fluxo Seguro)</div>
         </footer>
     </div>
 
@@ -245,18 +227,12 @@
         function iniciarRelogio() {
             setInterval(function() {
                 var agora = new Date();
-                
-                // Formata a data (DD/MM/AAAA)
                 var dia = String(agora.getDate()).padStart(2, '0');
                 var mes = String(agora.getMonth() + 1).padStart(2, '0');
                 var ano = agora.getFullYear();
-                
-                // Formata a hora (HH:MM:SS)
                 var horas = String(agora.getHours()).padStart(2, '0');
                 var minutos = String(agora.getMinutes()).padStart(2, '0');
                 var segundos = String(agora.getSeconds()).padStart(2, '0');
-                
-                // Atualiza a barra preta na tela
                 document.getElementById("liveClock").innerHTML = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutos + ":" + segundos;
             }, 1000);
         }
