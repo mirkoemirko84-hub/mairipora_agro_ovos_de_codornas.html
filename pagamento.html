@@ -97,20 +97,22 @@
             line-height: 1.5;
         }
 
-        /* LIBERAÇÃO DA SELEÇÃO DA CHAVE: Permite copiar com os dedos no celular */
-        .chave-texto {
+        /* CAMPO DE TEXTO DE COPIA: Totalmente liberado para o dedo no celular */
+        .chave-texto-input {
+            width: 100%;
             font-family: monospace;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             color: #166534;
-            display: inline-block;
-            word-break: break-all;
-            padding: 10px;
+            text-align: center;
+            padding: 12px;
             background: #f0fdf4;
             border: 2px dashed #27ae60;
             border-radius: 6px;
             margin-top: 8px;
-            user-select: text !important; /* Desbloqueia a cópia manual */
+            outline: none;
+            /* Destrava o toque e a seleção manual em qualquer aparelho */
+            user-select: text !important;
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
@@ -163,10 +165,10 @@
     <div class="pix-title">🔑 PAGAMENTO VIA PIX</div>
     <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
 
-    <!-- Instrução Direta para Cópia Manual com os Dedos -->
+    <!-- Caixa de Texto que permite a seleção e cópia por toque sem travar -->
     <div class="chave-externa-box">
-        <strong>Copie o Código Pix Abaixo:</strong><br>
-        <span id="chave-pix-config" class="chave-texto">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</span>
+        <strong>Pressione e segure para copiar o código Pix:</strong><br>
+        <input type="text" class="chave-texto-input" readonly value="00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6" onclick="this.select();">
     </div>
 
     <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
