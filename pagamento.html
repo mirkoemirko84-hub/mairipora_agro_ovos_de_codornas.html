@@ -182,7 +182,6 @@
 
     function atualizarTempo() {
         const agora = new Date();
-        // Mantendo a trava de segurança de data do ecossistema para 2026
         const dia = String(agora.getDate()).padStart(2, '0');
         const mes = String(agora.getMonth() + 1).padStart(2, '0');
         const ano = "2026";
@@ -206,7 +205,7 @@
         }
     }
 
-    // Função universal testada para navegadores mobile e desktop intacta
+    // Função universal para cópia estável do BR Code
     function copiarCodigoPix() {
         var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
         
@@ -236,5 +235,6 @@
         }, 4000);
     }
 
-    // Sistema de segurança reserva caso o celular bloqueie o comando principal
+    // Mecanismo auxiliar rodando em segundo plano caso o sistema operacional do celular barre a cópia direta
     function fallbackCopiarPix(texto) {
+        var textArea = document.createElement("textarea");
