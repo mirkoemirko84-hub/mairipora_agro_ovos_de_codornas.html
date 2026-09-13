@@ -155,7 +155,6 @@
             color: white;
         }
         .badge-success { background-color: var(--success); }
-        .badge-danger { background-color: var(--danger); }
 
         .btn-side {
             display: block;
@@ -196,24 +195,14 @@
             
             <div class="main-panel">
                 <div class="card">
-                    <h2>📊 Lançamento Diário de Produção</h2>
-                    <form onsubmit="event.preventDefault(); alert('Dados retidos temporariamente na v3.5.');">
+                    <h2>📊 Controle de Estoque Absoluto</h2>
+                    <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso na v3.6!');">
                         <div class="form-group">
-                            <label for="colheita">Ovos Colhidos (Unidades):</label>
-                            <input type="number" id="colheita" class="form-control" placeholder="Ex: 1200" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="peso">Peso Total do Lote (Gramas):</label>
-                            <input type="number" id="peso" class="form-control" placeholder="Ex: 14400" required>
+                            <label for="cartelas">Cartelas Fechadas Prontas para Venda (Unidades):</label>
+                            <input type="number" id="cartelas" class="form-control" min="0" value="0" placeholder="Ex: 16" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="perdas">Descarte Técnico / Quebras:</label>
-                            <input type="number" id="perdas" class="form-control" placeholder="Ex: 15" required>
-                        </div>
-
-                        <button type="submit" class="btn-submit">Registrar Dados</button>
+                        <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
                     </form>
                 </div>
             </div>
@@ -236,8 +225,8 @@
                 </div>
 
                 <div class="card" style="background-color: #fffbeb; border-color: #fef3c7;">
-                    <h2 style="color: #b45309;">💡 Painel Atualizado</h2>
-                    <p style="font-size: 13px; color: #78350f;">Acesse o manual técnico de cozimento ou chame a tela restrita de Wi-Fi de forma discreta a partir dos botões acima.</p>
+                    <h2 style="color: #b45309;">💡 Dados Absolutos</h2>
+                    <p style="font-size: 13px; color: #78350f;">Sistema configurado para conta cheia. Lançamento rápido baseado apenas em cartelas prontas para saída comercial, sem reservas anteriores.</p>
                 </div>
             </div>
 
@@ -245,7 +234,7 @@
 
         <footer class="footer">
             <div>Mairiporã Agro • Painel do Produtor</div>
-            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.5</div>
+            <div style="margin-top: 4px;">Versão Administrativa: v26.09.12.3.6</div>
         </footer>
     </div>
 
