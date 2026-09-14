@@ -66,6 +66,18 @@
             letter-spacing: 0.5px;
         }
 
+        /* Resumo do Pedido Dinâmico */
+        .resumo-pedido {
+            background-color: #e2e8f0;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+            color: #1e293b;
+        }
+
         /* 📦 Estilo dos Quadradinhos (Cards de Opções) */
         .card-opcao {
             background-color: #fff;
@@ -77,7 +89,6 @@
             text-align: center;
         }
 
-        /* Destaque para opções ativas (Pix) */
         .card-opcao.ativo {
             border: 2px solid #cbd5e1;
             border-top: 5px solid #2d6a4f;
@@ -94,7 +105,7 @@
             gap: 8px;
         }
 
-        /* Estilo específico do bloco Pix Copia e Cola */
+        /* Bloco Pix Copia e Cola */
         .pix-box {
             background-color: #f8fafc;
             border: 1px dashed #40916c;
@@ -125,7 +136,7 @@
             min-height: 18px;
         }
 
-        /* Estilo específico do QR Code */
+        /* QR Code */
         .qrcode-imagem {
             max-width: 160px;
             width: 100%;
@@ -137,12 +148,11 @@
             margin-top: 10px;
         }
 
-        /* 🔒 BLOCO INDISPONÍVEL: Boleto Bancário */
+        /* Boleto Bancário Indisponível */
         .card-opcao.indisponivel {
             background-color: #f1f5f9;
             border: 2px dashed #cbd5e1;
             opacity: 0.7;
-            position: relative;
         }
 
         .card-opcao.indisponivel .card-title {
@@ -172,14 +182,12 @@
             transition: background 0.2s;
             margin-top: 10px;
             border: none;
-            cursor: pointer;
         }
 
         .btn-voltar:hover {
             background-color: #334155;
         }
 
-        /* Rodapé Padronizado */
         footer {
             text-align: center;
             margin-top: 30px;
@@ -199,32 +207,37 @@
             <p>Ambiente Seguro de Pagamento</p>
         </header>
 
-        <h2 class="titulo-sessao">Select uma forma de pagamento:</h2>
+        <!-- Caixa dinâmica que exibe o resumo do teste ou pedido real -->
+        <div class="resumo-pedido" id="caixaResumo">
+            Carregando detalhes do pedido...
+        </div>
 
-        <!-- 🟥 QUADRADINHO 1: PIX COPIA E COLA -->
+        <h2 class="titulo-sessao">Forma de pagamento selecionada:</h2>
+
+        <!-- QUADRADINHO 1: PIX COPIA E COLA -->
         <div class="card-opcao ativo">
             <div class="card-title">💎 PIX COPIA E COLA</div>
-            <p style="font-size: 0.9rem; color: #555;">O código abaixo foi enviado automaticamente para a área de transferência do seu dispositivo.</p>
+            <p style="font-size: 0.9rem; color: #555;">O código foi copiado automaticamente para a sua área de transferência.</p>
             <div class="pix-box">
                 <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
             </div>
             <div class="feedback" id="mensagemFeedback">Copiando código...</div>
         </div>
 
-        <!-- 🟥 QUADRADINHO 2: PIX QR CODE -->
+        <!-- QUADRADINHO 2: PIX QR CODE -->
         <div class="card-opcao ativo">
             <div class="card-title">📷 PIX QR CODE</div>
-            <p style="font-size: 0.9rem; color: #555;">Abra o app do seu banco e aponte a câmera para o código abaixo:</p>
+            <p style="font-size: 0.9rem; color: #555;">Escaneie o código abaixo utilizando o aplicativo do seu banco:</p>
             <img src="qrcode-pagamento.png" alt="QR Code de Pagamento" class="qrcode-imagem">
         </div>
 
-        <!-- 🟥 QUADRADINHO 3: BOLETO BANCÁRIO (INDISPONÍVEL) -->
+        <!-- QUADRADINHO 3: BOLETO BANCÁRIO (PREPARADO PARA O FUTURO) -->
         <div class="card-opcao indisponivel">
             <div class="card-title">📄 BOLETO BANCÁRIO</div>
             <div class="txt-indisponivel">#### INDISPONÍVEL NO MOMENTO ####</div>
         </div>
 
-        <!-- Botão de retorno -->
+        <!-- Botão de retorno seguro -->
         <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
 
         <footer>
@@ -235,12 +248,29 @@
     </div>
 
     <script>
-        // Função que roda assim que a página carrega
         window.onload = function() {
+            // Resgata os parâmetros enviados via link pelo ADM ou pela Index
+            const urlParams = new URLSearchParams(window.location.search);
+            const qtd = urlParams.get('qtd') || "1";
+            const total = urlParams.get('total') || "1.99";
+            const modo = urlParams.get('modo') || "venda";
+
+            const caixaResumo = document.getElementById('caixaResumo');
+            
+            // Renderiza o cabeçalho dinâmico baseado no seu teste
+            if (modo === "teste_avulso") {
+                caixaResumo.innerHTML = `🔬 MODO TESTE ADM: ${qtd} Ovos Avulsos • Total: R$ ${total.replace('.', ',')}`;
+                caixaResumo.style.backgroundColor = "#e0f2fe";
+                caixaResumo.style.borderColor = "#7dd3fc";
+                caixaResumo.style.color = "#0369a1";
+            } else {
+                caixaResumo.innerHTML = `🛍️ Seu Pedido: ${qtd} Cartela(s) de Ovos • Total: R$ ${total.replace('.', ',')}`;
+            }
+
+            // Executa a automação de cópia para a área de transferência
             const textoPix = document.getElementById('codigoPixTexto').textContent;
             const feedback = document.getElementById('mensagemFeedback');
 
-            // Automação para copiar o código do Pix sozinho
             navigator.clipboard.writeText(textoPix).then(function() {
                 feedback.textContent = "✅ Código Pix copiado com sucesso! Só colar no banco.";
             }).catch(function() {
