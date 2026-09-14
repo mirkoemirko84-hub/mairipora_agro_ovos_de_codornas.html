@@ -150,7 +150,6 @@
         .entrada { color: #2b9348; font-weight: bold; }
         .saida { color: #d90429; font-weight: bold; }
 
-        /* Estilos do Relatório de Faturamento */
         .bloco-relatorio {
             background-color: #f8fafc;
             border: 1px dashed #2d6a4f;
@@ -204,7 +203,7 @@
             <h3>📥 Reabastecer Estoque</h3>
             <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
                 <div class="campo-grupo" style="margin-bottom: 0;">
-                    <input type="number" id="inputAdicionar" value="2" min="1">
+                    <input type="number" id="inputAdicionar" value="5" min="1">
                 </div>
                 <button onclick="
                     var qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
@@ -218,7 +217,7 @@
             </div>
         </div>
 
-        <!-- 💰 SIMULADOR DE VENDA (PROTEGENDO O ESTOQUE PRINCIPAL) -->
+        <!-- 💰 SIMULADOR DE VENDA -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
@@ -245,14 +244,12 @@
                 var q = parseInt(document.getElementById('vendaQtd').value) || 0;
                 var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
                 if(q > 0) {
-                    // O ESTOQUE AGORA FICA OCULTO E INTACTO PARA ESSA VENDA AVULSA DE TESTE
                     document.getElementById('valUltimaVenda').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
                     document.getElementById('txtUltimaSaida').textContent = 'Saída de ' + q + ' ovos';
                     
                     var lista = document.getElementById('listaLogs');
                     lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>SAÍDA</span><span>Venda de ' + q + ' ovos (Estoque Preservado)</span></div>' + lista.innerHTML;
                     
-                    // Atualiza o Relatório Acumulado lá embaixo
                     var faturamentoAtual = parseFloat(document.getElementById('faturamentoAcumulado').textContent.replace('R$ ', '').replace(',', '.'));
                     var novoFaturamento = faturamentoAtual + (q * p);
                     document.getElementById('faturamentoAcumulado').textContent = 'R$ ' + novoFaturamento.toFixed(2).replace('.', ',');
@@ -265,3 +262,6 @@
             <button onclick="
                 var q = document.getElementById('vendaQtd').value;
                 var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+                window.location.href = 'pagamento.html?qtd=' + q + '&total=' + (q * p).toFixed(2) + '&modo=teste_avulso';
+            " id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
+            
