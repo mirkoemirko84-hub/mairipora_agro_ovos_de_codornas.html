@@ -131,7 +131,7 @@
 
         .lista-historico {
             margin-top: 10px;
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
@@ -149,6 +149,23 @@
 
         .entrada { color: #2b9348; font-weight: bold; }
         .saida { color: #d90429; font-weight: bold; }
+
+        /* Estilos do Relatório de Faturamento */
+        .bloco-relatorio {
+            background-color: #f8fafc;
+            border: 1px dashed #2d6a4f;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .linha-relatorio {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
 
         footer {
             text-align: center;
@@ -182,7 +199,7 @@
             </div>
         </div>
 
-        <!-- 📥 ENTRADA COM LÓGICA REDIRECIONADA DIRETO NO BOTÃO -->
+        <!-- 📥 REABASTECER ESTOQUE -->
         <div class="card-adm">
             <h3>📥 Reabastecer Estoque</h3>
             <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
@@ -201,7 +218,7 @@
             </div>
         </div>
 
-        <!-- 💰 SAÍDA COM LÓGICA DIRETA NO BOTÃO -->
+        <!-- 💰 SIMULADOR DE VENDA (PROTEGENDO O ESTOQUE PRINCIPAL) -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
@@ -228,12 +245,18 @@
                 var q = parseInt(document.getElementById('vendaQtd').value) || 0;
                 var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
                 if(q > 0) {
-                    var atual = parseInt(document.getElementById('qtdEstoque').textContent);
-                    document.getElementById('qtdEstoque').textContent = Math.max(0, atual - 1);
+                    // O ESTOQUE AGORA FICA OCULTO E INTACTO PARA ESSA VENDA AVULSA DE TESTE
                     document.getElementById('valUltimaVenda').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
                     document.getElementById('txtUltimaSaida').textContent = 'Saída de ' + q + ' ovos';
+                    
                     var lista = document.getElementById('listaLogs');
-                    lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>SAÍDA</span><span>Venda de ' + q + ' ovos (-1 cartela)</span></div>' + lista.innerHTML;
+                    lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>SAÍDA</span><span>Venda de ' + q + ' ovos (Estoque Preservado)</span></div>' + lista.innerHTML;
+                    
+                    // Atualiza o Relatório Acumulado lá embaixo
+                    var faturamentoAtual = parseFloat(document.getElementById('faturamentoAcumulado').textContent.replace('R$ ', '').replace(',', '.'));
+                    var novoFaturamento = faturamentoAtual + (q * p);
+                    document.getElementById('faturamentoAcumulado').textContent = 'R$ ' + novoFaturamento.toFixed(2).replace('.', ',');
+                    
                     document.getElementById('btnZap').style.display = 'block';
                     document.getElementById('btnIrPagamento').style.display = 'block';
                 }
@@ -242,16 +265,3 @@
             <button onclick="
                 var q = document.getElementById('vendaQtd').value;
                 var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                window.location.href = 'pagamento.html?qtd=' + q + '&total=' + (q * p).toFixed(2) + '&modo=teste_avulso';
-            " id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
-            
-            <button onclick="
-                var q = document.getElementById('vendaQtd').value;
-                var t = document.getElementById('totalSimulado').textContent;
-                var m = encodeURIComponent('🌾 *Mairiporã Agro • Comprovante* 🌾\n\nOlá! Sua compra de ' + q + ' ovos foi processada.\n💵 *Valor:* ' + t);
-                window.open('https://whatsapp.com' + m, '_blank');
-            " id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
-        </div>
-
-        <div class="card-adm">
-            <h3>📊 Histórico de Operações</h3>
