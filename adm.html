@@ -42,15 +42,7 @@
             <div class="campo-grupo">
                 <input type="password" id="inputSenha" placeholder="Senha de 4 dígitos" maxlength="4">
             </div>
-            <button onclick="
-                if(document.getElementById('inputSenha').value === '4971') {
-                    document.getElementById('telaLogin').style.display = 'none';
-                    document.getElementById('painelConteudo').style.display = 'block';
-                } else {
-                    alert('❌ Senha incorreta!');
-                    document.getElementById('inputSenha').value = '';
-                }
-            " class="btn btn-verde">Entrar no Painel</button>
+            <button onclick="validarSenha()" class="btn btn-verde">Entrar no Painel</button>
             <a href="index.html" class="btn btn-cinva">Voltar ao Menu</a>
         </div>
 
@@ -81,69 +73,94 @@
                     <input type="number" id="inputMovimentacao" value="1" min="1">
                 </div>
                 <div class="grid-estoque" style="margin-bottom: 0; gap: 10px;">
-                    <button onclick="
-                        var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
-                        if(q > 0) {
-                            if(confirm('📥 Confirmar entrada de +' + q + ' cartelas prontas?')) {
-                                var n = parseInt(document.getElementById('qtdEstoque').textContent);
-                                document.getElementById('qtdEstoque').textContent = n + q;
-                                document.getElementById('txtUltimaSaida').textContent = '+' + q + ' Cartelas';
-                                document.getElementById('txtUltimaSaida').style.color = '#2b9348';
-                                document.getElementById('listaLogs').innerHTML = '<div class=\'item-historico\'><span class=\'entrada\'>ENTRADA</span><span>+' + q + ' cartelas adicionadas</span></div>' + document.getElementById('listaLogs').innerHTML;
-                            }
-                        }
-                    " class="btn btn-verde">📥 Adicionar</button>
-                    
-                    <button onclick="
-                        var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
-                        if(q > 0) {
-                            var n = parseInt(document.getElementById('qtdEstoque').textContent);
-                            if(n >= q) {
-                                if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas vendidas via Porteira/PP?')) {
-                                    document.getElementById('qtdEstoque').textContent = n - q;
-                                    document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas (P/P)';
-                                    document.getElementById('txtUltimaSaida').style.color = '#d90429';
-                                    document.getElementById('listaLogs').innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>BAIXA</span><span>-' + q + ' cartelas (Porteira/PP)</span></div>' + document.getElementById('listaLogs').innerHTML;
-                                }
-                            } else { alert('❌ Erro: Estoque insuficiente!'); }
-                        }
-                    " class="btn btn-vermelho">⚠️ Dar Baixa</button>
+                    <button onclick="adicionarEstoque()" class="btn btn-verde">📥 Adicionar</button>
+                    <button onclick="baixarEstoque()" class="btn btn-vermelho">⚠️ Dar Baixa</button>
                 </div>
             </div>
 
-            <!-- 💰 SIMULADOR DE VENDA DIRETA (BOTÕES FIXOS E SEM TRAVAS) -->
+            <!-- 💰 SIMULADOR DE VENDA DIRETA -->
             <div class="card-adm">
                 <h3>💰 Simular Venda Direta & Comprovantes</h3>
                 <div class="campo-grupo">
                     <label>Quantidade de Ovos Solicitados:</label>
-                    <input type="number" id="vendaQtd" value="3" min="1" oninput="
-                        var q = parseInt(this.value) || 0;
-                        var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                        document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
-                    ">
+                    <input type="number" id="vendaQtd" value="3" min="1" oninput="atualizarTotal()">
                 </div>
                 <div class="campo-grupo">
                     <label>Valor Unitário por Ovo (R$):</label>
-                    <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="
-                        var p = parseFloat(this.value) || 0;
-                        var q = parseInt(document.getElementById('vendaQtd').value) || 0;
-                        document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
-                    ">
+                    <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="atualizarTotal()">
                 </div>
                 <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
                     Total Calculado: <span id="totalSimulado">R$ 1,20</span>
                 </div>
                 
                 <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <!-- Botão de Processar Manual -->
-                    <button onclick="
-                        var q = parseInt(document.getElementById('vendaQtd').value) || 0;
-                        var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                        if(q > 0) {
-                            document.getElementById('txtUltimaSaida').textContent = 'Teste R$ ' + (q * p).toFixed(2).replace('.', ',');
-                            document.getElementById('txtUltimaSaida').style.color = '#0284c7';
-                            document.getElementById('listaLogs').innerHTML = '<div class=\'item-historico\'><span class=\'teste\'>TESTE</span><span>Venda de ' + q + ' ovos simulada (Estoque Preservado)</span></div>' + document.getElementById('listaLogs').innerHTML;
-                            alert('✅ Venda processada no histórico!');
-                        }
-                    " class="btn btn-verde">Dar Baixa e Processar</button>
+                    <button onclick="processarVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
+                    <button onclick="irParaPagamento()" class="btn" style="background-color:#0284c7;">💳 Testar link na Tela de Pagamento</button>
+                    <button onclick="compartilharZap()" class="btn" style="background-color: #128c7e;">📲 Enviar Comprovante ao Zap</button>
+                </div>
+            </div>
 
+            <div class="card-adm">
+                <h3>📊 Histórico de Operações</h3>
+                <div class="lista-historico" id="listaLogs">
+                    <div class="item-historico"><span class="entrada">SISTEMA</span><span>Mairiporã Agro inicializado com sucesso</span></div>
+                    <div class="item-historico"><span class="entrada">ENTRADA</span><span>+12 cartelas (Saldo Base)</span></div>
+                </div>
+            </div>
+
+            <a href="index.html" class="btn btn-cinva" style="margin-top: 5px; margin-bottom: 20px;">⬅️ Sair / Voltar ao Menu</a>
+        </div>
+
+    </div>
+
+    <!-- ⚡ ARQUEAMENTO E FILTRAGEM JAVASCRIPT ORGANIZADA ⚡ -->
+    <script>
+        function validarSenha() {
+            var s = document.getElementById('inputSenha').value;
+            if(s === '4971') {
+                document.getElementById('telaLogin').style.display = 'none';
+                document.getElementById('painelConteudo').style.display = 'block';
+            } else {
+                alert('❌ Senha incorreta!');
+                document.getElementById('inputSenha').value = '';
+            }
+        }
+
+        function adicionarEstoque() {
+            var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
+            if(q > 0) {
+                if(confirm('📥 Confirmar entrada de +' + q + ' cartelas prontas?')) {
+                    var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                    document.getElementById('qtdEstoque').textContent = n + q;
+                    document.getElementById('txtUltimaSaida').textContent = '+' + q + ' Cartelas';
+                    document.getElementById('txtUltimaSaida').style.color = '#2b9348';
+                    document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="entrada">ENTRADA</span><span>+' + q + ' cartelas adicionadas</span></div>' + document.getElementById('listaLogs').innerHTML;
+                }
+            }
+        }
+
+        function baixarEstoque() {
+            var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
+            if(q > 0) {
+                var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                if(n >= q) {
+                    if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas vendidas via Porteira/PP?')) {
+                        document.getElementById('qtdEstoque').textContent = n - q;
+                        document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas (P/P)';
+                        document.getElementById('txtUltimaSaida').style.color = '#d90429';
+                        document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="saida">BAIXA</span><span>-' + q + ' cartelas (Porteira/PP)</span></div>' + document.getElementById('listaLogs').innerHTML;
+                    }
+                } else { alert('❌ Erro: Estoque insuficiente!'); }
+            }
+        }
+
+        function atualizarTotal() {
+            var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+            var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
+        }
+
+        function processarVenda() {
+            var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+            var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            if(q > 0) {
