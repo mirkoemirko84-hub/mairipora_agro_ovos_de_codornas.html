@@ -210,7 +210,7 @@
             </div>
         </div>
 
-        <!-- SEÇÃO 2: SIMULADOR DE VENDA (SEU TESTE DE R$ 0,40) -->
+        <!-- SEÇÃO 2: SIMULADOR DE VENDA E DIRECIONAMENTO PARA PAGAMENTO -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
@@ -224,7 +224,12 @@
             <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
                 Total Calculado: <span id="totalSimulado">R$ 1,20</span>
             </div>
+            
             <button onclick="executarBaixaVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
+            
+            <!-- Botão que envia o valor dinâmico gerado no teste direto para a tela de pagamento -->
+            <button onclick="enviarParaTelaPagamento()" id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
+            
             <button onclick="enviarMensagemZap()" id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
         </div>
 
@@ -232,9 +237,7 @@
         <div class="card-adm">
             <h3>📊 Histórico de Operações</h3>
             <div class="lista-historico" id="listaLogs">
-                <!-- Inicia com o seu saldo base dos testes -->
-                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+12 cartelas (Saldo Base)</span></div>
-                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+3 cartelas (Ajuste Bancada)</span></div>
+                <!-- Populado via Javascript -->
             </div>
             <button onclick="executarEstornoCompleto()" class="btn btn-cinva" style="background-color: #ef4444;">↩️ Desfazer Última Operação (Estorno)</button>
         </div>
@@ -251,13 +254,16 @@
 
     <script>
         // Inicialização das variáveis de controle na memória local
-        let estoque = parseInt(localStorage.getItem('agro_estoque')) || 15;
+        let estoque = parseInt(localStorage.getItem('agro_estoque'));
+        if (isNaN(estoque)) estoque = 15;
+
         let historico = JSON.parse(localStorage.getItem('agro_historico')) || [
             { tipo: 'ENTRADA', txt: '+12 cartelas (Saldo Base)' },
             { tipo: 'ENTRADA', txt: '+3 cartelas (Ajuste Bancada)' }
         ];
-        let ultimaVendaTexto = "";
-        let ultimaVendaValor = "R$ 0,00";
+        
+        let ultimaVendaTexto = localStorage.getItem('agro_val_txt') || "";
+        let ultimaVendaValor = localStorage.getItem('agro_val_val') || "R$ 0,00";
 
         // Atualiza a tela assim que abre
         window.onload = function() {
@@ -275,9 +281,3 @@
             historico.forEach(item => {
                 let classe = item.tipo.toLowerCase();
                 lista.innerHTML += `<div class="item-historico"><span class="${classe}">${item.tipo}</span><span>${item.txt}</span></div>`;
-            });
-            localStorage.setItem('agro_estoque', estoque);
-            localStorage.setItem('agro_historico', JSON.stringify(historico));
-        }
-
-        function calcularValorSimulado() {
