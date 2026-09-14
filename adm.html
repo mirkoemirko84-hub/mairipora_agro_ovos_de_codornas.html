@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* 🔒 Trava de Segurança Contra Seleção e Cópia Reativada */
+        /* 🔒 Trava de Segurança Contra Seleção e Cópia Ativa */
         * {
             margin: 0;
             padding: 0;
@@ -192,17 +192,26 @@
 
     <div class="container">
 
-        <!-- 🔑 Bloco Visual de Login Restrito -->
+        <!-- 🔑 Bloco Visual de Login Restrito (Lógica direta embutida no botão) -->
         <div id="telaLogin">
             <h2>🔑 Acesso Restrito ao Produtor</h2>
             <div class="campo-grupo">
                 <input type="password" id="inputSenha" placeholder="Digite os 4 dígitos da senha" maxlength="4">
             </div>
-            <button onclick="validarSenhaAcesso()" class="btn btn-verde">Entrar no Painel</button>
+            <button onclick="
+                var s = document.getElementById('inputSenha').value;
+                if(s === '4971') {
+                    document.getElementById('telaLogin').style.display = 'none';
+                    document.getElementById('painelConteudo').style.display = 'block';
+                } else {
+                    alert('❌ Senha incorreta! Tente novamente.');
+                    document.getElementById('inputSenha').value = '';
+                }
+            " class="btn btn-verde">Entrar no Painel</button>
             <a href="index.html" class="btn btn-cinva">Sair / Voltar ao Menu</a>
         </div>
 
-        <!-- 📊 Todo o painel administrativo gerenciado por você -->
+        <!-- 📊 Painel Administrativo -->
         <div id="painelConteudo">
             
             <header>
@@ -266,8 +275,3 @@
                 </div>
                 
                 <button onclick="
-                    var q = parseInt(document.getElementById('vendaQtd').value) || 0;
-                    var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                    if(q > 0) {
-                        document.getElementById('valUltimaVenda').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
-                        document.getElementById('txtUltimaSaida').textContent = 'Saída de ' + q + ' ovos';
