@@ -200,11 +200,11 @@
             <a href="dicas.html" class="btn">Abrir Dicas</a>
         </div>
 
-        <!-- Cartão de Vendas Original (Limpo) -->
+        <!-- Cartão de Vendas Original (Com Função Autocopy no clique) -->
         <div class="card">
             <h2>💰 Vendas & Faturamento</h2>
             <p>Acesse a tela de pagamento rápido via PIX Copia e Cola ou QR Code.</p>
-            <a href="pagamento.html" class="btn">Ir para Pagamento</a>
+            <button onclick="copiarEIr ParaPagamento()" class="btn">Ir para Pagamento</button>
         </div>
 
         <div class="card">
@@ -228,7 +228,7 @@
 
     </div>
 
-    <!-- Script para manter o relógio rodando em tempo real -->
+    <!-- Script para manter o relógio rodando em tempo real e automação do Pix -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
@@ -237,6 +237,20 @@
             document.getElementById('relogio').textContent = `${dataStr} - ${horaStr}`;
         }
         setInterval(atualizarRelogio, 1000);
+
+        // Função que copia o código do Pix automaticamente e joga o cliente para a outra tela
+        function copiarEIrParaPagamento() {
+            // Altere o texto abaixo para o seu código real "Pix Copia e Cola" ou sua chave real
+            const codigoPix = "SUA_CHAVE_PIX_OU_CODIGO_COPIA_E_COLA_AQUI";
+            
+            navigator.clipboard.writeText(codigoPix).then(function() {
+                // Após copiar com sucesso, redireciona o cliente instantaneamente
+                window.location.href = "pagamento.html";
+            }).catch(function() {
+                // Caso o navegador bloqueie a cópia direta, ele ainda assim leva para a tela
+                window.location.href = "pagamento.html";
+            });
+        }
     </script>
 </body>
 </html>
