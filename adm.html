@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* Configurações Gerais - SELEÇÃO TOTALMENTE LIBERADA */
         * {
             margin: 0;
             padding: 0;
@@ -45,7 +44,6 @@
             text-transform: uppercase;
         }
 
-        /* Indicadores de Estoque */
         .grid-estoque {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -72,7 +70,6 @@
             margin-top: 5px;
         }
 
-        /* Formulários e Ações */
         .card-adm {
             background: #fff;
             border: 2px solid #d8f3dc;
@@ -101,7 +98,7 @@
             color: #555;
         }
 
-        .campo-grupo input, .campo-grupo select {
+        .campo-grupo input {
             width: 100%;
             padding: 10px;
             border: 1px solid #cbd5e1;
@@ -110,7 +107,6 @@
             background-color: #fff;
         }
 
-        /* Botões */
         .btn {
             display: inline-block;
             width: 100%;
@@ -133,7 +129,6 @@
         .btn-cinva { background-color: #475569; margin-top: 15px; }
         .btn-cinva:hover { background-color: #334155; }
 
-        /* Histórico de Transações */
         .lista-historico {
             margin-top: 10px;
             max-height: 150px;
@@ -152,10 +147,8 @@
             justify-content: space-between;
         }
 
-        .item-historico:last-child { border-bottom: none; }
         .entrada { color: #2b9348; font-weight: bold; }
         .saida { color: #d90429; font-weight: bold; }
-        .estorno { color: #f77f00; font-weight: bold; }
 
         footer {
             text-align: center;
@@ -176,7 +169,6 @@
             <p>Controle Absoluto de Estoque e Vendas</p>
         </header>
 
-        <!-- GRID DE DADOS EM TEMPO REAL -->
         <div class="grid-estoque">
             <div class="quadro-estoque principal">
                 <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ESTOQUE ATUAL</label>
@@ -185,99 +177,81 @@
             </div>
             <div class="quadro-estoque movimentacao">
                 <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ÚLTIMA SAÍDA</label>
-                <div class="numero-estoque" id="valUltimaVenda" style="color: #d90429;">R$ 0,00</div>
+                <div class="numero-estoque" id="valUltimaVenda">R$ 0,00</div>
                 <span style="font-size: 0.75rem; color: #94a3b8;" id="txtUltimaSaida">Nenhuma hoje</span>
             </div>
         </div>
 
-        <!-- SEÇÃO 1: REABASTECER -->
+        <!-- 📥 ENTRADA COM LÓGICA REDIRECIONADA DIRETO NO BOTÃO -->
         <div class="card-adm">
             <h3>📥 Reabastecer Estoque</h3>
             <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
                 <div class="campo-grupo" style="margin-bottom: 0;">
-                    <input type="number" id="inputAdicionar" value="1" min="1">
+                    <input type="number" id="inputAdicionar" value="2" min="1">
                 </div>
-                <button onclick="adicionarEstoqueManual()" class="btn btn-verde">Inserir</button>
+                <button onclick="
+                    var qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
+                    if(qtd > 0) {
+                        var atual = parseInt(document.getElementById('qtdEstoque').textContent);
+                        document.getElementById('qtdEstoque').textContent = atual + qtd;
+                        var lista = document.getElementById('listaLogs');
+                        lista.innerHTML = '<div class=\'item-historico\'><span class=\'entrada\'>ENTRADA</span><span>+' + qtd + ' cartelas via painel</span></div>' + lista.innerHTML;
+                    }
+                " class="btn btn-verde">Inserir</button>
             </div>
         </div>
 
-        <!-- SEÇÃO 2: SIMULADOR DE VENDA -->
+        <!-- 💰 SAÍDA COM LÓGICA DIRETA NO BOTÃO -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
                 <label>Quantidade de Ovos Solicitados:</label>
-                <input type="number" id="vendaQtd" value="3" min="1" oninput="calcularValorSimulado()">
+                <input type="number" id="vendaQtd" value="3" min="1" oninput="
+                    var q = parseInt(this.value) || 0;
+                    var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+                    document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
+                ">
             </div>
             <div class="campo-grupo">
                 <label>Valor Unitário por Ovo (R$):</label>
-                <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="calcularValorSimulado()">
+                <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="
+                    var p = parseFloat(this.value) || 0;
+                    var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+                    document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
+                ">
             </div>
             <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
                 Total Calculado: <span id="totalSimulado">R$ 1,20</span>
             </div>
             
-            <button onclick="executarBaixaVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
-            <button onclick="enviarParaTelaPagamento()" id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
-            <button onclick="enviarMensagemZap()" id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
+            <button onclick="
+                var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+                var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+                if(q > 0) {
+                    var atual = parseInt(document.getElementById('qtdEstoque').textContent);
+                    document.getElementById('qtdEstoque').textContent = Math.max(0, atual - 1);
+                    document.getElementById('valUltimaVenda').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
+                    document.getElementById('txtUltimaSaida').textContent = 'Saída de ' + q + ' ovos';
+                    var lista = document.getElementById('listaLogs');
+                    lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>SAÍDA</span><span>Venda de ' + q + ' ovos (-1 cartela)</span></div>' + lista.innerHTML;
+                    document.getElementById('btnZap').style.display = 'block';
+                    document.getElementById('btnIrPagamento').style.display = 'block';
+                }
+            " class="btn btn-verde">Dar Baixa e Processar</button>
+            
+            <button onclick="
+                var q = document.getElementById('vendaQtd').value;
+                var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+                window.location.href = 'pagamento.html?qtd=' + q + '&total=' + (q * p).toFixed(2) + '&modo=teste_avulso';
+            " id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
+            
+            <button onclick="
+                var q = document.getElementById('vendaQtd').value;
+                var t = document.getElementById('totalSimulado').textContent;
+                var m = encodeURIComponent('🌾 *Mairiporã Agro • Comprovante* 🌾\n\nOlá! Sua compra de ' + q + ' ovos foi processada.\n💵 *Valor:* ' + t);
+                window.open('https://whatsapp.com' + m, '_blank');
+            " id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
         </div>
 
-        <!-- SEÇÃO 3: HISTÓRICO -->
         <div class="card-adm">
             <h3>📊 Histórico de Operações</h3>
-            <div class="lista-historico" id="listaLogs">
-                <!-- Populado via RAM -->
-            </div>
-            <button onclick="executarEstornoCompleto()" class="btn btn-cinva" style="background-color: #ef4444;">↩️ Desfazer Última Operação (Estorno)</button>
-        </div>
-
-        <!-- RETORNO -->
-        <a href="index.html" class="btn btn-cinva">⬅️ Sair do ADM / Voltar ao Menu</a>
-
-        <footer>
-            Mairiporã Agro © 2026 <br>
-            Matriz Administrativa • Ambiente de Desenvolvimento Estável
-        </footer>
-
-    </div>
-
-    <script>
-        // Sistema puro em memória RAM - Isolado de travas de segurança locais
-        let estoque = 15;
-        let historico = [
-            { tipo: 'ENTRADA', txt: '+12 cartelas (Saldo Base)' },
-            { tipo: 'ENTRADA', txt: '+3 cartelas (Ajuste Bancada)' }
-        ];
-        let ultimaVendaTexto = "";
-        let ultimaVendaValor = "R$ 0,00";
-
-        window.onload = function() {
-            renderizarPainel();
-            calcularValorSimulado();
-        };
-
-        function renderizarPainel() {
-            document.getElementById('qtdEstoque').textContent = estoque;
-            document.getElementById('valUltimaVenda').textContent = ultimaVendaValor;
-            document.getElementById('txtUltimaSaida').textContent = ultimaVendaTexto || "Nenhuma hoje";
-            
-            const lista = document.getElementById('listaLogs');
-            lista.innerHTML = "";
-            historico.forEach(item => {
-                let classe = item.tipo.toLowerCase();
-                lista.innerHTML += `<div class="item-historico"><span class="${classe}">${item.tipo}</span><span>${item.txt}</span></div>`;
-            });
-        }
-
-        function calcularValorSimulado() {
-            const qtd = parseInt(document.getElementById('vendaQtd').value) || 0;
-            const preco = parseFloat(document.getElementById('vendaPreco').value) || 0;
-            const total = qtd * preco;
-            document.getElementById('totalSimulado').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        }
-
-        function adicionarEstoqueManual() {
-            const qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
-            if(qtd > 0) {
-                estoque += qtd;
-                historico.unshift({ tipo: 'ENTRADA', txt: `+${qtd} cartelas via painel` });
-                renderizarPainel();
