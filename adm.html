@@ -113,7 +113,7 @@
 
     </div>
 
-    <!-- ⚡ ARQUEAMENTO E FILTRAGEM JAVASCRIPT ORGANIZADA ⚡ -->
+    <!-- ⚡ PROGRAMAÇÃO JAVASCRIPT CORRIGIDA E COMPLETA ⚡ -->
     <script>
         function validarSenha() {
             var s = document.getElementById('inputSenha').value;
@@ -144,11 +144,11 @@
             if(q > 0) {
                 var n = parseInt(document.getElementById('qtdEstoque').textContent);
                 if(n >= q) {
-                    if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas vendidas via Porteira/PP?')) {
+                    if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas?')) {
                         document.getElementById('qtdEstoque').textContent = n - q;
-                        document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas (P/P)';
+                        document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas';
                         document.getElementById('txtUltimaSaida').style.color = '#d90429';
-                        document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="saida">BAIXA</span><span>-' + q + ' cartelas (Porteira/PP)</span></div>' + document.getElementById('listaLogs').innerHTML;
+                        document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="saida">BAIXA</span><span>-' + q + ' cartelas removidas</span></div>' + document.getElementById('listaLogs').innerHTML;
                     }
                 } else { alert('❌ Erro: Estoque insuficiente!'); }
             }
