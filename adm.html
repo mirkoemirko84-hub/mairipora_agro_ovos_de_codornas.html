@@ -5,23 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* 🔓 SELEÇÃO E CÓPIA TOTALMENTE LIBERADAS PARA O PRODUTOR */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: sans-serif; 
-        }
-        body { 
-            background-color: #f4f6f8; 
-            color: #333; 
-            padding: 20px; 
-        }
+        /* 🔓 SELEÇÃO E CÓPIA LIBERADAS PARA O PRODUTOR */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: #f4f6f8; color: #333; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; width: 100%; }
-        
         #telaLogin { background: #fff; border-top: 6px solid #1b4332; border-radius: 8px; padding: 30px 20px; margin-top: 50px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         #painelConteudo { display: none; }
-        
         header { text-align: center; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         .grid-estoque { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         .quadro-estoque { background: #fff; border: 2px solid #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; }
@@ -30,7 +19,6 @@
         .campo-grupo { margin-bottom: 12px; }
         .campo-grupo label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-align: left; }
         .campo-grupo input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-align: center; }
-        
         .btn { display: inline-block; width: 100%; text-align: center; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; text-decoration: none; }
         .btn-verde { background-color: #2d6a4f; }
         .btn-verde:hover { background-color: #1b4332; }
@@ -38,7 +26,6 @@
         .btn-vermelho:hover { background-color: #b3001b; }
         .btn-cinva { background-color: #475569; margin-top: 10px; }
         .btn-cinva:hover { background-color: #334155; }
-        
         .lista-historico { margin-top: 10px; max-height: 150px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; padding: 5px; background: #f8fafc; }
         .item-historico { font-size: 0.85rem; padding: 6px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; }
         .entrada { color: #2b9348; font-weight: bold; }
@@ -112,7 +99,7 @@
                         if(q > 0) {
                             var n = parseInt(document.getElementById('qtdEstoque').textContent);
                             if(n >= q) {
-                                if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas sold via Porteira/PP?')) {
+                                if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas vendidas via Porteira/PP?')) {
                                     document.getElementById('qtdEstoque').textContent = n - q;
                                     document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas (P/P)';
                                     document.getElementById('txtUltimaSaida').style.color = '#d90429';
@@ -124,9 +111,9 @@
                 </div>
             </div>
 
-            <!-- 💰 SIMULADOR DE VENDA DIRETA (DESTRANCADO) -->
+            <!-- 💰 SIMULADOR DE VENDA DIRETA (BOTÕES FIXOS E SEM TRAVAS) -->
             <div class="card-adm">
-                <h3>💰 Simular Venda Direta</h3>
+                <h3>💰 Simular Venda Direta & Comprovantes</h3>
                 <div class="campo-grupo">
                     <label>Quantidade de Ovos Solicitados:</label>
                     <input type="number" id="vendaQtd" value="3" min="1" oninput="
@@ -147,14 +134,16 @@
                     Total Calculado: <span id="totalSimulado">R$ 1,20</span>
                 </div>
                 
-                <button onclick="
-                    var q = parseInt(document.getElementById('vendaQtd').value) || 0;
-                    var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                    if(q > 0) {
-                        document.getElementById('txtUltimaSaida').textContent = 'Teste R$ ' + (q * p).toFixed(2).replace('.', ',');
-                        document.getElementById('txtUltimaSaida').style.color = '#0284c7';
-                        document.getElementById('listaLogs').innerHTML = '<div class=\'item-historico\'><span class=\'teste\'>TESTE</span><span>Venda de ' + q + ' ovos simulada (Estoque Preservado)</span></div>' + document.getElementById('listaLogs').innerHTML;
-                        document.getElementById('blocoAcoesTeste').style.display = 'block';
-                    }
-                " class="btn btn-verde">Dar Baixa e Processar</button>
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Botão de Processar Manual -->
+                    <button onclick="
+                        var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+                        var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+                        if(q > 0) {
+                            document.getElementById('txtUltimaSaida').textContent = 'Teste R$ ' + (q * p).toFixed(2).replace('.', ',');
+                            document.getElementById('txtUltimaSaida').style.color = '#0284c7';
+                            document.getElementById('listaLogs').innerHTML = '<div class=\'item-historico\'><span class=\'teste\'>TESTE</span><span>Venda de ' + q + ' ovos simulada (Estoque Preservado)</span></div>' + document.getElementById('listaLogs').innerHTML;
+                            alert('✅ Venda processada no histórico!');
+                        }
+                    " class="btn btn-verde">Dar Baixa e Processar</button>
 
