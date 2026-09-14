@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro • Laboratório Técnico</title>
+    <style>
+        /* 🔓 SELEÇÃO, MOUSE E TECLADO 100% LIBERADOS NA BANCADA DE TESTES */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: #f4f6f8; color: #333; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; width: 100%; }
+        header { text-align: center; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .grid-estoque { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .quadro-estoque { background: #fff; border: 2px solid #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; }
+        .quadro-estoque.principal { border-top: 5px solid #2d6a4f; }
+        .card-adm { background: #fff; border: 2px solid #d8f3dc; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .campo-grupo { margin-bottom: 12px; }
+        .campo-grupo label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-align: left; }
+        .campo-grupo input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-align: center; }
+        .btn { display: inline-block; width: 100%; text-align: center; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; text-decoration: none; }
+        .btn-verde { background-color: #2d6a4f; }
+        .btn-verde:hover { background-color: #1b4332; }
+        .btn-vermelho { background-color: #d90429; }
+        .btn-vermelho:hover { background-color: #b3001b; }
+        .btn-cinva { background-color: #475569; margin-top: 10px; }
+        .btn-cinva:hover { background-color: #334155; }
+        .lista-historico { margin-top: 10px; max-height: 150px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; padding: 5px; background: #f8fafc; }
+        .item-historico { font-size: 0.85rem; padding: 6px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; }
+        .entrada { color: #2b9348; font-weight: bold; }
+        .saida { color: #d90429; font-weight: bold; }
+        .teste { color: #0284c7; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
 
+        <!-- 📊 PAINEL DE TESTES ABRE DIRETO SEM PEDIR SENHA -->
+        <div id="painelConteudo" style="display: block;">
+            <header>
+                <h2>Mairiporã Agro • Laboratório 1,20</h2>
+                <p>Ambiente Isolado de Desenvolvimento</p>
+            </header>
+
+            <div class="grid-estoque">
+                <div class="quadro-estoque principal">
+                    <label style="font-size: 0.85rem; color: #64748b; font-weight: bold;">ESTOQUE SIMULADO</label>
+                    <div style="font-size: 2rem; font-weight: bold; color: #1b4332;" id="qtdEstoque">15</div>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">Cartelas de Bancada</span>
+                </div>
+                <div class="quadro-estoque" style="border-top: 5px solid #0284c7;">
+                    <label style="font-size: 0.85rem; color: #64748b; font-weight: bold;">ÚLTIMA AÇÃO</label>
+                    <div style="font-size: 1.2rem; font-weight: bold; color: #0284c7; margin-top: 12px;" id="txtUltimaSaida">Nenhuma hoje</div>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">Monitoramento Ativo</span>
+                </div>
+            </div>
+
+            <!-- 📥 INVENTÁRIO DE TESTE -->
+            <div class="card-adm">
+                <h3>📦 Movimentar Cartelas (Bancada)</h3>
+                <div class="campo-grupo" style="margin-top: 10px;">
+                    <input type="number" id="inputMovimentacao" value="1" min="1">
+                </div>
+                <div class="grid-estoque" style="margin-bottom: 0; gap: 10px;">
+                    <button onclick="adicionarEstoque()" class="btn btn-verde">📥 Adicionar</button>
+                    <button onclick="baixarEstoque()" class="btn btn-vermelho">⚠️ Dar Baixa</button>
+                </div>
+            </div>
+
+            <!-- 💰 SIMULADOR DE VENDA DIRETA -->
+            <div class="card-adm">
+                <h3>💰 Simular Venda Direta & Comprovantes</h3>
+                <div class="campo-grupo">
+                    <label>Quantidade de Ovos Solicitados:</label>
+                    <input type="number" id="vendaQtd" value="3" min="1" oninput="atualizarTotal()">
+                </div>
+                <div class="campo-grupo">
+                    <label>Valor Unitário por Ovo (R$):</label>
+                    <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="atualizarTotal()">
+                </div>
+                <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
+                    Total Calculado: <span id="totalSimulado">R$ 1,20</span>
+                </div>
+                
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <button onclick="processarVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
+                    <!-- Aponta para a tela de pagamentos da pasta anterior usando ../ -->
+                    <button onclick="irParaPagamento()" class="btn" style="background-color:#0284c7;">💳 Testar link na Tela de Pagamento</button>
+                    <button onclick="compartilharZap()" class="btn" style="background-color: #128c7e;">📲 Enviar Comprovante ao Zap</button>
+                </div>
+            </div>
+
+            <div class="card-adm">
+                <h3>📊 Histórico da Pasta de Testes</h3>
+                <div class="lista-historico" id="listaLogs">
+                    <div class="item-historico"><span class="entrada">SISTEMA</span><span>Pasta teste-1-20 carregada com sucesso</span></div>
+                </div>
+            </div>
+
+            <!-- Aponta para o menu principal fora da pasta -->
+            <a href="../index.html" class="btn btn-cinva" style="margin-top: 5px; margin-bottom: 20px;">⬅️ Sair / Voltar ao Menu Oficial</a>
+        </div>
+
+    </div>
+
+    <script>
+        function adicionarEstoque() {
+            var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
+            if(q > 0) {
+                if(confirm('📥 Confirmar entrada de +' + q + ' cartelas prontas?')) {
+                    var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                    document.getElementById('qtdEstoque').textContent = n + q;
+                    document.getElementById('txtUltimaSaida').textContent = '+' + q + ' Cartelas';
+                    document.getElementById('txtUltimaSaida').style.color = '#2b9348';
+                    document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="entrada">ENTRADA</span><span>+' + q + ' cartelas adicionadas</span></div>' + document.getElementById('listaLogs').innerHTML;
+                }
+            }
+        }
+
+        function baixarEstoque() {
+            var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
+            if(q > 0) {
+                var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                if(n >= q) {
+                    if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas?')) {
+                        document.getElementById('qtdEstoque').textContent = n - q;
+                        document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas';
+                        document.getElementById('txtUltimaSaida').style.color = '#d90429';
+                        document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="saida">BAIXA</span><span>-' + q + ' cartelas removidas</span></div>' + document.getElementById('listaLogs').innerHTML;
+                    }
+                } else { alert('❌ Erro: Estoque insuficiente!'); }
+            }
+        }
+
+        function atualizarTotal() {
+            var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+            var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
+        }
+
+        function processarVenda() {
+            var q = parseInt(document.getElementById('vendaQtd').value) || 0;
+            var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            if(q > 0) {
+                document.getElementById('txtUltimaSaida').textContent = 'Teste R$ ' + (q * p).toFixed(2).replace('.', ',');
+                document.getElementById('txtUltimaSaida').style.color = '#0284c7';
+                document.getElementById('listaLogs').innerHTML = '<div class="item-historico"><span class="teste">TESTE</span><span>Venda de ' + q + ' ovos simulada (Estoque Preservado)</span></div>' + document.getElementById('listaLogs').innerHTML;
+                alert('✅ Venda processada no histórico de laboratório!');
+            }
+        }
+
+        function irParaPagamento() {
+            var q = document.getElementById('vendaQtd').value;
+            var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            // Puxa o arquivo de pagamento que está na pasta de cima
+            window.location.href = '../pagamento.html?qtd=' + q + '&total=' + (q * p).toFixed(2) + '&modo=teste_avulso';
+        }
+
+        function compartilharZap() {
+            var q = document.getElementById('vendaQtd').value;
+            var t = document.getElementById('totalSimulado').textContent;
