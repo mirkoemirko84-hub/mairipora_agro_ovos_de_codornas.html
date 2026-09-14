@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro • Pagamento Pix</title>
+    <title>Mairiporã Agro • Opções de Pagamento</title>
     <style>
         /* Configurações Gerais e Bloqueio de Seleção */
         * {
@@ -33,7 +33,7 @@
             flex: 1;
         }
 
-        /* Topo da Tela de Pagamento */
+        /* Topo da Tela */
         header {
             text-align: center;
             background: linear-gradient(135deg, #1b4332, #2d6a4f);
@@ -53,51 +53,54 @@
             margin-bottom: 5px;
         }
 
-        /* Cartão Central do Pix */
-        .card-pagamento {
+        header p {
+            font-size: 0.95rem;
+            color: #d8f3dc;
+        }
+
+        h2.titulo-sessao {
+            font-size: 1.2rem;
+            color: #1b4332;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 📦 Estilo dos Quadradinhos (Cards de Opções) */
+        .card-opcao {
             background-color: #fff;
-            border: 2px solid #d8f3dc;
-            border-top: 6px solid #2d6a4f;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             text-align: center;
         }
 
-        .card-pagamento h2 {
-            font-size: 1.4rem;
+        /* Destaque para opções ativas (Pix) */
+        .card-opcao.ativo {
+            border: 2px solid #cbd5e1;
+            border-top: 5px solid #2d6a4f;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
             color: #1b4332;
             margin-bottom: 10px;
-        }
-
-        .instrucao {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        /* BLOCO 1: Bloco com Símbolo Pix e Código Copia e Cola */
-        .pix-container {
-            background-color: #f8fafc;
-            border: 2px dashed #40916c;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .pix-header {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            font-weight: bold;
-            color: #00b4d8; /* Cor do Pix */
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+        }
+
+        /* Estilo específico do bloco Pix Copia e Cola */
+        .pix-box {
+            background-color: #f8fafc;
+            border: 1px dashed #40916c;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 10px;
         }
 
         .pix-code {
@@ -110,52 +113,51 @@
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             display: block;
-            user-select: text; 
+            user-select: text;
             -webkit-user-select: text;
         }
 
         .feedback {
             color: #2b9348;
             font-weight: bold;
-            font-size: 0.95rem;
-            margin-top: 10px;
-            min-height: 20px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            min-height: 18px;
         }
 
-        /* BLOCO 2: Bloco com a Chave Pix QR Code Oficial */
-        .qrcode-container {
-            background-color: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .qrcode-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #1b4332;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Ajustado para renderizar o seu arquivo do Git */
+        /* Estilo específico do QR Code */
         .qrcode-imagem {
-            max-width: 200px;
+            max-width: 160px;
             width: 100%;
             height: auto;
             border: 1px solid #cbd5e1;
-            padding: 8px;
+            padding: 6px;
             background-color: #fff;
             border-radius: 4px;
+            margin-top: 10px;
         }
 
-        /* Botão para voltar à tela inicial */
+        /* 🔒 BLOCO INDISPONÍVEL: Boleto Bancário */
+        .card-opcao.indisponivel {
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .card-opcao.indisponivel .card-title {
+            color: #64748b;
+        }
+
+        .txt-indisponivel {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* Botão para voltar */
         .btn-voltar {
             display: inline-block;
             width: 100%;
@@ -169,6 +171,8 @@
             font-size: 1rem;
             transition: background 0.2s;
             margin-top: 10px;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-voltar:hover {
@@ -195,29 +199,32 @@
             <p>Ambiente Seguro de Pagamento</p>
         </header>
 
-        <div class="card-pagamento">
-            <h2>💸 Finalize seu Pedido</h2>
-            <p class="instrucao">Escolha abaixo se prefere pagar colando o código gerado ou escaneando o QR Code pelo aplicativo do seu banco.</p>
-            
-            <!-- BLOCO 1: PIX COPIA E COLA AUTOMÁTICO -->
-            <div class="pix-container">
-                <div class="pix-header">
-                    💎 PIX COPIA E COLA
-                </div>
+        <h2 class="titulo-sessao">Select uma forma de pagamento:</h2>
+
+        <!-- 🟥 QUADRADINHO 1: PIX COPIA E COLA -->
+        <div class="card-opcao ativo">
+            <div class="card-title">💎 PIX COPIA E COLA</div>
+            <p style="font-size: 0.9rem; color: #555;">O código abaixo foi enviado automaticamente para a área de transferência do seu dispositivo.</p>
+            <div class="pix-box">
                 <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
-                
-                <div class="feedback" id="mensagemFeedback">Copiando código...</div>
             </div>
-
-            <!-- BLOCO 2: QR CODE CONECTADO COM O SEU REPOSITÓRIO -->
-            <div class="qrcode-container">
-                <div class="qrcode-title">📷 OU ESCANEIE O QR CODE</div>
-                <img src="qrcode-pagamento.png" alt="QR Code de Pagamento" class="qrcode-imagem">
-            </div>
-
+            <div class="feedback" id="mensagemFeedback">Copiando código...</div>
         </div>
 
-        <!-- Botão seguro de retorno -->
+        <!-- 🟥 QUADRADINHO 2: PIX QR CODE -->
+        <div class="card-opcao ativo">
+            <div class="card-title">📷 PIX QR CODE</div>
+            <p style="font-size: 0.9rem; color: #555;">Abra o app do seu banco e aponte a câmera para o código abaixo:</p>
+            <img src="qrcode-pagamento.png" alt="QR Code de Pagamento" class="qrcode-imagem">
+        </div>
+
+        <!-- 🟥 QUADRADINHO 3: BOLETO BANCÁRIO (INDISPONÍVEL) -->
+        <div class="card-opcao indisponivel">
+            <div class="card-title">📄 BOLETO BANCÁRIO</div>
+            <div class="txt-indisponivel">#### INDISPONÍVEL NO MOMENTO ####</div>
+        </div>
+
+        <!-- Botão de retorno -->
         <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
 
         <footer>
@@ -228,12 +235,14 @@
     </div>
 
     <script>
+        // Função que roda assim que a página carrega
         window.onload = function() {
             const textoPix = document.getElementById('codigoPixTexto').textContent;
             const feedback = document.getElementById('mensagemFeedback');
 
+            // Automação para copiar o código do Pix sozinho
             navigator.clipboard.writeText(textoPix).then(function() {
-                feedback.textContent = "✅ Código Pix copiado automático! Só colar no banco.";
+                feedback.textContent = "✅ Código Pix copiado com sucesso! Só colar no banco.";
             }).catch(function() {
                 feedback.textContent = "⚠️ Selecione o código acima e copie manualmente.";
                 feedback.style.color = "#d90429";
