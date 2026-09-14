@@ -3,274 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro - Pagamento Seguro</title>
+    <title>Mairiporã Agro • Pagamento Pix</title>
     <style>
-        /* Configurações Gerais e Bloqueio de Seleção de Texto Global */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            user-select: none; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
-
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f4f4f9; 
-            color: #333; 
-            text-align: center; 
-            padding: 20px; 
-        }
-
-        /* Container Estilo Aplicativo (Startup) */
-        .container { 
-            max-width: 480px; 
-            margin: 0 auto; 
-            background: #fff; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            border: 2px solid #e0e0e0; 
-        }
-        
-        /* Relógio Digital Administrativo em Foco Total */
-        .header-system { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            font-size: 14px; 
-            font-weight: bold; 
-            color: #ffffff; 
-            background: #d90429; 
-            padding: 10px 15px; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            font-family: monospace; 
-            border: 2px solid #b3001b;
-            box-shadow: 0 4px 10px rgba(217, 4, 41, 0.25);
-        }
-
-        .btn-top-inicio { 
-            background: #ffffff; 
-            color: #cc0000; 
-            text-decoration: none; 
-            padding: 4px 10px; 
-            border-radius: 4px; 
-            font-weight: bold; 
-            font-size: 12px; 
-            transition: opacity 0.2s; 
-            border: 1px solid #b3001b;
-        }
-        .btn-top-inicio:active { opacity: 0.8; }
-
-        h1 { color: #d35400; font-size: 26px; margin-top: 20px; margin-bottom: 5px; }
-        .subtitle { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
-        
-        .order-summary-link { 
-            display: block; 
-            text-decoration: none; 
-            background: #fff3cd; 
-            border: 2px solid #ffeeba; 
-            padding: 15px; 
-            border-radius: 10px; 
-            margin: 20px auto; 
-            font-size: 16px; 
-            font-weight: bold; 
-            color: #856404; 
-            cursor: pointer; 
-            transition: transform 0.2s; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        }
-        .order-summary-link:active { transform: scale(0.98); }
-        .click-hint { font-size: 13px; color: #27ae60; font-weight: bold; margin-top: 8px; display: block; }
-
-        /* Menu de Abas Estilo Shopee / Mercado Livre */
-        .tabs-pagamento {
+        body {
+            background-color: #f4f6f8;
+            color: #333;
             display: flex;
-            justify-content: space-between;
-            background: #f1f5f9;
-            padding: 6px;
-            border-radius: 10px;
-            margin: 25px 0 20px 0;
-            border: 1px solid #cbd5e1;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
         }
-
-        .tab-btn {
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
             flex: 1;
-            padding: 12px 5px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #64748b;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            -webkit-tap-highlight-color: transparent;
         }
-
-        .tab-btn.active {
-            background: #2d6a4f;
-            color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-
-        /* Conteúdos das Abas */
-        .tab-content {
-            display: none;
-            padding: 15px 0;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .pix-title { font-weight: bold; font-size: 18px; color: #27ae60; margin-bottom: 15px; }
-        .qrcode-img { max-width: 180px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: white; border-radius: 5px; }
-        
-        .instrucao-copia {
-            font-size: 14px;
-            font-weight: bold;
-            color: #c2410c;
-            margin-bottom: 12px;
-        }
-
-        /* Alerta de Sucesso Estilizado da Startup */
-        .alerta-sucesso {
-            color: #166534;
-            background-color: #dcfce7;
-            border: 2px dashed #27ae60;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            margin-top: 15px;
-            line-height: 1.4;
-        }
-
-        /* Estilo da Caixa do Boleto Desativado */
-        .boleto-box {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            padding: 30px 20px;
-            border-radius: 10px;
-            color: #64748b;
-        }
-        .boleto-aviso {
-            font-size: 14px;
-            font-weight: bold;
-            color: #94a3b8;
-            margin-top: 10px;
-            text-transform: uppercase;
-        }
-
-        .btn-voltar { background-color: #e67e22; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; display: block; text-decoration: none; box-sizing: border-box; margin: 25px 0 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s; }
-        .btn-voltar:active { transform: scale(0.98); background-color: #d35400; }
-        
-        .secure-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 13px; color: #27ae60; font-weight: bold; }
-        
-        /* Rodapé Oficial Padronizado Limpo */
-        .footer-oficial {
+        header {
             text-align: center;
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px dashed #bdc3c7;
-            line-height: 1.6;
-            font-family: monospace;
+            background: linear-gradient(135deg, #1b4332, #2d6a4f);
+            color: #fff;
+            padding: 25px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 3px solid #081c15;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
-        .selo-seguranca {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 13px;
-            margin-top: 4px;
+        header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
+        }
+        .card-pagamento {
+            background-color: #fff;
+            border: 2px solid #d8f3dc;
+            border-top: 6px solid #2d6a4f;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .card-pagamento h2 {
+            font-size: 1.4rem;
+            color: #1b4332;
+            margin-bottom: 15px;
+        }
+        .pix-container {
+            background-color: #f8fafc;
+            border: 2px dashed #40916c;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .pix-code {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #333;
+            word-break: break-all;
+            background: #ffffff;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
             display: block;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        .feedback {
+            color: #2b9348;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+        .btn-voltar {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: #475569;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .btn-voltar:hover {
+            background-color: #334155;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.85rem;
         }
     </style>
 </head>
-<body onload="inicializarPagamento()" oncontextmenu="return false;" onkeydown="return false;">
-
-<div class="container">
-    <!-- Relógio em Foco Redesenhado -->
-    <div class="header-system">
-        <div>⏱️ <span id="live-date">13/09/2026</span> <span id="live-clock">00:00:00</span></div>
-        <a href="./index.html" class="btn-top-inicio">🏠 INÍCIO</a>
-    </div>
-
-    <h1>🔒 Finalizar Pedido</h1>
-    <div class="subtitle">Mairiporã Agro • Checkout Startup</div>
-
-    <a href="https://whatsapp.com" class="order-summary-link" target="_blank">
-        <div id="resumo-texto">🛒 Verifique o valor total abaixo</div>
-        <span class="click-hint">🟢 CLIQUE AQUI PARA ENVIAR COMPROVANTE NO WHATSAPP</span>
-    </a>
-
-    <!-- MENU DE SELEÇÃO E AÇÃO AUTOMÁTICA -->
-    <div class="tabs-pagamento">
-        <button class="tab-btn active" onclick="acionarAbaPix(this)">⚡ PIX COPIA</button>
-        <button class="tab-btn" onclick="alternarAba('aba-qrcode', this)">📸 QR CODE</button>
-        <button class="tab-btn" onclick="alternarAba('aba-boleto', this)">📄 BOLETO</button>
-    </div>
-
-    <!-- ABA 1: PIX COPIA E COLA AUTOMÁTICO AO CLICAR NA ABA -->
-    <div id="aba-pix" class="tab-content active">
-        <div class="pix-title">⚡ SISTEMA COPIA E COLA ACTIVED</div>
-        <div class="alerta-sucesso" style="display: block;">
-            🎉 SUCESSO! O código Pix foi copiado automaticamente para a memória do seu aparelho!<br><br>
-            <strong>Próximo passo:</strong> Abra o aplicativo do seu banco e cole na opção "Pix Copia e Cola".
+<body oncontextmenu="return false;" onkeydown="return false;">
+    <div class="container">
+        <header>
+            <h1>Mairiporã Agro</h1>
+            <p>Ambiente Seguro de Pagamento</p>
+        </header>
+        <div class="card-pagamento">
+            <h2>💸 Finalize seu Pedido via PIX</h2>
+            <p>Assim que esta página abriu, o código Pix Copia e Cola foi enviado para a área de transferência do seu computador.</p>
+            <div class="pix-container">
+                <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
+            </div>
+            <div class="feedback" id="mensagemFeedback">Copiando código...</div>
         </div>
+        <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
+        <footer>
+            Mairiporã Agro © 2026 <br>
+            🔒 Conexão Criptografada de Segurança
+        </footer>
     </div>
-
-    <!-- ABA 2: QR CODE -->
-    <div id="aba-qrcode" class="tab-content">
-        <div class="pix-title">📸 ESCANEAR CÓDIGO</div>
-        <p class="instrucao-copia">Abra o app do banco e aponte a câmera para a tela:</p>
-        <img src="./qrcode-pagamento.png" alt="QR Code Pix" class="qrcode-img">
-    </div>
-
-    <!-- ABA 3: BOLETO BANCÁRIO (EM AJUSTES) -->
-    <div id="aba-boleto" class="tab-content">
-        <div class="boleto-box">
-            <svg style="width:48px; height:48px; fill:#94a3b8;" viewBox="0 0 24 24">
-                <path d="M3 3h2v18H3V3zm3 0h1v18H6V3zm3 0h2v18H9V3zm3 0h3v18h-3V3zm4 0h1v18h-1V3zm2 0h2v18h-2V3zm3 0h1v18h-1V3zm-12 3h6v2h-6V6zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z"/>
-            </svg>
-            <div class="boleto-aviso">⚙️ Opção em ajustes no sistema</div>
-        </div>
-    </div>
-
-    <a class="btn-voltar" href="./index.html">🛒 Voltar e Comprar Mais</a>
-
-    <div class="secure-footer">
-        🔒 AMBIENTE 100% SEGURO | INTERFACE STARTUP <span style="opacity: 0.5; font-size: 11px; float: right; font-weight: bold;">. PWA v2</span>
-    </div>
-
-    <footer class="footer-oficial">
-        JCS_software . JCS_criatório<br>
-        versão 26.08.31.24 | 🔏 cadeado de segurança<br>
-        <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
-    </footer>
-</div>
-
-<script>
-    var brCodeOficial = "00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6";
-
-    function inicializarPagamento() {
-        iniciarRelogio();
-        // Copia automaticamente logo no carregamento inicial da página
-        executarCopiaReal(brCodeOficial);
-    }
-
-    function iniciarRelogio() {
-        atualizarTempo(); 
-        setInterval(atualizarTempo, 1000);
-    }
-
-    function atualizarTempo() {
-        const agora = new Date();
-        const dia = String(agora.getDate()).padStart(2, '0');
-        const mes = String(agora.getMonth() + 1).padStart(2, '0');
-        const ano = "2026";
-        
+    <script>
+        window.onload = function() {
+            const textoPix = document.getElementById('codigoPixTexto').textContent;
+            const feedback = document.getElementById('mensagemFeedback');
+            navigator.clipboard.writeText(textoPix).then(function() {
+                feedback.textContent = "✅ Código Pix copiado com sucesso! Só colar no banco.";
+            }).catch(function() {
+                feedback.textContent = "⚠️ Selecione o código acima e copie manualmente.";
+                feedback.style.color = "#d90429";
+            });
+        };
+    </script>
+</body>
+</html>
