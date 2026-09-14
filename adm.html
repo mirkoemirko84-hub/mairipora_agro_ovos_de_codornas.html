@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* Configurações Gerais e Bloqueio de Seleção */
+        /* Configurações Gerais - SELEÇÃO DE TEXTO LIBERADA PARA O PRODUTOR */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
 
         body {
@@ -66,13 +62,8 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        .quadro-estoque.principal {
-            border-top: 5px solid #2d6a4f;
-        }
-
-        .quadro-estoque.movimentacao {
-            border-top: 5px solid #d90429;
-        }
+        .quadro-estoque.principal { border-top: 5px solid #2d6a4f; }
+        .quadro-estoque.movimentacao { border-top: 5px solid #d90429; }
 
         .numero-estoque {
             font-size: 2rem;
@@ -176,7 +167,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="return false;">
+<body>
 
     <div class="container">
         
@@ -226,10 +217,7 @@
             </div>
             
             <button onclick="executarBaixaVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
-            
-            <!-- Botão que envia o valor dinâmico gerado no teste direto para a tela de pagamento -->
             <button onclick="enviarParaTelaPagamento()" id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
-            
             <button onclick="enviarMensagemZap()" id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
         </div>
 
@@ -265,7 +253,6 @@
         let ultimaVendaTexto = localStorage.getItem('agro_val_txt') || "";
         let ultimaVendaValor = localStorage.getItem('agro_val_val') || "R$ 0,00";
 
-        // Atualiza a tela assim que abre
         window.onload = function() {
             renderizarPainel();
             calcularValorSimulado();
@@ -281,3 +268,12 @@
             historico.forEach(item => {
                 let classe = item.tipo.toLowerCase();
                 lista.innerHTML += `<div class="item-historico"><span class="${classe}">${item.tipo}</span><span>${item.txt}</span></div>`;
+            });
+
+            localStorage.setItem('agro_estoque', estoque);
+            localStorage.setItem('agro_historico', JSON.stringify(historico));
+            localStorage.setItem('agro_val_txt', ultimaVendaTexto);
+            localStorage.setItem('agro_val_val', ultimaVendaValor);
+        }
+
+        function calcularValorSimulado() {
