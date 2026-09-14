@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Pagamento Pix</title>
     <style>
+        /* Configurações Gerais e Bloqueio de Seleção */
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +16,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
+
         body {
             background-color: #f4f6f8;
             color: #333;
@@ -23,12 +25,15 @@
             min-height: 100vh;
             padding: 20px;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             width: 100%;
             flex: 1;
         }
+
+        /* Topo da Tela de Pagamento */
         header {
             text-align: center;
             background: linear-gradient(135deg, #1b4332, #2d6a4f);
@@ -39,6 +44,7 @@
             border: 3px solid #081c15;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
+
         header h1 {
             font-size: 1.8rem;
             letter-spacing: 1px;
@@ -46,6 +52,8 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
             margin-bottom: 5px;
         }
+
+        /* Cartão Central do Pix */
         .card-pagamento {
             background-color: #fff;
             border: 2px solid #d8f3dc;
@@ -56,21 +64,45 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             text-align: center;
         }
+
         .card-pagamento h2 {
             font-size: 1.4rem;
             color: #1b4332;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
+
+        .instrucao {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        /* BLOCO 1: Bloco com Símbolo Pix e Código Copia e Cola */
         .pix-container {
             background-color: #f8fafc;
             border: 2px dashed #40916c;
             border-radius: 6px;
             padding: 15px;
-            margin: 15px 0;
+            margin-bottom: 25px;
+            position: relative;
         }
+
+        .pix-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #00b4d8; /* Cor do Pix */
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
         .pix-code {
             font-family: monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #333;
             word-break: break-all;
             background: #ffffff;
@@ -78,16 +110,52 @@
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             display: block;
-            user-select: text;
+            user-select: text; 
             -webkit-user-select: text;
         }
+
         .feedback {
             color: #2b9348;
             font-weight: bold;
             font-size: 0.95rem;
-            margin-top: 8px;
+            margin-top: 10px;
             min-height: 20px;
         }
+
+        /* BLOCO 2: Bloco com a Chave Pix QR Code Oficial */
+        .qrcode-container {
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .qrcode-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1b4332;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Ajustado para renderizar o seu arquivo do Git */
+        .qrcode-imagem {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        /* Botão para voltar à tela inicial */
         .btn-voltar {
             display: inline-block;
             width: 100%;
@@ -102,9 +170,12 @@
             transition: background 0.2s;
             margin-top: 10px;
         }
+
         .btn-voltar:hover {
             background-color: #334155;
         }
+
+        /* Rodapé Padronizado */
         footer {
             text-align: center;
             margin-top: 30px;
@@ -116,31 +187,53 @@
     </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="return false;">
+
     <div class="container">
+        
         <header>
             <h1>Mairiporã Agro</h1>
             <p>Ambiente Seguro de Pagamento</p>
         </header>
+
         <div class="card-pagamento">
-            <h2>💸 Finalize seu Pedido via PIX</h2>
-            <p>Assim que esta página abriu, o código Pix Copia e Cola foi enviado para a área de transferência do seu computador.</p>
+            <h2>💸 Finalize seu Pedido</h2>
+            <p class="instrucao">Escolha abaixo se prefere pagar colando o código gerado ou escaneando o QR Code pelo aplicativo do seu banco.</p>
+            
+            <!-- BLOCO 1: PIX COPIA E COLA AUTOMÁTICO -->
             <div class="pix-container">
+                <div class="pix-header">
+                    💎 PIX COPIA E COLA
+                </div>
                 <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
+                
+                <div class="feedback" id="mensagemFeedback">Copiando código...</div>
             </div>
-            <div class="feedback" id="mensagemFeedback">Copiando código...</div>
+
+            <!-- BLOCO 2: QR CODE CONECTADO COM O SEU REPOSITÓRIO -->
+            <div class="qrcode-container">
+                <div class="qrcode-title">📷 OU ESCANEIE O QR CODE</div>
+                <img src="qrcode-pagamento.png" alt="QR Code de Pagamento" class="qrcode-imagem">
+            </div>
+
         </div>
+
+        <!-- Botão seguro de retorno -->
         <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
+
         <footer>
             Mairiporã Agro © 2026 <br>
             🔒 Conexão Criptografada de Segurança
         </footer>
+
     </div>
+
     <script>
         window.onload = function() {
             const textoPix = document.getElementById('codigoPixTexto').textContent;
             const feedback = document.getElementById('mensagemFeedback');
+
             navigator.clipboard.writeText(textoPix).then(function() {
-                feedback.textContent = "✅ Código Pix copiado com sucesso! Só colar no banco.";
+                feedback.textContent = "✅ Código Pix copiado automático! Só colar no banco.";
             }).catch(function() {
                 feedback.textContent = "⚠️ Selecione o código acima e copie manualmente.";
                 feedback.style.color = "#d90429";
