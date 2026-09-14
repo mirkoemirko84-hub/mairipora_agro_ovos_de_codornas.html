@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Sistema de Gestão</title>
     <style>
+        /* Configurações Gerais e Bloqueio de Seleção */
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +16,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
+
         body {
             background-color: #f4f6f8;
             color: #333;
@@ -23,12 +25,15 @@
             min-height: 100vh;
             padding: 20px;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             width: 100%;
             flex: 1;
         }
+
+        /* Topo Chamativo */
         header {
             text-align: center;
             background: linear-gradient(135deg, #1b4332, #2d6a4f);
@@ -39,6 +44,7 @@
             border: 3px solid #081c15;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
+
         header h1 {
             font-size: 2.2rem;
             letter-spacing: 1px;
@@ -46,11 +52,13 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
             margin-bottom: 5px;
         }
+
         header p {
             font-size: 0.95rem;
             color: #d8f3dc;
             font-weight: 500;
         }
+
         .banner-comercio-local {
             background-color: #fff3cd;
             border: 2px solid #ffeeba;
@@ -62,9 +70,8 @@
             font-size: 0.95rem;
             font-weight: 700;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            letter-spacing: 0.3px;
         }
+
         .status-clock {
             background-color: #d90429;
             color: #ffffff;
@@ -75,9 +82,9 @@
             font-size: 1.1rem;
             margin-bottom: 25px;
             border: 2px solid #b3001b;
-            box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
-            letter-spacing: 0.5px;
         }
+
+        /* Cartões */
         .card {
             background-color: #fff;
             border: 2px solid #d8f3dc;
@@ -86,12 +93,8 @@
             padding: 20px;
             margin-bottom: 25px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.2s, border-color 0.2s;
         }
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: #52b788;
-        }
+
         .card h2 {
             font-size: 1.25rem;
             color: #1b4332;
@@ -100,17 +103,41 @@
             align-items: center;
             gap: 8px;
         }
+
         .card p {
             font-size: 0.95rem;
             color: #555;
             line-height: 1.5;
             margin-bottom: 15px;
         }
+
+        /* Seletor de Quantidade do Cliente */
+        .seletor-compras {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .seletor-compras select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
         .card.hobby {
             border: 2px solid #b7e4c7;
             border-left: 6px solid #40916c;
             background-color: #f7fbf8;
         }
+
+        /* Botões */
         .btn {
             display: inline-block;
             width: 100%;
@@ -125,11 +152,26 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: background 0.2s;
         }
-        .btn:hover {
-            background-color: #1b4332;
+
+        .btn:hover { background-color: #1b4332; }
+
+        /* 🔒 BOTÃO OCULTO PARA SEUS TESTES DE BANCADA */
+        .area-secreta-teste {
+            margin-top: 10px;
+            padding: 5px;
+            text-align: center;
         }
+        
+        .btn-secreto {
+            background: none;
+            border: none;
+            color: #cbd5e1; /* Cor quase invisível no fundo cinza */
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
         footer {
             text-align: center;
             margin-top: 30px;
@@ -137,62 +179,92 @@
             border-top: 1px solid #ddd;
             color: #666;
             font-size: 0.85rem;
-            line-height: 1.6;
-        }
-        .selo-seguranca {
-            color: #2d6a4f;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: block;
         }
     </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="return false;">
+
     <div class="container">
+        
         <header>
             <h1>Mairiporã Agro</h1>
             <p>Sistema Integrado de Gestão • Ovos de Codorna & Conservas</p>
         </header>
+
         <div class="banner-comercio-local">
             🌾 FORTALEÇA O PEQUENO PRODUTOR • APOIE E INCENTIVE O COMÉRCIO LOCAL!
         </div>
+
         <div class="status-clock">
-            ● SYSTEM ONLINE: <span id="relogio">13/09/2026 - 12:07:58</span>
+            ● SYSTEM ONLINE: <span id="relogio">14/09/2026 - 04:33:00</span>
         </div>
+
         <div class="card">
             <h2>💡 Dicas & Benefícios</h2>
             <p>Veja o método de descasque perfeito e os fatos científicos do superalimento.</p>
             <a href="dicas.html" class="btn">Abrir Dicas</a>
         </div>
+
+        <!-- 💰 CARTÃO DE VENDAS ATUALIZADO: CLIENTE AGORA ESCOLHE O PRODUTO -->
         <div class="card">
-            <h2>💰 Vendas & Faturamento</h2>
-            <p>Acesse a tela de pagamento rápido via PIX Copia e Cola ou QR Code.</p>
-            <a href="pagamento.html" class="btn">Ir para Pagamento</a>
+            <h2>🛍️ Fazer Pedido & Vendas</h2>
+            <p>Selecione a quantidade de Cartelas de Ovos de Codorna (Preço padrão de teste R$ 1,99):</p>
+            
+            <div class="seletor-compras">
+                <span>🛒 Quantidade de Cartelas:</span>
+                <select id="qtdPedidoCliente" onchange="calcularPrecoCliente()">
+                    <option value="1">1 Cartela - R$ 1,99</option>
+                    <option value="2">2 Cartelas - R$ 3,98</option>
+                    <option value="3">3 Cartelas - R$ 5,97</option>
+                    <option value="5">5 Cartelas - R$ 9,95</option>
+                </select>
+            </div>
+
+            <button onclick="irParaPagamentoReal()" class="btn">Comprar e Ir para Pagamento</button>
+            
+            <!-- 🤫 O LINK SECRETO PARA A SUA COMPRA DE TESTE AVULSA (3 ovos a 0.40 = 1.20) -->
+            <div class="area-secreta-teste">
+                <button onclick="simularCompraSecretaBancada()" class="btn-secreto">[ Rodar Teste Técnico Interno ]</button>
+            </div>
         </div>
+
         <div class="card">
             <h2>📊 Painel de Controle</h2>
             <p>Área reservada ao produtor para o lançamento diário de estoque absoluto de cartelas fechadas.</p>
             <a href="adm.html" class="btn">Acessar ADM</a>
         </div>
+
         <div class="card hobby">
             <h2>🏡 Espaço Hobby & Projeção Real</h2>
             <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a disposição científica de eficiência acumulada (85%) prevê uma colheita estável de ~30 ovos por semana — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.</p>
         </div>
+
         <footer>
             Mairiporã Agro © 2026 <br>
-            Matriz: v26.09.13.1.2 (Segurança Monitorada) <br>
+            Matriz: v26.09.14.1.0 <br>
             <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
         </footer>
+
     </div>
+
     <script>
         function atualizarRelogio() {
             const agora = new Date();
-            const dataStr = "13/09/2026"; 
-            const horaStr = agora.toLocaleTimeString('pt-BR');
-            document.getElementById('relogio').textContent = `${dataStr} - ${horaStr}`;
+            document.getElementById('relogio').textContent = "14/09/2026 - " + agora.toLocaleTimeString('pt-BR');
         }
         setInterval(atualizarRelogio, 1000);
+
+        // Envia o cliente com o valor real selecionado (Multiplica por 1.99)
+        function irParaPagamentoReal() {
+            const qtd = document.getElementById('qtdPedidoCliente').value;
+            const total = (qtd * 1.99).toFixed(2);
+            window.location.href = `pagamento.html?qtd=${qtd}&total=${total}&modo=cartela`;
+        }
+
+        // Executa exatamente o SEU teste avulso oculto de 3 unidades a 0.40 = R$ 1,20
+        function simularCompraSecretaBancada() {
+            window.location.href = "pagamento.html?qtd=3&total=1.20&modo=teste_avulso";
+        }
     </script>
 </body>
 </html>
