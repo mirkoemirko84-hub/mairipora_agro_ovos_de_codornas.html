@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
+        /* 🔒 Trava de Segurança Contra Seleção e Cópia Reativada */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         body {
@@ -19,6 +24,11 @@
             flex-direction: column;
             min-height: 100vh;
             padding: 20px;
+        }
+
+        /* Oculta o painel por padrão até validar a senha */
+        #painelConteudo {
+            display: none;
         }
 
         .container {
@@ -158,9 +168,11 @@
         }
     </style>
 </head>
-<body>
+<!-- 🔒 Travas de clique direito e teclas de atalho ativadas no corpo da página -->
+<body oncontextmenu="return false;" onkeydown="return false;">
 
-    <div class="container">
+    <!-- Todo o painel fica envelopado nesta div de segurança -->
+    <div id="painelConteudo" class="container">
         
         <header>
             <h1>Mairiporã Agro • Painel ADM</h1>
@@ -247,15 +259,3 @@
                 var q = document.getElementById('vendaQtd').value;
                 var t = document.getElementById('totalSimulado').textContent;
                 var m = encodeURIComponent('🌾 *Mairiporã Agro • Comprovante* 🌾\n\nOlá! Sua compra de ' + q + ' ovos foi processada.\n💵 *Valor Total:* ' + t);
-                window.open('https://whatsapp.com' + m, '_blank');
-            " id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
-        </div>
-
-        <!-- 📊 SEÇÃO DO HISTÓRICO -->
-        <div class="card-adm">
-            <h3>📊 Histórico de Operações</h3>
-            <div class="lista-historico" id="listaLogs">
-                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+12 cartelas (Saldo Base)</span></div>
-            </div>
-        </div>
-
