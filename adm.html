@@ -3,261 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro - Painel ADM</title>
-    <script>
-        function verificarSenha() {
-            var senhaCorreta = "4971"; 
-            var senhaDigitada = prompt("Acesso Restrito ao Produtor.\nDigite a senha de segurança da bancada:");
-
-            if (senhaDigitada !== senhaCorreta) {
-                alert("Senha incorreta! Retornando à página inicial.");
-                window.location.href = "index.html";
-            }
-        }
-        verificarSenha();
-    </script>
+    <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        :root {
-            --primary: #2d6a4f; /* Verde alinhado com a nova identidade atraente */
-            --primary-hover: #1b4332;
-            --bg: #f4f6f8;
-            --card-bg: #ffffff;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --border: #d8f3dc; /* Borda verde clara para dar vida */
-            --success: #10b981;
-        }
-        
         /* Configurações Gerais e Bloqueio de Seleção */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            user-select: none; /* Bloqueia seleção de texto */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
-        
+
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             padding: 20px;
-            line-height: 1.5;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
+            width: 100%;
+            flex: 1;
         }
 
-        /* Topo com Borda Forte e Identidade Visual Marcante */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        header {
+            text-align: center;
             background: linear-gradient(135deg, #1b4332, #2d6a4f);
-            padding: 20px 24px;
+            color: #fff;
+            padding: 20px;
             border-radius: 12px;
+            margin-bottom: 20px;
+            border: 3px solid #081c15;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            margin-bottom: 24px;
-            border: 3px solid #081c15; /* Borda forte de acabamento */
         }
 
-        .navbar h1 {
-            font-size: 22px;
-            color: #ffffff;
-            font-weight: 700;
+        header h1 {
+            font-size: 1.6rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
         }
 
-        .btn-back {
-            background-color: #ffffff;
-            color: #1b4332;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
-            transition: background 0.2s, transform 0.2s;
-            border: 2px solid #081c15;
-        }
-        .btn-back:hover { 
-            background-color: #d8f3dc; 
-            transform: translateY(-1px);
+        /* Indicadores de Estoque */
+        .grid-estoque {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        /* Relógio Digital Em Foco (Fundo Vermelho Vivo, Letra Branca) */
-        .live-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #d90429;
-            color: #ffffff;
-            padding: 14px 20px;
+        .quadro-estoque {
+            background: #fff;
+            border: 2px solid #cbd5e1;
             border-radius: 8px;
-            margin-bottom: 24px;
-            border: 2px solid #b3001b;
-            box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 14px;
+        .quadro-estoque.principal {
+            border-top: 5px solid #2d6a4f;
         }
 
-        .live-time {
-            font-size: 15px;
-            color: #ffffff;
-            font-weight: bold;
-            letter-spacing: 0.5px;
+        .quadro-estoque.movimentacao {
+            border-top: 5px solid #d90429;
         }
 
-        /* Cartões com Mais Vida e Bordas Bem Definidas */
-        .card {
-            background: var(--card-bg);
-            border: 2px solid var(--border); /* Borda visível */
-            border-left: 6px solid #1b4332; /* Destaque lateral forte */
-            border-radius: 12px;
-            padding: 24px;
+        .numero-estoque {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1b4332;
+            margin-top: 5px;
+        }
+
+        /* Formulários e Ações */
+        .card-adm {
+            background: #fff;
+            border: 2px solid #d8f3dc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
-        .card h2 {
-            font-size: 18px;
+        .card-adm h3 {
             color: #1b4332;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
         }
 
-        .form-group {
-            margin-bottom: 16px;
+        .campo-grupo {
+            margin-bottom: 12px;
         }
 
-        .form-group label {
+        .campo-grupo label {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
         }
 
-        .form-control {
+        .campo-grupo input, .campo-grupo select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ced4da;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
             border-radius: 6px;
-            font-size: 14px;
-            background-color: #f9fafb;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
+            font-size: 1rem;
             background-color: #fff;
         }
 
-        .btn-submit {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
+        /* Botões */
+        .btn {
+            display: inline-block;
             width: 100%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: background-color 0.2s;
-        }
-        .btn-submit:hover { background-color: var(--primary-hover); }
-
-        /* Rodapé Padronizado Oficial */
-        .footer {
             text-align: center;
-            font-size: 13px;
-            color: #666;
-            margin-top: 40px;
-            padding: 20px 0;
-            border-top: 1px solid #ddd;
-            line-height: 1.6;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .selo-seguranca {
-            color: #2d6a4f;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: block;
+        .btn-verde { background-color: #2d6a4f; }
+        .btn-verde:hover { background-color: #1b4332; }
+        .btn-azul { background-color: #0284c7; margin-top: 10px; }
+        .btn-azul:hover { background-color: #0369a1; }
+        .btn-cinva { background-color: #475569; margin-top: 15px; }
+        .btn-cinva:hover { background-color: #334155; }
+
+        /* Histórico de Transações */
+        .lista-historico {
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 5px;
+            background: #f8fafc;
+        }
+
+        .item-historico {
+            font-size: 0.85rem;
+            padding: 6px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-historico:last-child { border-bottom: none; }
+        .entrada { color: #2b9348; font-weight: bold; }
+        .saida { color: #d90429; font-weight: bold; }
+        .estorno { color: #f77f00; font-weight: bold; }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.85rem;
         }
     </style>
 </head>
-<!-- Travas de segurança: Bloqueia clique direito e teclas de atalho de inspeção -->
 <body oncontextmenu="return false;" onkeydown="return false;">
 
     <div class="container">
-        <!-- Cabeçalho Renovado -->
-        <header class="navbar">
-            <h1>Mairiporã Agro</h1>
-            <a href="index.html" class="btn-back">← Voltar</a>
+        
+        <header>
+            <h1>Mairiporã Agro • Painel ADM</h1>
+            <p>Controle Absoluto de Estoque e Vendas</p>
         </header>
 
-        <!-- Barra Digital do Relógio em Foco Vermelho -->
-        <div class="live-box">
-            <div class="status-indicator">
-                <span>● SYSTEM ONLINE</span>
+        <!-- GRID DE DADOS EM TEMPO REAL -->
+        <div class="grid-estoque">
+            <div class="quadro-estoque principal">
+                <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ESTOQUE ATUAL</label>
+                <div class="numero-estoque" id="qtdEstoque">15</div>
+                <span style="font-size: 0.75rem; color: #94a3b8;">Cartelas Fechadas</span>
             </div>
-            <div id="liveClock" class="live-time">13/09/2026 - 00:00:00</div>
+            <div class="quadro-estoque movimentacao">
+                <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ÚLTIMA SAÍDA</label>
+                <div class="numero-estoque" id="valUltimaVenda" style="color: #d90429;">R$ 0,00</div>
+                <span style="font-size: 0.75rem; color: #94a3b8;" id="txtUltimaSaida">Nenhuma hoje</span>
+            </div>
         </div>
 
-        <!-- Controle de Estoque Absoluto -->
-        <div class="card">
-            <h2>📊 Controle de Estoque Absoluto</h2>
-            <form onsubmit="event.preventDefault(); alert('Cartelas prontas registradas com sucesso no estoque!');">
-                <div class="form-group">
-                    <label for="cartelas">Cartelas Fechadas Prontas para Venda (Unidades):</label>
-                    <input type="number" id="cartelas" class="form-control" min="0" value="0" placeholder="Ex: 16" required>
+        <!-- SEÇÃO 1: ENTRADA / INVENTÁRIO MANUAL -->
+        <div class="card-adm">
+            <h3>📥 Reabastecer Estoque</h3>
+            <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
+                <div class="campo-grupo" style="margin-bottom: 0;">
+                    <input type="number" id="inputAdicionar" value="3" min="1" placeholder="Qtd de cartelas">
                 </div>
-
-                <button type="submit" class="btn-submit">Registrar Cartelas no Estoque</button>
-            </form>
+                <button onclick="adicionarEstoqueManual()" class="btn btn-verde">Inserir</button>
+            </div>
         </div>
 
-        <!-- Rodapé Padronizado -->
-        <footer class="footer">
-            Mairiporã Agro © 2026 • Painel do Produtor<br>
-            Matriz: v26.09.13.1.5 (Estoque Puro)<br>
-            <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
+        <!-- SEÇÃO 2: SIMULADOR DE VENDA (SEU TESTE DE R$ 0,40) -->
+        <div class="card-adm">
+            <h3>💰 Simular Venda Direta</h3>
+            <div class="campo-grupo">
+                <label>Quantidade de Ovos Solicitados:</label>
+                <input type="number" id="vendaQtd" value="3" min="1" oninput="calcularValorSimulado()">
+            </div>
+            <div class="campo-grupo">
+                <label>Valor Unitário por Ovo (R$):</label>
+                <input type="number" id="vendaPreco" value="0.40" step="0.01" oninput="calcularValorSimulado()">
+            </div>
+            <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
+                Total Calculado: <span id="totalSimulado">R$ 1,20</span>
+            </div>
+            <button onclick="executarBaixaVenda()" class="btn btn-verde">Dar Baixa e Processar</button>
+            <button onclick="enviarMensagemZap()" id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
+        </div>
+
+        <!-- SEÇÃO 3: HISTÓRICO E ESTORNO -->
+        <div class="card-adm">
+            <h3>📊 Histórico de Operações</h3>
+            <div class="lista-historico" id="listaLogs">
+                <!-- Inicia com o seu saldo base dos testes -->
+                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+12 cartelas (Saldo Base)</span></div>
+                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+3 cartelas (Ajuste Bancada)</span></div>
+            </div>
+            <button onclick="executarEstornoCompleto()" class="btn btn-cinva" style="background-color: #ef4444;">↩️ Desfazer Última Operação (Estorno)</button>
+        </div>
+
+        <!-- RETORNO SEGURO -->
+        <a href="index.html" class="btn btn-cinva">⬅️ Sair do ADM / Voltar ao Menu</a>
+
+        <footer>
+            Mairiporã Agro © 2026 <br>
+            Matriz Administrativa • Ambiente de Desenvolvimento
         </footer>
+
     </div>
 
-    <!-- Motor Correto de Atualização do Relógio (Mantendo o ano travado em 2026) -->
     <script>
-        function iniciarRelogio() {
-            setInterval(function() {
-                var agora = new Date();
-                var dataStr = "13/09/2026"; 
-                var horas = String(agora.getHours()).padStart(2, '0');
-                var minutos = String(agora.getMinutes()).padStart(2, '0');
-                var segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById("liveClock").innerHTML = dataStr + " - " + horas + ":" + minutos + ":" + segundos;
-            }, 1000);
-        }
-        iniciarRelogio();
-    </script>
+        // Inicialização das variáveis de controle na memória local
+        let estoque = parseInt(localStorage.getItem('agro_estoque')) || 15;
+        let historico = JSON.parse(localStorage.getItem('agro_historico')) || [
+            { tipo: 'ENTRADA', txt: '+12 cartelas (Saldo Base)' },
+            { tipo: 'ENTRADA', txt: '+3 cartelas (Ajuste Bancada)' }
+        ];
+        let ultimaVendaTexto = "";
+        let ultimaVendaValor = "R$ 0,00";
 
-</body>
-</html>
+        // Atualiza a tela assim que abre
+        window.onload = function() {
+            renderizarPainel();
+            calcularValorSimulado();
+        };
+
+        function renderizarPainel() {
+            document.getElementById('qtdEstoque').textContent = estoque;
+            document.getElementById('valUltimaVenda').textContent = ultimaVendaValor;
+            document.getElementById('txtUltimaSaida').textContent = ultimaVendaTexto || "Nenhuma hoje";
+            
+            const lista = document.getElementById('listaLogs');
+            lista.innerHTML = "";
+            historico.forEach(item => {
+                let classe = item.tipo.toLowerCase();
+                lista.innerHTML += `<div class="item-historico"><span class="${classe}">${item.tipo}</span><span>${item.txt}</span></div>`;
+            });
+            localStorage.setItem('agro_estoque', estoque);
+            localStorage.setItem('agro_historico', JSON.stringify(historico));
+        }
+
+        function calcularValorSimulado() {
