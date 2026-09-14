@@ -17,11 +17,22 @@
         .quadro-estoque.principal { border-top: 5px solid #2d6a4f; }
         .card-adm { background: #fff; border: 2px solid #d8f3dc; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
         .campo-grupo { margin-bottom: 12px; }
-        .campo-grupo label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; }
+        .campo-grupo label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; color: #555; text-align: left; }
         .campo-grupo input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-align: center; user-select: text; -webkit-user-select: text; }
-        .btn { display: inline-block; width: 100%; text-align: center; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; text-decoration: none; }
+        .btn { display: inline-block; width: 100%; text-align: center; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; text-decoration: none; transition: background 0.2s; }
         .btn-verde { background-color: #2d6a4f; }
+        .btn-verde:hover { background-color: #1b4332; }
+        .btn-vermelho { background-color: #d90429; }
+        .btn-vermelho:hover { background-color: #b3001b; }
         .btn-cinva { background-color: #475569; margin-top: 10px; }
+        .btn-cinva:hover { background-color: #334155; }
+        
+        .lista-historico { margin-top: 10px; max-height: 150px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; padding: 5px; background: #f8fafc; }
+        .item-historico { font-size: 0.85rem; padding: 6px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; }
+        .item-historico:last-child { border-bottom: none; }
+        .entrada { color: #2b9348; font-weight: bold; }
+        .saida { color: #d90429; font-weight: bold; }
+        .teste { color: #0284c7; font-weight: bold; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -49,56 +60,83 @@
         <div id="painelConteudo">
             <header>
                 <h2>Mairiporã Agro • Painel ADM</h2>
-                <p>Controle de Estoque e Vendas</p>
+                <p>Controle de Estoque Absoluto de Cartelas</p>
             </header>
 
             <div class="grid-estoque">
                 <div class="quadro-estoque principal">
-                    <label style="font-size: 0.85rem; color: #64748b;">ESTOQUE ATUAL</label>
+                    <label style="font-size: 0.85rem; color: #64748b; font-weight: bold;">ESTOQUE ATUAL</label>
                     <div style="font-size: 2rem; font-weight: bold; color: #1b4332;" id="qtdEstoque">15</div>
-                    <span style="font-size: 0.75rem; color: #94a3b8;">Cartelas Fechadas</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">Cartelas Prontas</span>
                 </div>
-                <div class="quadro-estoque" style="border-top: 5px solid #d90429;">
-                    <label style="font-size: 0.85rem; color: #64748b;">ÚLTIMA SAÍDA</label>
-                    <div style="font-size: 2rem; font-weight: bold; color: #d90429;">R$ 1,20</div>
-                    <span style="font-size: 0.75rem; color: #94a3b8;">Simulação de 3 Ovos</span>
+                <div class="quadro-estoque" style="border-top: 5px solid #0284c7;">
+                    <label style="font-size: 0.85rem; color: #64748b; font-weight: bold;">ÚLTIMA AÇÃO</label>
+                    <div style="font-size: 1.2rem; font-weight: bold; color: #0284c7; margin-top: 12px;" id="txtUltimaSaida">Nenhuma hoje</div>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">Monitoramento Ativo</span>
                 </div>
             </div>
 
+            <!-- 📥 INVENTÁRIO -->
             <div class="card-adm">
-                <h3>📥 Reabastecer Estoque</h3>
-                <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0; margin-top: 10px;">
-                    <input type="number" id="inputAdicionar" value="1" min="1" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                <h3>📦 Gerenciamento Manual de Cartelas</h3>
+                <div class="campo-grupo">
+                    <label>Quantidade de Cartelas Fechadas:</label>
+                    <input type="number" id="inputMovimentacao" value="1" min="1">
+                </div>
+                <div class="grid-estoque" style="margin-bottom: 0; gap: 10px;">
                     <button onclick="
-                        var q = parseInt(document.getElementById('inputAdicionar').value) || 0;
+                        var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
+                        if(q > 0) {
+                            if(confirm('📥 Confirmar entrada de +' + q + ' cartelas prontas no estoque?')) {
+                                var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                                document.getElementById('qtdEstoque').textContent = n + q;
+                                document.getElementById('txtUltimaSaida').textContent = '+' + q + ' Cartelas';
+                                document.getElementById('txtUltimaSaida').style.color = '#2b9348';
+                                var lista = document.getElementById('listaLogs');
+                                lista.innerHTML = '<div class=\'item-historico\'><span class=\'entrada\'>ENTRADA</span><span>+' + q + ' cartelas adicionadas</span></div>' + lista.innerHTML;
+                            }
+                        }
+                    " class="btn btn-verde">📥 Adicionar</button>
+                    
+                    <button onclick="
+                        var q = parseInt(document.getElementById('inputMovimentacao').value) || 0;
                         if(q > 0) {
                             var n = parseInt(document.getElementById('qtdEstoque').textContent);
-                            document.getElementById('qtdEstoque').textContent = n + q;
+                            if(n >= q) {
+                                if(confirm('⚠️ Confirmar baixa de -' + q + ' cartelas vendidas via Porteira/PP?')) {
+                                    document.getElementById('qtdEstoque').textContent = n - q;
+                                    document.getElementById('txtUltimaSaida').textContent = '-' + q + ' Cartelas (P/P)';
+                                    document.getElementById('txtUltimaSaida').style.color = '#d90429';
+                                    var lista = document.getElementById('listaLogs');
+                                    lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>BAIXA</span><span>-' + q + ' cartelas (Venda Porteira/PP)</span></div>' + lista.innerHTML;
+                                }
+                            } else { alert('❌ Erro: Estoque insuficiente!'); }
                         }
-                    " class="btn btn-verde">Inserir</button>
+                    " class="btn btn-vermelho">⚠️ Dar Baixa</button>
                 </div>
             </div>
 
+            <!-- 💰 AMBIENTE DE TESTES DO COMPROVANTE VIA WINDOWS/ZAP -->
             <div class="card-adm">
-                <h3>💰 Simular Link de Pagamento</h3>
-                <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">Gere o link de R$ 1,20 para a tela de pagamentos sem mexer no estoque de cartelas:</p>
-                <button onclick="window.location.href='pagamento.html?qtd=3&total=1.20&modo=teste_avulso';" class="btn btn-verde" style="background-color:#0284c7;">💳 Abrir R$ 1,20 no Pagamento</button>
-            </div>
+                <h3>🔬 Ambiente Técnico de Testes</h3>
+                <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">Simule a venda técnica avulsa de 3 ovos (R$ 1,20) e envie o comprovante usando o sistema do Windows ou celular:</p>
+                
+                <button onclick="
+                    document.getElementById('txtUltimaSaida').textContent = 'Teste R$ 1,20';
+                    document.getElementById('txtUltimaSaida').style.color = '#0284c7';
+                    var lista = document.getElementById('listaLogs');
+                    lista.innerHTML = '<div class=\'item-historico\'><span class=\'teste\'>TESTE</span><span>Simulação de venda gerada (R$ 1,20)</span></div>' + lista.innerHTML;
+                    document.getElementById('blocoAcoesTeste').style.display = 'block';
+                " class="btn btn-verde" style="background-color: #2b9348;">Processar Teste de R$ 1,20</button>
 
-            <a href="index.html" class="btn btn-cinva" style="margin-top: 5px; margin-bottom: 20px;">⬅️ Sair / Voltar ao Menu</a>
-        </div>
-
-    </div>
-
-    <script>
-        // Trava inteligente: Bloqueia o teclado na página, mas LIBERA para os campos de digitação (input)
-        document.onkeydown = function (e) {
-            var ativo = document.activeElement.tagName.toLowerCase();
-            if (ativo === 'input') {
-                return true; // Deixa o produtor digitar a senha e os números do estoque
-            }
-            return false; // Bloqueia o resto da página
-        };
-    </script>
-</body>
-</html>
+                <div id="blocoAcoesTeste" style="display: none; margin-top: 15px;">
+                    <button onclick="window.location.href='pagamento.html?qtd=3&total=1.20&modo=teste_avulso';" class="btn" style="background-color:#0284c7; margin-bottom: 10px;">领 Abrir R$ 1,20 no Pagamento</button>
+                    
+                    <!-- Módulo de compartilhamento universal do Windows -->
+                    <button onclick="
+                        var textoComprovante = '🌾 Mairiporã Agro • Comprovante Técnico 🌾\n\nSua compra de 3 Ovos de Codorna foi processada na bancada.\n💵 Valor Total: R$ 1,20\n🔒 Ambiente de Desenvolvimento Monitorado.';
+                        if (navigator.share) {
+                            navigator.share({ title: 'Comprovante Mairiporã Agro', text: textoComprovante }).catch(function(err){ console.log(err); });
+                        } else {
+                            window.open('https://whatsapp.com' + encodeURIComponent(textoComprovante), '_blank');
+                        }
