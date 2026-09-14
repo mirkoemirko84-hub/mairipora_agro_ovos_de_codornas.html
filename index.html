@@ -166,7 +166,7 @@
         .btn-secreto {
             background: none;
             border: none;
-            color: #cbd5e1; /* Cor quase invisível no fundo cinza */
+            color: #cbd5e1;
             font-size: 0.75rem;
             cursor: pointer;
             text-decoration: underline;
@@ -196,7 +196,7 @@
         </div>
 
         <div class="status-clock">
-            ● SYSTEM ONLINE: <span id="relogio">14/09/2026 - 04:33:00</span>
+            ● SYSTEM ONLINE: <span id="relogio">14/09/2026 - 05:38:00</span>
         </div>
 
         <div class="card">
@@ -205,14 +205,14 @@
             <a href="dicas.html" class="btn">Abrir Dicas</a>
         </div>
 
-        <!-- 💰 CARTÃO DE VENDAS ATUALIZADO: CLIENTE AGORA ESCOLHE O PRODUTO -->
+        <!-- 💰 CARTÃO DE VENDAS ATUALIZADO COM OS SEUS VALORES REAIS -->
         <div class="card">
             <h2>🛍️ Fazer Pedido & Vendas</h2>
-            <p>Selecione a quantidade de Cartelas de Ovos de Codorna (Preço padrão de teste R$ 1,99):</p>
+            <p>Selecione a quantidade de Cartelas de Ovos de Codorna desejada:</p>
             
             <div class="seletor-compras">
                 <span>🛒 Quantidade de Cartelas:</span>
-                <select id="qtdPedidoCliente" onchange="calcularPrecoCliente()">
+                <select id="qtdPedidoCliente">
                     <option value="1">1 Cartela - R$ 13,00</option>
                     <option value="2">2 Cartelas - R$ 26,00</option>
                     <option value="3">3 Cartelas - R$ 39,00</option>
@@ -222,7 +222,7 @@
 
             <button onclick="irParaPagamentoReal()" class="btn">Comprar e Ir para Pagamento</button>
             
-            <!-- 🤫 O LINK SECRETO PARA A SUA COMPRA DE TESTE AVULSA (3 ovos a 0.40 = 1.20) -->
+            <!-- 🤫 LINK SECRETO MANTIDO PARA SEU TESTE DE R$ 1,20 -->
             <div class="area-secreta-teste">
                 <button onclick="simularCompraSecretaBancada()" class="btn-secreto">[ Rodar Teste Técnico Interno ]</button>
             </div>
@@ -241,7 +241,7 @@
 
         <footer>
             Mairiporã Agro © 2026 <br>
-            Matriz: v26.09.14.1.0 <br>
+            Matriz: v26.09.14.1.2 <br>
             <span class="selo-seguranca">🔒 Protegido por JCS_criatorio</span>
         </footer>
 
@@ -254,14 +254,22 @@
         }
         setInterval(atualizarRelogio, 1000);
 
-        // Envia o cliente com o valor real selecionado (Multiplica por 1.99)
+        // Faz o cálculo dinâmico baseado na opção selecionada para enviar para a tela de pagamento
         function irParaPagamentoReal() {
-            const qtd = document.getElementById('qtdPedidoCliente').value;
-            const total = (qtd * 1.99).toFixed(2);
-            window.location.href = `pagamento.html?qtd=${qtd}&total=${total}&modo=cartela`;
+            const seletor = document.getElementById('qtdPedidoCliente');
+            const qtd = seletor.value;
+            
+            // Define o preço exato com base no desconto progressivo que você configurou
+            let total = 0;
+            if (qtd == "1") total = 13.00;
+            if (qtd == "2") total = 26.00;
+            if (qtd == "3") total = 39.00;
+            if (qtd == "5") total = 52.00;
+
+            window.location.href = `pagamento.html?qtd=${qtd}&total=${total.toFixed(2)}&modo=cartela`;
         }
 
-        // Executa exatamente o SEU teste avulso oculto de 3 unidades a 0.40 = R$ 1,20
+        // Mantém seu teste avulso de bancada (3 ovos = 1.20) rodando em background
         function simularCompraSecretaBancada() {
             window.location.href = "pagamento.html?qtd=3&total=1.20&modo=teste_avulso";
         }
