@@ -249,18 +249,15 @@
 
     <script>
         window.onload = function() {
-            // Resgata os parâmetros enviados via link pelo ADM ou pela Index
+            // Resgata os parâmetros enviados via link de forma limpa e inteligente
             const urlParams = new URLSearchParams(window.location.search);
             const qtd = urlParams.get('qtd') || "1";
-            const total = urlParams.get('total') || "13.00";
-            const total = urlParams.get('total') || "26.00";
-            const total = urlParams.get('total') || "39.00";
-            const total = urlParams.get('total') || "52.00";
+            const total = urlParams.get('total') || "13.00"; // Puxa o valor do link, independente de qual seja
             const modo = urlParams.get('modo') || "venda";
 
             const caixaResumo = document.getElementById('caixaResumo');
             
-            // Renderiza o cabeçalho dinâmico baseado no seu teste
+            // Renderiza o cabeçalho baseado na origem da compra
             if (modo === "teste_avulso") {
                 caixaResumo.innerHTML = `🔬 MODO TESTE ADM: ${qtd} Ovos Avulsos • Total: R$ ${total.replace('.', ',')}`;
                 caixaResumo.style.backgroundColor = "#e0f2fe";
