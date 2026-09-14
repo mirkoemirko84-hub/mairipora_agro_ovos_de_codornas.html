@@ -5,273 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* 🔒 Trava de Segurança Contra Seleção e Cópia Ativa */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        body {
-            background-color: #f4f6f8;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* 🔑 Tela de Login Inicial */
-        #telaLogin {
-            background: #fff;
-            border: 2px solid #cbd5e1;
-            border-top: 6px solid #1b4332;
-            border-radius: 8px;
-            padding: 30px 20px;
-            margin-top: 50px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        #telaLogin h2 {
-            color: #1b4332;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        /* Oculta o painel por padrão até validar a senha */
-        #painelConteudo {
-            display: none;
-        }
-
-        header {
-            text-align: center;
-            background: linear-gradient(135deg, #1b4332, #2d6a4f);
-            color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 3px solid #081c15;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        header h1 {
-            font-size: 1.6rem;
-            text-transform: uppercase;
-        }
-
-        .grid-estoque {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .quadro-estoque {
-            background: #fff;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-
+        /* 🔒 Trava de Segurança Reativada */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; user-select: none; }
+        body { background-color: #f4f6f8; color: #333; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; width: 100%; }
+        #telaLogin { background: #fff; border-top: 6px solid #1b4332; border-radius: 8px; padding: 30px 20px; margin-top: 50px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        #painelConteudo { display: none; }
+        header { text-align: center; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .grid-estoque { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .quadro-estoque { background: #fff; border: 2px solid #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; }
         .quadro-estoque.principal { border-top: 5px solid #2d6a4f; }
-        .quadro-estoque.movimentacao { border-top: 5px solid #d90429; }
-
-        .numero-estoque {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1b4332;
-            margin-top: 5px;
-        }
-
-        .card-adm {
-            background: #fff;
-            border: 2px solid #d8f3dc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .card-adm h3 {
-            color: #1b4332;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        .campo-grupo {
-            margin-bottom: 12px;
-        }
-
-        .campo-grupo label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .campo-grupo input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .btn {
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-            color: #fff;
-            padding: 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
+        .card-adm { background: #fff; border: 2px solid #d8f3dc; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .campo-grupo { margin-bottom: 12px; }
+        .campo-grupo label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; }
+        .campo-grupo input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-align: center; }
+        .btn { display: inline-block; width: 100%; text-align: center; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; text-decoration: none; }
         .btn-verde { background-color: #2d6a4f; }
-        .btn-verde:hover { background-color: #1b4332; }
-        .btn-azul { background-color: #0284c7; margin-top: 10px; }
-        .btn-azul:hover { background-color: #0369a1; }
-        .btn-cinva { background-color: #475569; margin-top: 15px; }
-        .btn-cinva:hover { background-color: #334155; }
-
-        .lista-historico {
-            margin-top: 10px;
-            max-height: 120px;
-            overflow-y: auto;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 5px;
-            background: #f8fafc;
-        }
-
-        .item-historico {
-            font-size: 0.85rem;
-            padding: 6px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .entrada { color: #2b9348; font-weight: bold; }
-        .saida { color: #d90429; font-weight: bold; }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.85rem;
-        }
+        .btn-cinva { background-color: #475569; margin-top: 10px; }
     </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="return false;">
-
     <div class="container">
 
-        <!-- 🔑 Bloco Visual de Login Restrito (Lógica direta embutida no botão) -->
+        <!-- 🔑 TELA DE LOGIN BRUTA -->
         <div id="telaLogin">
-            <h2>🔑 Acesso Restrito ao Produtor</h2>
+            <h2 style="color:#1b4332; margin-bottom:15px;">🔑 ACESSO RESTRITO</h2>
             <div class="campo-grupo">
-                <input type="password" id="inputSenha" placeholder="Digite os 4 dígitos da senha" maxlength="4">
+                <input type="password" id="inputSenha" placeholder="Senha de 4 dígitos" maxlength="4">
             </div>
             <button onclick="
-                var s = document.getElementById('inputSenha').value;
-                if(s === '4971') {
+                if(document.getElementById('inputSenha').value === '4971') {
                     document.getElementById('telaLogin').style.display = 'none';
                     document.getElementById('painelConteudo').style.display = 'block';
                 } else {
-                    alert('❌ Senha incorreta! Tente novamente.');
+                    alert('❌ Senha incorreta!');
                     document.getElementById('inputSenha').value = '';
                 }
             " class="btn btn-verde">Entrar no Painel</button>
-            <a href="index.html" class="btn btn-cinva">Sair / Voltar ao Menu</a>
+            <a href="index.html" class="btn btn-cinva">Voltar ao Menu</a>
         </div>
 
-        <!-- 📊 Painel Administrativo -->
+        <!-- 📊 PAINEL ADM SIMPLIFICADO COMPLETO -->
         <div id="painelConteudo">
-            
             <header>
-                <h1>Mairiporã Agro • Painel ADM</h1>
-                <p>Controle Absoluto de Estoque e Vendas</p>
+                <h2>Mairiporã Agro • Painel ADM</h2>
+                <p>Controle de Estoque e Vendas</p>
             </header>
 
             <div class="grid-estoque">
                 <div class="quadro-estoque principal">
-                    <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ESTOQUE ATUAL</label>
-                    <div class="numero-estoque" id="qtdEstoque">15</div>
+                    <label style="font-size: 0.85rem; color: #64748b;">ESTOQUE ATUAL</label>
+                    <div style="font-size: 2rem; font-weight: bold; color: #1b4332;" id="qtdEstoque">15</div>
                     <span style="font-size: 0.75rem; color: #94a3b8;">Cartelas Fechadas</span>
                 </div>
-                <div class="quadro-estoque movimentacao">
-                    <label style="font-size: 0.85rem; font-weight: bold; color: #64748b;">ÚLTIMA SAÍDA</label>
-                    <div class="numero-estoque" id="valUltimaVenda">R$ 0,00</div>
-                    <span style="font-size: 0.75rem; color: #94a3b8;" id="txtUltimaSaida">Nenhuma hoje</span>
+                <div class="quadro-estoque" style="border-top: 5px solid #d90429;">
+                    <label style="font-size: 0.85rem; color: #64748b;">ÚLTIMA SAÍDA</label>
+                    <div style="font-size: 2rem; font-weight: bold; color: #d90429;">R$ 1,20</div>
+                    <span style="font-size: 0.75rem; color: #94a3b8;">Simulação de 3 Ovos</span>
                 </div>
             </div>
 
-            <!-- 📥 REABASTECER ESTOQUE -->
             <div class="card-adm">
                 <h3>📥 Reabastecer Estoque</h3>
-                <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
-                    <div class="campo-grupo" style="margin-bottom: 0;">
-                        <input type="number" id="inputAdicionar" value="1" min="1" style="text-align: left;">
-                    </div>
+                <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0; margin-top: 10px;">
+                    <input type="number" id="inputAdicionar" value="1" min="1" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
                     <button onclick="
-                        var qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
-                        if(qtd > 0) {
-                            var atual = parseInt(document.getElementById('qtdEstoque').textContent);
-                            document.getElementById('qtdEstoque').textContent = atual + qtd;
-                            var lista = document.getElementById('listaLogs');
-                            lista.innerHTML = '<div class=\'item-historico\'><span class=\'entrada\'>ENTRADA</span><span>+' + qtd + ' cartelas via painel</span></div>' + lista.innerHTML;
+                        var q = parseInt(document.getElementById('inputAdicionar').value) || 0;
+                        if(q > 0) {
+                            var n = parseInt(document.getElementById('qtdEstoque').textContent);
+                            document.getElementById('qtdEstoque').textContent = n + q;
                         }
                     " class="btn btn-verde">Inserir</button>
                 </div>
             </div>
 
-            <!-- 💰 SIMULADOR DE VENDA DIRETA -->
             <div class="card-adm">
-                <h3>💰 Simular Venda Direta</h3>
-                <div class="campo-grupo">
-                    <label>Quantidade de Ovos Solicitados:</label>
-                    <input type="number" id="vendaQtd" value="3" min="1" style="text-align: left;" oninput="
-                        var q = parseInt(this.value) || 0;
-                        var p = parseFloat(document.getElementById('vendaPreco').value) || 0;
-                        document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
-                    ">
-                </div>
-                <div class="campo-grupo">
-                    <label>Valor Unitário por Ovo (R$):</label>
-                    <input type="number" id="vendaPreco" value="0.40" step="0.01" style="text-align: left;" oninput="
-                        var p = parseFloat(this.value) || 0;
-                        var q = parseInt(document.getElementById('vendaQtd').value) || 0;
-                        document.getElementById('totalSimulado').textContent = 'R$ ' + (q * p).toFixed(2).replace('.', ',');
-                    ">
-                </div>
-                <div style="margin: 10px 0; font-weight: bold; color: #1b4332; font-size: 0.95rem;">
-                    Total Calculado: <span id="totalSimulado">R$ 1,20</span>
-                </div>
-                
-                <button onclick="
+                <h3>💰 Simular Link de Pagamento</h3>
+                <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">Gere o link de R$ 1,20 para a tela de pagamentos sem mexer no estoque de cartelas:</p>
+                <button onclick="window.location.href='pagamento.html?qtd=3&total=1.20&modo=teste_avulso';" class="btn btn-verde" style="background-color:#0284c7;">💳 Abrir R$ 1,20 no Pagamento</button>
+            </div>
+
+            <a href="index.html" class="btn btn-cinva" style="margin-top: 5px; margin-bottom: 20px;">⬅️ Sair / Voltar ao Menu</a>
+        </div>
+
+    </div>
+</body>
+</html>
