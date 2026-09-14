@@ -57,7 +57,6 @@
             border-radius: 8px;
             padding: 15px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
         .quadro-estoque.principal { border-top: 5px solid #2d6a4f; }
@@ -104,7 +103,6 @@
             border: 1px solid #cbd5e1;
             border-radius: 6px;
             font-size: 1rem;
-            background-color: #fff;
         }
 
         .btn {
@@ -150,22 +148,6 @@
         .entrada { color: #2b9348; font-weight: bold; }
         .saida { color: #d90429; font-weight: bold; }
 
-        .bloco-relatorio {
-            background-color: #f8fafc;
-            border: 1px dashed #2d6a4f;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 12px;
-        }
-
-        .linha-relatorio {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
         footer {
             text-align: center;
             margin-top: 20px;
@@ -203,7 +185,7 @@
             <h3>📥 Reabastecer Estoque</h3>
             <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
                 <div class="campo-grupo" style="margin-bottom: 0;">
-                    <input type="number" id="inputAdicionar" value="5" min="1">
+                    <input type="number" id="inputAdicionar" value="1" min="1">
                 </div>
                 <button onclick="
                     var qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
@@ -217,7 +199,7 @@
             </div>
         </div>
 
-        <!-- 💰 SIMULADOR DE VENDA -->
+        <!-- 💰 SIMULADOR DE VENDA DIRETA -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
@@ -250,10 +232,6 @@
                     var lista = document.getElementById('listaLogs');
                     lista.innerHTML = '<div class=\'item-historico\'><span class=\'saida\'>SAÍDA</span><span>Venda de ' + q + ' ovos (Estoque Preservado)</span></div>' + lista.innerHTML;
                     
-                    var faturamentoAtual = parseFloat(document.getElementById('faturamentoAcumulado').textContent.replace('R$ ', '').replace(',', '.'));
-                    var novoFaturamento = faturamentoAtual + (q * p);
-                    document.getElementById('faturamentoAcumulado').textContent = 'R$ ' + novoFaturamento.toFixed(2).replace('.', ',');
-                    
                     document.getElementById('btnZap').style.display = 'block';
                     document.getElementById('btnIrPagamento').style.display = 'block';
                 }
@@ -265,3 +243,16 @@
                 window.location.href = 'pagamento.html?qtd=' + q + '&total=' + (q * p).toFixed(2) + '&modo=teste_avulso';
             " id="btnIrPagamento" class="btn btn-verde" style="background-color: #0284c7; margin-top: 10px; display: none;">💳 Testar link na Tela de Pagamento</button>
             
+            <button onclick="
+                var q = document.getElementById('vendaQtd').value;
+                var t = document.getElementById('totalSimulado').textContent;
+                var m = encodeURIComponent('🌾 *Mairiporã Agro • Comprovante* 🌾\n\nOlá! Sua compra de ' + q + ' ovos foi processada.\n💵 *Valor Total:* ' + t);
+                window.open('https://whatsapp.com' + m, '_blank');
+            " id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
+        </div>
+
+        <!-- 📊 SEÇÃO DO HISTÓRICO TOTALMENTE INDEPENDENTE -->
+        <div class="card-adm">
+            <h3>📊 Histórico de Operações</h3>
+            <div class="lista-historico" id="listaLogs">
+                <div class="item-historico"><span class="entrada">ENTRADA</span><span>+12 cartelas (Saldo Base)</span></div>
