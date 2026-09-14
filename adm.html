@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Painel ADM</title>
     <style>
-        /* Configurações Gerais - SELEÇÃO DE TEXTO LIBERADA PARA O PRODUTOR */
+        /* Configurações Gerais - SELEÇÃO TOTALMENTE LIBERADA */
         * {
             margin: 0;
             padding: 0;
@@ -190,18 +190,18 @@
             </div>
         </div>
 
-        <!-- SEÇÃO 1: ENTRADA / INVENTÁRIO MANUAL -->
+        <!-- SEÇÃO 1: REABASTECER -->
         <div class="card-adm">
             <h3>📥 Reabastecer Estoque</h3>
             <div class="grid-estoque" style="grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 0;">
                 <div class="campo-grupo" style="margin-bottom: 0;">
-                    <input type="number" id="inputAdicionar" value="3" min="1" placeholder="Qtd de cartelas">
+                    <input type="number" id="inputAdicionar" value="1" min="1">
                 </div>
                 <button onclick="adicionarEstoqueManual()" class="btn btn-verde">Inserir</button>
             </div>
         </div>
 
-        <!-- SEÇÃO 2: SIMULADOR DE VENDA E DIRECIONAMENTO PARA PAGAMENTO -->
+        <!-- SEÇÃO 2: SIMULADOR DE VENDA -->
         <div class="card-adm">
             <h3>💰 Simular Venda Direta</h3>
             <div class="campo-grupo">
@@ -221,37 +221,34 @@
             <button onclick="enviarMensagemZap()" id="btnZap" class="btn btn-azul" style="display: none;">📲 Enviar Comprovante ao Zap</button>
         </div>
 
-        <!-- SEÇÃO 3: HISTÓRICO E ESTORNO -->
+        <!-- SEÇÃO 3: HISTÓRICO -->
         <div class="card-adm">
             <h3>📊 Histórico de Operações</h3>
             <div class="lista-historico" id="listaLogs">
-                <!-- Populado via Javascript -->
+                <!-- Populado via RAM -->
             </div>
             <button onclick="executarEstornoCompleto()" class="btn btn-cinva" style="background-color: #ef4444;">↩️ Desfazer Última Operação (Estorno)</button>
         </div>
 
-        <!-- RETORNO SEGURO -->
+        <!-- RETORNO -->
         <a href="index.html" class="btn btn-cinva">⬅️ Sair do ADM / Voltar ao Menu</a>
 
         <footer>
             Mairiporã Agro © 2026 <br>
-            Matriz Administrativa • Ambiente de Desenvolvimento
+            Matriz Administrativa • Ambiente de Desenvolvimento Estável
         </footer>
 
     </div>
 
     <script>
-        // Inicialização das variáveis de controle na memória local
-        let estoque = parseInt(localStorage.getItem('agro_estoque'));
-        if (isNaN(estoque)) estoque = 15;
-
-        let historico = JSON.parse(localStorage.getItem('agro_historico')) || [
+        // Sistema puro em memória RAM - Isolado de travas de segurança locais
+        let estoque = 15;
+        let historico = [
             { tipo: 'ENTRADA', txt: '+12 cartelas (Saldo Base)' },
             { tipo: 'ENTRADA', txt: '+3 cartelas (Ajuste Bancada)' }
         ];
-        
-        let ultimaVendaTexto = localStorage.getItem('agro_val_txt') || "";
-        let ultimaVendaValor = localStorage.getItem('agro_val_val') || "R$ 0,00";
+        let ultimaVendaTexto = "";
+        let ultimaVendaValor = "R$ 0,00";
 
         window.onload = function() {
             renderizarPainel();
@@ -269,11 +266,18 @@
                 let classe = item.tipo.toLowerCase();
                 lista.innerHTML += `<div class="item-historico"><span class="${classe}">${item.tipo}</span><span>${item.txt}</span></div>`;
             });
-
-            localStorage.setItem('agro_estoque', estoque);
-            localStorage.setItem('agro_historico', JSON.stringify(historico));
-            localStorage.setItem('agro_val_txt', ultimaVendaTexto);
-            localStorage.setItem('agro_val_val', ultimaVendaValor);
         }
 
         function calcularValorSimulado() {
+            const qtd = parseInt(document.getElementById('vendaQtd').value) || 0;
+            const preco = parseFloat(document.getElementById('vendaPreco').value) || 0;
+            const total = qtd * preco;
+            document.getElementById('totalSimulado').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        function adicionarEstoqueManual() {
+            const qtd = parseInt(document.getElementById('inputAdicionar').value) || 0;
+            if(qtd > 0) {
+                estoque += qtd;
+                historico.unshift({ tipo: 'ENTRADA', txt: `+${qtd} cartelas via painel` });
+                renderizarPainel();
