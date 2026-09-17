@@ -1,10 +1,3 @@
-
----
-
-### 📄 Arquivo 2: Atualização para o seu `pagamento.html`
-Para que o cliente final também tenha essa opção profissional de te mandar o comprovante da tela de checkout ou compartilhar os dados com facilidade, apliquei o mesmo motor na tela de pagamentos:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,6 +9,10 @@ Para que o cliente final também tenha essa opção profissional de te mandar o 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
         body { background-color: #f4f6f8; color: #333; padding: 20px; display: flex; flex-direction: column; min-height: 100vh; }
         .container { max-width: 600px; margin: 0 auto; width: 100%; flex: 1; }
+        
+        /* Alerta Prático no Topo */
+        .alerta-topo { background-color: #fff3cd; border: 1px solid #ffeba2; color: #856404; padding: 12px; border-radius: 8px; text-align: center; font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
         header { text-align: center; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: #fff; padding: 25px 20px; border-radius: 12px; margin-bottom: 20px; border: 3px solid #081c15; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
         header h1 { font-size: 1.8rem; letter-spacing: 1px; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); margin-bottom: 5px; }
         header p { font-size: 0.95rem; color: #d8f3dc; }
@@ -37,6 +34,9 @@ Para que o cliente final também tenha essa opção profissional de te mandar o 
 </head>
 <body oncontextmenu="return false;" onkeydown="return false;">
     <div class="container">
+        <!-- 💡 Espaço reaproveitado com o aviso curto e prático -->
+        <div class="alerta-topo">💬 Envie o seu comprovante via Zap para liberação!</div>
+
         <header>
             <h1>Mairiporã Agro</h1>
             <p>Ambiente Seguro de Pagamento</p>
@@ -96,10 +96,12 @@ Para que o cliente final também tenha essa opção profissional de te mandar o 
                 txtMensagem = `🛍️ Mairiporã Agro • Resumo de Pedido 🛍️\n\nQuantidade: ${qtd} Cartela(s) de Ovos de Codorna.\n💵 Valor Total: R$ ${total.replace('.', ',')}\n🌾 Obrigado por apoiar o comércio local!`;
             }
 
-            // Ativa o botão de compartilhamento universal do Windows/Celular
+            // Ativa o botão com temporizador leve para a janela do Windows abrir lisa
             document.getElementById('btnCompartilharPedido').onclick = function() {
                 if (navigator.share) {
-                    navigator.share({ title: 'Pedido Mairiporã Agro', text: txtMensagem }).catch(e => console.log(e));
+                    setTimeout(function() {
+                        navigator.share({ title: 'Pedido Mairiporã Agro', text: txtMensagem }).catch(e => console.log(e));
+                    }, 100);
                 } else {
                     window.open('https://whatsapp.com' + encodeURIComponent(txtMensagem), '_blank');
                 }
