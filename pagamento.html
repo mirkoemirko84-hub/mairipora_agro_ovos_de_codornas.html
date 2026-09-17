@@ -5,35 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro • Opções de Pagamento</title>
     <style>
-        /* Configurações Gerais e Bloqueio de Seleção */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
-        body { background-color: #f4f6f8; color: #333; padding: 20px; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 600px; margin: 0 auto; width: 100%; flex: 1; }
+        /* Configurações Gerais - SELEÇÃO DE TEXTO DO PIX LIBERADA */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
         
-        /* Alertas do Topo */
+        body { 
+            background-color: #f4f6f8; 
+            color: #333; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+        
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            width: 100%; 
+            flex: 1; 
+        }
+        
+        /* Alertas do Topo Inteligentes */
         .alerta-topo { display: block; background-color: #fff3cd; border: 1px solid #ffeba2; color: #856404; padding: 12px; border-radius: 8px; text-align: center; font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .alerta-promocao { display: none; background-color: #ffccd5; border: 1px solid #ffb3c1; color: #a4133c; padding: 12px; border-radius: 8px; text-align: center; font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
-        header { text-align: center; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: #fff; padding: 25px 20px; border-radius: 12px; margin-bottom: 20px; border: 3px solid #081c15; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-        header h1 { font-size: 1.8rem; letter-spacing: 1px; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); margin-bottom: 5px; }
-        header p { font-size: 0.95rem; color: #d8f3dc; }
-        h2.titulo-sessao { font-size: 1.2rem; color: #1b4332; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .resumo-pedido { background-color: #e2e8f0; border: 2px solid #cbd5e1; border-radius: 8px; padding: 15px; margin-bottom: 20px; font-weight: 600; text-align: center; color: #1e293b; }
-        .card-opcao { background-color: #fff; border: 2px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: center; }
-        .card-opcao.ativo { border: 2px solid #cbd5e1; border-top: 5px solid #2d6a4f; }
-        .card-title { font-size: 1.1rem; font-weight: bold; color: #1b4332; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .pix-box { background-color: #f8fafc; border: 1px dashed #40916c; border-radius: 6px; padding: 12px; margin-top: 10px; }
-        .pix-code { font-family: monospace; font-size: 0.85rem; color: #333; word-break: break-all; background: #ffffff; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; display: block; user-select: text; -webkit-user-select: text; }
-        .feedback { color: #2b9348; font-weight: bold; font-size: 0.9rem; margin-top: 8px; min-height: 18px; }
-        .qrcode-imagem { max-width: 160px; width: 100%; height: auto; border: 1px solid #cbd5e1; padding: 6px; background-color: #fff; border-radius: 4px; margin-top: 10px; }
-        .card-opcao.indisponivel { background-color: #f1f5f9; border: 2px dashed #cbd5e1; opacity: 0.7; }
-        .txt-indisponivel { font-size: 0.85rem; color: #94a3b8; font-weight: bold; margin-top: 5px; letter-spacing: 1px; }
-        .btn-voltar { display: inline-block; width: 100%; text-align: center; background-color: #475569; color: #fff; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: background 0.2s; margin-top: 10px; border: none; }
-        .btn-voltar:hover { background-color: #334155; }
-        footer { text-align: center; margin-top: 30px; padding: 20px 10px; border-top: 1px solid #ddd; color: #666; font-size: 0.85rem; }
+        header { 
+            text-align: center; 
+            background: linear-gradient(135deg, #1b4332, #2d6a4f); 
+            color: #fff; 
+            padding: 25px 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            border: 3px solid #081c15; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+        }
+        
+        header h1 { 
+            font-size: 1.8rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4); 
+            margin-bottom: 5px; 
+        }
+        
+        header p { 
+            font-size: 0.95rem; 
+            color: #d8f3dc; 
+        }
+        
+        h2.titulo-sessao { 
+            font-size: 1.2rem; 
+            color: #1b4332; 
+            margin-bottom: 15px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        
+        .resumo-pedido { 
+            background-color: #e2e8f0; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+            text-align: center; 
+            color: #1e293b; 
+        }
+        
+        .card-opcao { 
+            background-color: #fff; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+            text-align: center; 
+        }
+        
+        .card-opcao.ativo { 
+            border: 2px solid #cbd5e1; 
+            border-top: 5px solid #2d6a4f; 
+        }
+        
+        .card-title { 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            color: #1b4332; 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+        }
+        
+        .pix-box { 
+            background-color: #f8fafc; 
+            border: 1px dashed #40916c; 
+            border-radius: 6px; 
+            padding: 12px; 
+            margin-top: 10px; 
+        }
+        
+        .pix-code { 
+            font-family: monospace; 
+            font-size: 0.85rem; 
+            color: #333; 
+            word-break: break-all; 
+            background: #ffffff; 
+            padding: 10px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 4px; 
+            display: block; 
+            user-select: text; 
+            -webkit-user-select: text; 
+        }
+        
+        .feedback { 
+            color: #2b9348; 
+            font-weight: bold; 
+            font-size: 0.9rem; 
+            margin-top: 8px; 
+            min-height: 18px; 
+        }
+        
+        .qrcode-imagem { 
+            max-width: 160px; 
+            width: 100%; 
+            height: auto; 
+            border: 1px solid #cbd5e1; 
+            padding: 6px; 
+            background-color: #fff; 
+            border-radius: 4px; 
+            margin-top: 10px; 
+        }
+        
+        .card-opcao.indisponivel { 
+            background-color: #f1f5f9; 
+            border: 2px dashed #cbd5e1; 
+            opacity: 0.7; 
+        }
+        
+        .txt-indisponivel { 
+            font-size: 0.85rem; 
+            color: #94a3b8; 
+            font-weight: bold; 
+            margin-top: 5px; 
+            letter-spacing: 1px; 
+        }
+        
+        .btn-voltar { 
+            display: inline-block; 
+            width: 100%; 
+            text-align: center; 
+            background-color: #475569; 
+            color: #fff; 
+            padding: 12px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1rem; 
+            transition: background 0.2s; 
+            margin-top: 10px; 
+            border: none; 
+        }
+        
+        .btn-voltar:hover { 
+            background-color: #334155; 
+        }
+        
+        footer { 
+            text-align: center; 
+            margin-top: 30px; 
+            padding: 20px 10px; 
+            border-top: 1px solid #ddd; 
+            color: #666; 
+            font-size: 0.85rem; 
+        }
     </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="return false;">
+<body oncontextmenu="return false;">
     <div class="container">
         
         <!-- ================================================================= -->
@@ -43,7 +197,7 @@
         <div id="avisoZap" class="alerta-topo" style="display: block;">💬 Envie o seu comprovante via Zap para liberação!</div>
         
         <!-- 2. Mensagem da Promoção (Escondida por padrão) -->
-        <div id="avisoPromo" class="alerta-promocao" style="display: none;">🔥 PROMOÇÃO: 2 por R\$ 22,00 reais! 🔥</div>
+        <div id="avisoPromo" class="alerta-promocao" style="display: none;">🔥 PROMOÇÃO: 2 por R$ 22,00 reais! 🔥</div>
         
         <!-- ================================================================= -->
 
@@ -52,10 +206,12 @@
             <p>Ambiente Seguro de Pagamento</p>
         </header>
 
+        <!-- Resumo do Pedido Dinâmico -->
         <div class="resumo-pedido" id="caixaResumo">Carregando detalhes do pedido...</div>
+        
         <h2 class="titulo-sessao">Forma de pagamento selecionada:</h2>
 
-        <!-- QUADRADINHO 1: PIX -->
+        <!-- QUADRADINHO 1: PIX COPIA E COLA -->
         <div class="card-opcao ativo">
             <div class="card-title">💎 PIX COPIA E COLA</div>
             <p style="font-size: 0.9rem; color: #555;">O código foi copiado automaticamente para a sua área de transferência.</p>
@@ -77,10 +233,10 @@
             <div class="txt-indisponivel">#### INDISPONÍVEL NO MOMENTO ####</div>
         </div>
 
-        <!-- 📲 BOTÃO DA GAVETA DE COMPARTILHAMENTO DO WINDOWS/ZAP -->
+        <!-- 📲 BOTÃO DA GAVETA DE COMPARTILHAMENTO DO CLIENTE -->
         <div class="card-opcao ativo" style="border-top: 5px solid #128c7e;">
             <div class="card-title" style="color: #128c7e;">📲 COMPARTILHAR PEDIDO</div>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Clique abaixo para enviar as informações da compra para o seu próprio WhatsApp ou salvar o recibo:</p>
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Clique abaixo para enviar as informações da compra para o WhatsApp do produtor:</p>
             <button id="btnCompartilharPedido" class="btn-voltar" style="background-color: #128c7e; margin-top: 0; cursor: pointer; color: white;">Enviar Resumo do Pedido</button>
         </div>
 
@@ -100,7 +256,7 @@
 
             if (modo === "teste_avulso") {
                 caixaResumo.innerHTML = `🔬 MODO TESTE ADM: ${qtd} Ovos Avulsos • Total: R$ ${total.replace('.', ',')}`;
-                txtMensagem = `🌾 Mairiporã Agro • Teste Técnico 🌾\n\nSimulação de ${qtd} Ovos Avulsos.\n💵 Valor: R$ ${total.replace('.', ',')}\n🔒 Matriz de Desenvolvimento.`;
+                txtMensagem = `🌾 Mairiporã Agro • Teste Técnico 🌾\n\nSimulação de ${qtd} Ovos Avulsos.\n💵 Valor: R$ ${total.replace('.', ',')}\n🔒 Matriz de Desenvolvimento Monitorada.`;
             } else {
                 caixaResumo.innerHTML = `🛍️ Seu Pedido: ${qtd} Cartela(s) de Ovos • Total: R$ ${total.replace('.', ',')}`;
                 txtMensagem = `🛍️ Mairiporã Agro • Resumo de Pedido 🛍️\n\nQuantidade: ${qtd} Cartela(s) de Ovos de Codorna.\n💵 Valor Total: R$ ${total.replace('.', ',')}\n🌾 Obrigado por apoiar o comércio local!`;
@@ -110,21 +266,3 @@
             document.getElementById('btnCompartilharPedido').onclick = function() {
                 if (navigator.share) {
                     setTimeout(function() {
-                        navigator.share({ title: 'Pedido Mairiporã Agro', text: txtMensagem }).catch(e => console.log(e));
-                    }, 100);
-                } else {
-                    window.open('https://whatsapp.com' + encodeURIComponent(txtMensagem), '_blank');
-                }
-            };
-
-            const textoPix = document.getElementById('codigoPixTexto').textContent;
-            const feedback = document.getElementById('mensagemFeedback');
-            navigator.clipboard.writeText(textoPix).then(function() {
-                feedback.textContent = "✅ Código Pix copiado com sucesso! Só colar no banco.";
-            }).catch(function() {
-                feedback.textContent = "⚠️ Copie o código acima manualmente.";
-            });
-        };
-    </script>
-</body>
-</html>
