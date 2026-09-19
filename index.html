@@ -203,6 +203,14 @@
             🌾 FORTALEÇA O PEQUENO PRODUTOR • APOIE E INCENTIVE O COMÉRCIO LOCAL!
         </div>
 
+        <!-- NOVO BANNER DE ATENDIMENTO DUPLO / MARKETING SELECIONADO -->
+        <div class="card" style="border-left: 6px solid #475569; background-color: #f8fafc; padding: 15px; margin-bottom: 20px; text-align: center;">
+            <p style="font-size: 0.95rem; color: #1e293b; font-weight: 600; margin-bottom: 0; line-height: 1.5;">
+                🍳 <strong>Para os Apaixonados por Culinária:</strong> Leve nossas cartelas frescas para as suas receitas.<br>
+                🫙 <strong>Para Quem Busca Praticidade Solo:</strong> Refis prontos, cozidos e temperados para consumo imediato!
+            </p>
+        </div>
+
         <div class="status-clock">
             ● ESTEIRA DE PEDIDOS ONLINE: <span id="relogio">19/09/2026 - 00:00:00</span>
         </div>
@@ -215,10 +223,10 @@
             <div class="seletor-compras">
                 <span>🛒 Quantidade de Cartelas:</span>
                 <select id="qtdPedidoCliente">
-                    <option value="1">1 Cartela - R\$ 11,00</option>
-                    <option value="2">2 Cartelas - R\$ 22,00</option>
-                    <option value="3">3 Cartelas - R\$ 33,00</option>
-                    <option value="4">4 Cartelas - R\$ 44,00</option>
+                    <option value="1">1 Cartela - R$ 13,00</option>
+                    <option value="2">2 Cartelas - R$ 26,00</option>
+                    <option value="3">3 Cartelas - R$ 39,00</option>
+                    <option value="4">4 Cartelas - R$ 52,00</option>
                 </select>
             </div>
 
@@ -250,25 +258,25 @@
     </footer>
 
     <script>
-        // Mantém o relógio do sistema atualizado com a esteira
         function atualizarRelogio() {
             const agora = new Date();
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const minutes = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             
-            document.getElementById('relogio').textContent = `${dia}/${mes}/${ano} - ${horas}:${minutos}:${segundos}`;
+            document.getElementById('relogio').textContent = dia + "/" + mes + "/" + ano + " - " + horas + ":" + minutes + ":" + segundos;
         }
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
         function avancarParaCheckout() {
             const qtd = document.getElementById('qtdPedidoCliente').value;
-            // Encaminha para o checkout levando a quantidade selecionada
-            window.location.href = `checkout.html?qtd=${qtd}`;
+            // Preço base calculado com os R$ 13,00 de balcão cheio
+            const totalCalculado = qtd * 13.00;
+            window.location.href = "checkout.html?qtd=" + qtd + "&total=" + totalCalculado + "&modo=real_cartela";
         }
     </script>
 </body>
