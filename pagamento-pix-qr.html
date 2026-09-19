@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro • Pix QR Code</title>
+    <style>
+        /* Configurações Gerais - SELEÇÃO TRAVADA */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        body { 
+            background-color: #f4f6f8; 
+            color: #333; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+        
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            width: 100%; 
+            flex: 1; 
+        }
 
+        .alerta-topo { 
+            display: block; 
+            background-color: #fff3cd; 
+            border: 1px solid #ffeba2; 
+            color: #856404; 
+            padding: 12px; 
+            border-radius: 8px; 
+            text-align: center; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+        }
+        
+        header { 
+            text-align: center; 
+            background: linear-gradient(135deg, #1b4332, #2d6a4f); 
+            color: #fff; 
+            padding: 25px 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            border: 3px solid #081c15; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+        }
+        
+        header h1 { 
+            font-size: 1.8rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4); 
+            margin-bottom: 5px; 
+        }
+        
+        header p { 
+            font-size: 0.95rem; 
+            color: #d8f3dc; 
+        }
+        
+        .resumo-pedido { 
+            background-color: #e2e8f0; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            font-weight: 600; 
+            text-align: center; 
+            color: #1e293b; 
+        }
+        
+        .card-opcao { 
+            background-color: #fff; 
+            border: 2px solid #cbd5e1; 
+            border-top: 5px solid #2d6a4f; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+            text-align: center; 
+        }
+        
+        .card-title { 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            color: #1b4332; 
+            margin-bottom: 10px; 
+        }
+        
+        .qrcode-imagem { 
+            max-width: 180px; 
+            width: 100%; 
+            height: auto; 
+            border: 2px solid #cbd5e1; 
+            padding: 8px; 
+            background-color: #fff; 
+            border-radius: 8px; 
+            margin: 15px auto 5px auto; 
+            display: block;
+        }
+
+        .btn-acao-whatsapp {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: #128c7e;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .btn-acao-whatsapp:hover { background-color: #075e54; }
+        
+        .btn-voltar { 
+            display: inline-block; 
+            width: 100%; 
+            text-align: center; 
+            background-color: #475569; 
+            color: #fff; 
+            padding: 12px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1rem; 
+            border: none; 
+        }
+        .btn-voltar:hover { background-color: #334155; }
+        
+        footer { 
+            text-align: center; 
+            margin-top: 30px; 
+            padding: 20px 10px; 
+            border-top: 1px solid #ddd; 
+            color: #666; 
+            font-size: 0.85rem; 
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div class="container">
+        
+        <div id="avisoZap" class="alerta-topo">💬 Envie o seu comprovante via Zap para liberação!</div>
+
+        <header>
+            <h1>Mairiporã Agro</h1>
+            <p>Ambiente Seguro de Pagamento</p>
+        </header>
+
+        <!-- Resumo do Pedido herdado da esteira -->
+        <div class="resumo-pedido" id="caixaResumo">Carregando detalhes do pedido...</div>
+
+        <!-- CONTEÚDO EXCLUSIVO: QR CODE ISOLADO -->
+        <div class="card-opcao">
+            <div class="card-title">📷 INTERFACE PIX QR CODE</div>
+            <p style="font-size: 0.9rem; color: #555;">Abra o aplicativo de pagamentos do seu banco, selecione a opção "Pagar QR Code" e aponte a câmera do celular para a imagem abaixo:</p>
+            
+            <img src="qrcode-pagamento.png" alt="Pix QR Code Mairiporã Agro" class="qrcode-imagem">
+        </div>
+
+        <!-- NOTIFICAÇÃO DE CONFIRMAÇÃO -->
+        <div class="card-opcao" style="border-top: 5px solid #128c7e;">
+            <div class="card-title" style="color: #128c7e;">📲 NOTIFICAR BALCÃO NO WHATSAPP</div>
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Após a leitura do QR Code, clique abaixo para encaminhar os dados da esteira de venda diretamente para a nossa triagem.</p>
+            <button onclick="notificarWhatsApp()" class="btn-acao-whatsapp">Enviar Comprovante pelo Zap</button>
+        </div>
+
+        <a href="javascript:history.back()" class="btn-voltar">⬅ Voltar e Mudar Forma</a>
+        <footer>Mairiporã Agro © 2026<br>Esteira Sequencial • Pix QR Módulo v26.09.19</footer>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        let qtd = parseInt(params.get('qtd')) || 1;
+        let total = parseFloat(params.get('total')) || 13.00;
+        const modo = params.get('modo') || 'real_cartela';
+
+        const caixaResumo = document.getElementById('caixaResumo');
+        if (modo === 'teste_avulso') {
+            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+        } else {
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+        }
+
+        function notificarWhatsApp() {
+            const quebraLinha = "%0A";
+            let mensagem = `*Mairiporã Agro • Novo Pedido*${quebraLinha}`;
+            mensagem += `-----------------------------------${quebraLinha}`;
+            if (modo === 'teste_avulso') {
+                mensagem += `🔬 *Modo:* Simulação Técnica Avulsa${quebraLinha}`;
+                mensagem += `🥚 *Quantidade:* ${qtd} ovo(s) avulso(s)${quebraLinha}`;
+            } else {
+                mensagem += `🛍️ *Modo:* Venda de Balcão${quebraLinha}`;
+                mensagem += `📦 *Quantidade:* ${qtd} Cartela(s)${quebraLinha}`;
+            }
+            mensagem += `💰 *Valor Total:* R\$ ${total.toFixed(2)}${quebraLinha}`;
+            mensagem += `-----------------------------------${quebraLinha}`;
+            mensagem += `💬 _Estou enviando o comprovante do QR Code em anexo!_`;
+
+            window.location.href = `https://whatsapp.com{mensagem}`;
+        }
+    </script>
+</body>
+</html>
