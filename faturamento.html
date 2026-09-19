@@ -3,133 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairiporã Agro • Pix Copia e Cola</title>
+    <title>Mairiporã Agro • Linha de Conservas</title>
     <style>
-        /* Configurações Gerais - TEXTO DO PIX LIBERADO */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        }
-        
-        body { 
-            background-color: #f4f6f8; 
-            color: #333; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-        }
-        
-        .container { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            width: 100%; 
-            flex: 1; 
+        /* Configurações Gerais e Bloqueio de Seleção */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .alerta-topo { 
-            display: block; 
-            background-color: #fff3cd; 
-            border: 1px solid #ffeba2; 
-            color: #856404; 
-            padding: 12px; 
-            border-radius: 8px; 
-            text-align: center; 
-            font-size: 0.9rem; 
-            font-weight: bold; 
-            margin-bottom: 15px; 
-        }
-        
-        header { 
-            text-align: center; 
-            background: linear-gradient(135deg, #1b4332, #2d6a4f); 
-            color: #fff; 
-            padding: 25px 20px; 
-            border-radius: 12px; 
-            margin-bottom: 20px; 
-            border: 3px solid #081c15; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-        }
-        
-        header h1 { 
-            font-size: 1.8rem; 
-            letter-spacing: 1px; 
-            text-transform: uppercase; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4); 
-            margin-bottom: 5px; 
-        }
-        
-        header p { 
-            font-size: 0.95rem; 
-            color: #d8f3dc; 
-        }
-        
-        .resumo-pedido { 
-            background-color: #e2e8f0; 
-            border: 2px solid #cbd5e1; 
-            border-radius: 8px; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-            font-weight: 600; 
-            text-align: center; 
-            color: #1e293b; 
-        }
-        
-        .card-opcao { 
-            background-color: #fff; 
-            border: 2px solid #cbd5e1; 
-            border-top: 5px solid #2d6a4f; 
-            border-radius: 8px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
-            text-align: center; 
-        }
-        
-        .card-title { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            color: #1b4332; 
-            margin-bottom: 10px; 
-        }
-        
-        .pix-box { 
-            background-color: #f8fafc; 
-            border: 1px dashed #40916c; 
-            border-radius: 6px; 
-            padding: 12px; 
-            margin-top: 10px; 
-        }
-        
-        .pix-code { 
-            font-family: monospace; 
-            font-size: 0.85rem; 
-            color: #333; 
-            word-break: break-all; 
-            background: #ffffff; 
-            padding: 10px; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 4px; 
-            display: block; 
-            user-select: text; 
-            -webkit-user-select: text; 
-        }
-        
-        .feedback { 
-            color: #555; 
-            font-weight: bold; 
-            font-size: 0.9rem; 
-            margin-top: 8px; 
-            min-height: 18px; 
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .btn-acao-whatsapp {
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            color: #fff;
+            padding: 25px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 3px solid #7c2d12;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #ffedd5;
+            font-weight: 500;
+        }
+
+        /* Quadro Técnico de Maturação */
+        .nota-maturacao {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-left: 6px solid #ea580c;
+            color: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nota-maturacao strong {
+            color: #c2410c;
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .card-produto {
+            background-color: #fff;
+            border: 2px solid #fed7aa;
+            border-left: 6px solid #ea580c;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-produto h2 {
+            font-size: 1.3rem;
+            color: #7c2d12;
+            margin-bottom: 10px;
+        }
+
+        .card-produto p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .seletor-grupo {
+            background: #fff7ed;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ffedd5;
+            margin-bottom: 15px;
+        }
+
+        .input-linha {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .input-linha:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-linha label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4a0404;
+        }
+
+        .input-linha select {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.95rem;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .btn-avancar {
             display: inline-block;
             width: 100%;
             text-align: center;
-            background-color: #128c7e;
+            background-color: #ea580c;
             color: #fff;
             padding: 12px;
             border-radius: 6px;
@@ -139,9 +151,11 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
         }
-        .btn-acao-whatsapp:hover { background-color: #075e54; }
-        
+
+        .btn-avancar:hover { background-color: #c2410c; }
+
         .btn-voltar { 
             display: inline-block; 
             width: 100%; 
@@ -156,98 +170,116 @@
             border: none; 
         }
         .btn-voltar:hover { background-color: #334155; }
-        
-        footer { 
-            text-align: center; 
-            margin-top: 30px; 
-            padding: 20px 10px; 
-            border-top: 1px solid #ddd; 
-            color: #666; 
-            font-size: 0.85rem; 
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.85rem;
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
+
     <div class="container">
         
-        <div id="avisoZap" class="alerta-topo">💬 Envie o seu comprovante via Zap para liberação!</div>
-
         <header>
-            <h1>Mairiporã Agro</h1>
-            <p>Ambiente Seguro de Pagamento</p>
+            <h1>Mairiporã Agro • Linha Temperada</h1>
+            <p>Conheça nossa linha completa de potes e refis de conservas</p>
         </header>
 
-        <!-- Resumo do Pedido herdado do checkout -->
-        <div class="resumo-pedido" id="caixaResumo">Carregando detalhes do pedido...</div>
+        <div class="nota-maturacao">
+            <strong>🔬 Critério Técnico de Maturação:</strong>
+            Garantimos o direito de informar que, após concluídos os 2 dias de nosso rigoroso manejo e cozimento, o lote atinge seu formato de excelência e sabor ideal após mais 2 dias de repouso, totalizando o ciclo de 4 dias para que o tempero incorpore perfeitamente em sua degustação.
+        </div>
 
-        <!-- CONTEÚDO EXCLUSIVO: COPIA E COLA -->
-        <div class="card-opcao">
-            <div class="card-title">💎 INTERFACE PIX COPIA E COLA</div>
-            <p style="font-size: 0.9rem; color: #555;">O código foi copiado automaticamente. Se precisar, clique no retângulo abaixo para copiar novamente.</p>
-            <div class="pix-box" onclick="copiarPixManualmente()" style="cursor: pointer;">
-                <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
+        <div class="card-produto">
+            <h2>📝 Solicitar Reserva de Lote</h2>
+            <p>Selecione as embalagens desejadas para verificar a disponibilidade de preparo e maturação da esteira comercial:</p>
+            
+            <div class="seletor-grupo">
+                
+                <!-- Refil Tempero Básico -->
+                <div class="input-linha">
+                    <label for="qtdBasico">🛒 Refil Tempero Básico (30 un):</label>
+                    <select id="qtdBasico">
+                        <option value="0">Nenhuma</option>
+                        <option value="1">1 Unidade - R$ 17,00</option>
+                        <option value="2">2 Unidades - R$ 34,00</option>
+                        <option value="3">3 Unidades - R$ 51,00</option>
+                    </select>
+                </div>
+                
+                <!-- Refil Algo a Mais -->
+                <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
+                    <label for="qtdEspecial">🌶️ Refil Algo a Mais (30 un):</label>
+                    <select id="qtdEspecial">
+                        <option value="0">Nenhuma</option>
+                        <option value="1">1 Unidade - R$ 23,00</option>
+                        <option value="2">2 Unidades - R$ 46,00</option>
+                        <option value="3">3 Unidades - R$ 69,00</option>
+                    </select>
+                </div>
+
+                <!-- Linha Corporate - Pote de Vidro Inteligente -->
+                <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
+                    <label for="qtdCorporate">🫙 Linha Corporate (Pote Vidro):</label>
+                    <select id="qtdCorporate">
+                        <option value="0">Nenhum - Valores a combinar</option>
+                        <option value="1">1 Pote (Combinar no Zap)</option>
+                        <option value="2">2 Potes (Combinar no Zap)</option>
+                        <option value="3">3 Potes (Combinar no Zap)</option>
+                    </select>
+                </div>
+
             </div>
-            <div class="feedback" id="mensagemFeedback">Clique no código para copiar</div>
+
+            <button onclick="enviarEmbalagensParaCheckout()" class="btn-avancar">Verificar Disponibilidade & Reservar Lote ➡</button>
         </div>
 
-        <!-- NOTIFICAÇÃO DE CONFIRMAÇÃO -->
-        <div class="card-opcao" style="border-top: 5px solid #128c7e;">
-            <div class="card-title" style="color: #128c7e;">📲 NOTIFICAR BALCÃO NO WHATSAPP</div>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Após pagar no app do seu banco, clique abaixo para enviar os dados da esteira e o comprovante direto para a triagem.</p>
-            <button onclick="notificarWhatsApp()" class="btn-acao-whatsapp">Enviar Comprovante pelo Zap</button>
-        </div>
-
-        <a href="javascript:history.back()" class="btn-voltar">⬅ Voltar e Mudar Forma</a>
-        <footer>Mairiporã Agro © 2026<br>Esteira Sequencial • Pix Copia Módulo v26.09.19</footer>
+        <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
+        
+        <footer>
+            Mairiporã Agro © 2026 <br>
+            Módulo Linha Temperada Terceirizada v26.09.19.5 <br>
+            <span class="selo-seguranca">🔒 Sistema de Agendamento Ativo</span>
+        </footer>
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        let qtd = parseInt(params.get('qtd')) || 1;
-        let total = parseFloat(params.get('total')) || 11.00; // Base atualizada de R\$ 11,00
-        const modo = params.get('modo') || 'real_cartela';
+        function enviarEmbalagensParaCheckout() {
+            const basico = parseInt(document.getElementById('qtdBasico').value) || 0;
+            const especial = parseInt(document.getElementById('qtdEspecial').value) || 0;
+            const corporate = parseInt(document.getElementById('qtdCorporate').value) || 0;
 
-        const caixaResumo = document.getElementById('caixaResumo');
-        if (modo === 'teste_avulso') {
-            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Refis de Conserva<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R$ ${total.toFixed(2)}</span>`;
-        } else {
-            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R$ ${total.toFixed(2)}</span>`;
-        }
+            if (basico === 0 && especial === 0 && corporate === 0) {
+                alert("Por favor, selecione ao menos 1 item para realizar a reserva!");
+                return;
+            }
 
-        function copiarPixManualmente() {
-            const textoPix = document.getElementById('codigoPixTexto').innerText;
-            navigator.clipboard.writeText(textoPix).then(() => {
-                const feedback = document.getElementById('mensagemFeedback');
-                feedback.innerText = "✓ Código Pix Copiado com sucesso!";
-                feedback.style.color = "#16a34a";
-                setTimeout(() => { 
-                    feedback.innerText = "Clique no código para copiar novamente"; 
-                    feedback.style.color = "#555"; 
-                }, 3000);
-            });
-        }
+            const valorBasico = basico * 17.00;
+            const valorEspecial = especial * 23.00;
+            const totalSomaFixa = valorBasico + valorEspecial;
 
-        function notificarWhatsApp() {
-            // Número de atendimento configurado pelo chefe
-            const numeroReal = "5511964856312"; 
+            let mensagemTexto = "Olá! Gostaria de verificar a disponibilidade e reservar o seguinte lote de conservas temperadas:\n\n";
             
-            const texto = encodeURIComponent("Olá! Acabei de realizar o pagamento Pix do meu pedido.\n\n📦 Detalhes:\n- Quantidade: " + qtd + "\n- Valor: R\$ " + total.toFixed(2) + "\n\nEstou enviando o comprovante!");
+            if (basico > 0) {
+                mensagemTexto += "🛒 Refil Tempero Básico: " + basico + " unidade(s) - R$ " + valorBasico.toFixed(2) + "\n";
+            }
+            if (especial > 0) {
+                mensagemTexto += "🌶️ Refil Algo a Mais: " + especial + " unidade(s) - R$ " + valorEspecial.toFixed(2) + "\n";
+            }
+            if (corporate > 0) {
+                mensagemTexto += "🫙 Linha Corporate (Pote de Vidro): " + corporate + " unidade(s) - [Valor a combinar]\n";
+            }
             
-            // Link universal blindado com a barra separadora correta
-            window.open("https://wa.me" + numeroReal + "?text=" + texto, '_blank');
-        }
+            if (totalSomaFixa > 0) {
+                mensagemTexto += "\n💰 Subtotal dos Refis: R$ " + totalSomaFixa.toFixed(2) + "\n";
+            }
+            
+            mensagemTexto += "\nPor favor, confirmem o valor final e o prazo de maturação para a retirada!";
 
-        // Auto-copy inicial
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const textoPix = document.getElementById('codigoPixTexto').innerText;
-                navigator.clipboard.writeText(textoPix).then(() => {
-                    const feedback = document.getElementById('mensagemFeedback');
-                    feedback.innerText = "✓ Código Pix copiado automaticamente!";
-                    feedback.style.color = "#16a34a";
-                }).catch(() => {});
-            }, 500);
-        });
-    </script>
-</body>
-</html>
+            // Manobra Técnica: Envia o texto via parâmetro limpo da URL para a página de faturamento
+            const textoCodificado = encodeURIComponent(mensagemTexto);
