@@ -56,7 +56,7 @@
             font-weight: 500;
         }
 
-        /* 🔬 QUADRO TÉCNICO DOS 4 DIAS DE MATURAÇÃO */
+        /* Quadro Técnico de Maturação */
         .nota-maturacao {
             background-color: #f8fafc;
             border: 2px solid #cbd5e1;
@@ -190,19 +190,18 @@
             <p>Conheça nossa linha completa de potes e refis de conservas</p>
         </header>
 
-        <!-- 🔬 REGRA DOS 4 DIAS DE MATURAÇÃO DO PRODUTO -->
         <div class="nota-maturacao">
             <strong>🔬 Critério Técnico de Maturação:</strong>
-            Garantimos o direito de informar que, após concluídos os 2 dias de nosso rigoroso manejo e cozimento, o lote atinge seu formato de excelência e sabor ideal após mais 2 dias de repouso, totalizando o ciclo de 4 dias para que o tempero incorpore perfeitamente in sua degustação.
+            Garantimos o direito de informar que, após concluídos os 2 dias de nosso rigoroso manejo e cozimento, o lote atinge seu formato de excelência e sabor ideal após mais 2 dias de repouso, totalizando o ciclo de 4 dias para que o tempero incorpore perfeitamente em sua degustação.
         </div>
 
         <div class="card-produto">
-            <h2>📝 Solicitar Reserva de Lote (Estilo Refil)</h2>
-            <p>Selecione a quantidade de embalagens estilo refil (30 ovos cozidos e descascados) desejada para verificar a disponibilidade de preparo:</p>
+            <h2>📝 Solicitar Reserva de Lote</h2>
+            <p>Selecione as embalagens desejadas para verificar a disponibilidade de preparo e maturação da esteira comercial:</p>
             
             <div class="seletor-grupo">
                 
-                <!-- CERQUINHA_TEMPERO_BASICO_INICIO -->
+                <!-- Refil Tempero Básico -->
                 <div class="input-linha">
                     <label for="qtdBasico">🛒 Refil Tempero Básico (30 un):</label>
                     <select id="qtdBasico">
@@ -212,9 +211,8 @@
                         <option value="3">3 Unidades - R$ 51,00</option>
                     </select>
                 </div>
-                <!-- CERQUINHA_TEMPERO_BASICO_FIM -->
                 
-                <!-- CERQUINHA_TEMPERO_ESPECIAL_INICIO -->
+                <!-- Refil Algo a Mais -->
                 <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
                     <label for="qtdEspecial">🌶️ Refil Algo a Mais (30 un):</label>
                     <select id="qtdEspecial">
@@ -224,14 +222,17 @@
                         <option value="3">3 Unidades - R$ 69,00</option>
                     </select>
                 </div>
-                <!-- CERQUINHA_TEMPERO_ESPECIAL_FIM -->
 
-                <!-- ### CERQUINHA_FUTURO_POTE_VIDRO_INICIO ### -->
+                <!-- Linha Corporate - Pote de Vidro Inteligente -->
                 <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
-                    <label>🫙 Linha Corporate (Pote de Vidro):</label>
-                    <span style="font-size: 0.9rem; font-weight: bold; color: #ea580c;">Valores a combinar no Zap</span>
+                    <label for="qtdCorporate">🫙 Linha Corporate (Pote Vidro):</label>
+                    <select id="qtdCorporate">
+                        <option value="0">Nenhum - Valores a combinar</option>
+                        <option value="1">1 Pote (Combinar no Zap)</option>
+                        <option value="2">2 Potes (Combinar no Zap)</option>
+                        <option value="3">3 Potes (Combinar no Zap)</option>
+                    </select>
                 </div>
-                <!-- ### CERQUINHA_FUTURO_POTE_VIDRO_FIM ### -->
 
             </div>
 
@@ -251,21 +252,20 @@
         function enviarEmbalagensParaCheckout() {
             const basico = parseInt(document.getElementById('qtdBasico').value) || 0;
             const especial = parseInt(document.getElementById('qtdEspecial').value) || 0;
+            const corporate = parseInt(document.getElementById('qtdCorporate').value) || 0;
 
-            if (basico === 0 && especial === 0) {
-                alert("Por favor, selecione ao menos 1 unidade para realizar a reserva!");
+            if (basico === 0 && especial === 0 && corporate === 0) {
+                alert("Por favor, selecione ao menos 1 item para realizar a reserva!");
                 return;
             }
 
-            // Configuração do seu número de atendimento WhatsApp
-            const numeroReal = "5511964856312"; 
+            // Central de Atendimento Blindada contra erros de DNS
+            const numeroReal = "5511999999999"; 
 
-            // Cálculos dos valores comerciais
             const valorBasico = basico * 17.00;
             const valorEspecial = especial * 23.00;
-            const totalGeral = valorBasico + valorEspecial;
+            const totalSomaFixa = valorBasico + valorEspecial;
 
-            // Construção da mensagem limpa e profissional
             let mensagemTexto = "Olá! Gostaria de verificar a disponibilidade e reservar o seguinte lote de conservas temperadas:\n\n";
             
             if (basico > 0) {
@@ -274,15 +274,15 @@
             if (especial > 0) {
                 mensagemTexto += "🌶️ Refil Algo a Mais: " + especial + " unidade(s) - R$ " + valorEspecial.toFixed(2) + "\n";
             }
+            if (corporate > 0) {
+                mensagemTexto += "🫙 Linha Corporate (Pote de Vidro): " + corporate + " unidade(s) - [Valor a combinar]\n";
+            }
             
-            mensagemTexto += "\n💰 Valor Total Estimado: R$ " + totalGeral.toFixed(2) + "\n";
-            mensagemTexto += "Por favor, confirmem o prazo de maturação para retirada!";
+            if (totalSomaFixa > 0) {
+                mensagemTexto += "\n💰 Subtotal dos Refis: R$ " + totalSomaFixa.toFixed(2) + "\n";
+            }
+            
+            mensagemTexto += "\nPor favor, confirmem o valor final e o prazo de maturação para a retirada!";
 
             const textoCodificado = encodeURIComponent(mensagemTexto);
 
-            // Link universal com a rota blindada contra falhas de DNS do Windows
-            window.open("https://wa.me" + numeroReal + "?text=" + textoCodificado, '_blank');
-        }
-    </script>
-</body>
-</html>
