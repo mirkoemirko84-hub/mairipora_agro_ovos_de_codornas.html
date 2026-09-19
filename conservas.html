@@ -187,7 +187,7 @@
         
         <header>
             <h1>Mairiporã Agro • Linha Temperada</h1>
-            <p>Embalagens com 30 Unidades • Parceria Terceirizada</p>
+            <p>Embalagens Estilo Refil • Parceria Terceirizada</p>
         </header>
 
         <!-- 🔬 REGRA DOS 4 DIAS DE MATURAÇÃO DO PRODUTO -->
@@ -197,14 +197,14 @@
         </div>
 
         <div class="card-produto">
-            <h2>📝 Solicitar Reserva de Lote</h2>
-            <p>Selecione a quantidade de embalagens plásticas (30 ovos cozidos e descascados) desejada para verificar a disponibilidade de preparo:</p>
+            <h2>📝 Solicitar Reserva de Lote (Estilo Refil)</h2>
+            <p>Selecione a quantidade de embalagens estilo refil (30 ovos cozidos e descascados) desejada para verificar a disponibilidade de preparo:</p>
             
             <div class="seletor-grupo">
                 
                 <!-- CERQUINHA_TEMPERO_BASICO_INICIO -->
                 <div class="input-linha">
-                    <label for="qtdBasico">🛒 Embalagem Tempero Básico:</label>
+                    <label for="qtdBasico">🛒 Refil Tempero Básico (30 un):</label>
                     <select id="qtdBasico">
                         <option value="0">Nenhuma</option>
                         <option value="1">1 Unidade - R\$ 17,00</option>
@@ -216,7 +216,7 @@
                 
                 <!-- CERQUINHA_TEMPERO_ESPECIAL_INICIO -->
                 <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
-                    <label for="qtdEspecial">🌶️ Embalagem Algo a Mais (Especial):</label>
+                    <label for="qtdEspecial">🌶️ Refil Algo a Mais (30 un):</label>
                     <select id="qtdEspecial">
                         <option value="0">Nenhuma</option>
                         <option value="1">1 Unidade - R\$ 23,00</option>
@@ -225,6 +225,13 @@
                     </select>
                 </div>
                 <!-- CERQUINHA_TEMPERO_ESPECIAL_FIM -->
+
+                <!-- ### CERQUINHA_FUTURO_POTE_VIDRO_INICIO ### -->
+                <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
+                    <label>🫙 Linha Corporate (Pote de Vidro):</label>
+                    <span style="font-size: 0.9rem; font-weight: bold; color: #ea580c;">Valores a combinar no Zap</span>
+                </div>
+                <!-- ### CERQUINHA_FUTURO_POTE_VIDRO_FIM ### -->
 
             </div>
 
@@ -235,7 +242,7 @@
         
         <footer>
             Mairiporã Agro © 2026 <br>
-            Módulo Linha Temperada Terceirizada v26.09.19.4 <br>
+            Módulo Linha Temperada Terceirizada v26.09.19.5 <br>
             <span class="selo-seguranca">🔒 Sistema de Agendamento Ativo</span>
         </footer>
     </div>
@@ -246,17 +253,15 @@
             const qtdEspecial = parseInt(document.getElementById('qtdEspecial').value) || 0;
             
             if (qtdBasico === 0 && qtdEspecial === 0) {
-                alert("Por favor, selecione pelo menos 1 embalagem para verificar a disponibilidade!");
+                alert("Por favor, selecione pelo menos 1 embalagem refil para verificar a disponibilidade!");
                 return;
             }
             
-            // CERQUINHA_CALCULO_MATEMATICO_VALORES_INICIO
             const precoBasico = 17.00;
             const precoEspecial = 23.00;
             
             const totalCalculado = ((qtdBasico * precoBasico) + (qtdEspecial * precoEspecial)).toFixed(2);
             const totalItens = qtdBasico + qtdEspecial;
-            // CERQUINHA_CALCULO_MATEMATICO_VALORES_FIM
             
             window.location.href = `checkout.html?qtd=${totalItens}&total=${totalCalculado}&modo=reserva_conserva`;
         }
