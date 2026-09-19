@@ -152,16 +152,9 @@
 <body>
     <div class="container">
         
-        <!-- ================================================================= -->
         <!-- CONTROLADORES DO TOPO ADM (Mude 'block' para mostrar ou 'none' para esconder) -->
-        
-        <!-- 1. Mensagem do Zap -->
         <div id="avisoZap" class="alerta-topo" style="display: block;">💬 Envie o seu comprovante via Zap para liberação!</div>
-        
-        <!-- 2. Mensagem da Promoção -->
         <div id="avisoPromo" class="alerta-promocao" style="display: none;">🔥 PROMOÇÃO: 2 por R\$ 22,00 reais! 🔥</div>
-        
-        <!-- ================================================================= -->
 
         <header>
             <h1>Mairiporã Agro • ADM</h1>
@@ -187,17 +180,15 @@
         </div>
 
         <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
-        <footer>Mairiporã Agro © 2026<br>⚙️ Modo Engenharia de Software Ativo</footer>
+        <footer>Mairiporã Agro © 2026<br>⚙️ Versão Final Definitiva • Modo Engenharia Activo</footer>
     </div>
 
     <script>
         document.getElementById('btnSimular').onclick = function() {
             const qtd = parseInt(document.getElementById('qtdOvos').value) || 1;
-            // Executa a conta matemática exata (R\$ 1,20 por unidade)
             const precoUnitario = 1.20;
             const totalCalculado = (qtd * precoUnitario).toFixed(2);
             
-            // Dispara para a tela de pagamento passando as variáveis certas em modo teste
             window.location.href = `pagamento.html?qtd=${qtd}&total=${totalCalculado}&modo=teste_avulso`;
         };
     </script>
