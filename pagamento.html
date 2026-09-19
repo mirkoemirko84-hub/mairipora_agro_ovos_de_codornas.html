@@ -125,7 +125,7 @@
         }
         
         .feedback { 
-            color: #2b9348; 
+            color: #555; 
             font-weight: bold; 
             font-size: 0.9rem; 
             margin-top: 8px; 
@@ -217,7 +217,7 @@
 
         <header>
             <h1>Mairiporã Agro</h1>
-            <p>Ambiente Secure de Pagamento</p>
+            <p>Ambiente Seguro de Pagamento</p>
         </header>
 
         <!-- Resumo do Pedido Dinâmico -->
@@ -232,7 +232,7 @@
             <div class="pix-box" onclick="copiarPixManualmente()" style="cursor: pointer;">
                 <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
             </div>
-            <div class="feedback" id="mensagemFeedback">Copiando código...</div>
+            <div class="feedback" id="mensagemFeedback">Clique no código para copiar</div>
         </div>
 
         <!-- QUADRADINHO 2: QR CODE -->
@@ -270,9 +270,10 @@
         if (modo === 'teste_avulso') {
             caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
         } else {
-            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
         }
 
         // Função de cópia automática e manual do Pix
         function copiarPixManualmente() {
             const textoPix = document.getElementById('codigoPixTexto').innerText;
+            navigator.clipboard.writeText(textoPix).then(() => {
