@@ -213,16 +213,16 @@
             <div class="seletor-compras">
                 <span>🛒 Quantidade de Cartelas:</span>
                 <select id="qtdPedidoCliente">
-                    <option value="1">1 Cartela - R$ 13,00</option>
-                    <option value="2">2 Cartelas - R$ 26,00</option>
-                    <option value="3">3 Cartelas - R$ 39,00</option>
-                    <option value="4">4 Cartelas - R$ 52,00</option>
+                    <option value="1">1 Cartela - R\$ 13,00</option>
+                    <option value="2">2 Cartelas - R\$ 26,00</option>
+                    <option value="3">3 Cartelas - R\$ 39,00</option>
+                    <option value="4">4 Cartelas - R\$ 52,00</option>
                 </select>
             </div>
 
             <button onclick="irParaPagamentoReal()" class="btn">Comprar e Ir para Pagamento</button>
             
-            <!-- 🤫 LINK SECRETO MANTIDO PARA SEU TESTE DE R$ 1,20 -->
+            <!-- 🤫 LINK SECRETO MANTIDO PARA SEU TESTE DE R\$ 1,20 -->
             <div class="area-secreta-teste">
                 <button onclick="simularCompraSecretaBancada()" class="btn-secreto">[ Rodar Teste Técnico Interno ]</button>
             </div>
@@ -236,7 +236,7 @@
 
         <div class="card hobby">
             <h2>🏡 Espaço Hobby & Projeção Real</h2>
-            <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a disposição científica de eficiência acumulada (85%) prevê uma colheita estável de ~30 ovos por semana — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.</p>
+            <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 generations (avós e netos), a disposição científica de eficiência acumulada (85%) prevê uma colheita estável de ~30 ovos por semana — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.</p>
         </div>
 
         <footer>
@@ -248,30 +248,26 @@
     </div>
 
     <script>
+        // Mantém a data de referência estável e atualiza as horas dinamicamente
         function atualizarRelogio() {
             const agora = new Date();
             document.getElementById('relogio').textContent = "14/09/2026 - " + agora.toLocaleTimeString('pt-BR');
         }
         setInterval(atualizarRelogio, 1000);
 
-        // Faz o cálculo dinâmico baseado na opção selecionada para enviar para a tela de pagamento
+        // Faz o cálculo dinâmico baseado nas cartelas oficiais do balcão (R\$ 13,00 cada)
         function irParaPagamentoReal() {
             const seletor = document.getElementById('qtdPedidoCliente');
-            const qtd = seletor.value;
+            const qtd = parseInt(seletor.value);
+            const precoCartela = 13.00;
+            const totalCalculado = (qtd * precoCartela).toFixed(2);
             
-            // Define o preço exato com base no desconto progressivo que você configurou
-            let total = 0;
-            if (qtd == "1") total = 13.00;
-            if (qtd == "2") total = 26.00;
-            if (qtd == "3") total = 39.00;
-            if (qtd == "4") total = 52.00;
-
-            window.location.href = `pagamento.html?qtd=${qtd}&total=${total.toFixed(2)}&modo=cartela`;
+            window.location.href = `pagamento.html?qtd=${qtd}&total=${totalCalculado}&modo=real_cartela`;
         }
 
-        // Mantém seu teste avulso de bancada (3 ovos = 1.20) rodando em background
+        // Executa o teste de simulação interna a R\$ 1,20 por ovo do laboratório
         function simularCompraSecretaBancada() {
-            window.location.href = "pagamento.html?qtd=3&total=1.20&modo=teste_avulso";
+            window.location.href = `adm.html`;
         }
     </script>
 </body>
