@@ -204,14 +204,14 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         let qtd = parseInt(params.get('qtd')) || 1;
-        let total = parseFloat(params.get('total')) || 11.00; // Atualizado para a base de R\$ 11,00
+        let total = parseFloat(params.get('total')) || 11.00; // Base atualizada de R\$ 11,00
         const modo = params.get('modo') || 'real_cartela';
 
         const caixaResumo = document.getElementById('caixaResumo');
         if (modo === 'teste_avulso') {
-            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Refis de Conserva<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Refis de Conserva<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R$ ${total.toFixed(2)}</span>`;
         } else {
-            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R$ ${total.toFixed(2)}</span>`;
         }
 
         function copiarPixManualmente() {
@@ -228,24 +228,16 @@
         }
 
         function notificarWhatsApp() {
-            // Número de atendimento da Mairiporã Agro (insira o seu número completo com DDD abaixo)
-            // Exemplo: 5511999999999
-            const numeroTelefone = "5511964856312"; 
+            // LEMBRETE: Insira seu número com 55 + DDD + Número completo aqui dentro das aspas
+            const numeroReal = "5511964856312"; 
             
-            // Monta a mensagem automática da esteira com os detalhes do pedido
-            const mensagem = encodeURIComponent(`Olá! Acabei de realizar o pagamento Pix do meu pedido.\n\n` +
-                `📦 Detalhes do Pedido:\n` +
-                `- Quantidade: ${qtd} unidade(s)\n` +
-                `- Valor Total: R$ ${total.toFixed(2)}\n\n` +
-                `Estou enviando o comprovante em anexo para liberação!`);
+            const texto = encodeURIComponent("Olá! Acabei de realizar o pagamento Pix do meu pedido.\n\n📦 Detalhes:\n- Quantidade: " + qtd + "\n- Valor: R\$ " + total.toFixed(2) + "\n\nEstou enviando o comprovante!");
             
-            // API Universal que previne erros de DNS e funciona perfeitamente em mobile e desktop
-            const linkZap = `https://wa.me{numeroTelefone}?text=${mensagem}`;
-            
-            window.open(linkZap, '_blank');
+            // Link universal com a barra corrigida para evitar erros de DNS do Windows
+            window.open("https://wa.me" + numeroReal + "?text=" + texto, '_blank');
         }
 
-        // Tenta copiar o Pix automaticamente assim que a página carrega
+        // Auto-copy ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const textoPix = document.getElementById('codigoPixTexto').innerText;
@@ -253,9 +245,7 @@
                     const feedback = document.getElementById('mensagemFeedback');
                     feedback.innerText = "✓ Código Pix copiado automaticamente!";
                     feedback.style.color = "#16a34a";
-                }).catch(() => {
-                    // Ignora silenciosamente se o navegador bloquear o auto-copy
-                });
+                }).catch(() => {});
             }, 500);
         });
     </script>
