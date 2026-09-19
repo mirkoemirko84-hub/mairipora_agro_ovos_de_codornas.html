@@ -1,1 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro • Linha de Conservas</title>
+    <style>
+        /* Configurações Gerais e Bloqueio de Seleção */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            color: #fff;
+            padding: 25px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 3px solid #7c2d12;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #ffedd5;
+            font-weight: 500;
+        }
+
+        /* 🔬 QUADRO TÉCNICO DOS 4 DIAS DE MATURAÇÃO */
+        .nota-maturacao {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-left: 6px solid #ea580c;
+            color: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nota-maturacao strong {
+            color: #c2410c;
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .card-produto {
+            background-color: #fff;
+            border: 2px solid #fed7aa;
+            border-left: 6px solid #ea580c;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-produto h2 {
+            font-size: 1.3rem;
+            color: #7c2d12;
+            margin-bottom: 10px;
+        }
+
+        .card-produto p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .seletor-grupo {
+            background: #fff7ed;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ffedd5;
+            margin-bottom: 15px;
+        }
+
+        .input-linha {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .input-linha:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-linha label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4a0404;
+        }
+
+        .input-linha select {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.95rem;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .btn-avancar {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: #ea580c;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .btn-avancar:hover { background-color: #c2410c; }
+
+        .btn-voltar { 
+            display: inline-block; 
+            width: 100%; 
+            text-align: center; 
+            background-color: #475569; 
+            color: #fff; 
+            padding: 12px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1rem; 
+            border: none; 
+        }
+        .btn-voltar:hover { background-color: #334155; }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Mairiporã Agro • Linha Temperada</h1>
+            <p>Embalagens com 30 Unidades • Parceria Terceirizada</p>
+        </header>
+
+        <!-- 🔬 REGRA DOS 4 DIAS DE MATURAÇÃO DO PRODUTO -->
+        <div class="nota-maturacao">
+            <strong>🔬 Critério Técnico de Maturação:</strong>
+            Garantimos o direito de informar que, após concluídos os 2 dias de nosso rigoroso manejo e cozimento, o lote atinge seu formato de excelência e sabor ideal após mais 2 dias de repouso, totalizando o ciclo de 4 dias para que o tempero incorpore perfeitamente em sua degustação.
+        </div>
+
+        <div class="card-produto">
+            <h2>📝 Solicitar Reserva de Lote</h2>
+            <p>Selecione a quantidade de embalagens plásticas (30 ovos cozidos e descascados) desejada para verificar a disponibilidade de preparo:</p>
+            
+            <div class="seletor-grupo">
+                
+                <!-- CERQUINHA_TEMPERO_BASICO_INICIO -->
+                <div class="input-linha">
+                    <label for="qtdBasico">🛒 Embalagem Tempero Básico:</label>
+                    <select id="qtdBasico">
+                        <option value="0">Nenhuma</option>
+                        <option value="1">1 Unidade - R\$ 17,00</option>
+                        <option value="2">2 Unidades - R\$ 34,00</option>
+                        <option value="3">3 Unidades - R\$ 51,00</option>
+                    </select>
+                </div>
+                <!-- CERQUINHA_TEMPERO_BASICO_FIM -->
+                
+                <!-- CERQUINHA_TEMPERO_ESPECIAL_INICIO -->
+                <div class="input-linha" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #fed7aa;">
+                    <label for="qtdEspecial">🌶️ Embalagem Algo a Mais (Especial):</label>
+                    <select id="qtdEspecial">
+                        <option value="0">Nenhuma</option>
+                        <option value="1">1 Unidade - R\$ 23,00</option>
+                        <option value="2">2 Unidades - R\$ 46,00</option>
+                        <option value="3">3 Unidades - R\$ 69,00</option>
+                    </select>
+                </div>
+                <!-- CERQUINHA_TEMPERO_ESPECIAL_FIM -->
+
+            </div>
+
+            <button onclick="enviarEmbalagensParaCheckout()" class="btn-avancar">Verificar Disponibilidade & Reservar Lote ➡</button>
+        </div>
+
+        <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
+        
+        <footer>
+            Mairiporã Agro © 2026 <br>
+            Módulo Linha Temperada Terceirizada v26.09.19.4 <br>
+            <span class="selo-seguranca">🔒 Sistema de Agendamento Ativo</span>
+        </footer>
+    </div>
+
+    <script>
+        function enviarEmbalagensParaCheckout() {
+            const qtdBasico = parseInt(document.getElementById('qtdBasico').value) || 0;
+            const qtdEspecial = parseInt(document.getElementById('qtdEspecial').value) || 0;
+            
+            if (qtdBasico === 0 && qtdEspecial === 0) {
+                alert("Por favor, selecione pelo menos 1 embalagem para verificar a disponibilidade!");
+                return;
+            }
+            
+            // CERQUINHA_CALCULO_MATEMATICO_VALORES_INICIO
+            const precoBasico = 17.00;
+            const precoEspecial = 23.00;
+            
+            const totalCalculado = ((qtdBasico * precoBasico) + (qtdEspecial * precoEspecial)).toFixed(2);
+            const totalItens = qtdBasico + qtdEspecial;
+            // CERQUINHA_CALCULO_MATEMATICO_VALORES_FIM
+            
+            window.location.href = `checkout.html?qtd=${totalItens}&total=${totalCalculado}&modo=reserva_conserva`;
+        }
+    </script>
+</body>
+</html>
