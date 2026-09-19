@@ -9,7 +9,8 @@
         body { background-color: #f4f6f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .box-redireciona { background: #fff; border: 2px solid #fed7aa; border-top: 6px solid #ea580c; border-radius: 12px; padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         h2 { color: #7c2d12; margin-bottom: 12px; font-size: 1.4rem; }
-        p { color: #555; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.4; }
+        p { color: #555; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.4; }
+        .contador { font-weight: bold; color: #ea580c; font-size: 1.1rem; margin-bottom: 20px; }
         .btn-zap-nativo { display: block; background-color: #25d366; color: #fff; text-decoration: none; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
         .btn-zap-nativo:hover { background-color: #20ba5a; }
     </style>
@@ -17,46 +18,57 @@
 <body>
 
     <div class="box-redireciona">
-        <h2>🚀 Tudo Pronto, Chefe!</h2>
-        <p>As especificações dos seus potes e refis foram processadas pela esteira. Clique abaixo para abrir o seu WhatsApp nativo e fechar seu pedido direto na triagem!</p>
-        <a id="linkBotaoZap" href="#" class="btn-zap-nativo">Abrir WhatsApp e Enviar Pedido ➡</a>
+        <h2>🚀 Redirecionando para o WhatsApp...</h2>
+        <p>As especificações das suas conservas foram processadas com sucesso pela nossa esteira técnica.</p>
+        
+        <!-- Contador de Contingência -->
+        <div class="contador" id="caixaTempo">Abrindo chat automaticamente em 3 segundos...</div>
+        
+        <a id="linkBotaoZap" href="#" class="btn-zap-nativo">Clique aqui se não abrir sozinho ➡</a>
     </div>
 
     <script>
-        // Captura as quantidades vindas do conservas.html
         const params = new URLSearchParams(window.location.search);
         const basico = parseInt(params.get('b')) || 0;
         const especial = parseInt(params.get('e')) || 0;
         const corporate = parseInt(params.get('c')) || 0;
 
-        // SEU TELEFONE REAL DA TRIAGEM DA MAIRIPORÃ AGRO
+        // 🚨 COLOQUE O SEU NÚMERO REAL COM DDD AQUI DENTRO DAS ASPAS:
         const numeroReal = "5511999999999"; 
 
-        // Valores comerciais aplicando a manobra de mais R$ 6,00 de lucro
         const valorBasico = basico * 17.00;
         const valorEspecial = especial * 23.00;
         const totalRefis = valorBasico + valorEspecial;
 
         let texto = "Olá! Gostaria de verificar a disponibilidade e reservar o seguinte lote de conservas temperadas:\n\n";
         
-        if (basico > 0) {
-            texto += "🛒 Refil Tempero Básico: " + basico + " unidade(s) - R$ " + valorBasico.toFixed(2) + "\n";
-        }
-        if (especial > 0) {
-            texto += "🌶️ Refil Algo a Mais: " + especial + " unidade(s) - R$ " + valorEspecial.toFixed(2) + "\n";
-        }
-        if (corporate > 0) {
-            texto += "🫙 Linha Corporate (Pote de Vidro): " + corporate + " unidade(s) - [Valor a combinar]\n";
-        }
-        
-        if (totalRefis > 0) {
-            texto += "\n💰 Subtotal dos Refis: R$ " + totalRefis.toFixed(2) + "\n";
-        }
+        if (basico > 0) { texto += "🛒 Refil Tempero Básico: " + basico + " unidade(s) - R$ " + valorBasico.toFixed(2) + "\n"; }
+        if (especial > 0) { texto += "🌶️ Refil Algo a Mais: " + especial + " unidade(s) - R$ " + valorEspecial.toFixed(2) + "\n"; }
+        if (corporate > 0) { texto += "🫙 Linha Corporate (Pote de Vidro): " + corporate + " unidade(s) - [Valor a combinar]\n"; }
+        if (totalRefis > 0) { texto += "\n💰 Subtotal dos Refis: R$ " + totalRefis.toFixed(2) + "\n"; }
         
         texto += "\nPor favor, confirmem o valor final e o prazo de maturação para a retirada!";
+        const textoCodificado = encodeURIComponent(texto);
 
-        // Vincula a URL nativa sem risco de bloqueio pop-up
-        document.getElementById('linkBotaoZap').href = "https://wa.me" + numeroReal + "?text=" + encodeURIComponent(texto);
+        // 🛠️ ROTA UNIVERSAL DE HOMOLOGAÇÃO (Funciona liso em Mobile e força abertura em Desktop)
+        const linkFinal = "https://whatsapp.com" + numeroReal + "&text=" + textoCodificado;
+
+        // Injeta a rota diretamente na tag 'a' do botão
+        document.getElementById('linkBotaoZap').href = linkFinal;
+
+        // ⏳ CRONÔMETRO DE DISPARO FORÇADO
+        let tempo = 3;
+        const intervalo = setInterval(() => {
+            tempo--;
+            if (tempo > 0) {
+                document.getElementById('caixaTempo').textContent = "Abrindo chat automaticamente em " + tempo + " segundos...";
+            } else {
+                clearInterval(intervalo);
+                document.getElementById('caixaTempo').textContent = "Redirecionando...";
+                // Dispara a navegação forçada para abrir a conversa
+                window.location.href = linkFinal;
+            }
+        }, 1000);
     </script>
 </body>
 </html>
