@@ -259,21 +259,23 @@
     </div>
 
     <script>
-        // Captura as variáveis passadas pela URL
+        // Captura as variáveis passadas pela URL com travas de segurança (Se abrir direto, assume 1 cartela)
         const params = new URLSearchParams(window.location.search);
-        const qtd = parseInt(params.get('qtd')) || 1;
-        const total = parseFloat(params.get('total')) || 13.00;
+        
+        let qtd = parseInt(params.get('qtd'));
+        if (isNaN(qtd) || qtd < 1) { qtd = 1; }
+        
+        let total = parseFloat(params.get('total'));
+        if (isNaN(total) || total <= 0) { total = 13.00; }
+        
         const modo = params.get('modo') || 'real_cartela';
 
-        // Atualiza a caixa de resumo na tela de forma inteligente
+        // Atualiza a caixa de resumo na tela de forma inteligente sem travar
         const caixaResumo = document.getElementById('caixaResumo');
         if (modo === 'teste_avulso') {
             caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
         } else {
-            caixResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
         }
 
         // Função de cópia automática e manual do Pix
-        function copiarPixManualmente() {
-            const textoPix = document.getElementById('codigoPixTexto').innerText;
-            navigator.clipboard.writeText(textoPix).then(() => {
