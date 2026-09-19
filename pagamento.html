@@ -156,6 +156,27 @@
             margin-top: 5px; 
             letter-spacing: 1px; 
         }
+
+        .btn-acao-whatsapp {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: #128c7e;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .btn-acao-whatsapp:hover {
+            background-color: #075e54;
+        }
         
         .btn-voltar { 
             display: inline-block; 
@@ -190,20 +211,13 @@
 <body oncontextmenu="return false;">
     <div class="container">
         
-        <!-- ================================================================= -->
-        <!-- CONTROLADORES DO TOPO (Mude 'block' para mostrar ou 'none' para esconder) -->
-        
-        <!-- 1. Mensagem do Zap (Ativa por padrão) -->
+        <!-- CONTROLADORES DO TOPO -->
         <div id="avisoZap" class="alerta-topo" style="display: block;">💬 Envie o seu comprovante via Zap para liberação!</div>
-        
-        <!-- 2. Mensagem da Promoção (Escondida por padrão) -->
-        <div id="avisoPromo" class="alerta-promocao" style="display: none;">🔥 PROMOÇÃO: 2 por R$ 22,00 reais! 🔥</div>
-        
-        <!-- ================================================================= -->
+        <div id="avisoPromo" class="alerta-promocao" style="display: none;">🔥 PROMOÇÃO: 2 por R\$ 22,00 reais! 🔥</div>
 
         <header>
             <h1>Mairiporã Agro</h1>
-            <p>Ambiente Seguro de Pagamento</p>
+            <p>Ambiente Secure de Pagamento</p>
         </header>
 
         <!-- Resumo do Pedido Dinâmico -->
@@ -214,8 +228,8 @@
         <!-- QUADRADINHO 1: PIX COPIA E COLA -->
         <div class="card-opcao ativo">
             <div class="card-title">💎 PIX COPIA E COLA</div>
-            <p style="font-size: 0.9rem; color: #555;">O código foi copiado automaticamente para a sua área de transferência.</p>
-            <div class="pix-box">
+            <p style="font-size: 0.9rem; color: #555;">O código foi copiado automaticamente. Se precisar, clique no retângulo abaixo para copiar novamente.</p>
+            <div class="pix-box" onclick="copiarPixManualmente()" style="cursor: pointer;">
                 <span class="pix-code" id="codigoPixTexto">00020126360014BR.GOV.BCB.PIX0114SUACHAVEAQUI520400005303986540410.005802BR5915MAIRIPORAA_AGRO6009MAIRIPORA62070503***6304ABCD</span>
             </div>
             <div class="feedback" id="mensagemFeedback">Copiando código...</div>
@@ -235,34 +249,30 @@
 
         <!-- 📲 BOTÃO DA GAVETA DE COMPARTILHAMENTO DO CLIENTE -->
         <div class="card-opcao ativo" style="border-top: 5px solid #128c7e;">
-            <div class="card-title" style="color: #128c7e;">📲 COMPARTILHAR PEDIDO</div>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Clique abaixo para enviar as informações da compra para o WhatsApp do produtor:</p>
-            <button id="btnCompartilharPedido" class="btn-voltar" style="background-color: #128c7e; margin-top: 0; cursor: pointer; color: white;">Enviar Resumo do Pedido</button>
+            <div class="card-title" style="color: #128c7e;">📲 NOTIFICAR PRODUTOR NO WHATSAPP</div>
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Clique abaixo para enviar os dados do seu pedido e o comprovante direto para a triagem.</p>
+            <button onclick="notificarWhatsApp()" class="btn-acao-whatsapp">Enviar Comprovante pelo Zap</button>
         </div>
 
-        <a href="index.html" class="btn-voltar">⬅ Voltar ao Menu Principal</a>
-        <footer>Mairiporã Agro © 2026<br>🔒 Conexão Criptografada de Segurança</footer>
+        <a href="index.html" class="btn-voltar">⬅ Cancelar e Voltar</a>
+        <footer>Mairiporã Agro © 2026<br>⚙️ Versão Final Definitiva • Módulo de Pagamento Estável</footer>
     </div>
 
     <script>
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const qtd = urlParams.get('qtd') || "1";
-            const total = urlParams.get('total') || "13.00";
-            const modo = urlParams.get('modo') || "venda";
+        // Captura as variáveis passadas pela URL
+        const params = new URLSearchParams(window.location.search);
+        const qtd = parseInt(params.get('qtd')) || 1;
+        const total = parseFloat(params.get('total')) || 13.00;
+        const modo = params.get('modo') || 'real_cartela';
 
-            const caixaResumo = document.getElementById('caixaResumo');
-            let txtMensagem = '';
+        // Atualiza a caixa de resumo na tela de forma inteligente
+        const caixaResumo = document.getElementById('caixaResumo');
+        if (modo === 'teste_avulso') {
+            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+        } else {
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+        }
 
-            if (modo === "teste_avulso") {
-                caixaResumo.innerHTML = `🔬 MODO TESTE ADM: ${qtd} Ovos Avulsos • Total: R$ ${total.replace('.', ',')}`;
-                txtMensagem = `🌾 Mairiporã Agro • Teste Técnico 🌾\n\nSimulação de ${qtd} Ovos Avulsos.\n💵 Valor: R$ ${total.replace('.', ',')}\n🔒 Matriz de Desenvolvimento Monitorada.`;
-            } else {
-                caixaResumo.innerHTML = `🛍️ Seu Pedido: ${qtd} Cartela(s) de Ovos • Total: R$ ${total.replace('.', ',')}`;
-                txtMensagem = `🛍️ Mairiporã Agro • Resumo de Pedido 🛍️\n\nQuantidade: ${qtd} Cartela(s) de Ovos de Codorna.\n💵 Valor Total: R$ ${total.replace('.', ',')}\n🌾 Obrigado por apoiar o comércio local!`;
-            }
-
-            // Ativa o botão com temporizador leve para a janela do Windows abrir lisa
-            document.getElementById('btnCompartilharPedido').onclick = function() {
-                if (navigator.share) {
-                    setTimeout(function() {
+        // Função de cópia automática e manual do Pix
+        function copiarPixManualmente() {
+            const textoPix = document.getElementById('codigoPixTexto').innerText;
