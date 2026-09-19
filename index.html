@@ -180,21 +180,6 @@
 
         .btn-laranja:hover { background-color: #c2410c; }
 
-        .area-secreta-teste {
-            margin-top: 10px;
-            padding: 5px;
-            text-align: center;
-        }
-        
-        .btn-secreto {
-            background: none;
-            border: none;
-            color: #cbd5e1;
-            font-size: 0.75rem;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
         footer {
             text-align: center;
             margin-top: 30px;
@@ -230,18 +215,14 @@
             <div class="seletor-compras">
                 <span>🛒 Quantidade de Cartelas:</span>
                 <select id="qtdPedidoCliente">
-                    <option value="1">1 Cartela - R\$ 13,00</option>
-                    <option value="2">2 Cartelas - R\$ 26,00</option>
-                    <option value="3">3 Cartelas - R\$ 39,00</option>
-                    <option value="4">4 Cartelas - R\$ 52,00</option>
+                    <option value="1">1 Cartela - R\$ 11,00</option>
+                    <option value="2">2 Cartelas - R\$ 22,00</option>
+                    <option value="3">3 Cartelas - R\$ 33,00</option>
+                    <option value="4">4 Cartelas - R\$ 44,00</option>
                 </select>
             </div>
 
             <button onclick="avancarParaCheckout()" class="btn">Avançar para Opções de Pagamento ➡</button>
-            
-            <div class="area-secreta-teste">
-                <button onclick="irParaAdm()" class="btn-secreto">[ Acessar Painel ADM / Teste Técnico Interno ]</button>
-            </div>
         </div>
 
         <!-- NOVO MÓDULO: CANAL PARCEIRO DE CONSERVAS TERCEIRIZADAS -->
@@ -259,36 +240,35 @@
 
         <div class="card hobby">
             <h2>🏡 Espaço Hobby & Projeção Real</h2>
-            <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a disposição científica de eficiência acumulada (85%) prevê uma colheita estável de ~30 ovos por semana — o equivalente exato para produzir 1 pote completo de conserva artesanal sem reservas remanescentes.</p>
+            <p>O sistema opera focado no "Tamagotchi da Vida Real". Com a manutenção ideal de um lote padrão de 5 aves criadas por 3 gerações (avós e netos), a disposição científica garante máxima eficiência e controle de produção doméstica de alto rendimento.</p>
         </div>
-
-        <footer>
-            Mairiporã Agro © 2026 <br>
-            Esteira Sequencial de Vendas • Matriz: v26.09.19.1 <br>
-            <span class="selo-seguranca">🔒 Ambiente Protegido por JCS_criatorio</span>
-        </footer>
 
     </div>
 
+    <footer>
+        <p>&copy; 2026 Mairiporã Agro • Todos os direitos reservados.</p>
+    </footer>
+
     <script>
+        // Mantém o relógio do sistema atualizado com a esteira
         function atualizarRelogio() {
             const agora = new Date();
-            document.getElementById('relogio').textContent = "19/09/2026 - " + agora.toLocaleTimeString('pt-BR');
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('relogio').textContent = `${dia}/${mes}/${ano} - ${horas}:${minutos}:${segundos}`;
         }
         setInterval(atualizarRelogio, 1000);
+        atualizarRelogio();
 
-        // Dispara para a Etapa 2 (Central de Checkout) levando as variáveis limpas
         function avancarParaCheckout() {
-            const seletor = document.getElementById('qtdPedidoCliente');
-            const qtd = parseInt(seletor.value);
-            const precoCartela = 13.00;
-            const totalCalculado = (qtd * precoCartela).toFixed(2);
-            
-            window.location.href = `checkout.html?qtd=${qtd}&total=${totalCalculado}&modo=real_cartela`;
-        }
-
-        function irParaAdm() {
-            window.location.href = `adm.html`;
+            const qtd = document.getElementById('qtdPedidoCliente').value;
+            // Encaminha para o checkout levando a quantidade selecionada
+            window.location.href = `checkout.html?qtd=${qtd}`;
         }
     </script>
 </body>
