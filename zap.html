@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro • Direcionamento Zap</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f6f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .box-redireciona { background: #fff; border: 2px solid #fed7aa; border-top: 6px solid #ea580c; border-radius: 12px; padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h2 { color: #7c2d12; margin-bottom: 12px; font-size: 1.4rem; }
+        p { color: #555; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.4; }
+        .btn-zap-nativo { display: block; background-color: #25d366; color: #fff; text-decoration: none; padding: 16px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+        .btn-zap-nativo:hover { background-color: #20ba5a; }
+    </style>
+</head>
+<body>
 
+    <div class="box-redireciona">
+        <h2>🚀 Tudo Pronto, Chefe!</h2>
+        <p>As especificações dos seus potes e refis foram processadas pela esteira. Clique abaixo para abrir o seu WhatsApp nativo e fechar seu pedido direto na triagem!</p>
+        <a id="linkBotaoZap" href="#" class="btn-zap-nativo">Abrir WhatsApp e Enviar Pedido ➡</a>
+    </div>
+
+    <script>
+        // Captura as quantidades vindas do conservas.html
+        const params = new URLSearchParams(window.location.search);
+        const basico = parseInt(params.get('b')) || 0;
+        const especial = parseInt(params.get('e')) || 0;
+        const corporate = parseInt(params.get('c')) || 0;
+
+        // SEU TELEFONE REAL DA TRIAGEM DA MAIRIPORÃ AGRO
+        const numeroReal = "5511999999999"; 
+
+        // Valores comerciais aplicando a manobra de mais R$ 6,00 de lucro
+        const valorBasico = basico * 17.00;
+        const valorEspecial = especial * 23.00;
+        const totalRefis = valorBasico + valorEspecial;
+
+        let texto = "Olá! Gostaria de verificar a disponibilidade e reservar o seguinte lote de conservas temperadas:\n\n";
+        
+        if (basico > 0) {
+            texto += "🛒 Refil Tempero Básico: " + basico + " unidade(s) - R$ " + valorBasico.toFixed(2) + "\n";
+        }
+        if (especial > 0) {
+            texto += "🌶️ Refil Algo a Mais: " + especial + " unidade(s) - R$ " + valorEspecial.toFixed(2) + "\n";
+        }
+        if (corporate > 0) {
+            texto += "🫙 Linha Corporate (Pote de Vidro): " + corporate + " unidade(s) - [Valor a combinar]\n";
+        }
+        
+        if (totalRefis > 0) {
+            texto += "\n💰 Subtotal dos Refis: R$ " + totalRefis.toFixed(2) + "\n";
+        }
+        
+        texto += "\nPor favor, confirmem o valor final e o prazo de maturação para a retirada!";
+
+        // Vincula a URL nativa sem risco de bloqueio pop-up
+        document.getElementById('linkBotaoZap').href = "https://wa.me" + numeroReal + "?text=" + encodeURIComponent(texto);
+    </script>
+</body>
+</html>
