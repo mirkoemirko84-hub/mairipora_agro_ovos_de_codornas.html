@@ -210,14 +210,15 @@
         // Captura e valida as variáveis da URL para o resumo dinâmico
         const params = new URLSearchParams(window.location.search);
         let qtd = parseInt(params.get('qtd')) || 1;
-        let total = parseFloat(params.get('total')) || 13.00;
+        // Calcula dinamicamente com base no preço novo de R\$ 11,00 se nenhum total for passado
+        let total = parseFloat(params.get('total')) || (qtd * 11.00);
         const modo = params.get('modo') || 'real_cartela';
 
         const caixaResumo = document.getElementById('caixaResumo');
         if (modo === 'teste_avulso') {
-            caixaResumo.innerHTML = `🔬 SEU PEDIDO (LAB): ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🔬 SEU PEDIDO (LAB): ${qtd} Refis de Conserva<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R$ ${total.toFixed(2)}</span>`;
         } else {
-            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos de Codorna<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos de Codorna<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R$ ${total.toFixed(2)}</span>`;
         }
 
         // Função que direciona o cliente para as páginas específicas anexas mantendo os valores vivos na URL
