@@ -259,7 +259,7 @@
                 return;
             }
 
-            // Central de Atendimento (Insira seu número com 55 + DDD aqui dentro das aspas)
+            // Central de Atendimento Blindada (Coloque o número real aqui)
             const numeroReal = "5511999999999"; 
 
             const valorBasico = basico * 17.00;
@@ -283,4 +283,6 @@
             }
             
             mensagemTexto += "\nPor favor, confirmem o valor final e o prazo de maturação para a retirada!";
+
+            const textoCodificado = encodeURIComponent(mensagemTexto);
 
