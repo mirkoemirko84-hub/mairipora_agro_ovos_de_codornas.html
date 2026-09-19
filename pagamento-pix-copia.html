@@ -204,12 +204,12 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         let qtd = parseInt(params.get('qtd')) || 1;
-        let total = parseFloat(params.get('total')) || 13.00;
+        let total = parseFloat(params.get('total')) || 11.00; // Atualizado para a base de R\$ 11,00
         const modo = params.get('modo') || 'real_cartela';
 
         const caixaResumo = document.getElementById('caixaResumo');
         if (modo === 'teste_avulso') {
-            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Refis de Conserva<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
         } else {
             caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
         }
@@ -224,32 +224,40 @@
                     feedback.innerText = "Clique no código para copiar novamente"; 
                     feedback.style.color = "#555"; 
                 }, 3000);
-            }).catch(() => {
-                document.getElementById('mensagemFeedback').innerText = "Clique no código para copiar";
             });
         }
 
-        window.onload = function() {
-            setTimeout(copiarPixManualmente, 500);
-        };
-
         function notificarWhatsApp() {
-            const quebraLinha = "%0A";
-            let mensagem = `*Mairiporã Agro • Novo Pedido*${quebraLinha}`;
-            mensagem += `-----------------------------------${quebraLinha}`;
-            if (modo === 'teste_avulso') {
-                mensagem += `🔬 *Modo:* Simulação Técnica Avulsa${quebraLinha}`;
-                mensagem += `🥚 *Quantidade:* ${qtd} ovo(s) avulso(s)${quebraLinha}`;
-            } else {
-                mensagem += `🛍️ *Modo:* Venda de Balcão${quebraLinha}`;
-                mensagem += `📦 *Quantidade:* ${qtd} Cartela(s)${quebraLinha}`;
-            }
-            mensagem += `💰 *Valor Total:* R\$ ${total.toFixed(2)}${quebraLinha}`;
-            mensagem += `-----------------------------------${quebraLinha}`;
-            mensagem += `💬 _Estou enviando o comprovante em anexo!_`;
-
-            window.location.href = `https://whatsapp.com{mensagem}`;
+            // Número de atendimento da Mairiporã Agro (insira o seu número completo com DDD abaixo)
+            // Exemplo: 5511999999999
+            const numeroTelefone = "5511999999999"; 
+            
+            // Monta a mensagem automática da esteira com os detalhes do pedido
+            const mensagem = encodeURIComponent(`Olá! Acabei de realizar o pagamento Pix do meu pedido.\n\n` +
+                `📦 Detalhes do Pedido:\n` +
+                `- Quantidade: ${qtd} unidade(s)\n` +
+                `- Valor Total: R$ ${total.toFixed(2)}\n\n` +
+                `Estou enviando o comprovante em anexo para liberação!`);
+            
+            // API Universal que previne erros de DNS e funciona perfeitamente em mobile e desktop
+            const linkZap = `https://wa.me{numeroTelefone}?text=${mensagem}`;
+            
+            window.open(linkZap, '_blank');
         }
+
+        // Tenta copiar o Pix automaticamente assim que a página carrega
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const textoPix = document.getElementById('codigoPixTexto').innerText;
+                navigator.clipboard.writeText(textoPix).then(() => {
+                    const feedback = document.getElementById('mensagemFeedback');
+                    feedback.innerText = "✓ Código Pix copiado automaticamente!";
+                    feedback.style.color = "#16a34a";
+                }).catch(() => {
+                    // Ignora silenciosamente se o navegador bloquear o auto-copy
+                });
+            }, 500);
+        });
     </script>
 </body>
 </html>
