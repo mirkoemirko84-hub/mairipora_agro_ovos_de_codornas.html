@@ -176,7 +176,7 @@
         <div class="card-opcao" style="border-top: 5px solid #128c7e;">
             <div class="card-title" style="color: #128c7e;">📲 NOTIFICAR BALCÃO NO WHATSAPP</div>
             <p style="font-size: 0.9rem; color: #555; margin-bottom: 12px;">Após a leitura do QR Code, clique abaixo para encaminhar os dados da esteira de venda diretamente para a nossa triagem.</p>
-            <button onclick="notificarWhatsApp()" class="btn-acao-whatsapp">compartilhamento.html</button>
+            <button onclick="notificarWhatsApp()" class="btn-acao-whatsapp">Confirmar Pagamento e Enviar ➡</button>
         </div>
 
         <a href="javascript:history.back()" class="btn-voltar">⬅ Voltar e Mudar Forma</a>
@@ -191,27 +191,17 @@
 
         const caixaResumo = document.getElementById('caixaResumo');
         if (modo === 'teste_avulso') {
-            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🔬 SIMULAÇÃO ADM: ${qtd} Ovo(s) Avulso(s)<br><span style="font-size: 1.4rem; color: #0284c7;">Total: R$ ${total.toFixed(2)}</span>`;
         } else {
-            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R\$ ${total.toFixed(2)}</span>`;
+            caixaResumo.innerHTML = `🛒 SEU PEDIDO: ${qtd} Cartela(s) de Ovos<br><span style="font-size: 1.4rem; color: #16a34a;">Total: R$ ${total.toFixed(2)}</span>`;
         }
 
         function notificarWhatsApp() {
-            const quebraLinha = "%0A";
-            let mensagem = `*Mairiporã Agro • Novo Pedido*${quebraLinha}`;
-            mensagem += `-----------------------------------${quebraLinha}`;
-            if (modo === 'teste_avulso') {
-                mensagem += `🔬 *Modo:* Simulação Técnica Avulsa${quebraLinha}`;
-                mensagem += `🥚 *Quantidade:* ${qtd} ovo(s) avulso(s)${quebraLinha}`;
-            } else {
-                mensagem += `🛍️ *Modo:* Venda de Balcão${quebraLinha}`;
-                mensagem += `📦 *Quantidade:* ${qtd} Cartela(s)${quebraLinha}`;
-            }
-            mensagem += `💰 *Valor Total:* R\$ ${total.toFixed(2)}${quebraLinha}`;
-            mensagem += `-----------------------------------${quebraLinha}`;
-            mensagem += `💬 _Estou enviando o comprovante do QR Code em anexo!_`;
-
-            window.location.href = `https://whatsapp.com{mensagem}`;
+            // Define o nome do item baseado no modo para o comprovante
+            const itemPedido = modo === 'teste_avulso' ? `${qtd} Ovo(s) Avulso(s)` : `${qtd} Cartela(s) de Ovos`;
+            
+            // Joga os dados limpos para a nova inteligência do compartilhamento.html assumir o disparo
+            window.location.href = `compartilhamento.html?cliente=Cliente Mairiporã&pedido=${encodeURIComponent(itemPedido)}&total=${total.toFixed(2)}`;
         }
     </script>
 </body>
