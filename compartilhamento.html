@@ -1,1 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mairiporã Agro - Enviando Comprovante...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border-left-color: #25D366;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h2 { color: #128C7E; margin-bottom: 10px; }
+        p { font-size: 14px; color: #666; }
+        .btn-manual {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h2>Mairiporã Agro</h2>
+    <p>Preparando o envio do seu comprovante...</p>
+    <div class="spinner"></div>
+    <p>Você será redirecionado para o WhatsApp em instantes.</p>
+    <a id="zapLink" class="btn-manual" href="#">Ir para o WhatsApp manualmente</a>
+</div>
+
+<script>
+    // Função para capturar os parâmetros da URL (Query String)
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Configurações principais da manobra
+    const NUMERO_ATENDIMENTO = "5511999999999"; // <-- COLOQUE SEU WHATSAPP AQUI (DDI + DDD + NÚMERO)
+
+    // Coleta os dados que o site vai passar via link
+    const cliente = getQueryParam('cliente') || 'Cliente';
+    const pedido = getQueryParam('pedido') || 'Balcão/Conserva';
+    const total = getQueryParam('total') || '0,00';
+
+    // Monta a mensagem estruturada e limpa para o comprovante
+    const textoMensagem = `*MAIRIPORÃ AGRO* 🌾🐣\n` +
+                          `-----------------------------\n` +
+                          `*Comprovante de Pedido*\n\n` +
+                          `👤 *Cliente:* ${cliente}\n` +
+                          `📦 *Itens:* ${pedido}\n` +
+                          `💰 *Total:* R$ ${total}\n\n` +
+                          `-----------------------------\n` +
+                          `Obrigado pela preferência!`;
+
+    // Codifica o texto para o padrão de URL do WhatsApp
+    const mensagemCodificada = encodeURIComponent(textoMensagem);
+
+    // Rota universal de compartilhamento (funciona em celular e PC)
+    const urlWhatsApp = `https://wa.me{NUMERO_ATENDIMENTO}?text=${mensagemCodificada}`;
+
+    // Atualiza o botão manual por segurança
+    document.getElementById('zapLink').href = urlWhatsApp;
+
+    // Executa o redirecionamento automático inteligente após 1.5 segundos
+    setTimeout(() => {
+        window.location.href = urlWhatsApp;
+    }, 1500);
+</script>
+
+</body>
+</html>
