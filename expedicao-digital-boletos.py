@@ -139,7 +139,7 @@ def gerar_boleto_pdf():
     story.append(t_boleto)
     story.append(Spacer(1, 15))
     
-    # 4. Código de Barras
+    # 4. Código de Barras (Fechado e estruturado sem cortes)
     barra_dados = [["|||| || ||||| |||| ||| ||||||| |||| || ||||| |||| ||| ||||||| |||| || ||||| |||| ||| ||||||| |||| || ||||| |||| ||| ||||||| |||| || |||||"]]
     t_barra = Table(barra_dados, colWidths=[550])
     t_barra.setStyle(TableStyle([
@@ -156,7 +156,7 @@ def gerar_boleto_pdf():
     story.append(Paragraph("<b>Mairiporã Agro agradece a preferência! <font color='#cc092f'>♥</font> Bom apetite e obrigado por apoiar o comércio e o produtor local!</b>", style_agradecimento))
     
     doc.build(story)
-    print("Sucesso: PDF gerado na pasta expedicao-digital com o script expedicao-digital-boletos.py!")
+    print("Sucesso: Script unificado substituído com sucesso!")
 
 if __name__ == '__main__':
     gerar_boleto_pdf()
