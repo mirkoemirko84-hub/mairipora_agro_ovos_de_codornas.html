@@ -1,3 +1,4 @@
+<!-- O CÓDIGO COMEÇA COMENTADO E DESATIVADO AQUI:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,191 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mairiporã Agro | Faturamento Ovos de Codorna</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #cc092f; /* FUNDO VERMELHO */
-            color: #ffffff; /* LETRAS BRANCAS */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            background: #cc092f; /* FUNDO VERMELHO COESO */
-            padding: 30px;
-            border: 2px solid #ffffff; /* BORDA BRANCA PARA DESTACAR */
-            border-radius: 12px;
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-        }
-        h2 { color: #ffffff; margin-bottom: 5px; font-size: 24px; }
-        .subtitle { color: #f1f5f9; font-size: 14px; margin-bottom: 25px; opacity: 0.9; }
-        
-        .faturamento-box {
-            background: rgba(255, 255, 255, 0.1); /* FUNDO SEMI-TRANSPARENTE */
-            border: 1px solid #ffffff;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .faturamento-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 15px;
-            color: #ffffff;
-        }
-        .valor-destaque { color: #ffffff; font-weight: bold; font-size: 20px; text-decoration: underline; }
-        .bonus-destaque { color: #5eff5e; font-weight: bold; } /* DESTAQUE DO DESCONTO EM VERDE */
-
-        .qr-box {
-            margin: 20px 0;
-            padding: 10px;
-            background: #ffffff; /* MANTIDO BRANCO APENAS PARA LEITURA DO QR CODE */
-            border-radius: 8px;
-            display: inline-block;
-        }
-        .qr-box img {
-            width: 200px;
-            height: 200px;
-            display: block;
-        }
-
-        .pix-copia-box {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        .pix-input-group {
-            display: flex;
-            gap: 5px;
-            margin-top: 5px;
-        }
-        .pix-string {
-            flex: 1;
-            padding: 10px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #333333;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .btn-copy {
-            padding: 10px 15px;
-            background: #ffffff;
-            color: #cc092f;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .btn-copy:hover { background: #f1f5f9; }
-
-        .btn-boleto {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background-color: #ffffff;
-            color: #cc092f;
-            border: 2px solid #ffffff;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
-            box-sizing: border-box;
-        }
-        .btn-boleto:hover { background-color: #f1f5f9; }
-        
-        .footer-msg {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #ffffff;
-            font-style: italic;
-        }
+        body { font-family: sans-serif; background-color: #cc092f; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { padding: 30px; border: 2px solid #ffffff; border-radius: 12px; text-align: center; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <h2>Mairiporã Agro</h2>
-    <div class="subtitle">Faturamento Direto — Ovos de Codorna</div>
-    
-    <div class="faturamento-box">
-        <div class="faturamento-row">
-            <span><strong>Volume:</strong> <span id="txtProduto">1 Cartela (30un) - R$ 13,00</span></span>
-        </div>
-        <div class="faturamento-row">
-            <span><strong>Pagador:</strong> Cliente de Teste</span>
-            <span>Pedido #749201</span>
-        </div>
-        <!-- Linha do Desconto Dinâmico -->
-        <div class="faturamento-row" id="rowDesconto" style="display: none;">
-            <span><strong>Bônus Aplicado:</strong></span>
-            <span id="txtDesconto" class="bonus-destaque">...</span>
-        </div>
-        <div class="faturamento-row" style="margin-top: 12px; border-top: 1px solid #ffffff; padding-top: 12px;">
-            <span><strong>Total a Pagar:</strong></span>
-            <span class="valor-destaque">R$ <span id="txtValor">13,00</span></span>
-        </div>
-    </div>
-
-    <div class="qr-box">
-        <img src="qrcode-pagamento.png" alt="QR Code Pix Bradesco">
-    </div>
-
-    <div class="pix-copia-box">
-        <label style="font-size: 13px; font-weight: 500; display: block; color: #ffffff;">Código Pix Copia e Cola:</label>
-        <div class="pix-input-group">
-            <div id="pixCode" class="pix-string">00020126760014BR.GOV.BCB.PIX01363d4ee862-439d-481d-9f5b-07d69a7182f60214Mairiporã Agro5204000053039865802BR5921JOSE CARLOS SUGUIMOTO6009MAIRIPORA62230519JoseCarlosSuguimoto6304C2B6</div>
-            <button class="btn-copy" onclick="copiarPix()">Copiar</button>
-        </div>
-    </div>
-
-    <a href="2_pagamentos/boleto_mairipora_agro.pdf" target="_blank" class="btn-boleto">
-        Visualizar Boleto Híbrido (PDF)
-    </a>
-
-    <div class="footer-msg">
-        Obrigado por apoiar o comércio e o produtor local! ♥
-    </div>
 </div>
+</body>
+</html>
+FIM DO COMENTÁRIO E DA DESATIVAÇÃO -->
 
-<script>
-    // Recupera dados dinâmicos da URL passados pelo produtos2.html
-    const params = new URLSearchParams(window.location.search);
-    const valorParam = params.get('valor');
-    const descParam = params.get('desc');
-    const descontoParam = params.get('desconto');
-
-    if (valorParam) {
-        document.getElementById('txtValor').innerText = valorParam.replace('.', ',');
-    }
-    if (descParam) {
-        document.getElementById('txtProduto').innerText = decodeURIComponent(descParam);
-    }
-    if (descontoParam && descontoParam !== "Sem desconto") {
-        document.getElementById('rowDesconto').style.display = 'flex';
-        document.getElementById('txtDesconto').innerText = decodeURIComponent(descontoParam);
-    }
-
-    function copiarPix() {
-        const textoPix = document.getElementById('pixCode').innerText;
-        navigator.clipboard.writeText(textoPix).then(() => {
-            alert('Código Pix copiado!');
-        }).catch(err => {
-            alert('Erro ao copiar.');
-        });
-    }
-</script>
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mairiporã Agro</title>
+</head>
+<body style="background-color: #ffffff; color: #333333; font-family: sans-serif; text-align: center; padding-top: 100px;">
+    <h2>Ambiente Mairiporã Agro</h2>
+    <p>Página em manutenção temporária de cache. Aguarde a liberação do sistema.</p>
 </body>
 </html>
