@@ -44,6 +44,7 @@
             color: #ffffff;
         }
         .valor-destaque { color: #ffffff; font-weight: bold; font-size: 20px; text-decoration: underline; }
+        .bonus-destaque { color: #5eff5e; font-weight: bold; } /* DESTAQUE DO DESCONTO EM VERDE */
 
         .qr-box {
             margin: 20px 0;
@@ -124,16 +125,20 @@
     
     <div class="faturamento-box">
         <div class="faturamento-row">
-            <span><strong>Produto:</strong> Ovos de Codorna</span>
-            <span>Homologação</span>
+            <span><strong>Volume:</strong> <span id="txtProduto">1 Cartela (30un) - R$ 13,00</span></span>
         </div>
         <div class="faturamento-row">
             <span><strong>Pagador:</strong> Cliente de Teste</span>
             <span>Pedido #749201</span>
         </div>
+        <!-- Linha do Desconto Dinâmico -->
+        <div class="faturamento-row" id="rowDesconto" style="display: none;">
+            <span><strong>Bônus Aplicado:</strong></span>
+            <span id="txtDesconto" class="bonus-destaque">...</span>
+        </div>
         <div class="faturamento-row" style="margin-top: 12px; border-top: 1px solid #ffffff; padding-top: 12px;">
             <span><strong>Total a Pagar:</strong></span>
-            <span class="valor-destaque">R$ 1,99</span>
+            <span class="valor-destaque">R$ <span id="txtValor">13,00</span></span>
         </div>
     </div>
 
@@ -159,6 +164,23 @@
 </div>
 
 <script>
+    // Recupera dados dinâmicos da URL passados pelo produtos2.html
+    const params = new URLSearchParams(window.location.search);
+    const valorParam = params.get('valor');
+    const descParam = params.get('desc');
+    const descontoParam = params.get('desconto');
+
+    if (valorParam) {
+        document.getElementById('txtValor').innerText = valorParam.replace('.', ',');
+    }
+    if (descParam) {
+        document.getElementById('txtProduto').innerText = decodeURIComponent(descParam);
+    }
+    if (descontoParam && descontoParam !== "Sem desconto") {
+        document.getElementById('rowDesconto').style.display = 'flex';
+        document.getElementById('txtDesconto').innerText = decodeURIComponent(descontoParam);
+    }
+
     function copiarPix() {
         const textoPix = document.getElementById('pixCode').innerText;
         navigator.clipboard.writeText(textoPix).then(() => {
